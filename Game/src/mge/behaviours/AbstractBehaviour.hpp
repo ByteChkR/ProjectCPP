@@ -1,6 +1,7 @@
 #ifndef ABSTRACTBEHAVIOUR_HPP
 #define ABSTRACTBEHAVIOUR_HPP
 
+#include <string>
 class GameObject;
 
 /**
@@ -14,7 +15,7 @@ class AbstractBehaviour
 {
 	public:
 
-		AbstractBehaviour();
+		AbstractBehaviour(std::string name = "DUMMY");
 		virtual ~AbstractBehaviour() = 0;
 
         //for internal administration, do not use directly
@@ -23,8 +24,9 @@ class AbstractBehaviour
         //behaviour should be able to update itself every step and MUST be implemented
 		virtual void update(float pStep) = 0;
 
+		std::string GetName();
     protected:
-
+		std::string _name = "NAME";
 		GameObject* _owner;
 
     private:

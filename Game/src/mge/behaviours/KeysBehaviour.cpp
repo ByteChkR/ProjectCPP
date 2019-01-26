@@ -2,7 +2,7 @@
 #include "mge/core/GameObject.hpp"
 #include <SFML/Window/Keyboard.hpp>
 
-KeysBehaviour::KeysBehaviour(float pMoveSpeed, float pTurnSpeed): AbstractBehaviour(), _moveSpeed(pMoveSpeed), _turnSpeed(pTurnSpeed)
+KeysBehaviour::KeysBehaviour(float pMoveSpeed, float pTurnSpeed): AbstractBehaviour("KeysBehaviour"), _moveSpeed(pMoveSpeed), _turnSpeed(pTurnSpeed)
 {
 }
 

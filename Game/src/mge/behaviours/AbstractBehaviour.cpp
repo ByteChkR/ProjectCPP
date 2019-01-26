@@ -1,6 +1,7 @@
 #include "AbstractBehaviour.hpp"
+#include <string>
 
-AbstractBehaviour::AbstractBehaviour():_owner(nullptr) {}
+AbstractBehaviour::AbstractBehaviour(std::string name):_owner(nullptr), _name(name) {}
 
 AbstractBehaviour::~AbstractBehaviour()
 {
@@ -9,5 +10,10 @@ AbstractBehaviour::~AbstractBehaviour()
 
 void AbstractBehaviour::setOwner (GameObject* pOwner) {
     _owner = pOwner;
+}
+
+std::string AbstractBehaviour::GetName()
+{
+	return _name;
 }
 
