@@ -40,6 +40,7 @@ private:
 	static GLint _shinyness;
 	static GLint _lightCount;
 	static GLuint _lightUBO;
+	static GLuint _uniformBlockIndex;
 	Material material;
 
 	static GLint _aVertex;

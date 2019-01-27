@@ -12,11 +12,11 @@ public:
 
 	float shininess;
 	float maxHeight;
-	Texture* diffuse;
+	Texture* diffuse = nullptr;
 	
-	Texture* normal;
-	Texture* specular;
-	Texture* height;
+	Texture* normal = nullptr;
+	Texture* specular = nullptr;
+	Texture* height = nullptr;
 
 
 };

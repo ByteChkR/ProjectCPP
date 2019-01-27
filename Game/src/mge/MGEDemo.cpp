@@ -55,7 +55,11 @@ void MGEDemo::_initializeScene()
 
     //MATERIALS
 	Material* m = new Material();
-	
+	m->diffuse = Texture::load(config::MGE_TEXTURE_PATH + "testTex.png");
+	m->normal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png");
+	m->specular = Texture::load(config::MGE_TEXTURE_PATH + "testSpecular.png");
+	m->shininess = 1;
+	m->maxHeight = 0;
 	AbstractMaterial* test = new GameMaterial(*m);
     //create some materials to display the cube, the plane and the light
     AbstractMaterial* lightMaterial = new ColorMaterial (glm::vec3(1,1,0));
@@ -73,7 +77,7 @@ void MGEDemo::_initializeScene()
     GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
     plane->scale(glm::vec3(5,5,5));
     plane->setMesh(planeMeshDefault);
-    plane->setMaterial(runicStoneMaterial);
+    plane->setMaterial(test);
     _world->add(plane);
 
     //add a spinning sphere
@@ -89,7 +93,10 @@ void MGEDemo::_initializeScene()
     //Note how the texture material is able to detect the number of lights in the scene
     //even though it doesn't implement any lighting yet!
 
+	LightParams* params = new LightParams();
+
     Light* light = new Light("light", glm::vec3(0,4,0));
+	light->SetParams(*params);
     light->scale(glm::vec3(0.1f, 0.1f, 0.1f));
     light->setMesh(cubeMeshF);
     light->setMaterial(lightMaterial);

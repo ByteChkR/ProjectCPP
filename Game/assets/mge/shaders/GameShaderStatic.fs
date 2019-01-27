@@ -27,9 +27,10 @@ struct Light
 out vec4 fragColor;
 
 //Lighting
-uniform int lightCount;
+
 uniform Light lights[MAX_LIGHTS];
 uniform Material material;
+uniform int lCount;
 
 //UV
 in vec2 texCoord;
@@ -79,7 +80,7 @@ void main( void )
 {
 	vec3 ret = vec3(0);
 
-	for(int i = 0; i < lightCount; i++)
+	for(int i = 0; i < lCount; i++)
 	{
 		ret += CalculateLight(i, vec3(texture(material.normalTexture, texCoord)));
 	}

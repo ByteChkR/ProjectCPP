@@ -2,13 +2,18 @@
 
 Material::Material(std::string path)
 {
+	
 	//Load From filee
 }
 
 Material::~Material()
 {
-	diffuse->~Texture();
-	normal->~Texture();
-	specular->~Texture();
-	height->~Texture();
+	if (diffuse != nullptr)
+		diffuse->~Texture();
+	if (normal != nullptr)
+		normal->~Texture();
+	if (specular != nullptr)
+		specular->~Texture();
+	if (height != nullptr)
+		height->~Texture();
 }

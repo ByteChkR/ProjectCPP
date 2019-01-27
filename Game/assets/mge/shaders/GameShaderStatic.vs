@@ -35,14 +35,17 @@ out vec2 texCoord;
 
 //Lighting
 uniform Light lights[MAX_LIGHTS];
-uniform int lightCount;
+
 //transformed positions and directions(in TBN space)
 out vec3 fragmentWorldPosition;
 out vec3 lightPoss[MAX_LIGHTS]; 
 out vec3 lightFwds[MAX_LIGHTS];
+uniform int lightCount;
+flat out int lCount;
 
 void main( void )
 {
+	lCount = lightCount;
 	vec4 v = vec4(vertex, 1);
 	//Heightmap
 	v.y = v.y + texture(heightMap, uv).x * maxHeight;
