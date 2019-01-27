@@ -185,6 +185,9 @@
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
+    <ClInclude Include="GLLight.hpp" />
+    <ClInclude Include="LightParams.hpp" />
+    <ClInclude Include="Material.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
@@ -205,6 +208,13 @@
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
+    <ClCompile Include="GameMaterial.cpp" />
+    <ClCompile Include="GLLight.cpp" />
+    <ClCompile Include="LightParams.cpp" />
+    <ClCompile Include="Material.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameMaterial.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

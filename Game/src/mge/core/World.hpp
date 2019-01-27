@@ -19,6 +19,7 @@ class World : public GameObject
         void unregisterLight (Light* pLight);
 
         Light* getLightAt (int pIndex);
+		
         int getLightCount();
 
 	private:

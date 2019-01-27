@@ -3,6 +3,7 @@
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "GL/glew.h"
+#include "../_vs2015/GLLight.hpp"
 
 class ShaderProgram;
 class Texture;
@@ -27,14 +28,22 @@ class TextureMaterial : public AbstractMaterial
         static void _lazyInitializeShader();
 
         //in this example we cache all identifiers for uniforms & attributes
-        static GLint _uMVPMatrix;
+		static GLint _uMMatrix;
+		static GLint _uVMatrix;
+		static GLint _uPMatrix;
         static GLint _uDiffuseTexture;
+		static GLLight _lightLocations[8];
+		static GLint _lightCount;
+		static GLint _shininess;
+		static GLint _steps;
 
         static GLint _aVertex ;
         static GLint _aNormal;
         static GLint _aUV ;
 
         Texture* _diffuseTexture;
+		float shininess;
+		int steps;
 
         TextureMaterial(const TextureMaterial&);
         TextureMaterial& operator=(const TextureMaterial&);

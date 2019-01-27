@@ -34,9 +34,10 @@ class ShaderProgram
 		GLuint getUniformLocation (const std::string& pName);
 		//get access to attributes within the shader
 		GLuint getAttribLocation (const std::string& pName);
+		GLuint getUniformBlockIndex(const std::string& name);
 
+		GLint _programId;
 	private:
-	    GLint _programId;
 
 	    std::vector<GLuint> _shaderIds;
 

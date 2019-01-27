@@ -95,6 +95,11 @@ GLuint ShaderProgram::getUniformLocation (const std::string& pName) {
     return glGetUniformLocation (_programId, pName.c_str());
 }
 
+GLuint ShaderProgram::getUniformBlockIndex(const std::string& name)
+{
+	return glGetUniformBlockIndex(_programId, name.c_str());
+}
+
 GLuint ShaderProgram::getAttribLocation (const std::string& pName) {
     return glGetAttribLocation (_programId, pName.c_str());
 }
