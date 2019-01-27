@@ -55,7 +55,7 @@ void MGEDemo::_initializeScene()
 
     //MATERIALS
 	Material* m = new Material();
-	m->diffuse = Texture::load(config::MGE_TEXTURE_PATH + "testTex.png");
+	m->diffuse = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
 	m->normal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png");
 	m->specular = Texture::load(config::MGE_TEXTURE_PATH + "testSpecular.png");
 	m->shininess = 1;
@@ -77,7 +77,7 @@ void MGEDemo::_initializeScene()
     GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
     plane->scale(glm::vec3(5,5,5));
     plane->setMesh(planeMeshDefault);
-    plane->setMaterial(test);
+    plane->setMaterial(runicStoneMaterial);
     _world->add(plane);
 
     //add a spinning sphere

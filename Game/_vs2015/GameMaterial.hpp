@@ -4,7 +4,7 @@
 #include "Material.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
 #include "GL/glew.h"
-
+#include "GLLight.hpp"
 
 class ShaderProgram;
 class Texture;
@@ -39,7 +39,7 @@ private:
 	static GLint _maxHeight;
 	static GLint _shinyness;
 	static GLint _lightCount;
-	static GLuint _lightUBO;
+	static GLLight _lightLocations[8];
 	static GLuint _uniformBlockIndex;
 	Material material;
 

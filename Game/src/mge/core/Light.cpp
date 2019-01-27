@@ -14,6 +14,8 @@ void Light::SetParams(LightParams params)
 
 LightParams Light::GetParams() 
 {
+	params.position = getWorldPosition();
+	params.forward = _transform[3];
 	return params;
 }
 
