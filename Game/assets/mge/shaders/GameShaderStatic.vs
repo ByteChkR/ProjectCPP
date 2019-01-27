@@ -45,7 +45,7 @@ void main( void )
 {
 	vec4 v = vec4(vertex, 1);
 	//Heightmap
-	v.y = v.y + texture(heightMap, uv) * maxHeight;
+	v.y = v.y + texture(heightMap, uv).x * maxHeight;
 
 
 	mat4 mvpMat = modelMatrix * viewMatrix * perspectiveMatrix;
@@ -57,14 +57,12 @@ void main( void )
 	vec3 T = normalize(vec3(modelMatrix * vec4(normTangent, 0)));
 	vec3 B = normalize(vec3(modelMatrix * vec4(normBitangent, 0)));
 	vec3 N = normalize(vec3(modelMatrix * vec4(normal, 0)));
-	TBNMatrix = mat3(T, B, N);
+	mat3 TBNMatrix = mat3(T, B, N);
 
 	for(int i = 0; i < lightCount; i++)
 	{
-		lightDirs[i] = TBNMatrix * lights[i].position;
+		lightPoss[i] = TBNMatrix * lights[i].position;
 		lightFwds[i] = TBNMatrix * lights[i].forward;
 	}
-	fragmentWorldPosition = TBNMatrix * vec3(modelMatrix * vec4(vec3(v),0))
-	
-
+	fragmentWorldPosition = TBNMatrix * vec3(modelMatrix * vec4(vec3(v),0));
 }

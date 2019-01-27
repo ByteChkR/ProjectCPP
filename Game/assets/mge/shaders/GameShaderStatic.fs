@@ -41,17 +41,18 @@ in vec3 lightFwds[MAX_LIGHTS];
 
 vec4 AnalyzeLight(int index, vec3 fragWorldPos)
 {	
-	float dist = distance(lightPoss[i] - fragWorldPos); //measure distance
-	vec4 ret = light.type == 0 ? //0 = Directional Light. Other = pointlight
-		vec4(normalize(lightFwds[i]), dist):
-		vec4(normalize(lightPoss[i]), dist);
+	float dist = distance(lightPoss[index], fragWorldPos); //measure distance
+	vec4 ret = lights[index].type == 0 ? //0 = Directional Light. Other = pointlight
+		vec4(normalize(lightFwds[index]), dist):
+		vec4(normalize(lightPoss[index]), dist);
 	return ret;
 }
 
-vec4 CalculateLight(Light source, vec3 wNormal)
+vec3 CalculateLight(int index, vec3 wNormal)
 {
+	Light source = lights[index];
 	//Uses W to tell distance between light and fragment
-	vec4 ldir = AnalyzeLight(source, fragmentWorldPosition);
+	vec4 ldir = AnalyzeLight(index, fragmentWorldPosition);
 
 
 
@@ -63,13 +64,13 @@ vec4 CalculateLight(Light source, vec3 wNormal)
 	//Specular
 	vec3 reflectDir = reflect(-vec3(ldir), wNormal);
 	float spec = pow(max(dot(vec3(ldir), reflectDir), 0.0), material.shinyness);
-	vec3 specular = texture(material.specularTexture, texCoord) * spec * diffuseIntensity;
+	vec3 specular = vec3(texture(material.specularTexture, texCoord)) * spec * diffuseIntensity;
 
 	//Ambient
 	vec3 ambient = source.ambientColor / falloff;
 
 	//Diffuse
-	vec3 diffuse = texture(material.diffuseTexture, texCoord) + (source.intensity * source.color) * diffuseIntensity;
+	vec3 diffuse = vec3(texture(material.diffuseTexture, texCoord)) + (source.intensity * source.color) * diffuseIntensity;
 
 	return ambient + diffuse + specular;
 }
@@ -80,7 +81,7 @@ void main( void )
 
 	for(int i = 0; i < lightCount; i++)
 	{
-		ret += CalculateLight(lights[i], texture(material.normalTexture, texCoord));
+		ret += CalculateLight(i, vec3(texture(material.normalTexture, texCoord)));
 	}
 
 	fragColor = vec4(ret, 1);

@@ -2,6 +2,7 @@
 #define LIGHT_HPP
 
 #include "glm.hpp"
+#include "../_vs2015/LightParams.hpp"
 #include "mge/core/GameObject.hpp"
 
 /**
@@ -15,7 +16,11 @@ class Light : public GameObject
 		virtual ~Light();
 
         //override set parent to register/deregister light...
+		LightParams GetParams();
+		void SetParams(LightParams params);
         virtual void _setWorldRecursively (World* pWorld) override;
+private:
+	LightParams params;
 };
 
 #endif // LIGHT_HPP

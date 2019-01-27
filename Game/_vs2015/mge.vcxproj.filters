@@ -79,6 +79,12 @@
     <ClInclude Include="..\src\mge\core\Light.hpp">
       <Filter>MGE Source files\mge\core</Filter>
     </ClInclude>
+    <ClInclude Include="LightParams.hpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.hpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -135,5 +141,19 @@
     <ClCompile Include="..\src\mge\core\Light.cpp">
       <Filter>MGE Source files\mge\core</Filter>
     </ClCompile>
+    <ClCompile Include="LightParams.cpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMaterial.cpp">
+      <Filter>MGE Source files\mge\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameMaterial.hpp">
+      <Filter>MGE Source files\mge\materials</Filter>
+    </None>
   </ItemGroup>
 </Project>

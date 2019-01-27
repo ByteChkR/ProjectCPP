@@ -7,6 +7,16 @@ Light::Light(const std::string& pName, const glm::vec3& pPosition):GameObject(pN
 Light::~Light() {
 }
 
+void Light::SetParams(LightParams params)
+{
+	this->params = params;
+}
+
+LightParams Light::GetParams() 
+{
+	return params;
+}
+
 //Override setWorldRecursively to make sure we are registered
 //to the world we are a part of.
 void Light::_setWorldRecursively (World* pWorld) {

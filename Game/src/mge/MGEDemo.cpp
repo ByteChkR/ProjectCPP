@@ -15,6 +15,8 @@
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "../_vs2015/Material.hpp"
+#include "../_vs2015/GameMaterial.hpp"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -52,7 +54,9 @@ void MGEDemo::_initializeScene()
     Mesh* sphereMeshS = Mesh::load (config::MGE_MODEL_PATH+"sphere_smooth.obj");
 
     //MATERIALS
-
+	Material* m = new Material();
+	
+	AbstractMaterial* test = new GameMaterial(*m);
     //create some materials to display the cube, the plane and the light
     AbstractMaterial* lightMaterial = new ColorMaterial (glm::vec3(1,1,0));
     AbstractMaterial* runicStoneMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"runicfloor.png"));
@@ -90,7 +94,8 @@ void MGEDemo::_initializeScene()
     light->setMesh(cubeMeshF);
     light->setMaterial(lightMaterial);
     light->addBehaviour(new KeysBehaviour(25));
-    _world->add(light);
+	_world->add(light);
+	
 
 }
 
