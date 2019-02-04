@@ -17,6 +17,7 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+debug_dynamic_build/
 x64/
 x86/
 bld/
