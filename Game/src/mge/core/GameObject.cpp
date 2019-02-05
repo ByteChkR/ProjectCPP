@@ -14,6 +14,11 @@ GameObject::~GameObject()
 	//detach all children
 	std::cout << "GC running on:" << _name << std::endl;
 
+	for (size_t i = 0; i < _behaviours.size(); i++)
+	{
+		delete _behaviours[i];
+	}
+	_behaviours.empty();
 	while (_children.size() > 0) {
 		GameObject* child = _children[0];
 		remove(child);

@@ -6,7 +6,7 @@ StaticSphereCollider::StaticSphereCollider(float radius)
 	_owner = nullptr;
 }
 
-bool StaticSphereCollider::IsCollision(DynamicSphereCollider ball)
+bool StaticSphereCollider::IsCollision(DynamicBoxCollider ball)
 {
 	if (_owner == nullptr)return false;
 

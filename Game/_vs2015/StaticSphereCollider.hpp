@@ -7,7 +7,7 @@ class StaticSphereCollider : public AbstractStaticCollider
 public:
 	StaticSphereCollider(float radius);
 	virtual ~StaticSphereCollider() = 0;
-	virtual bool IsCollision(DynamicSphereCollider ball) override;
+	virtual bool IsCollision(DynamicBoxCollider ball) override;
 private:
 	float _radius;
 };

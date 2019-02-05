@@ -1,6 +1,6 @@
 #include "DynamicSphereCollider.hpp"
 
-DynamicSphereCollider::DynamicSphereCollider(float radius, float mass, float friction, float gravity)
+DynamicBoxCollider::DynamicBoxCollider(float radius, float mass, float friction, float gravity)
 {
 	_radius = radius;
 	_mass = mass;
@@ -11,38 +11,38 @@ DynamicSphereCollider::DynamicSphereCollider(float radius, float mass, float fri
 	_owner = nullptr;
 }
 
-void DynamicSphereCollider::SetVelocity(glm::vec3 newVelocity)
+void DynamicBoxCollider::SetVelocity(glm::vec3 newVelocity)
 {
 	_velocity = newVelocity;
 }
 
-void DynamicSphereCollider::SetAcceleration(glm::vec3 newAcceleration)
+void DynamicBoxCollider::SetAcceleration(glm::vec3 newAcceleration)
 {
 	_acceleration = newAcceleration;
 }
 
-void DynamicSphereCollider::AddAcceleration(glm::vec3 acceleration)
+void DynamicBoxCollider::AddAcceleration(glm::vec3 acceleration)
 {
 	_acceleration += acceleration;
 }
 
-void DynamicSphereCollider::SetOwner(GameObject* owner)
+void DynamicBoxCollider::SetOwner(GameObject* owner)
 {
 	_owner = owner;
 
 }
 
-float DynamicSphereCollider::GetRadius()
+float DynamicBoxCollider::GetRadius()
 {
 	return _radius;
 }
 
-glm::vec3 DynamicSphereCollider::GetPosition()
+glm::vec3 DynamicBoxCollider::GetPosition()
 {
 	return _owner->getLocalPosition();
 }
 
-void DynamicSphereCollider::Update(float pTime)
+void DynamicBoxCollider::Update(float pTime)
 {
 	if (_owner == nullptr)return;
 	_velocity += _acceleration*pTime;

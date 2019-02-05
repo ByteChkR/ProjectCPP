@@ -10,12 +10,12 @@ class CollisionManager
 public:
 	void Update(float pTime);
 	void RegisterCollider(AbstractStaticCollider* col);
-	void RegisterDynamic(DynamicSphereCollider* ball);
+	void RegisterDynamic(DynamicBoxCollider* ball);
 	void UnRegisterCollider(AbstractStaticCollider* col);
-	void UnRegisterDynamic(DynamicSphereCollider* ball);
+	void UnRegisterDynamic(DynamicBoxCollider* ball);
 private:
-	std::vector<AbstractStaticCollider* > staticColliders;
-	std::vector<DynamicSphereCollider*> dynamicColliders;
+	std::vector<AbstractStaticCollider*> staticColliders;
+	std::vector<DynamicBoxCollider*> dynamicColliders;
 };
 
 

@@ -4,10 +4,10 @@
 #include "glm.hpp"
 #include "mge/core/GameObject.hpp"
 
-class DynamicSphereCollider
+class DynamicBoxCollider
 {
 public:
-	DynamicSphereCollider(float radius, float mass, float friction, float gravity);
+	DynamicBoxCollider(float radius, float mass, float friction, float gravity);
 	void SetVelocity(glm::vec3 newVelocity);
 	void SetAcceleration(glm::vec3 newAcceleration);
 	void AddAcceleration(glm::vec3 acceleration);

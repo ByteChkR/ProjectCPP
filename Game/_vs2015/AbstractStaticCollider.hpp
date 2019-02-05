@@ -8,7 +8,7 @@ class AbstractStaticCollider
 public:
 	AbstractStaticCollider();
 	virtual ~AbstractStaticCollider() = 0;
-	virtual bool IsCollision(DynamicSphereCollider ball) = 0;
+	virtual bool IsCollision(DynamicBoxCollider ball) = 0;
 	void SetOwner(GameObject* owner);
 
 protected:
