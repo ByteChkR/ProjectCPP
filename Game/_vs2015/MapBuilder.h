@@ -2,17 +2,22 @@
 #define MAPBUILDER_HPP
 #include <vector>
 #include "mge/util/Lane.h"
+#include "mge/core/GameObject.hpp"
 
 class MapBuilder
 {
 public:
 	MapBuilder(float generationOffset, float segmentStep);
 	void Update(float ptime);
-	void PrepareMap(std::vector<Lane*> lanes, int length);
+	std::vector<std::pair<int, GameObject*>> PrepareMap(std::vector<Lane*> lanes, int length);
 
 private:
-	
+	GameObject* _container;
+	std::vector<std::pair<int, GameObject*>> map;
 	float genOffset;
+	float totalTime;
+	int segmentCount;
+	int lanes;
 	float segStep;
 };
 

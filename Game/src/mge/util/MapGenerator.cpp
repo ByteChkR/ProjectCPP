@@ -59,3 +59,8 @@ Lane* MapGenerator::GetLaneAt(int pIndex)
 
 	return _lanes[pIndex];
 }
+
+int MapGenerator::GetLaneCount()
+{
+	return _lanes.size();
+}
