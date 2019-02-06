@@ -83,7 +83,7 @@ void GameMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMat
 	_shader->use();
 
 	
-	for (size_t i = 0; i < pWorld->getLightCount(); i++)
+	for (int i = 0; i < pWorld->getLightCount(); i++)
 	{
 		//_lightLocations[i].SetLight(&pWorld->getLightAt(i)->GetParams());
 	}

@@ -2,7 +2,7 @@
 #define COLLISIONMANAGER_HPP
 
 #include <vector>
-#include "AbstractStaticCollider.hpp";
+#include "AbstractStaticCollider.hpp"
 #include "DynamicBoxCollider.hpp"
 class CollisionManager
 {
