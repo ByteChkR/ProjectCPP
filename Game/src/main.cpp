@@ -23,7 +23,7 @@
 int main()
 {
 	AudioManager * audioManager = new AudioManager();
-	MapGenerator * mapgenerator = new MapGenerator();
+	MapGenerator * mapgenerator = new MapGenerator("test.txt");
 
     std::cout << "Starting Game" << std::endl;
 

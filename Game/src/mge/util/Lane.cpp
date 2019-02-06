@@ -2,8 +2,9 @@
 
 
 
-Lane::Lane(sf::Vector3f pPosition, int pLeftNeighbour, int pRightNeighbour, float pStartTime, float pEndTime)
+Lane::Lane(sf::Vector3f pPosition, int pLeftNeighbour, int pRightNeighbour, float pStartTime, float pEndTime, std::vector<int> pSegments)
 {
+	_segments = pSegments;
 	_position = pPosition;
 	_leftNeighbour = pLeftNeighbour;
 	_rightNeighbour = pRightNeighbour;
@@ -38,3 +39,9 @@ float Lane::GetEndTine()
 {
 	return _endTime;
 }
+
+std::vector<int> Lane::GetSegments()
+{
+	return _segments;
+}
+
