@@ -2,15 +2,18 @@
 #define LANE_H
 #include <SFML\Graphics.hpp>
 #include <vector>
+#include "glm.hpp"
 
 class Lane
 {
 public:
-	Lane(sf::Vector3f pPosition, int pLeftNeighbour, int pRightNeighbour,float pStartTime,float pEndTime,std::vector<int> pSegments);
+
+	Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour,float pStartTime,float pEndTime,std::vector<int> pSegments);
+
 	~Lane();
 	int GetLeft();
 	int GetRight();
-	sf::Vector3f GetPosition();
+	glm::vec3 GetPosition();
 	float GetStartTime();
 	float GetEndTine();
 	std::vector<int> GetSegments();
@@ -23,8 +26,9 @@ public:
 	
 private:
 
+
 	std::vector<int> _segments;
-	sf::Vector3f _position;
+	glm::vec3 _position;
 	int _leftNeighbour;
 	int _rightNeighbour;
 	float _startTime;

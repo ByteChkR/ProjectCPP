@@ -1,5 +1,6 @@
 #include "PlayerController.hpp"
 #include "SFML/Window.hpp"
+#include "mge/util/MapGenerator.h"
 PlayerController::PlayerController()
 {
 	_currentLane = 0;
@@ -57,8 +58,7 @@ void PlayerController::jump()
 void PlayerController::switchLeft()
 {
 	if (_isSwitching)return;
-	_nextLane = 1; //Temp number, replace with adjacent lane to the left(from the map generator)
-	//_nextLane = MapGenerator::instance->GetLane(LEFT)
+	_nextLane = MapGenerator::instance->GetLaneAt(_currentLane)->GetLeft();
 	if (_nextLane == -1)
 	{
 		return; //Something went wrong. u are already on most left lane? or the next lane has not yet started?
@@ -70,8 +70,7 @@ void PlayerController::switchLeft()
 void PlayerController::switchRight()
 {
 	if (_isSwitching)return;
-	_nextLane = 1; //Temp number, replace with adjacent lane to the right(from the map generator)
-	//_nextLane = MapGenerator::instance->GetLane(RIGHT)
+	_nextLane = MapGenerator::instance->GetLaneAt(_currentLane)->GetRight(); 
 	if (_nextLane == -1)
 	{
 		return; //Something went wrong. u are already on most right lane? or the next lane has not yet started?
@@ -86,9 +85,9 @@ void PlayerController::handleSwitch(float pTime)
 	{
 		float t = glm::clamp(_curSwitchTime / _switchTime, 0.f, 1.f);
 		glm::vec3 oldLane, newLane;
-		oldLane = newLane = glm::vec3(0);//Temp values. will get replaced by lane position of current and next
-		//oldLane = MapGenerator::instance->GetLanePos(_currentLane);
-		//newLane = MapGenerator::instance->GetLanePos(_nextLane);
+
+		oldLane = MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition();
+		newLane = MapGenerator::instance->GetLaneAt(_nextLane)->GetPosition();
 		_owner->setLocalPosition(glm::smoothstep(oldLane, newLane, glm::vec3(t)));//Using smooth step to change between lanes
 		_curSwitchTime += pTime;
 		if (_curSwitchTime >= _switchTime)
@@ -96,7 +95,7 @@ void PlayerController::handleSwitch(float pTime)
 			_isSwitching = false;
 			_currentLane = _nextLane;
 			//Set the position of the player to the lane diectly to avoid unpresicion
-			//_owner.setLocalPosition(newLane);
+			_owner->setLocalPosition(newLane);
 		}
 
 	}
@@ -117,7 +116,7 @@ void PlayerController::handleJump(float pTime)
 			_grounded = true;
 			_isJumping = false;
 			_velocity = 0;
-			//_owner->setLocalPosition(MapGenerator::instance->GetLanePos(_currentLane));
+			_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition());
 		}
 		//Add the Velocity
 		if(_isJumping)_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 1, 0) * _velocity);
