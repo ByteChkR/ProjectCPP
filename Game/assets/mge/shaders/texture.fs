@@ -30,14 +30,16 @@ vec3 Calculate(int index, vec3 wNormal)
 
 	float falloff = 1 + (lights[index].attenuation.x * distance) + (lights[index].attenuation.y * distance * distance);
 
-	diffIntensity/=falloff;
 
 	vec3 refDir = reflect(-dirN, wNormal);
-	float spec = pow(max(dot(dirN, refDir),0.0),shininess) / falloff;
+	float spec = pow(max(dot(dirN, refDir),0.0),shininess)/falloff;
 
-	vec3 ambient  = lights[index].ambientColor * (1- diffIntensity);
-	vec3 specular = spec * lights[index].color * lights[index].intensity;
-	vec3 diffuse = vec3(texture(diffuseTexture, texCoord)) * diffIntensity;
+	diffIntensity/=falloff;
+	vec3 ambient  = lights[index].ambientColor;
+	vec3 specular = spec * diffIntensity * vec3(1);
+
+	
+	vec3 diffuse = (vec3(texture(diffuseTexture, texCoord)) * lights[index].intensity) * diffIntensity;
 
 	return specular + diffuse + ambient;
 }

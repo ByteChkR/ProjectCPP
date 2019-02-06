@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <GL/glew.h>
 #include <string>
-
+#include "../_vs2015/CollisionManager.hpp"
 class World;
 class Renderer;
 
@@ -24,11 +24,12 @@ class AbstractGame
         virtual void initialize();
         //run the actual process of updating all objects, rendering them and processing events
         virtual void run();
-
+		CollisionManager* _manager;
+		static AbstractGame* instance;
     protected:
 
         //methods above delegate behaviour to the methods below so that you can override it in a subclass
-
+		virtual void _initializeCollisionManager();
         //initialize sfml rendering context
         virtual void _initializeWindow();
         //print info about the current driver version etc
@@ -53,6 +54,7 @@ class AbstractGame
 		sf::RenderWindow* _window;  //sfml window to render into
 		Renderer* _renderer;        //the renderer class to render the world
 		World* _world;              //the root game object that represents our scene
+		
 		float _fps;                 //stores the real fps
 
     private:

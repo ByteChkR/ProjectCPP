@@ -26,9 +26,9 @@ GLint TextureMaterial::_lightCount = 0;
 GLint TextureMaterial::_shininess = 0;
 GLint TextureMaterial::_steps = 0;
 
-TextureMaterial::TextureMaterial(Texture * pDiffuseTexture) :_diffuseTexture(pDiffuseTexture) {
-	shininess = 50;
-	steps = 10;
+TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps) :_diffuseTexture(pDiffuseTexture) {
+	this->shininess = shininess;
+	this->steps = steps;
 	_lazyInitializeShader();
 }
 
@@ -46,7 +46,7 @@ void TextureMaterial::_lazyInitializeShader() {
 		_uVMatrix = _shader->getUniformLocation("viewMatrix");
 		_uPMatrix = _shader->getUniformLocation("projectionMatrix");
 		_uDiffuseTexture = _shader->getUniformLocation("diffuseTexture");
-		//_lightCount = _shader->getUniformLocation("lightCount");
+		_lightCount = _shader->getUniformLocation("lightCount");
 		_shininess = _shader->getUniformLocation("shininess");
 		_steps = _shader->getUniformLocation("steps");
 		//Light Locations

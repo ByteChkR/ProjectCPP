@@ -88,6 +88,18 @@
     <ClInclude Include="GLLight.hpp">
       <Filter>MGE Source files\mge\core</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionManager.hpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractStaticCollider.hpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticBoxCollider.hpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicBoxCollider.hpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -154,6 +166,18 @@
       <Filter>MGE Source files\mge\core</Filter>
     </ClCompile>
     <ClCompile Include="GLLight.cpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractStaticCollider.cpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticBoxCollider.cpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicBoxCollider.cpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
       <Filter>MGE Source files\mge\core</Filter>
     </ClCompile>
   </ItemGroup>

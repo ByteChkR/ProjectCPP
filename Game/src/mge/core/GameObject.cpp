@@ -14,6 +14,11 @@ GameObject::~GameObject()
 	//detach all children
 	std::cout << "GC running on:" << _name << std::endl;
 
+	for (size_t i = 0; i < _behaviours.size(); i++)
+	{
+		delete _behaviours[i];
+	}
+	_behaviours.empty();
 	while (_children.size() > 0) {
 		GameObject* child = _children[0];
 		remove(child);
@@ -133,6 +138,14 @@ void GameObject::setParent(GameObject* pParent) {
 	else {
 		//might still not be available if our parent is not part of the world
 		_setWorldRecursively(_parent->_world);
+	}
+}
+
+void GameObject::FireCollision(GameObject* other)
+{
+	for (size_t i = 0; i < _behaviours.size(); i++)
+	{
+		_behaviours[i]->OnCollision(other);
 	}
 }
 

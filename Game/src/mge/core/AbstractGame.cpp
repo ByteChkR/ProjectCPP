@@ -4,8 +4,11 @@
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
 
+AbstractGame* AbstractGame::instance = nullptr;
+
 AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0)
 {
+	instance = this;
     //ctor
 }
 
@@ -23,8 +26,10 @@ void AbstractGame::initialize() {
     _printVersionInfo();
     _initializeGlew();
     _initializeRenderer();
+	_initializeCollisionManager();
     _initializeWorld();
     _initializeScene();
+	
     std::cout << std::endl << "Engine initialized." << std::endl << std::endl;
 }
 
@@ -81,6 +86,14 @@ void AbstractGame::_initializeWorld() {
     std::cout << "World initialized." << std::endl << std::endl;
 }
 
+void AbstractGame::_initializeCollisionManager()
+{
+	std::cout << "Initializing Collision Manager..."<<std::endl;
+	_manager = new CollisionManager();
+	std::cout << "Collision Manager initialized." << std::endl;
+
+}
+
 ///MAIN GAME LOOP
 
 void AbstractGame::run()
@@ -105,6 +118,7 @@ void AbstractGame::run()
 		    while (timeSinceLastUpdate > timePerFrame) {
                 timeSinceLastUpdate -= timePerFrame;
                 _update(timePerFrame.asSeconds());
+				_manager->Update(timePerFrame.asSeconds());
 		    }
 
             _render();

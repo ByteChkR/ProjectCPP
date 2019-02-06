@@ -26,6 +26,10 @@
 #include "mge/config.hpp"
 #include "mge/MGEDemo.hpp"
 
+#include "../_vs2015/AbstractStaticCollider.hpp"
+#include "../_vs2015/CollisionManager.hpp"
+#include "../_vs2015/DynamicBoxCollider.hpp"
+#include "../_vs2015/StaticBoxCollider.hpp"
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
 {
@@ -63,7 +67,8 @@ void MGEDemo::_initializeScene()
 	AbstractMaterial* test = new GameMaterial(*m);
     //create some materials to display the cube, the plane and the light
     AbstractMaterial* lightMaterial = new ColorMaterial (glm::vec3(1,1,0));
-    AbstractMaterial* runicStoneMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"runicfloor.png"));
+	AbstractMaterial* runicPlaneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 100, 10);
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
 
     //SCENE SETUP
 
@@ -75,13 +80,15 @@ void MGEDemo::_initializeScene()
 
     //add the floor
     GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
+	plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
     plane->scale(glm::vec3(5,5,5));
     plane->setMesh(planeMeshDefault);
-    plane->setMaterial(runicStoneMaterial);
+    plane->setMaterial(runicPlaneMaterial);
     _world->add(plane);
 
     //add a spinning sphere
     GameObject* sphere = new GameObject ("sphere", glm::vec3(0,0,0));
+	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, 0.5)));
     sphere->scale(glm::vec3(2.5,2.5,2.5));
     sphere->setMesh (sphereMeshS);
     sphere->setMaterial(runicStoneMaterial);
