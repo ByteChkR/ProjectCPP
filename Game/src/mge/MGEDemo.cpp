@@ -30,6 +30,7 @@
 #include "../_vs2015/CollisionManager.hpp"
 #include "../_vs2015/DynamicBoxCollider.hpp"
 #include "../_vs2015/StaticBoxCollider.hpp"
+#include "../_vs2015/PlayerController.hpp"
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
 {
@@ -92,7 +93,7 @@ void MGEDemo::_initializeScene()
     sphere->scale(glm::vec3(2.5,2.5,2.5));
     sphere->setMesh (sphereMeshS);
     sphere->setMaterial(runicStoneMaterial);
-    sphere->addBehaviour (new RotatingBehaviour());
+    sphere->addBehaviour (new PlayerController());
     _world->add(sphere);
 
     //add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !

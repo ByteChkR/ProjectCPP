@@ -1,5 +1,5 @@
 #include "PlayerController.hpp"
-
+#include "SFML/Window.hpp"
 PlayerController::PlayerController()
 {
 	_currentLane = 0;
@@ -28,6 +28,10 @@ void PlayerController::OnCollision(GameObject* other)
 
 void PlayerController::update(float pTime)
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))jump();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))switchLeft();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))switchRight();
+
 	//if jumpButton
 	//jump()
 
