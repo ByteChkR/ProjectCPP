@@ -11,6 +11,11 @@ DynamicBoxCollider::DynamicBoxCollider(glm::vec3 Min, glm::vec3 Max) : AbstractB
 	AbstractGame::instance->_manager->RegisterDynamic(this);
 }
 
+AbstractBehaviour* DynamicBoxCollider::Clone()
+{
+	return new DynamicBoxCollider(min, max);
+}
+
 glm::vec3 DynamicBoxCollider::GetMax()
 {
 	return max;
@@ -28,7 +33,7 @@ void DynamicBoxCollider::FireCollision(GameObject* other)
 
 glm::vec3 DynamicBoxCollider::GetPosition()
 {
-	return _owner->getLocalPosition();
+	return _owner->getWorldPosition();
 }
 
 DynamicBoxCollider::~DynamicBoxCollider()

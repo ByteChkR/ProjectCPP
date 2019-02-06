@@ -114,9 +114,9 @@ MapGenerator::~MapGenerator()
 {
 }
 
-Lane* MapGenerator::GetLaneAt(int pIndex)
+Lane* MapGenerator::GetLaneAt(size_t pIndex)
 {
-	if (pIndex > (int)_lanes.size() - 1)
+	if (pIndex > _lanes.size() - 1)
 	{
 		printf("Lane is out of the range");
 	}
@@ -129,7 +129,7 @@ std::vector<Lane*> MapGenerator::GetAllLanes()
 	return _lanes;
 }
 
-int MapGenerator::GetNumberOfLanes()
+size_t MapGenerator::GetNumberOfLanes()
 {
 	return (int)_lanes.size();
 }

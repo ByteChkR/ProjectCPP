@@ -21,7 +21,7 @@ void StaticBoxCollider::update(float time){}
 bool StaticBoxCollider::IsCollision(DynamicBoxCollider* ball)
 {
 	if (_owner == nullptr)return false;
-	glm::vec3 pos = _owner->getLocalPosition();
+	glm::vec3 pos = _owner->getWorldPosition();
 	glm::vec3 min, max;
 	min = ball->GetMin();
 	max = ball->GetMax();

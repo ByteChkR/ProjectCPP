@@ -17,6 +17,11 @@ void AbstractBehaviour::OnCollision(GameObject* other)
 
 }
 
+AbstractBehaviour* AbstractBehaviour::Clone()
+{
+	return nullptr;
+}
+
 std::string AbstractBehaviour::GetName()
 {
 	return _name;
