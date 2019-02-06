@@ -2,29 +2,35 @@
 #include "mge/core/GameObject.hpp"
 #include "PresetHandler.hpp"
 #include "mge/util/MapGenerator.h"
+#include "mge/core/AbstractGame.hpp"
+#include "mge/core/World.hpp"
 MapBuilder::MapBuilder(float generationOffset, float segmentStep)
 {
+	_container = new GameObject("CONTAINER");
 	genOffset = generationOffset;
 	totalTime = 0;
 	segStep = segmentStep;
-	map = std::vector<std::pair<int, GameObject*>>();
-	std::vector<Lane*> lanes = std::vector<Lane*>();
-	for (size_t i = 0; i < MapGenerator::instance->GetNumberOfLanes(); i++)
-	{
-		lanes.push_back(MapGenerator::instance->GetLaneAt(i));
-	}
-	map = PrepareMap(lanes, lanes[0]->GetSegments().size());
-	
+
+	lanes = MapGenerator::instance->GetNumberOfLanes();
+
+	std::vector<Lane*> lans = MapGenerator::instance->GetAllLanes();
+	map = PrepareMap(lans, lans[0]->GetSegments().size());
+
 
 }
 
-
-void MapBuilder::Update(float pTime)
+GameObject* MapBuilder::GetContainer()
 {
-	//totalTime += pTime;
+	return _container;
+}
 
-	for (int i = map.size(); i >= 0; i--)
+void MapBuilder::Update()
+{
+
+	float dist;
+	for (int i = map.size() - 1; i >= 0; i--)
 	{
+
 		if (map[i].second != nullptr && map[i].second->getWorldPosition().z < 0)
 		{
 			PresetHandler::instance->GivePreset(map[i].first, map[i].second);
@@ -32,11 +38,15 @@ void MapBuilder::Update(float pTime)
 		}
 		else
 		{
-			int lane = i % lanes;
-			glm::vec3 pos = MapGenerator::instance->GetLaneAt(lane)->GetPosition() + glm::vec3(0,0,1) * (i / lanes) / segmentCount * segStep;
-			GameObject* obj = PresetHandler::instance->TakePreset(map[i].first);
-			obj->setParent(_container);
-			obj->setLocalPosition(pos);
+			float dist = (i / lanes) * segStep;
+			if (glm::abs(_container->getLocalPosition().z + genOffset) > dist)
+			{
+				int lane = i % lanes;
+				glm::vec3 pos = MapGenerator::instance->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, 1) * (i / lanes) / segmentCount * segStep;
+				GameObject* obj = new GameObject("");//PresetHandler::instance->TakePreset(map[i].first);
+				obj->setParent(_container);
+				obj->setLocalPosition(pos);
+			}
 		}
 	}
 }
@@ -53,7 +63,7 @@ std::vector<std::pair<int, GameObject*>> MapBuilder::PrepareMap(std::vector<Lane
 
 	for (size_t i = 0; i < length; i++)
 	{
-		for (size_t j = 0; i < arrs.size(); i++)
+		for (size_t j = 0; j < arrs.size(); j++)
 		{
 			ret.push_back(std::pair<int, GameObject*>(arrs[j][i], nullptr));
 		}

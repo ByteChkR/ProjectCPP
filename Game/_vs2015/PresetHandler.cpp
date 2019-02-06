@@ -5,6 +5,9 @@ PresetHandler::PresetHandler(std::vector<std::string> files)
 {
 	instance = this;
 	//Create One Gameobject by file
+
+	//SERIALIZATION MISSING
+
 	std::vector<GameObject*> gobjs; //Pretend this is filled with gameobjects
 	presets = std::vector<ObjectPool<GameObject*>*>();
 	for each (GameObject* g in gobjs)

@@ -8,11 +8,12 @@ class MapBuilder
 {
 public:
 	MapBuilder(float generationOffset, float segmentStep);
-	void Update(float ptime);
+	void Update();
 	std::vector<std::pair<int, GameObject*>> PrepareMap(std::vector<Lane*> lanes, size_t length);
-
+	GameObject* GetContainer();
 private:
 	GameObject* _container;
+	
 	std::vector<std::pair<int, GameObject*>> map;
 	float genOffset;
 	float totalTime;

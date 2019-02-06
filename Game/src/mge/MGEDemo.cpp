@@ -31,6 +31,7 @@
 #include "../_vs2015/DynamicBoxCollider.hpp"
 #include "../_vs2015/StaticBoxCollider.hpp"
 #include "../_vs2015/PlayerController.hpp"
+#include "../_vs2015/MapBuilder.h"
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
 {
@@ -110,12 +111,14 @@ void MGEDemo::_initializeScene()
     light->setMaterial(lightMaterial);
     light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
+	mb = new MapBuilder(20, 2);
+	_world->add(mb->GetContainer());
 	
-
 }
 
 void MGEDemo::_render() {
     AbstractGame::_render();
+	mb->Update();
     _updateHud();
 }
 
