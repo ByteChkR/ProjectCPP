@@ -28,7 +28,7 @@ void DynamicBoxCollider::FireCollision(GameObject* other)
 
 glm::vec3 DynamicBoxCollider::GetPosition()
 {
-	return _owner->getLocalPosition();
+	return _owner->getWorldPosition();
 }
 
 DynamicBoxCollider::~DynamicBoxCollider()
