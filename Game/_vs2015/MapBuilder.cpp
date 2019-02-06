@@ -1,5 +1,6 @@
 #include "MapBuilder.h"
 #include "mge/core/GameObject.hpp"
+#include "PresetHandler.hpp"
 MapBuilder::MapBuilder(float generationOffset, float segmentStep)
 {
 	genOffset = generationOffset;
@@ -24,10 +25,10 @@ void MapBuilder::PrepareMap(std::vector<Lane*> lanes, int length)
 
 	for (int i = 0; i < length; i++)
 	{
-		for (int i = 0; i < arrs.size(); i++)
+		for (int j = 0; i < arrs.size(); i++)
 		{
-			GameObject* preset = nullptr; //shhht ;)
-			glm::vec3 offset = lanes[i]->GetPosition() + (length * segStep)*glm::vec3(0,0,-1);
+			GameObject* preset = PresetHandler::instance->TakePreset(arrs[j][i]);
+			glm::vec3 offset = lanes[j]->GetPosition() + (length * segStep)*glm::vec3(0,0,-1);
 			preset->setLocalPosition(offset);
 			part->add(preset);
 		}
