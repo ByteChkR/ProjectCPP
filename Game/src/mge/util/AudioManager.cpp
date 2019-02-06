@@ -43,7 +43,7 @@ void AudioManager::LoadMusic(std::string pFileLocation)
 
 void AudioManager::PlaySound(SoundEffects pSoundEffect)
 {
-	if ((int)pSoundEffect > _sounds.size() -1)
+	if ((int)pSoundEffect > (int)_sounds.size() -1)
 	{
 		std::cout << "Number higher then number of sounds. The number is " << pSoundEffect <<
 			" and the size is: " << _sounds.size();

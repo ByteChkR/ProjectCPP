@@ -4,7 +4,7 @@ PlayerController::PlayerController()
 {
 	_currentLane = 0;
 	_gravity = -1;
-	_jumpForce = 0.2;
+	_jumpForce = 0.2f;
 	_velocity = 0;
 	_switchTime = 0.5f;
 	_curSwitchTime = 0;
