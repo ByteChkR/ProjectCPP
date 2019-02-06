@@ -191,6 +191,7 @@
     <ClInclude Include="GLLight.hpp" />
     <ClInclude Include="LightParams.hpp" />
     <ClInclude Include="Material.hpp" />
+    <ClInclude Include="PlayerController.hpp" />
     <ClInclude Include="StaticBoxCollider.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +220,7 @@
     <ClCompile Include="GLLight.cpp" />
     <ClCompile Include="LightParams.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="StaticBoxCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
