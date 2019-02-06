@@ -3,15 +3,13 @@
 PlayerController::PlayerController()
 {
 	_currentLane = 0;
-	//Generator has Function: LaneStruct GetLaneAt(_currentLane);
-	//Lane Struct contains
-	//	lane position
-	//	Connected Lanes(array of indexes or connection structs specifying the traversal conditions)
-	
 	_gravity = -1;
 	_jumpForce = 0.2;
 	_velocity = 0;
 	_switchTime = 0.5f;
+	_curSwitchTime = 0;
+	_nextLane = -1;
+
 	_grounded = false;
 	_isSwitching = false;
 	_isJumping = true;
