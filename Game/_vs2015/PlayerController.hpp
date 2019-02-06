@@ -28,6 +28,8 @@ private:
 	void jump();
 	void switchLeft();
 	void switchRight();
+	void handleJump(float pTime);
+	void handleSwitch(float pTime);
 
 };
 
