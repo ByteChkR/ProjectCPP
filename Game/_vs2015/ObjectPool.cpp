@@ -1,8 +1,13 @@
 #include "ObjectPool.hpp"
 #include "mge/core/GameObject.hpp"
-ObjectPool<GameObject*>::ObjectPool(GameObject* original) :_original(original), _buffer(), _activeBuffer(){}
+ObjectPool<GameObject*>::ObjectPool(GameObject*  original)  
+{
+	_original = original;
+	_buffer = std::vector<GameObject*>();
+	_activeBuffer = std::vector<GameObject*>();
+}
 
-void ObjectPool<GameObject*>::Give(GameObject* val)
+void ObjectPool<GameObject*>::Give(GameObject*  val)
 {
 
 	for (int i = 0; i < _activeBuffer.size(); i++)

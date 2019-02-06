@@ -8,6 +8,7 @@
 class PresetHandler
 {
 public:
+	static PresetHandler* instance;
 	PresetHandler(std::vector<std::string> files);
 	GameObject* TakePreset(int index);
 	void GivePreset(int index, GameObject* preset);

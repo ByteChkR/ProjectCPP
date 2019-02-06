@@ -12,7 +12,7 @@ public:
 private:
 	std::vector<T> _buffer;
 	std::vector<T> _activeBuffer;
-	GameObject* _original;
+	T _original;
 };
 
 #endif // !OBJECTPOOL_HPP
