@@ -17,7 +17,6 @@ private:
 	std::vector<std::pair<int, GameObject*>> map;
 	float genOffset;
 	float totalTime;
-	int segmentCount;
 	int lanes;
 	float segStep;
 };

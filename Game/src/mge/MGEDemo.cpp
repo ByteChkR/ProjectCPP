@@ -32,6 +32,7 @@
 #include "../_vs2015/StaticBoxCollider.hpp"
 #include "../_vs2015/PlayerController.hpp"
 #include "../_vs2015/MapBuilder.h"
+#include "../_vs2015/PresetHandler.hpp"
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
 {
@@ -75,8 +76,8 @@ void MGEDemo::_initializeScene()
     //SCENE SETUP
 
    //add camera first (it will be updated last)
-    Camera* camera = new Camera ("camera", glm::vec3(0,6,7));
-    camera->rotate(glm::radians(-40.0f), glm::vec3(1,0,0));
+    Camera* camera = new Camera ("camera", glm::vec3(0,6,0));
+    camera->rotate(glm::radians(-20.0f), glm::vec3(1,0,0));
     _world->add(camera);
     _world->setMainCamera(camera);
 
@@ -86,7 +87,7 @@ void MGEDemo::_initializeScene()
     plane->scale(glm::vec3(5,5,5));
     plane->setMesh(planeMeshDefault);
     plane->setMaterial(runicPlaneMaterial);
-    _world->add(plane);
+    //_world->add(plane);
 
     //add a spinning sphere
     GameObject* sphere = new GameObject ("sphere", glm::vec3(0,0,0));
@@ -95,7 +96,7 @@ void MGEDemo::_initializeScene()
     sphere->setMesh (sphereMeshS);
     sphere->setMaterial(runicStoneMaterial);
     sphere->addBehaviour (new PlayerController());
-    _world->add(sphere);
+    //_world->add(sphere);
 
     //add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
     //It's here as a place holder to get you started.
@@ -111,14 +112,17 @@ void MGEDemo::_initializeScene()
     light->setMaterial(lightMaterial);
     light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
-	mb = new MapBuilder(20, 2);
-	_world->add(mb->GetContainer());
+	new PresetHandler(std::vector<std::string>());
+	mb = new MapBuilder(1, 3);
+	GameObject* cont = mb->GetContainer();
+	cont->addBehaviour(new KeysBehaviour());
+	_world->add(cont);
 	
 }
 
 void MGEDemo::_render() {
     AbstractGame::_render();
-	mb->Update();
+	//mb->Update();
     _updateHud();
 }
 

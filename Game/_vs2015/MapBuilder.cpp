@@ -28,10 +28,10 @@ void MapBuilder::Update()
 {
 
 	float dist;
-	for (int i = map.size() - 1; i >= 0; i--)
+	for (int i = 0; i < map.size(); i++)
 	{
-
-		if (map[i].second != nullptr && map[i].second->getWorldPosition().z < 0)
+		glm::vec3 v;
+		if (map[i].second != nullptr && (v=map[i].second->getWorldPosition()).z < 0)
 		{
 			PresetHandler::instance->GivePreset(map[i].first, map[i].second);
 			map[i].second = nullptr;
@@ -39,11 +39,12 @@ void MapBuilder::Update()
 		else
 		{
 			float dist = (i / lanes) * segStep;
-			if (glm::abs(_container->getLocalPosition().z + genOffset) > dist)
+			if (genOffset > dist)
 			{
 				int lane = i % lanes;
-				glm::vec3 pos = MapGenerator::instance->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, 1) * (i / lanes) / segmentCount * segStep;
-				GameObject* obj = new GameObject("");//PresetHandler::instance->TakePreset(map[i].first);
+				glm::vec3 pos = MapGenerator::instance->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * (i % lanes) * segStep;
+				GameObject* obj = PresetHandler::instance->TakePreset(map[i].first);
+				map[i].second = obj;
 				obj->setParent(_container);
 				obj->setLocalPosition(pos);
 			}
@@ -51,12 +52,12 @@ void MapBuilder::Update()
 	}
 }
 
-std::vector<std::pair<int, GameObject*>> MapBuilder::PrepareMap(std::vector<Lane*> lanes, size_t length)
+std::vector<std::pair<int, GameObject*>> MapBuilder::PrepareMap(std::vector<Lane*> lans, size_t length)
 {
 	std::vector<std::vector<int>> arrs = std::vector<std::vector<int>>();
-	for (size_t i = 0; i < lanes.size(); i++)
+	for (size_t i = 0; i < lans.size(); i++)
 	{
-		arrs.push_back(lanes[i]->GetSegments());
+		arrs.push_back(lans[i]->GetSegments());
 	}
 
 	std::vector<std::pair<int, GameObject*>> ret = std::vector<std::pair<int, GameObject*>>();
@@ -65,7 +66,12 @@ std::vector<std::pair<int, GameObject*>> MapBuilder::PrepareMap(std::vector<Lane
 	{
 		for (size_t j = 0; j < arrs.size(); j++)
 		{
-			ret.push_back(std::pair<int, GameObject*>(arrs[j][i], nullptr));
+			glm::vec3 pos = MapGenerator::instance->GetLaneAt(j)->GetPosition() + glm::vec3(0, 0, -1) * i * segStep;
+			//std::cout << pos.x << " " << pos.y << " " << pos.z << '\n';
+			GameObject* obj = PresetHandler::instance->TakePreset(arrs[j][i]);
+			obj->setParent(_container);
+			obj->setLocalPosition(pos);
+			ret.push_back(std::pair<int, GameObject*>(arrs[j][i], obj));
 		}
 	}
 	return ret;

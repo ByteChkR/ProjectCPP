@@ -153,6 +153,7 @@ GameObject* GameObject::Clone()
 {
 	GameObject* gobj = new GameObject(_name+ "(CLONE)");
 	gobj->setTransform(glm::mat4(_transform));
+	gobj->setLocalPosition(getLocalPosition());
 	gobj->setParent(_parent);
 	gobj->setMesh(_mesh);
 	gobj->setMaterial(_material);
