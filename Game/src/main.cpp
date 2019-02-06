@@ -2,6 +2,7 @@
 
 #include "mge/core/AbstractGame.hpp"
 #include "mge/MGEDemo.hpp"
+#include "mge\util\AudioManager.h"
 
 /**
  * Main entry point for the Micro Engine.
@@ -20,6 +21,7 @@
  */
 int main()
 {
+	AudioManager * audioManager = new AudioManager();
     std::cout << "Starting Game" << std::endl;
 
     AbstractGame* game = new MGEDemo();

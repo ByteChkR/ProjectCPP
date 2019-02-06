@@ -103,6 +103,9 @@
     <ClInclude Include="PlayerController.hpp">
       <Filter>MGE Source files\mge\behaviours</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\util\AudioManager.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -185,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\AudioManager.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
