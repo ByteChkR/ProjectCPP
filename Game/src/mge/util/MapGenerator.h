@@ -13,6 +13,8 @@ public:
 	MapGenerator(std::string pName);
 	~MapGenerator();
 	Lane* GetLaneAt(int pIndex);
+	std::vector<Lane*> GetAllLanes();
+	int GetNumberOfLanes();
 
 private:
 	float _laneSpace = 2;

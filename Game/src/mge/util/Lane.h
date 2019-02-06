@@ -9,7 +9,6 @@ class Lane
 public:
 
 	Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour,float pStartTime,float pEndTime,std::vector<int> pSegments);
-
 	~Lane();
 	int GetLeft();
 	int GetRight();
@@ -17,6 +16,7 @@ public:
 	float GetStartTime();
 	float GetEndTine();
 	std::vector<int> GetSegments();
+	void AddSegment(int pNumber);
 
 	//void SetPosition(sf::Vector3f);
 	//void SetRightNeighbour(int pNumber);

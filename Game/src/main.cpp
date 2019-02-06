@@ -4,6 +4,7 @@
 #include "mge/MGEDemo.hpp"
 #include "mge\util\AudioManager.h"
 #include "mge\util\MapGenerator.h"
+#include <vector>
 
 /**
  * Main entry point for the Micro Engine.
@@ -23,7 +24,7 @@
 int main()
 {
 	AudioManager * audioManager = new AudioManager();
-	MapGenerator * mapgenerator = new MapGenerator("test.txt");
+	MapGenerator * mapGenerator = new MapGenerator("test.txt");
 
     std::cout << "Starting Game" << std::endl;
 

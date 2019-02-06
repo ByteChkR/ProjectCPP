@@ -46,4 +46,8 @@ std::vector<int> Lane::GetSegments()
 {
 	return _segments;
 }
+void Lane::AddSegment(int pNumber)
+{
+	_segments.push_back(pNumber);
+}
 
