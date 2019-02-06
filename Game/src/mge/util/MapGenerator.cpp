@@ -50,7 +50,7 @@ MapGenerator::~MapGenerator()
 {
 }
 
-Lane* MapGenerator::GetLaneAt(int pIndex)
+Lane* MapGenerator::GetLaneAt(size_t pIndex)
 {
 	if (pIndex > _lanes.size() - 1)
 	{
@@ -60,7 +60,7 @@ Lane* MapGenerator::GetLaneAt(int pIndex)
 	return _lanes[pIndex];
 }
 
-int MapGenerator::GetLaneCount()
+size_t MapGenerator::GetLaneCount()
 {
 	return _lanes.size();
 }

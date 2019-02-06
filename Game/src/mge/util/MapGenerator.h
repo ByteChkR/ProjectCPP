@@ -12,8 +12,8 @@ public:
 
 	MapGenerator(std::string pName);
 	~MapGenerator();
-	Lane* GetLaneAt(int pIndex);
-	int GetLaneCount();
+	Lane* GetLaneAt(size_t pIndex);
+	size_t GetLaneCount();
 
 private:
 	float _laneSpace = 2;

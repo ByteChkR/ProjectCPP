@@ -41,19 +41,19 @@ void MapBuilder::Update(float pTime)
 	}
 }
 
-std::vector<std::pair<int, GameObject*>> MapBuilder::PrepareMap(std::vector<Lane*> lanes, int length)
+std::vector<std::pair<int, GameObject*>> MapBuilder::PrepareMap(std::vector<Lane*> lanes, size_t length)
 {
 	std::vector<std::vector<int>> arrs = std::vector<std::vector<int>>();
-	for (int i = 0; i < lanes.size(); i++)
+	for (size_t i = 0; i < lanes.size(); i++)
 	{
 		arrs.push_back(lanes[i]->GetSegments());
 	}
 
 	std::vector<std::pair<int, GameObject*>> ret = std::vector<std::pair<int, GameObject*>>();
 
-	for (int i = 0; i < length; i++)
+	for (size_t i = 0; i < length; i++)
 	{
-		for (int j = 0; i < arrs.size(); i++)
+		for (size_t j = 0; i < arrs.size(); i++)
 		{
 			ret.push_back(std::pair<int, GameObject*>(arrs[j][i], nullptr));
 		}
