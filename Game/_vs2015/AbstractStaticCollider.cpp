@@ -3,7 +3,7 @@
 AbstractStaticCollider::AbstractStaticCollider() { _owner = nullptr; }
 AbstractStaticCollider::~AbstractStaticCollider(){}
 
-void AbstractStaticCollider::SetOwner(GameObject* owner)
+GameObject* AbstractStaticCollider::GetOwner()
 {
-	_owner = owner;
+	return _owner;
 }

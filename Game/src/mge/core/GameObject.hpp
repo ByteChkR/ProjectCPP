@@ -52,6 +52,7 @@ class GameObject
 		AbstractBehaviour* getBehaviour(std::string name) const;
 		void RemoveBehaviour(std::string name);
 		bool ContainsBehaviour(std::string name);
+		void FireCollision(GameObject* other);
 
 		virtual void update(float pStep);
 

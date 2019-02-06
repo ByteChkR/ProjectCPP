@@ -187,12 +187,11 @@
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="AbstractStaticCollider.hpp" />
     <ClInclude Include="CollisionManager.hpp" />
-    <ClInclude Include="DynamicSphereCollider.hpp" />
+    <ClInclude Include="DynamicBoxCollider.hpp" />
     <ClInclude Include="GLLight.hpp" />
     <ClInclude Include="LightParams.hpp" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="StaticBoxCollider.hpp" />
-    <ClInclude Include="StaticSphereCollider.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
@@ -214,13 +213,13 @@
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="AbstractStaticCollider.cpp" />
-    <ClCompile Include="DynamicSphereCollider.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="DynamicBoxCollider.cpp" />
     <ClCompile Include="GameMaterial.cpp" />
     <ClCompile Include="GLLight.cpp" />
     <ClCompile Include="LightParams.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="StaticBoxCollider.cpp" />
-    <ClCompile Include="StaticSphereCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameMaterial.hpp" />

@@ -1,18 +1,17 @@
 #ifndef ABSTRACTSTATICCOLLIDER_HPP
 #define ABSTRACTSTATICCOLLIDER_HPP
 
-#include "DynamicSphereCollider.hpp"
+#include "DynamicBoxCollider.hpp"
+#include "mge/behaviours/AbstractBehaviour.hpp"
 
-class AbstractStaticCollider
+class AbstractStaticCollider : public AbstractBehaviour
 {
 public:
 	AbstractStaticCollider();
 	virtual ~AbstractStaticCollider() = 0;
-	virtual bool IsCollision(DynamicBoxCollider ball) = 0;
-	void SetOwner(GameObject* owner);
+	virtual bool IsCollision(DynamicBoxCollider* ball) = 0;
+	GameObject* GetOwner();
 
-protected:
-	GameObject* _owner;
 
 };
 

@@ -26,6 +26,10 @@
 #include "mge/config.hpp"
 #include "mge/MGEDemo.hpp"
 
+#include "../_vs2015/AbstractStaticCollider.hpp"
+#include "../_vs2015/CollisionManager.hpp"
+#include "../_vs2015/DynamicBoxCollider.hpp"
+#include "../_vs2015/StaticBoxCollider.hpp"
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
 {
@@ -76,6 +80,7 @@ void MGEDemo::_initializeScene()
 
     //add the floor
     GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
+	plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
     plane->scale(glm::vec3(5,5,5));
     plane->setMesh(planeMeshDefault);
     plane->setMaterial(runicPlaneMaterial);
@@ -83,6 +88,7 @@ void MGEDemo::_initializeScene()
 
     //add a spinning sphere
     GameObject* sphere = new GameObject ("sphere", glm::vec3(0,0,0));
+	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, 0.5)));
     sphere->scale(glm::vec3(2.5,2.5,2.5));
     sphere->setMesh (sphereMeshS);
     sphere->setMaterial(runicStoneMaterial);

@@ -141,6 +141,14 @@ void GameObject::setParent(GameObject* pParent) {
 	}
 }
 
+void GameObject::FireCollision(GameObject* other)
+{
+	for (size_t i = 0; i < _behaviours.size(); i++)
+	{
+		_behaviours[i]->OnCollision(other);
+	}
+}
+
 void GameObject::_innerRemove(GameObject* pChild) {
 	for (auto i = _children.begin(); i != _children.end(); ++i) {
 		if (*i == pChild) {

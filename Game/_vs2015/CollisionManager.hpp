@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "AbstractStaticCollider.hpp";
-#include "DynamicSphereCollider.hpp"
+#include "DynamicBoxCollider.hpp"
 class CollisionManager
 {
 
