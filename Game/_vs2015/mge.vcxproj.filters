@@ -112,6 +112,15 @@
     <ClInclude Include="..\src\mge\util\Lane.h">
       <Filter>MGE Source files\mge\util</Filter>
     </ClInclude>
+    <ClInclude Include="MapBuilder.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="PresetHandler.hpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.hpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -202,6 +211,15 @@
       <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\util\Lane.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="MapBuilder.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="PresetHandler.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
       <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,7 +11,7 @@ public:
 	virtual ~AbstractStaticCollider() = 0;
 	virtual bool IsCollision(DynamicBoxCollider* ball) = 0;
 	GameObject* GetOwner();
-
+	
 
 };
 

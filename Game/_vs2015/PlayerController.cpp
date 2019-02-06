@@ -17,6 +17,11 @@ PlayerController::PlayerController()
 	
 }
 
+AbstractBehaviour* PlayerController::Clone()
+{
+	return new PlayerController();
+}
+
 PlayerController::~PlayerController()
 {
 

@@ -17,7 +17,7 @@ public:
 	glm::vec3 GetMax();
 	virtual void OnCollision(GameObject* other) override;
 	void FireCollision(GameObject* other);
-
+	virtual AbstractBehaviour* Clone() override;
 private:
 	glm::vec3 min;
 	glm::vec3 max;

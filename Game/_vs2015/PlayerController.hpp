@@ -11,6 +11,7 @@ public:
 	virtual ~PlayerController();
 	virtual void update(float pTime) override;
 	virtual void OnCollision(GameObject* other) override;
+	virtual AbstractBehaviour* Clone() override;
 
 private:
 	int _currentLane;

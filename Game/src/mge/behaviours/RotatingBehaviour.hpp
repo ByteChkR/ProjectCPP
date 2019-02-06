@@ -11,7 +11,7 @@ class RotatingBehaviour : public AbstractBehaviour
 	public:
 		RotatingBehaviour();
 		virtual ~RotatingBehaviour();
-
+		virtual AbstractBehaviour* Clone();
 		virtual void update(float pStep);
 
 };

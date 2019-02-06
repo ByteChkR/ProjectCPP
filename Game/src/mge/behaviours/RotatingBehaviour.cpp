@@ -11,6 +11,11 @@ RotatingBehaviour::~RotatingBehaviour()
 	//dtor
 }
 
+AbstractBehaviour* RotatingBehaviour::Clone()
+{
+	return new RotatingBehaviour();
+}
+
 void RotatingBehaviour::update(float pStep)
 {
     //rotates 45° per second

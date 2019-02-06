@@ -10,6 +10,11 @@ KeysBehaviour::~KeysBehaviour()
 {
 }
 
+AbstractBehaviour* KeysBehaviour::Clone()
+{
+	return new KeysBehaviour(_moveSpeed, _turnSpeed);
+}
+
 void KeysBehaviour::update( float pStep )
 {
 	float moveSpeed = 0.0f; //default if no keys

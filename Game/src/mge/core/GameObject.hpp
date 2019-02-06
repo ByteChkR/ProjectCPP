@@ -22,6 +22,8 @@ class GameObject
         void setName (const std::string& pName);
         std::string getName() const;
 
+		GameObject* Clone();
+
         //contains local rotation, scale, position
 		void setTransform (const glm::mat4& pTransform);
         const glm::mat4& getTransform() const;

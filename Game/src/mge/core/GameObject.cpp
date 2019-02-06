@@ -149,6 +149,27 @@ void GameObject::FireCollision(GameObject* other)
 	}
 }
 
+GameObject* GameObject::Clone()
+{
+	GameObject* gobj = new GameObject(_name+ "(CLONE)");
+	gobj->setTransform(glm::mat4(_transform));
+	gobj->setParent(_parent);
+	gobj->setMesh(_mesh);
+	gobj->setMaterial(_material);
+	
+	for each (GameObject* child in _children)
+	{
+		gobj->add(child->Clone());
+	}
+	for each (AbstractBehaviour* beh in _behaviours)
+	{
+		gobj->addBehaviour(beh->Clone());
+	}
+
+
+
+}
+
 void GameObject::_innerRemove(GameObject* pChild) {
 	for (auto i = _children.begin(); i != _children.end(); ++i) {
 		if (*i == pChild) {
