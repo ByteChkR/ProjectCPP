@@ -15,6 +15,8 @@
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "../_vs2015/Material.hpp"
+#include "../_vs2015/GameMaterial.hpp"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -24,6 +26,10 @@
 #include "mge/config.hpp"
 #include "mge/MGEDemo.hpp"
 
+#include "../_vs2015/AbstractStaticCollider.hpp"
+#include "../_vs2015/CollisionManager.hpp"
+#include "../_vs2015/DynamicBoxCollider.hpp"
+#include "../_vs2015/StaticBoxCollider.hpp"
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
 {
@@ -52,10 +58,17 @@ void MGEDemo::_initializeScene()
     Mesh* sphereMeshS = Mesh::load (config::MGE_MODEL_PATH+"sphere_smooth.obj");
 
     //MATERIALS
-
+	Material* m = new Material();
+	m->diffuse = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
+	m->normal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png");
+	m->specular = Texture::load(config::MGE_TEXTURE_PATH + "testSpecular.png");
+	m->shininess = 1;
+	m->maxHeight = 0;
+	AbstractMaterial* test = new GameMaterial(*m);
     //create some materials to display the cube, the plane and the light
     AbstractMaterial* lightMaterial = new ColorMaterial (glm::vec3(1,1,0));
-    AbstractMaterial* runicStoneMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"runicfloor.png"));
+	AbstractMaterial* runicPlaneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 100, 10);
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
 
     //SCENE SETUP
 
@@ -67,13 +80,15 @@ void MGEDemo::_initializeScene()
 
     //add the floor
     GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
+	plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
     plane->scale(glm::vec3(5,5,5));
     plane->setMesh(planeMeshDefault);
-    plane->setMaterial(runicStoneMaterial);
+    plane->setMaterial(runicPlaneMaterial);
     _world->add(plane);
 
     //add a spinning sphere
     GameObject* sphere = new GameObject ("sphere", glm::vec3(0,0,0));
+	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, 0.5)));
     sphere->scale(glm::vec3(2.5,2.5,2.5));
     sphere->setMesh (sphereMeshS);
     sphere->setMaterial(runicStoneMaterial);
@@ -85,12 +100,16 @@ void MGEDemo::_initializeScene()
     //Note how the texture material is able to detect the number of lights in the scene
     //even though it doesn't implement any lighting yet!
 
+	LightParams* params = new LightParams();
+
     Light* light = new Light("light", glm::vec3(0,4,0));
+	light->SetParams(*params);
     light->scale(glm::vec3(0.1f, 0.1f, 0.1f));
     light->setMesh(cubeMeshF);
     light->setMaterial(lightMaterial);
     light->addBehaviour(new KeysBehaviour(25));
-    _world->add(light);
+	_world->add(light);
+	
 
 }
 

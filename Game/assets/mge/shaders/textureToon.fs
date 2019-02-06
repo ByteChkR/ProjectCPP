@@ -15,6 +15,7 @@ uniform Light lights[8];
 uniform int lightCount;
 uniform sampler2D diffuseTexture;
 uniform float shininess;
+uniform int steps;
 in vec2 texCoord;
 in vec3 worldNormal;
 in vec3 fragmentWorldPosition;
@@ -25,21 +26,23 @@ vec3 Calculate(int index, vec3 wNormal)
 	vec3 dir = lights[index].position-fragmentWorldPosition;
 	vec3 dirN = normalize(dir);
 	float distance = length(dir);
-	
-	float diffIntensity = max(dot(wNormal, dirN),0.0);
+	float diffIntensity = max(dot(normalize(dir), normalize(wNormal)), 0.0);
 
 	float falloff = 1 + (lights[index].attenuation.x * distance) + (lights[index].attenuation.y * distance * distance);
 
+	diffIntensity /= falloff;
+
+	float stepSize = 1.0/steps;
+	float i = floor(diffIntensity / stepSize);
+
+	vec3 diffuse = vec3(texture(diffuseTexture, texCoord)) * stepSize * i;
+
 
 	vec3 refDir = reflect(-dirN, wNormal);
-	float spec = pow(max(dot(dirN, refDir),0.0),shininess)/falloff;
+	float specIntensity = pow(max(dot(dirN, refDir), 0.0), shininess);
+	vec3 specular = lights[index].color * specIntensity * diffIntensity;
 
-	diffIntensity/=falloff;
-	vec3 ambient  = lights[index].ambientColor;
-	vec3 specular = spec * diffIntensity * vec3(1);
-
-	
-	vec3 diffuse = (vec3(texture(diffuseTexture, texCoord)) * lights[index].intensity) * diffIntensity;
+	vec3 ambient = lights[index].ambientColor * (1- diffIntensity);
 
 	return specular + diffuse + ambient;
 }

@@ -12,6 +12,11 @@ void AbstractBehaviour::setOwner (GameObject* pOwner) {
     _owner = pOwner;
 }
 
+void AbstractBehaviour::OnCollision(GameObject* other)
+{
+
+}
+
 std::string AbstractBehaviour::GetName()
 {
 	return _name;

@@ -23,7 +23,7 @@ class AbstractBehaviour
 
         //behaviour should be able to update itself every step and MUST be implemented
 		virtual void update(float pStep) = 0;
-
+		virtual void OnCollision(GameObject* other);
 		std::string GetName();
     protected:
 		std::string _name = "NAME";
