@@ -1,8 +1,8 @@
 #include "Lane.h"
+#include "glm.hpp"
 
 
-
-Lane::Lane(sf::Vector3f pPosition, int pLeftNeighbour, int pRightNeighbour, float pStartTime, float pEndTime)
+Lane::Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour, float pStartTime, float pEndTime)
 {
 	_position = pPosition;
 	_leftNeighbour = pLeftNeighbour;
@@ -25,7 +25,7 @@ int Lane::GetRight()
 	return _rightNeighbour;
 }
 
-sf::Vector3f Lane::GetPosition()
+glm::vec3 Lane::GetPosition()
 {
 	return _position;
 }

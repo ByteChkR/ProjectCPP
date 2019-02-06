@@ -1,15 +1,16 @@
 #ifndef LANE_H
 #define LANE_H
 #include <SFML\Graphics.hpp>
+#include "glm.hpp"
 
 class Lane
 {
 public:
-	Lane(sf::Vector3f pPosition, int pLeftNeighbour, int pRightNeighbour,float pStartTime,float pEndTime);
+	Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour,float pStartTime,float pEndTime);
 	~Lane();
 	int GetLeft();
 	int GetRight();
-	sf::Vector3f GetPosition();
+	glm::vec3 GetPosition();
 	float GetStartTime();
 	float GetEndTine();
 	//void SetPosition(sf::Vector3f);
@@ -19,7 +20,7 @@ public:
 	//void SetFinishTime(float pTime);
 	
 private:
-	sf::Vector3f _position;
+	glm::vec3 _position;
 	int _leftNeighbour;
 	int _rightNeighbour;
 	float _startTime;
