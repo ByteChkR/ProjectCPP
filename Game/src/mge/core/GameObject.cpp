@@ -167,7 +167,7 @@ GameObject* GameObject::Clone()
 	}
 
 
-
+	return gobj;
 }
 
 void GameObject::_innerRemove(GameObject* pChild) {
