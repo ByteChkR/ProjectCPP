@@ -115,6 +115,9 @@ void PlayerController::handleJump(float pTime)
 			_grounded = true;
 			_isJumping = false;
 			_velocity = 0;
+			//_owner->setLocalPosition(MapGenerator::instance->GetLanePos(_currentLane));
 		}
+		//Add the Velocity
+		if(_isJumping)_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 1, 0) * _velocity);
 	}
 }
