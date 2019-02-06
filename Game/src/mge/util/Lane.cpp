@@ -1,0 +1,40 @@
+#include "Lane.h"
+
+
+
+Lane::Lane(sf::Vector3f pPosition, int pLeftNeighbour, int pRightNeighbour, float pStartTime, float pEndTime)
+{
+	_position = pPosition;
+	_leftNeighbour = pLeftNeighbour;
+	_rightNeighbour = pRightNeighbour;
+	_startTime = pStartTime;
+	_endTime = pEndTime;
+}
+
+
+Lane::~Lane()
+{
+}
+
+int Lane::GetLeft()
+{
+	return _leftNeighbour;
+}
+int Lane::GetRight()
+{
+	return _rightNeighbour;
+}
+
+sf::Vector3f Lane::GetPosition()
+{
+	return _position;
+}
+float Lane::GetStartTime()
+{
+	return _startTime;
+}
+
+float Lane::GetEndTine()
+{
+	return _endTime;
+}

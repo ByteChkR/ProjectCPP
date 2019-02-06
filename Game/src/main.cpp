@@ -3,6 +3,7 @@
 #include "mge/core/AbstractGame.hpp"
 #include "mge/MGEDemo.hpp"
 #include "mge\util\AudioManager.h"
+#include "mge\util\MapGenerator.h"
 
 /**
  * Main entry point for the Micro Engine.
@@ -22,6 +23,8 @@
 int main()
 {
 	AudioManager * audioManager = new AudioManager();
+	MapGenerator * mapgenerator = new MapGenerator();
+
     std::cout << "Starting Game" << std::endl;
 
     AbstractGame* game = new MGEDemo();
