@@ -23,8 +23,10 @@ class DebugHud
 
         sf::Font _font;
         sf::Text _debugText;
+		sf::Sprite _hudBox;
 
         void _createDebugHud();
+		void _createHudBox();
 
         DebugHud(const DebugHud&);
         DebugHud& operator=(const DebugHud&);

@@ -3,10 +3,12 @@
 
 #include <GL/glew.h>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics.hpp>
 #include "mge/util/DebugHud.hpp"
 #include "mge/config.hpp"
+#include "mge/core/Texture.hpp"
 
-DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo(), _font(), _debugText()
+DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo(), _font(), _debugText(), _hudBox()
 {
 	assert ( _window != NULL );
 
@@ -15,12 +17,21 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo
         return;
     }
 
+	Texture::load(config::MGE_TEXTURE_PATH + "HudBox.png")
+
+	_createHudBox();
     _createDebugHud();
 }
 
 DebugHud::~DebugHud()
 {
 	//dtor
+}
+
+void DebugHud::_createHudBox() 
+{
+	_hudBox.setPosition(100,100);
+
 }
 
 void DebugHud::_createDebugHud() {
@@ -41,5 +52,6 @@ void DebugHud::draw()
 	glActiveTexture(GL_TEXTURE0);
     _window->pushGLStates();
     _window->draw(_debugText);
+	_window->draw(_hudBox);
 	_window->popGLStates();
 }
