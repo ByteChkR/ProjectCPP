@@ -7,6 +7,7 @@ class ObjectPool
 {
 public:
 	ObjectPool(T original);
+	~ObjectPool();
 	T Take();
 	void Give(T val);
 	int TotalInstances();

@@ -25,7 +25,7 @@
 int main()
 {
 	AudioManager * audioManager = new AudioManager();
-	Level* level = new Level("test.txt", "decoration.txt");
+	Level* level = new Level("test.txt", "background.txt");
 
     std::cout << "Starting Game" << std::endl;
 

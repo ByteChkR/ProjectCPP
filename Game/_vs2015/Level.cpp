@@ -12,8 +12,8 @@ Level::Level(std::string map, std::string decoration)
 }
 Level::~Level()
 {
-	delete _map;
-	delete _decoration;
+	_map = nullptr;
+	_decoration = nullptr;
 }
 MapGenerator* Level::GetDeco()
 {
