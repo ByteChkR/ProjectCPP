@@ -29,6 +29,8 @@ GLint TextureMaterial::_steps = 0;
 TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps) :_diffuseTexture(pDiffuseTexture) {
 	this->shininess = shininess;
 	this->steps = steps;
+	_offset = offset;
+	offset += 4;
 	_lazyInitializeShader();
 }
 
@@ -72,6 +74,21 @@ void TextureMaterial::setDiffuseTexture(Texture* pDiffuseTexture) {
 	_diffuseTexture = pDiffuseTexture;
 }
 
+static glm::vec3 colors[8] =
+{
+	glm::vec3(1,0,0),
+	glm::vec3(0.75,0.25,0),
+	glm::vec3(0.5,0.5,0),
+	glm::vec3(0.25,0.75,0),
+	glm::vec3(0,1,0),
+	glm::vec3(0,0.75,0.25),
+	glm::vec3(0,0.5,0.5),
+	glm::vec3(0,0,1),
+
+};
+
+int TextureMaterial::offset = 0;
+
 void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
 	if (!_diffuseTexture) return;
 
@@ -96,7 +113,14 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 	glUniform1i(_lightCount, pWorld->getLightCount());
 	for (int i = 0; i < pWorld->getLightCount(); i++)
 	{
+		
 		_lightLocations[i].SetLight(&pWorld->getLightAt(i)->GetParams());
+	}
+
+	for (size_t i = 0; i < 8; i++)
+	{
+		int index = (i + _offset) % 8;
+		glUniform3f(_shader->getUniformLocation("colors[" + std::to_string(i) + "]"), colors[index].x, colors[index].y, colors[index].z);
 	}
 
 	//pass in a precalculate mvp matrix (see texture material for the opposite)

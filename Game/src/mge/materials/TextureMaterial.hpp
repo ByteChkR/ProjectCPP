@@ -36,7 +36,8 @@ class TextureMaterial : public AbstractMaterial
 		static GLint _lightCount;
 		static GLint _shininess;
 		static GLint _steps;
-
+		static int offset;
+		int _offset;
         static GLint _aVertex ;
         static GLint _aNormal;
         static GLint _aUV ;

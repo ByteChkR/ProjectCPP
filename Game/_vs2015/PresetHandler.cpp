@@ -2,7 +2,8 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/config.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
-#include "mge/materials/ColorMaterial.hpp"
+#include "mge/materials/TextureMaterial.hpp"
+#include "mge/core/Texture.hpp"
 PresetHandler* PresetHandler::instance = nullptr;
 PresetHandler::PresetHandler(std::vector<std::string> files)
 {
@@ -20,10 +21,10 @@ PresetHandler::PresetHandler(std::vector<std::string> files)
 	
 	GameObject* two = new GameObject("two");
 	Mesh* m = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
-	AbstractMaterial* mat = new ColorMaterial(glm::vec3(1, 0, 0));
-	AbstractMaterial* mat1 = new ColorMaterial(glm::vec3(0, 1, 0));
-	AbstractMaterial* mat2 = new ColorMaterial(glm::vec3(0, 0, 1));
-	AbstractMaterial* mat3 = new ColorMaterial(glm::vec3(0, 1, 1));
+	AbstractMaterial* mat = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
+	AbstractMaterial* mat1 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
+	AbstractMaterial* mat2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
+	AbstractMaterial* mat3 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
 	one->setMaterial(mat);
 	two->setMaterial(mat1);
 	three->setMaterial(mat2);

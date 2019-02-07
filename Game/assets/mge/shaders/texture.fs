@@ -11,6 +11,7 @@ struct Light
 	vec3 ambientColor;
 };
 
+uniform vec3 colors[8];
 uniform Light lights[8];
 uniform int lightCount;
 uniform sampler2D diffuseTexture;
@@ -19,6 +20,12 @@ in vec2 texCoord;
 in vec3 worldNormal;
 in vec3 fragmentWorldPosition;
 out vec4 fragment_color;
+
+vec3 GetToonColor(float intens)
+{
+	int col = int(8*intens);
+	return colors[col];
+}
 
 vec3 Calculate(int index, vec3 wNormal)
 {
@@ -39,7 +46,7 @@ vec3 Calculate(int index, vec3 wNormal)
 	vec3 specular = spec * diffIntensity * vec3(1);
 
 	
-	vec3 diffuse = (vec3(texture(diffuseTexture, texCoord)) * lights[index].intensity) * diffIntensity;
+	vec3 diffuse = (GetToonColor(diffIntensity) * lights[index].intensity) * diffIntensity;
 
 	return specular + diffuse + ambient;
 }
