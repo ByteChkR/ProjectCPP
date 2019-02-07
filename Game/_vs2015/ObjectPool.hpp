@@ -9,6 +9,7 @@ public:
 	ObjectPool(T original);
 	T Take();
 	void Give(T val);
+	int TotalInstances();
 private:
 	std::vector<T> _buffer;
 	std::vector<T> _activeBuffer;

@@ -116,6 +116,7 @@ void MGEDemo::_initializeScene()
 	new PresetHandler(std::vector<std::string>());
 	mb = new MapBuilder(50, 3);
 	GameObject* cont = mb->GetContainer();
+	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
 	
@@ -129,7 +130,7 @@ void MGEDemo::_render() {
 
 void MGEDemo::_updateHud() {
     std::string debugInfo = "";
-    debugInfo += std::string ("FPS:") + std::to_string((int)_fps)+"\n";
+    debugInfo += std::string("Instances:") + std::to_string(PresetHandler::instance->GetTotalInstances()) + "\n" +std::string ("FPS:") + std::to_string((int)_fps)+"\n";
 
     _hud->setDebugInfo(debugInfo);
     _hud->draw();

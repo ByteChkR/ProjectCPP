@@ -56,6 +56,16 @@ PresetHandler::PresetHandler(std::vector<std::string> files)
 
 }
 
+int PresetHandler::GetTotalInstances()
+{
+	int count = 0;
+	for each (ObjectPool<GameObject*>* op in presets)
+	{
+		count += op->TotalInstances();
+	}
+	return count;
+}
+
 void PresetHandler::GivePreset(size_t index, GameObject* preset)
 {
 	if (index >= presets.size())return;
