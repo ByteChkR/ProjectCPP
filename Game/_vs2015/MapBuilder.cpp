@@ -32,11 +32,11 @@ void MapBuilder::Update()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
 		
-		_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 1)*0.1f);
+		_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 1)*0.4f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 
-		_container->setLocalPosition(_container->getLocalPosition() - glm::vec3(0, 0, 1)*0.1f);
+		_container->setLocalPosition(_container->getLocalPosition() - glm::vec3(0, 0, 1)*0.4f);
 	}
 
 	float dist;
