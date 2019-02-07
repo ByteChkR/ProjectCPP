@@ -43,13 +43,12 @@ void MapBuilder::Update()
 	for (int i = map.size()-1; i >= 0; i--)
 	{
 		glm::vec3 v, c;
-		if (map[i].second != nullptr && ((v=map[i].second->getWorldPosition()).z > 1|| v.z < -genOffset) )
+		if (map[i].second != nullptr && ((v=(map[i].second->getLocalPosition()+_container->getLocalPosition())).z > 1 || v.z < -genOffset) )
 		{
 			PresetHandler::instance->GivePreset(map[i].first, map[i].second);
 			map[i].second = nullptr;
-  			std::cout << "Erased";
-			std::cout << map.size()<<"\n";
-			//map.erase(map.begin() + i);
+  			//std::cout << "Erased";
+			//std::cout << map.size()<<"\n";
 		}
 		else if(map[i].second == nullptr)
 		{
@@ -57,7 +56,7 @@ void MapBuilder::Update()
 			float reldist = dist - _container->getLocalPosition().z;
 			if (reldist > 0 && genOffset >= reldist)
 			{
-				std::cout << "Created\n";
+				//std::cout << "Created\n";
 				int lane = i % lanes;
 				glm::vec3 pos = MapGenerator::instance->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
 				GameObject* obj = PresetHandler::instance->TakePreset(map[i].first);

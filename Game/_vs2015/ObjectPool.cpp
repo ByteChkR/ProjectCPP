@@ -7,9 +7,14 @@ ObjectPool<GameObject*>::ObjectPool(GameObject*  original)
 	_activeBuffer = std::vector<GameObject*>();
 }
 
+int ObjectPool<GameObject*>::TotalInstances()
+{
+	return _buffer.size() + _activeBuffer.size();
+}
+
 void ObjectPool<GameObject*>::Give(GameObject*  val)
 {
-
+	
 	for (size_t i = 0; i < _activeBuffer.size(); i++)
 	{
 		if(_activeBuffer[i] == val)
