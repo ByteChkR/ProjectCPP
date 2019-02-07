@@ -8,7 +8,7 @@
 #include "mge/config.hpp"
 #include "mge/core/Texture.hpp"
 
-DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo(), _font(), _debugText(), _hudBox()
+DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo(), _font(), _debugText(), _hudBox(), _texture()
 {
 	assert ( _window != NULL );
 
@@ -17,7 +17,13 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo
         return;
     }
 
-	Texture::load(config::MGE_TEXTURE_PATH + "HudBox.png")
+	//sf::Texture _texture;
+	if (!_texture.loadFromFile(config::MGE_TEXTURE_PATH+ "HudBox.png")) {
+		std::cout << "Could not load texture, exiting..." << std::endl;
+		return;
+	}
+
+	_hudBox.setTexture(_texture);
 
 	_createHudBox();
     _createDebugHud();
@@ -30,7 +36,7 @@ DebugHud::~DebugHud()
 
 void DebugHud::_createHudBox() 
 {
-	_hudBox.setPosition(100,100);
+	_hudBox.setPosition(0,0);
 
 }
 

@@ -24,6 +24,7 @@ class DebugHud
         sf::Font _font;
         sf::Text _debugText;
 		sf::Sprite _hudBox;
+		sf::Texture _texture;
 
         void _createDebugHud();
 		void _createHudBox();
