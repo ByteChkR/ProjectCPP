@@ -121,6 +121,9 @@
     <ClInclude Include="ObjectPool.hpp">
       <Filter>MGE Source files\mge\util</Filter>
     </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -220,6 +223,9 @@
       <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
       <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
   </ItemGroup>

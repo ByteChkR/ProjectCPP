@@ -16,6 +16,7 @@ GameObject::~GameObject()
 
 	for (size_t i = 0; i < _behaviours.size(); i++)
 	{
+		if (_behaviours[i]->getOwner() == nullptr)continue;
 		delete _behaviours[i];
 	}
 	_behaviours.empty();

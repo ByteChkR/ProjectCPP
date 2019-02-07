@@ -192,6 +192,7 @@
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="DynamicBoxCollider.hpp" />
     <ClInclude Include="GLLight.hpp" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="LightParams.hpp" />
     <ClInclude Include="MapBuilder.h" />
     <ClInclude Include="Material.hpp" />
@@ -227,6 +228,7 @@
     <ClCompile Include="DynamicBoxCollider.cpp" />
     <ClCompile Include="GameMaterial.cpp" />
     <ClCompile Include="GLLight.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="LightParams.cpp" />
     <ClCompile Include="MapBuilder.cpp" />
     <ClCompile Include="Material.cpp" />
