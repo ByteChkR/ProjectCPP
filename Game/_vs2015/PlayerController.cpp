@@ -4,11 +4,11 @@
 #include "MapBuilder.h"
 PlayerController::PlayerController()
 {
-	_currentLane = -1;
+	_currentLane = 0;
 	_gravity = -1;
-	_jumpForce = 0.2f;
+	_jumpForce = 0.3f;
 	_velocity = 0;
-	_switchTime = 0.5f;
+	_switchTime = 0.1f;
 	_curSwitchTime = 0;
 	_nextLane = -1;
 
@@ -37,6 +37,16 @@ void PlayerController::OnCollision(GameObject* other)
 
 void PlayerController::update(float pTime)
 {
+	glm::vec3 curr = MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition();
+	glm::vec3 nextL;
+	if (_nextLane == -1)
+	{
+		nextL = MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition();
+	}
+	else
+	{
+		nextL = MapGenerator::instance->GetLaneAt(_nextLane)->GetPosition();
+	}
 	if (_currentLane == -1)
 	{
 		_currentLane = 0;
@@ -102,14 +112,20 @@ void PlayerController::handleSwitch(float pTime)
 
 		oldLane = MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition();
 		newLane = MapGenerator::instance->GetLaneAt(_nextLane)->GetPosition();
-		_owner->setLocalPosition(glm::smoothstep(oldLane, newLane, glm::vec3(t)));//Using smooth step to change between lanes
+		float newX = oldLane.x + t * (newLane.x - oldLane.x);
+		glm::vec3 ownerPos = _owner->getLocalPosition();
+		ownerPos.x = newX;
+		_owner->setLocalPosition(ownerPos);//Using smooth step to change between lanes
+
 		_curSwitchTime += pTime;
 		if (_curSwitchTime >= _switchTime)
 		{
 			_isSwitching = false;
 			_currentLane = _nextLane;
 			//Set the position of the player to the lane diectly to avoid unpresicion
-			_owner->setLocalPosition(newLane);
+			glm::vec3 posWithOwnerY = newLane;
+			posWithOwnerY.y = ownerPos.y;
+			_owner->setLocalPosition(posWithOwnerY);
 		}
 
 	}

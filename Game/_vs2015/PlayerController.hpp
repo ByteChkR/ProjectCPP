@@ -3,6 +3,7 @@
 #include "mge/behaviours/AbstractBehaviour.hpp"
 #include "mge/core/GameObject.hpp"
 #include "DynamicBoxCollider.hpp"
+#include <iostream>
 
 class PlayerController : public AbstractBehaviour
 {
