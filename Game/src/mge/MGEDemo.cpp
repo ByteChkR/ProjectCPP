@@ -114,7 +114,7 @@ void MGEDemo::_initializeScene()
     light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
 	new PresetHandler(std::vector<std::string>());
-	mb = new MapBuilder(50, 3);
+	mb = new MapBuilder(50);
 	GameObject* cont = mb->GetContainer();
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
