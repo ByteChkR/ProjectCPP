@@ -6,6 +6,7 @@ PlayerController::PlayerController()
 {
 	_currentLane = 0;
 	_gravity = -1;
+	_gravityWhenGoingDown = -5;
 	_jumpForce = 0.3f;
 	_velocity = 0;
 	_switchTime = 0.1f;
@@ -15,6 +16,10 @@ PlayerController::PlayerController()
 	_grounded = false;
 	_isSwitching = false;
 	_isJumping = true;
+	_isGoingDown = false;
+	_isAPressed = false;
+	_isDPressed = false;
+	_isWPRessed = false;
 
 }
 
@@ -48,9 +53,56 @@ void PlayerController::update(float pTime)
 		nextL = MapGenerator::instance->GetLaneAt(_nextLane)->GetPosition();
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))jump();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))switchLeft();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))switchRight();
+	
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		if (_isWPRessed == false)
+		{
+			_isWPRessed = true;
+			jump();
+		}
+	}
+	else
+	{
+		_isWPRessed = false;
+	}
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		if (_isAPressed == false)
+		{
+			switchLeft();
+			_isAPressed = true;
+		}
+	}
+	else
+	{
+		_isAPressed = false;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		if (_isDPressed == false)
+		{
+			switchRight();
+			_isDPressed = true;
+		}
+	}
+	else
+	{
+		_isDPressed = false;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		if (_grounded == false)
+		{
+			_isGoingDown = true;
+		}
+	}
+	
 
 	//if jumpButton
 	//jump()
@@ -70,6 +122,7 @@ void PlayerController::jump()
 {
 	if (!_grounded || _isJumping)return;
 	_isJumping = true;
+	_grounded = false;
 	_velocity = _jumpForce;
 
 }
@@ -135,11 +188,20 @@ void PlayerController::handleJump(float pTime)
 	//Map generator automatically returns the lane struct (interpolated) of the current position
 	if (_isJumping)
 	{
-		_velocity += _gravity * pTime;
+		if (_isGoingDown == false)
+		{
+			_velocity += _gravity * pTime;
+		}
+		else
+		{
+			_velocity += _gravityWhenGoingDown * pTime;
+		}
+
 		if (_owner->getLocalPosition().y + _velocity < tempLaneYPosition) //Player is on ground again
 		{
 			_grounded = true;
 			_isJumping = false;
+			_isGoingDown = false;
 			_velocity = 0;
 			_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition());
 		}

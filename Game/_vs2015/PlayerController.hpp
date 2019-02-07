@@ -21,10 +21,15 @@ private:
 	float _curSwitchTime;
 	float _jumpForce;
 	float _gravity;
+	float _gravityWhenGoingDown;
 	float _velocity;
+	bool _isGoingDown;
 	bool _grounded;
 	bool _isJumping;
 	bool _isSwitching;
+	bool _isAPressed;
+	bool _isDPressed;
+	bool _isWPRessed;
 	
 
 	void jump();
