@@ -31,6 +31,7 @@ PlayerController::~PlayerController()
 void PlayerController::OnCollision(GameObject* other)
 {
 	//Player dies if not a coin
+	std::cout << "COLLISION\n";
 }
 
 

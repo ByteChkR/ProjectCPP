@@ -91,7 +91,7 @@ void MGEDemo::_initializeScene()
 
     //add a spinning sphere
     GameObject* sphere = new GameObject ("sphere", glm::vec3(0,0,0));
-	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, 0.5)));
+	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1)));
     sphere->setMesh (sphereMeshS);
     sphere->setMaterial(runicStoneMaterial);
     sphere->addBehaviour (new PlayerController());

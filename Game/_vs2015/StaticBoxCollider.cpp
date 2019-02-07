@@ -8,7 +8,7 @@ StaticBoxCollider::StaticBoxCollider(float width, float height, float depth) : A
 	_height = height;
 	_width = width;
 	_depth = depth;
-	AbstractGame::instance->_manager->RegisterCollider(this);
+	_init = false;
 }
 
 StaticBoxCollider::~StaticBoxCollider()
@@ -16,7 +16,24 @@ StaticBoxCollider::~StaticBoxCollider()
 
 }
 
-void StaticBoxCollider::update(float time){}
+AbstractBehaviour* StaticBoxCollider::Clone()
+{
+	return new StaticBoxCollider(_width, _height, _depth);
+}
+
+void StaticBoxCollider::update(float time)
+{
+	if (!_init && _owner != nullptr)
+	{
+		_init = true;
+		AbstractGame::instance->_manager->RegisterCollider(this);
+	}
+	else if (_init && _owner == nullptr)
+	{
+		_init = false;
+		AbstractGame::instance->_manager->UnRegisterCollider(this);
+	}
+}
 
 bool StaticBoxCollider::IsCollision(DynamicBoxCollider* ball)
 {

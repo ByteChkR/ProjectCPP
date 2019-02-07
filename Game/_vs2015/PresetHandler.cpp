@@ -4,6 +4,7 @@
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/TextureMaterial.hpp"
 #include "mge/core/Texture.hpp"
+#include "StaticBoxCollider.hpp"
 PresetHandler* PresetHandler::instance = nullptr;
 PresetHandler::PresetHandler(std::vector<std::string> files)
 {
@@ -19,12 +20,18 @@ PresetHandler::PresetHandler(std::vector<std::string> files)
 	GameObject* three = new GameObject("three");
 	GameObject* four = new GameObject("four");
 	
+	StaticBoxCollider* sbc = new StaticBoxCollider(1, 1, 1);
+
 	GameObject* two = new GameObject("two");
 	Mesh* m = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 	AbstractMaterial* mat = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
 	AbstractMaterial* mat1 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
 	AbstractMaterial* mat2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
 	AbstractMaterial* mat3 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
+	one->addBehaviour(sbc);
+	two->addBehaviour(sbc->Clone());
+	three->addBehaviour(sbc->Clone());
+	four->addBehaviour(sbc->Clone());
 	one->setMaterial(mat);
 	two->setMaterial(mat1);
 	three->setMaterial(mat2);
