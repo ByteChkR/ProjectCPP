@@ -11,6 +11,8 @@ struct Part
 
 MapGenerator::MapGenerator(std::string pName)
 {
+	  std::default_random_engine d(seed);
+	  e = d;
 	instance = this;
 	std::vector< Part> parts;
 
@@ -53,6 +55,9 @@ MapGenerator::MapGenerator(std::string pName)
 	std::cout << "reading finished"<< '\n';
 
 	file.close();
+	
+	//auto rng = std::default_random_engine{};
+	std::shuffle(parts.begin(), parts.end(),e);
 
 	for (int i = 0; i < rows; i++)
 	{

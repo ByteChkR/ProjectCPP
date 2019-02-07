@@ -3,6 +3,10 @@
 #include <vector>
 #include <SFML\Graphics.hpp>
 #include "mge\util\Lane.h"
+#include <algorithm>    // std::shuffle
+#include <vector>       // std::vector
+#include <random>       // std::default_random_engine
+#include <chrono>       // std::chrono::system_clock
 
 class MapGenerator
 {
@@ -18,6 +22,8 @@ public:
 
 
 private:
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine e;
 	float _laneSpace = 2;
 	std::string _filePath = "mge/maps/";
 	std::vector<Lane *> _lanes;
