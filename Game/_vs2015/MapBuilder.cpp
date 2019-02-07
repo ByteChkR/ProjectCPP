@@ -30,10 +30,10 @@ GameObject* MapBuilder::GetContainer()
 void MapBuilder::Update()
 {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		
 		_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 1)*0.4f);
-	}
+	//}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 
 		_container->setLocalPosition(_container->getLocalPosition() - glm::vec3(0, 0, 1)*0.4f);
