@@ -4,6 +4,7 @@
 #include "mge/MGEDemo.hpp"
 #include "mge\util\AudioManager.h"
 #include "mge\util\MapGenerator.h"
+#include "../_vs2015/Level.h"
 #include <vector>
 
 /**
@@ -24,7 +25,7 @@
 int main()
 {
 	AudioManager * audioManager = new AudioManager();
-	MapGenerator * mapGenerator = new MapGenerator("test.txt");
+	Level* level = new Level("test.txt", "background.txt");
 
     std::cout << "Starting Game" << std::endl;
 

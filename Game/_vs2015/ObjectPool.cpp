@@ -7,6 +7,14 @@ ObjectPool<GameObject*>::ObjectPool(GameObject*  original)
 	_activeBuffer = std::vector<GameObject*>();
 }
 
+ObjectPool<GameObject*>::~ObjectPool()
+{
+	_activeBuffer.clear();
+	_buffer.clear();
+	delete _original;
+	_original = nullptr;
+}
+
 int ObjectPool<GameObject*>::TotalInstances()
 {
 	return _buffer.size() + _activeBuffer.size();
@@ -21,7 +29,6 @@ void ObjectPool<GameObject*>::Give(GameObject*  val)
 		{
 			_activeBuffer.erase(_activeBuffer.begin() + i);
 			_buffer.push_back(val);
-			return;
 		}
 	}
 }

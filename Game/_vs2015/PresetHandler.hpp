@@ -10,6 +10,7 @@ class PresetHandler
 public:
 	static PresetHandler* instance;
 	PresetHandler(std::vector<std::string> files);
+	~PresetHandler();
 	GameObject* TakePreset(size_t index);
 	void GivePreset(size_t index, GameObject* preset);
 	int GetTotalInstances();

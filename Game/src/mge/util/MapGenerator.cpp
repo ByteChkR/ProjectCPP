@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-MapGenerator * MapGenerator::instance;
+MapGenerator * MapGenerator::instance = nullptr;
 std::default_random_engine MapGenerator::e;
 
 struct Part
@@ -10,11 +10,11 @@ struct Part
 	std::vector<Lane> lanes;
 };
 
-MapGenerator::MapGenerator(std::string pName)
+MapGenerator::MapGenerator(std::string pName, bool isInstance)
 {
-	  e = std::default_random_engine(seed);
+	e = std::default_random_engine(seed);
 	  //e = d;
-	instance = this;
+	if(isInstance)instance = this;
 	std::vector< Part> parts;
 
 	std::string fullPath = _filePath + pName;
@@ -118,6 +118,7 @@ MapGenerator::MapGenerator(std::string pName)
 
 MapGenerator::~MapGenerator()
 {
+	instance = nullptr;
 }
 
 Lane* MapGenerator::GetLaneAt(size_t pIndex)

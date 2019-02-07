@@ -6,6 +6,16 @@
 #include "mge/core/Texture.hpp"
 #include "StaticBoxCollider.hpp"
 PresetHandler* PresetHandler::instance = nullptr;
+
+PresetHandler::~PresetHandler()
+{
+	for each (ObjectPool<GameObject*>* op in presets)
+	{
+		//delete op;
+		op = nullptr;
+	}
+}
+
 PresetHandler::PresetHandler(std::vector<std::string> files)
 {
 	instance = this;

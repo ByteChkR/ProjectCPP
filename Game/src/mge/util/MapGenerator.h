@@ -14,7 +14,7 @@ public:
 
 	static MapGenerator * instance;
 
-	MapGenerator(std::string pName);
+	MapGenerator(std::string pName, bool isInstance = true);
 	~MapGenerator();
 	std::vector<Lane*> GetAllLanes();
 	size_t GetNumberOfLanes();

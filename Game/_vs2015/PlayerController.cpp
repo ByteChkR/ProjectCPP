@@ -37,11 +37,13 @@ void PlayerController::OnCollision(GameObject* other)
 {
 	//Player dies if not a coin
 	std::cout << "COLLISION\n";
+
 }
 
 
 void PlayerController::update(float pTime)
 {
+
 	glm::vec3 curr = MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition();
 	glm::vec3 nextL;
 	if (_nextLane == -1)
