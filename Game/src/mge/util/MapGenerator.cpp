@@ -3,6 +3,7 @@
 #include <iostream>
 
 MapGenerator * MapGenerator::instance;
+std::default_random_engine MapGenerator::e;
 
 struct Part
 {
@@ -11,8 +12,8 @@ struct Part
 
 MapGenerator::MapGenerator(std::string pName)
 {
-	  std::default_random_engine d(seed);
-	  e = d;
+	  e = std::default_random_engine(seed);
+	  //e = d;
 	instance = this;
 	std::vector< Part> parts;
 

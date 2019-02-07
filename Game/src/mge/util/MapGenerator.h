@@ -23,7 +23,7 @@ public:
 
 private:
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::default_random_engine e;
+	static std::default_random_engine e;
 	float _laneSpace = 2;
 	std::string _filePath = "mge/maps/";
 	std::vector<Lane *> _lanes;

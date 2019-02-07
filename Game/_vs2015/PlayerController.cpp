@@ -47,12 +47,7 @@ void PlayerController::update(float pTime)
 	{
 		nextL = MapGenerator::instance->GetLaneAt(_nextLane)->GetPosition();
 	}
-	if (_currentLane == -1)
-	{
-		_currentLane = 0;
-		glm::vec3 v = MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition();
-		_owner->setLocalPosition(v);
-	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))jump();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))switchLeft();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))switchRight();
