@@ -65,9 +65,9 @@ MapGenerator::MapGenerator(std::string pName)
 		}
 		else
 		{
-			if (i == (int)parts.size() - 1)
+			if (i == rows - 1)
 			{
-				laneLeft = (int)parts.size() - 2;
+				laneLeft = rows - 2;
 				laneRight = -1;
 			}
 			else

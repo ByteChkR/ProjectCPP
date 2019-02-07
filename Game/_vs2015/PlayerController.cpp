@@ -4,7 +4,7 @@
 #include "MapBuilder.h"
 PlayerController::PlayerController()
 {
-	_currentLane = 0;
+	_currentLane = -1;
 	_gravity = -1;
 	_jumpForce = 0.2f;
 	_velocity = 0;
@@ -36,6 +36,12 @@ void PlayerController::OnCollision(GameObject* other)
 
 void PlayerController::update(float pTime)
 {
+	if (_currentLane == -1)
+	{
+		_currentLane = 0;
+		glm::vec3 v = MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition();
+		_owner->setLocalPosition(v);
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))jump();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))switchLeft();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))switchRight();

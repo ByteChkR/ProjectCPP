@@ -30,16 +30,20 @@ GameObject* MapBuilder::GetContainer()
 void MapBuilder::Update()
 {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
 		
 		_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 1)*0.1f);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+
+		_container->setLocalPosition(_container->getLocalPosition() - glm::vec3(0, 0, 1)*0.1f);
 	}
 
 	float dist;
 	for (int i = map.size()-1; i >= 0; i--)
 	{
 		glm::vec3 v, c;
-		if (map[i].second != nullptr && (v=map[i].second->getWorldPosition()).z > 1)
+		if (map[i].second != nullptr && ((v=map[i].second->getWorldPosition()).z > 1|| v.z < -genOffset) )
 		{
 			PresetHandler::instance->GivePreset(map[i].first, map[i].second);
 			map[i].second = nullptr;

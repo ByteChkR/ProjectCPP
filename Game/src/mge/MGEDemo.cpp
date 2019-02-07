@@ -76,9 +76,9 @@ void MGEDemo::_initializeScene()
     //SCENE SETUP
 
    //add camera first (it will be updated last)
-    Camera* camera = new Camera ("camera", glm::vec3(0,6,0));
-    camera->rotate(glm::radians(-20.0f), glm::vec3(1,0,0));
-    _world->add(camera);
+    Camera* camera = new Camera ("camera", glm::vec3(0,1,0));
+    camera->rotate(glm::radians(-30.0f), glm::vec3(1,0,0));
+    
     _world->setMainCamera(camera);
 
     //add the floor
@@ -92,11 +92,12 @@ void MGEDemo::_initializeScene()
     //add a spinning sphere
     GameObject* sphere = new GameObject ("sphere", glm::vec3(0,0,0));
 	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, 0.5)));
-    sphere->scale(glm::vec3(2.5,2.5,2.5));
     sphere->setMesh (sphereMeshS);
     sphere->setMaterial(runicStoneMaterial);
     sphere->addBehaviour (new PlayerController());
-    //_world->add(sphere);
+    _world->add(sphere);
+	sphere->add(camera);
+	camera->setLocalPosition(glm::vec3(0, 2, 3));
 
     //add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
     //It's here as a place holder to get you started.
