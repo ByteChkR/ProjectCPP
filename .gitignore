@@ -5,6 +5,7 @@
 
 # User-specific files
 *.suo
+*.tlog
 # *.user
 *.tlog
 *.userosscache
