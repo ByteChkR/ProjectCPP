@@ -28,14 +28,16 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	std::ifstream file(fullPath);
 	file >> columns;
 	file >> rows;
-
+<<<<<<< HEAD
 	for (int i = 0; i < rows; i++)
 	{
 		int a;
 		file >> a;
 		steps.push_back(a);
 	}
+=======
 
+>>>>>>> 836f08ae5772e55d791104d4ea8ce58b1e63ba35
 	file >> numberOfParts;
 	std::cout <<"columns: "<< columns << " rows: " << rows << " number of parts: " << numberOfParts<<'\n';
 

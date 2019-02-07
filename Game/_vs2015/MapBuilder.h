@@ -8,7 +8,7 @@
 class MapBuilder
 {
 public:
-	MapBuilder(float generationOffset, float segmentStep);
+	MapBuilder(float generationOffset);
 	~MapBuilder();
 	void Update();
 	std::vector<std::pair<int, GameObject*>> PrepareMap(std::vector<Lane*> lanes, size_t length);
@@ -22,7 +22,6 @@ private:
 	std::vector<std::pair<int, GameObject*>> _mapPropList;
 	std::vector<std::pair<int, GameObject*>> _decoPropList;
 	float genOffset;
-	float segStep;
 };
 
 #endif // !MAPBUILDER_HPP

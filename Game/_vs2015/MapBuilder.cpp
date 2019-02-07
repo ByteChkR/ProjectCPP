@@ -7,12 +7,11 @@
 #include "Level.h"
 MapBuilder* MapBuilder::instance = nullptr;
 
-MapBuilder::MapBuilder(float generationOffset, float segmentStep)
+MapBuilder::MapBuilder(float generationOffset)
 {
 	instance = this;
 	_container = new GameObject("CONTAINER");
 	genOffset = generationOffset;
-	segStep = segmentStep;
 
 	/*_map = Level::instance->GetMap();
 	_deco = Level::instance->GetDeco();*/
@@ -47,12 +46,13 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 		}
 		else if ((*list)[i].second == nullptr)
 		{
-			float dist = (i / gen->GetNumberOfLanes()) * segStep;
+
+			int lane = i % gen->GetNumberOfLanes();
+			float dist = (i / gen->GetNumberOfLanes()) * gen->GetLaneAt(lane)->GetStep();
 			float reldist = dist - glm::abs(_container->getLocalPosition().z);
 			if (reldist > 0 && genOffset >= reldist)
 			{
 				//std::cout << "Created\n";
-				int lane = i % gen->GetNumberOfLanes();
 				glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
 				GameObject* obj = PresetHandler::instance->TakePreset((*list)[i].first);
 				(*list)[i].second = obj;
