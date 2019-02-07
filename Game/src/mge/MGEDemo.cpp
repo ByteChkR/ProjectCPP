@@ -113,16 +113,16 @@ void MGEDemo::_initializeScene()
     light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
 	new PresetHandler(std::vector<std::string>());
-	mb = new MapBuilder(1, 3);
+	mb = new MapBuilder(15, 3);
 	GameObject* cont = mb->GetContainer();
-	cont->addBehaviour(new KeysBehaviour());
+	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
 	
 }
 
 void MGEDemo::_render() {
     AbstractGame::_render();
-	//mb->Update();
+	mb->Update();
     _updateHud();
 }
 

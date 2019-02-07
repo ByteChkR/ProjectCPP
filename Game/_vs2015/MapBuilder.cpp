@@ -4,8 +4,11 @@
 #include "mge/util/MapGenerator.h"
 #include "mge/core/AbstractGame.hpp"
 #include "mge/core/World.hpp"
+MapBuilder* MapBuilder::instance = nullptr;
+
 MapBuilder::MapBuilder(float generationOffset, float segmentStep)
 {
+	instance = this;
 	_container = new GameObject("CONTAINER");
 	genOffset = generationOffset;
 	totalTime = 0;
@@ -27,25 +30,36 @@ GameObject* MapBuilder::GetContainer()
 void MapBuilder::Update()
 {
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+		
+		_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 1)*0.1f);
+	}
+
 	float dist;
-	for (int i = 0; i < map.size(); i++)
+	for (int i = map.size()-1; i >= 0; i--)
 	{
-		glm::vec3 v;
-		if (map[i].second != nullptr && (v=map[i].second->getWorldPosition()).z < 0)
+		glm::vec3 v, c;
+		if (map[i].second != nullptr && (v=map[i].second->getWorldPosition()).z > 1)
 		{
 			PresetHandler::instance->GivePreset(map[i].first, map[i].second);
 			map[i].second = nullptr;
+  			std::cout << "Erased";
+			std::cout << map.size()<<"\n";
+			//map.erase(map.begin() + i);
 		}
-		else
+		else if(map[i].second == nullptr)
 		{
 			float dist = (i / lanes) * segStep;
-			if (genOffset > dist)
+			float reldist = dist - _container->getLocalPosition().z;
+			if (reldist > 0 && genOffset >= reldist)
 			{
+				std::cout << "Created\n";
 				int lane = i % lanes;
-				glm::vec3 pos = MapGenerator::instance->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * (i % lanes) * segStep;
+				glm::vec3 pos = MapGenerator::instance->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
 				GameObject* obj = PresetHandler::instance->TakePreset(map[i].first);
 				map[i].second = obj;
-				obj->setParent(_container);
+				if (obj->getParent() != _container)
+					_container->add(obj);
 				obj->setLocalPosition(pos);
 			}
 		}
@@ -66,12 +80,12 @@ std::vector<std::pair<int, GameObject*>> MapBuilder::PrepareMap(std::vector<Lane
 	{
 		for (size_t j = 0; j < arrs.size(); j++)
 		{
-			glm::vec3 pos = MapGenerator::instance->GetLaneAt(j)->GetPosition() + glm::vec3(0, 0, -1) * i * segStep;
-			//std::cout << pos.x << " " << pos.y << " " << pos.z << '\n';
-			GameObject* obj = PresetHandler::instance->TakePreset(arrs[j][i]);
-			obj->setParent(_container);
-			obj->setLocalPosition(pos);
-			ret.push_back(std::pair<int, GameObject*>(arrs[j][i], obj));
+			//glm::vec3 pos = MapGenerator::instance->GetLaneAt(j)->GetPosition() + glm::vec3(0, 0, -1) * i * segStep;
+			////std::cout << pos.x << " " << pos.y << " " << pos.z << '\n';
+			//GameObject* obj = PresetHandler::instance->TakePreset(arrs[j][i]);
+			//obj->setParent(_container);
+			//obj->setLocalPosition(pos);
+			ret.push_back(std::pair<int, GameObject*>(arrs[j][i], nullptr));
 		}
 	}
 	return ret;

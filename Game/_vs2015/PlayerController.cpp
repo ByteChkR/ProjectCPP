@@ -1,6 +1,7 @@
 #include "PlayerController.hpp"
 #include "SFML/Window.hpp"
 #include "mge/util/MapGenerator.h"
+#include "MapBuilder.h"
 PlayerController::PlayerController()
 {
 	_currentLane = 0;
@@ -14,7 +15,7 @@ PlayerController::PlayerController()
 	_grounded = false;
 	_isSwitching = false;
 	_isJumping = true;
-	
+
 }
 
 AbstractBehaviour* PlayerController::Clone()
@@ -31,6 +32,7 @@ void PlayerController::OnCollision(GameObject* other)
 {
 	//Player dies if not a coin
 }
+
 
 void PlayerController::update(float pTime)
 {
@@ -49,7 +51,7 @@ void PlayerController::update(float pTime)
 	handleJump(pTime);
 	handleSwitch(pTime);
 
-	
+
 }
 
 void PlayerController::jump()
@@ -75,7 +77,7 @@ void PlayerController::switchLeft()
 void PlayerController::switchRight()
 {
 	if (_isSwitching)return;
-	_nextLane = MapGenerator::instance->GetLaneAt(_currentLane)->GetRight(); 
+	_nextLane = MapGenerator::instance->GetLaneAt(_currentLane)->GetRight();
 	if (_nextLane == -1)
 	{
 		return; //Something went wrong. u are already on most right lane? or the next lane has not yet started?
@@ -124,6 +126,6 @@ void PlayerController::handleJump(float pTime)
 			_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition());
 		}
 		//Add the Velocity
-		if(_isJumping)_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 1, 0) * _velocity);
+		if (_isJumping)_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 1, 0) * _velocity);
 	}
 }

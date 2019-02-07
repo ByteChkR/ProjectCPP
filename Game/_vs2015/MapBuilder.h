@@ -11,6 +11,7 @@ public:
 	void Update();
 	std::vector<std::pair<int, GameObject*>> PrepareMap(std::vector<Lane*> lanes, size_t length);
 	GameObject* GetContainer();
+	static MapBuilder* instance;
 private:
 	GameObject* _container;
 	

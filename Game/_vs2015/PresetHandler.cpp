@@ -13,20 +13,30 @@ PresetHandler::PresetHandler(std::vector<std::string> files)
 
 	std::vector<GameObject*> gobjs; //Pretend this is filled with gameobjects
 
-	GameObject* zero = new GameObject("");
-	GameObject* one = new GameObject("");
+	GameObject* zero = new GameObject("zero");
+	GameObject* one = new GameObject("one"); 
+	GameObject* three = new GameObject("three");
+	GameObject* four = new GameObject("four");
 	
-	GameObject* two = new GameObject("");
+	GameObject* two = new GameObject("two");
 	Mesh* m = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 	AbstractMaterial* mat = new ColorMaterial(glm::vec3(1, 0, 0));
 	AbstractMaterial* mat1 = new ColorMaterial(glm::vec3(0, 1, 0));
+	AbstractMaterial* mat2 = new ColorMaterial(glm::vec3(0, 0, 1));
+	AbstractMaterial* mat3 = new ColorMaterial(glm::vec3(0, 1, 1));
 	one->setMaterial(mat);
 	two->setMaterial(mat1);
+	three->setMaterial(mat2);
+	four->setMaterial(mat3);
 	one->setMesh(m);
 	two->setMesh(m);
+	three->setMesh(m);
+	four->setMesh(m);
 	gobjs.push_back(zero);
 	gobjs.push_back(one);
 	gobjs.push_back(two);
+	gobjs.push_back(three);
+	gobjs.push_back(four);
 
 
 	presets = std::vector<ObjectPool<GameObject*>*>();
@@ -41,6 +51,7 @@ PresetHandler::PresetHandler(std::vector<std::string> files)
 void PresetHandler::GivePreset(size_t index, GameObject* preset)
 {
 	if (index >= presets.size())return;
+	preset->setLocalPosition(glm::vec3(0, 0, -50));
 	presets[index]->Give(preset);
 }
 
