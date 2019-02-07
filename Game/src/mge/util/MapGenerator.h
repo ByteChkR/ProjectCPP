@@ -22,6 +22,8 @@ public:
 
 
 private:
+
+
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	static std::default_random_engine e;
 	float _laneSpace = 2;

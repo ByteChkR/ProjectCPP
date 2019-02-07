@@ -16,7 +16,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	  //e = d;
 	if(isInstance)instance = this;
 	std::vector< Part> parts;
-
+	std::vector<int> steps;
 	std::string fullPath = _filePath + pName;
 
 	int columns = 0;
@@ -28,6 +28,12 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	std::ifstream file(fullPath);
 	file >> columns;
 	file >> rows;
+	for (int i = 0; i < rows; i++)
+	{
+		int a;
+		file >> a;
+		steps.push_back(a);
+	}
 	file >> numberOfParts;
 	std::cout <<"columns: "<< columns << " rows: " << rows << " number of parts: " << numberOfParts<<'\n';
 
@@ -38,7 +44,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		for (int j = 0; j < rows; j++)
 		{
 			std::cout << "reading lane " << j <<" of part "<< i << '\n';
-			Lane  lane(glm::vec3(0,0,0),0,0,0,0,std::vector<int>());
+			Lane  lane(glm::vec3(0,0,0),0,0,0,0,std::vector<int>(),0);
 			for (int k = 0; k < columns; k++)
 			{
 				std::cout << "reading segment " << k << '\n';
@@ -99,13 +105,14 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 			}
 		}
 
-		Lane * lane = new Lane(glm::vec3(0 + _laneSpace * i, 0, 0), laneLeft, laneRight, 0, 0, sumedSegments);
+		Lane * lane = new Lane(glm::vec3(0 + _laneSpace * i, 0, 0), laneLeft, laneRight, 0, 0, sumedSegments,steps[i]);
 		_lanes.push_back(lane);
 
 	}
 
 	for (int i = 0; i < (int)_lanes.size(); i++)
 	{
+		std::cout <<"Step of line "<< i<< " is: "<< _lanes[i]->GetStep() << " " << '\n';
 		for (int j = 0; j < columns; j++)
 		{
 			std::cout << _lanes[i]->GetSegments()[j]<<" ";

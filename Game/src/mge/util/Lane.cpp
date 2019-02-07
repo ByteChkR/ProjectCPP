@@ -4,8 +4,9 @@
 
 
 
-Lane::Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour, float pStartTime, float pEndTime, std::vector<int> pSegments)
+Lane::Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour, float pStartTime, float pEndTime, std::vector<int> pSegments, int pStep)
 {
+	_step = pStep;
 	_segments = pSegments;
 	_position = pPosition;
 	_leftNeighbour = pLeftNeighbour;
@@ -49,5 +50,10 @@ std::vector<int> Lane::GetSegments()
 void Lane::AddSegment(int pNumber)
 {
 	_segments.push_back(pNumber);
+}
+
+int Lane::GetStep()
+{
+	return _step;
 }
 
