@@ -19,6 +19,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	std::vector<int> steps;
 	std::string fullPath = _filePath + pName;
 
+	int randomize = 0;
 	int columns = 0;
 	int rows = 0;
 	int numberOfParts = 0;
@@ -26,6 +27,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	std::cout<<"The path of the file: " << fullPath << '\n';
 
 	std::ifstream file(fullPath);
+	file >> randomize;
 	file >> columns;
 	file >> rows;
 
@@ -66,7 +68,10 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	file.close();
 	
 	//auto rng = std::default_random_engine{};
-	std::shuffle(parts.begin(), parts.end(),e);
+	if (randomize == 1)
+	{
+		std::shuffle(parts.begin(), parts.end(), e);
+	}
 
 	for (int i = 0; i < rows; i++)
 	{
