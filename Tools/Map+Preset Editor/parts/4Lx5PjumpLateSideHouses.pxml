@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<Part xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <name>4Lx5PjumpLateSideHouses.pxml</name>
+  <partLength>5</partLength>
+  <laneCount>4</laneCount>
+  <part>
+    <ArrayOfInt>
+      <int>2</int>
+      <int>2</int>
+      <int>2</int>
+      <int>2</int>
+      <int>2</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>1</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>1</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>2</int>
+      <int>2</int>
+      <int>2</int>
+      <int>2</int>
+      <int>2</int>
+    </ArrayOfInt>
+  </part>
+</Part>

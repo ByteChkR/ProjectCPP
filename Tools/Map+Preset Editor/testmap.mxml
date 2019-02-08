@@ -2,11 +2,12 @@
 <Map xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PartSize>5</PartSize>
   <LaneCount>4</LaneCount>
+  <RandomizePartOrder>0</RandomizePartOrder>
   <LaneSteps>
-    <int>5</int>
     <int>3</int>
     <int>3</int>
-    <int>5</int>
+    <int>3</int>
+    <int>3</int>
   </LaneSteps>
   <PartSequence>
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
@@ -14,13 +15,17 @@
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
+    <string>4Lx25PfreeFreeAllSideHouses.pxml</string>
     <string>4Lx5PlaneChangeLtoRSideHouses.pxml</string>
+    <string>4Lx25PfreeFreeAllSideHouses.pxml</string>
     <string>4Lx5PfreeOnRightSideHouses.pxml</string>
     <string>4Lx5PfreeOnRightSideHouses.pxml</string>
     <string>4Lx5PfreeOnRightSideHouses.pxml</string>
     <string>4Lx5PfreeOnRightSideHouses.pxml</string>
     <string>4Lx5PfreeOnRightSideHouses.pxml</string>
+    <string>4Lx25PfreeFreeAllSideHouses.pxml</string>
     <string>4Lx5PlaneChangeRtoLSideHouses.pxml</string>
+    <string>4Lx25PfreeFreeAllSideHouses.pxml</string>
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
