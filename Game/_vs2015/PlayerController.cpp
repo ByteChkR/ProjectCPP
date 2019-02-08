@@ -37,7 +37,7 @@ void PlayerController::OnCollision(GameObject* other)
 {
 	//Player dies if not a coin
 	std::cout << "COLLISION\n";
-
+	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
 }
 
 
