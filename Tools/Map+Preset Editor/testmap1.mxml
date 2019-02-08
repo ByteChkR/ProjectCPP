@@ -3,24 +3,19 @@
   <PartSize>5</PartSize>
   <LaneCount>4</LaneCount>
   <LaneSteps>
-    <int>5</int>
-    <int>3</int>
-    <int>3</int>
-    <int>5</int>
+    <int>0</int>
+    <int>0</int>
+    <int>0</int>
+    <int>0</int>
   </LaneSteps>
   <PartSequence>
-    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
-    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
-    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
-    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
-    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
     <string>4Lx5PlaneChangeLtoRSideHouses.pxml</string>
-    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
-    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
-    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
-    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
-    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
-    <string>4Lx5PlaneChangeRtoLSideHouses.pxml</string>
+    <string>4Lx5PlaneChangeLtoRSideHouses.pxml</string>
+    <string>4Lx5PlaneChangeLtoRSideHouses.pxml</string>
+    <string>4Lx5PlaneChangeLtoRSideHouses.pxml</string>
+    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
+    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
+    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
     <string>4Lx5PfreeOnLeftSideHouses.pxml</string>

@@ -22,10 +22,18 @@
  * All documentation is contained within the HEADER files, not the CPP files if possible.
  *
  */
-int main()
+int main(int argc, char *argv[])
 {
+	std::string filename = "test.txt";
+	
+	if (argc > 1)
+	{
+		filename = argv[1];
+	}
 	AudioManager * audioManager = new AudioManager();
-	Level* level = new Level("test.txt", "background.txt");
+	Level* level = new Level(filename, "background.txt");
+	//int t;
+	//std::cin >> t;
 
     std::cout << "Starting Game" << std::endl;
 
