@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Part xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <name>backgrounddummy.pxml</name>
+  <partLength>1</partLength>
+  <laneCount>1</laneCount>
+  <part>
+    <ArrayOfInt>
+      <int>0</int>
+    </ArrayOfInt>
+  </part>
+</Part>      <int>0</int>
+    </ArrayOfInt>
+  </part>
+</Part>

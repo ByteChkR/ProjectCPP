@@ -34,6 +34,10 @@ PresetHandler::PresetHandler(std::vector<std::string> files)
 
 	GameObject* two = new GameObject("two");
 	Mesh* m = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	Mesh* m1 = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth.obj");
+	Mesh* m2 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	Mesh* m3 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+
 	AbstractMaterial* mat = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
 	AbstractMaterial* mat1 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
 	AbstractMaterial* mat2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
@@ -46,7 +50,7 @@ PresetHandler::PresetHandler(std::vector<std::string> files)
 	two->setMaterial(mat1);
 	three->setMaterial(mat2);
 	four->setMaterial(mat3);
-	one->setMesh(m);
+	one->setMesh(m1);
 	two->setMesh(m);
 	three->setMesh(m);
 	four->setMesh(m);
@@ -79,7 +83,7 @@ int PresetHandler::GetTotalInstances()
 void PresetHandler::GivePreset(size_t index, GameObject* preset)
 {
 	if (index >= presets.size())return;
-	preset->setLocalPosition(glm::vec3(0, 0, -50));
+	preset->setLocalPosition(glm::vec3(0, 50, 0));
 	presets[index]->Give(preset);
 }
 

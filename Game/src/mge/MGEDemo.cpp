@@ -58,7 +58,7 @@ void MGEDemo::_initializeScene()
     //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
     Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
     Mesh* cubeMeshF = Mesh::load (config::MGE_MODEL_PATH+"cube_flat.obj");
-    Mesh* sphereMeshS = Mesh::load (config::MGE_MODEL_PATH+"sphere_smooth.obj");
+    Mesh* sphereMeshS = Mesh::load (config::MGE_MODEL_PATH+"Turkey1.obj");
 
     //MATERIALS
 	Material* m = new Material();
