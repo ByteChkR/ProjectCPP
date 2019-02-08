@@ -2,6 +2,7 @@
 #define DEBUGHUD_HPP
 
 #include <SFML/Graphics.hpp>
+#include "../_vs2015/HudSprite.h"
 #include <iostream>
 
 /**
@@ -23,11 +24,10 @@ class DebugHud
 
         sf::Font _font;
         sf::Text _debugText;
-		sf::Sprite _hudBox;
-		sf::Texture _texture;
+		HudSprite *_debugBox;
 
         void _createDebugHud();
-		void _createHudBox();
+		void _organizeHud();
 
         DebugHud(const DebugHud&);
         DebugHud& operator=(const DebugHud&);

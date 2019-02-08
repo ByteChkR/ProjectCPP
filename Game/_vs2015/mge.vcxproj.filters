@@ -124,6 +124,9 @@
     <ClInclude Include="Level.h">
       <Filter>MGE Source files\mge\util</Filter>
     </ClInclude>
+    <ClInclude Include="HudSprite.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -226,6 +229,9 @@
       <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="HudSprite.cpp">
       <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
   </ItemGroup>

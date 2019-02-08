@@ -6,9 +6,10 @@
 #include <SFML/Graphics.hpp>
 #include "mge/util/DebugHud.hpp"
 #include "mge/config.hpp"
+#include "../_vs2015/HudSprite.h"
 #include "mge/core/Texture.hpp"
 
-DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo(), _font(), _debugText(), _hudBox(), _texture()
+DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo(), _font(), _debugText(), _debugBox()
 {
 	assert ( _window != NULL );
 
@@ -17,15 +18,18 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo
         return;
     }
 
-	//sf::Texture _texture;
+	/*
 	if (!_texture.loadFromFile(config::MGE_TEXTURE_PATH+ "HudBox.png")) {
 		std::cout << "Could not load texture, exiting..." << std::endl;
 		return;
 	}
 
 	_hudBox.setTexture(_texture);
+	*/
 
-	_createHudBox();
+	_debugBox =  new HudSprite("HudBox.png");
+
+	_organizeHud();
     _createDebugHud();
 }
 
@@ -34,9 +38,9 @@ DebugHud::~DebugHud()
 	//dtor
 }
 
-void DebugHud::_createHudBox() 
+void DebugHud::_organizeHud()
 {
-	_hudBox.setPosition(0,0);
+	_debugBox->sprite.setPosition(0, 0);
 
 }
 
@@ -58,6 +62,6 @@ void DebugHud::draw()
 	glActiveTexture(GL_TEXTURE0);
     _window->pushGLStates();
     _window->draw(_debugText);
-	_window->draw(_hudBox);
+	_window->draw(_debugBox->sprite);
 	_window->popGLStates();
 }
