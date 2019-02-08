@@ -97,7 +97,7 @@ void MGEDemo::_initializeScene()
     sphere->addBehaviour (new PlayerController());
     _world->add(sphere);
 	sphere->add(camera);
-	camera->setLocalPosition(glm::vec3(0, 2, 3));
+	camera->setLocalPosition(glm::vec3(0, 8, 12));
 
     //add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
     //It's here as a place holder to get you started.

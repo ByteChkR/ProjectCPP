@@ -3,9 +3,9 @@
   <PartSize>10</PartSize>
   <LaneCount>3</LaneCount>
   <LaneSteps>
-    <int>0</int>
-    <int>0</int>
-    <int>0</int>
+    <int>4</int>
+    <int>4</int>
+    <int>4</int>
   </LaneSteps>
   <PartSequence>
     <string>part1.xml</string>
