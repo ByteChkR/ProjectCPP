@@ -23,8 +23,9 @@ out vec4 fragment_color;
 
 vec3 GetToonColor(float intens)
 {
+	float rem = mod(8*intens,1);
 	int col = int(8*intens);
-	return colors[col];
+	return colors[col]*(1-rem) + colors[(col+1)%8] * (rem);
 }
 
 vec3 Calculate(int index, vec3 wNormal)
