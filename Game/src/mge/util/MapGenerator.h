@@ -21,7 +21,7 @@ public:
 	Lane* GetLaneAt(size_t pIndex);
 	std::vector <int> GetBiomes();
 	int GetBiomeAt(int pNumber);
-	int GetBiomeSize();
+	int GetPartCount();
 
 private:
 

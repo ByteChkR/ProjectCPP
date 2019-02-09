@@ -73,6 +73,9 @@ class GameObject
         int getChildCount() const;
         GameObject* getChildAt (int pIndex) const;
 
+		GameObject* FindInChildren(std::string name, bool recursive = true);
+
+
 	protected:
 		std::string _name;
 		glm::mat4 _transform;

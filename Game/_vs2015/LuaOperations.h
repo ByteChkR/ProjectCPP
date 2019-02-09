@@ -1,7 +1,7 @@
 #ifndef LUAOPERATIONS_HPP
 #define LUAOPERATIONS_HPP
 
-#include "lua.h"
+#include "lua.hpp"
 #include <vector>
 #include <string>
 class LuaOperations

@@ -14,12 +14,12 @@ public:
 	Biome(std::string pLuaFile);
 	~Biome();
 
-	int GetTotalBiomes();
-	void GivePreset(int biomeID, size_t index, GameObject* preset);
-	GameObject* TakePreset(int biomeID, size_t index);
+	void GivePreset(size_t index, GameObject* preset);
+	GameObject* TakePreset(size_t index);
+	int GetTotalInstances();
 
 private:
-	std::vector<PresetHandler*> _presetHandlers;
+	PresetHandler* _handler;
 };
 
 #endif // !BIOME_HPP

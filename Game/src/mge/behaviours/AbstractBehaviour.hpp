@@ -30,6 +30,7 @@ class AbstractBehaviour
     protected:
 		std::string _name = "NAME";
 		GameObject* _owner;
+		virtual void OwnerChanged();
 
     private:
 

@@ -263,3 +263,25 @@ GameObject* GameObject::getChildAt(int pIndex) const {
 	return _children[pIndex];
 }
 
+GameObject* GameObject::FindInChildren(std::string name, bool recursive)
+{
+	if (_name == name)return this;
+
+	for each (GameObject* child in _children)
+	{
+		GameObject* ch;
+		if (recursive)
+		{
+			ch = child->FindInChildren(name);
+		}
+		else if(child->_name == name)
+		{
+			return child;
+		}
+		if (ch != nullptr) return ch; //If Find children has found somwthing we return this and break the recursion
+	}
+	//If every child in the tree was visited
+	return nullptr;
+
+}
+

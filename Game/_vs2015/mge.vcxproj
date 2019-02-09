@@ -106,7 +106,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32d.lib;opengl32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32d.lib;opengl32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">
@@ -192,16 +192,21 @@
     <ClInclude Include="AbstractStaticCollider.hpp" />
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="DynamicBoxCollider.hpp" />
+    <ClInclude Include="EngineSettings.h" />
+    <ClInclude Include="FileLoader.h" />
     <ClInclude Include="GLLight.hpp" />
     <ClInclude Include="HudSprite.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LightParams.hpp" />
+    <ClInclude Include="LuaAPI.h" />
     <ClInclude Include="LuaOperations.h" />
+    <ClInclude Include="LuaScriptStruct.h" />
     <ClInclude Include="MapBuilder.h" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="ObjectPool.hpp" />
     <ClInclude Include="PlayerController.hpp" />
     <ClInclude Include="PresetHandler.hpp" />
+    <ClInclude Include="ScriptableLuaObject.h" />
     <ClInclude Include="StaticBoxCollider.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +228,7 @@
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\AudioManager.cpp" />
+    <ClCompile Include="..\src\mge\util\Biome.cpp" />
     <ClCompile Include="..\src\mge\util\BiomeHandler.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\mge\util\Lane.cpp" />
@@ -230,17 +236,22 @@
     <ClCompile Include="AbstractStaticCollider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DynamicBoxCollider.cpp" />
+    <ClCompile Include="EngineSettings.cpp" />
+    <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="GameMaterial.cpp" />
     <ClCompile Include="GLLight.cpp" />
     <ClCompile Include="HudSprite.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LightParams.cpp" />
+    <ClCompile Include="LuaAPI.cpp" />
     <ClCompile Include="LuaOperations.cpp" />
+    <ClCompile Include="LuaScriptStruct.cpp" />
     <ClCompile Include="MapBuilder.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PresetHandler.cpp" />
+    <ClCompile Include="ScriptableLuaObject.cpp" />
     <ClCompile Include="StaticBoxCollider.cpp" />
   </ItemGroup>
   <ItemGroup>

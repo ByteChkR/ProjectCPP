@@ -186,7 +186,7 @@ int MapGenerator::GetBiomeAt(int pNumber)
 	return _biomes[pNumber];
 }
 
-int MapGenerator::GetBiomeSize()
+int MapGenerator::GetPartCount()
 {
 	return (int)_biomes.size();
 }

@@ -21,6 +21,7 @@
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
 
+#include "mge/util/BiomeHandler.h"
 #include "mge/util/DebugHud.hpp"
 
 #include "mge/config.hpp"
@@ -33,9 +34,14 @@
 #include "../_vs2015/PlayerController.hpp"
 #include "../_vs2015/MapBuilder.h"
 #include "../_vs2015/PresetHandler.hpp"
+#include "../_vs2015/ScriptableLuaObject.h"
+
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
 {
+
+	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
+
 }
 
 void MGEDemo::initialize() {
@@ -113,7 +119,7 @@ void MGEDemo::_initializeScene()
     light->setMaterial(lightMaterial);
     light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
-	new PresetHandler(std::vector<std::string>());
+	new BiomeHandler(std::vector<Biome*>());
 	mb = new MapBuilder(50, 15);
 	GameObject* cont = mb->GetContainer();
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
@@ -130,7 +136,7 @@ void MGEDemo::_render() {
 
 void MGEDemo::_updateHud() {
     std::string debugInfo = "";
-    debugInfo += std::string("Instances:") + std::to_string(PresetHandler::instance->GetTotalInstances()) + "\n" +std::string ("FPS:") + std::to_string((int)_fps)+"\n";
+    debugInfo += std::string("Instances:") + std::to_string(BiomeHandler::instance->GetTotalInstances()) + "\n" +std::string ("FPS:") + std::to_string((int)_fps)+"\n";
 
     _hud->setDebugInfo(debugInfo);
     _hud->draw();

@@ -2,7 +2,7 @@
 #include <type_traits>
 #include <string>
 #include <iostream>
-#include "lua.h"
+#include "lua.hpp"
 LuaOperations::LuaOperations() {}
 
 int LuaOperations::TryGetDouble(lua_State* L, double* value)

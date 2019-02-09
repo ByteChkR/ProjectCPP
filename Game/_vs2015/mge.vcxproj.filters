@@ -136,6 +136,21 @@
     <ClInclude Include="LuaOperations.h">
       <Filter>MGE Source files\mge\util\Lua</Filter>
     </ClInclude>
+    <ClInclude Include="LuaAPI.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptableLuaObject.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoader.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineSettings.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaScriptStruct.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -248,6 +263,24 @@
     </ClCompile>
     <ClCompile Include="LuaOperations.cpp">
       <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaAPI.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptableLuaObject.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoader.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSettings.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaScriptStruct.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\Biome.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -43,7 +43,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 		int biomeID;
 		if ((*list)[i].second != nullptr && ((v = ((*list)[i].second->getLocalPosition() + _container->getLocalPosition())).z > remOffset || v.z < -genOffset))
 		{
-			biomeID = i / gen->GetNumberOfLanes();
+			biomeID = i / gen->GetNumberOfLanes() / gen->GetPartCount();
 
 			BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID),(*list)[i].first, (*list)[i].second);
 			(*list)[i].second = nullptr;
@@ -57,6 +57,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 			float reldist = dist - _container->getLocalPosition().z;
 			if (reldist > remOffset && genOffset >= reldist)
 			{
+				biomeID /= gen->GetPartCount();
 				//std::cout << "Created\n";
 				glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
 				GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[i].first);
