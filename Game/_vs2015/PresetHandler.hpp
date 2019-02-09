@@ -8,7 +8,7 @@
 class PresetHandler
 {
 public:
-	PresetHandler(std::vector<std::string> files);
+	PresetHandler(std::vector<GameObject*> gobjs);
 	~PresetHandler();
 	GameObject* TakePreset(size_t index);
 	void GivePreset(size_t index, GameObject* preset);

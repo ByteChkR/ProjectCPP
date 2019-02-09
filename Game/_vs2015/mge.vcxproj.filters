@@ -127,7 +127,7 @@
     <ClInclude Include="HudSprite.h">
       <Filter>MGE Source files\mge\util</Filter>
     </ClInclude>
-    <ClInclude Include="BiomeHandler.h">
+    <ClInclude Include="..\src\mge\util\BiomeHandler.h">
       <Filter>MGE Source files\mge\util</Filter>
     </ClInclude>
   </ItemGroup>
@@ -235,6 +235,9 @@
       <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
     <ClCompile Include="HudSprite.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\BiomeHandler.cpp">
       <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
   </ItemGroup>
