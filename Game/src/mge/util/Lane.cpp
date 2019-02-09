@@ -4,7 +4,7 @@
 
 
 
-Lane::Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour, float pStartTime, float pEndTime, std::vector<int> pSegments, int pStep, int pBiomeNumber)
+Lane::Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour, float pStartTime, float pEndTime, std::vector<int> pSegments, int pStep)
 {
 	_step = pStep;
 	_segments = pSegments;
@@ -13,7 +13,7 @@ Lane::Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour, float p
 	_rightNeighbour = pRightNeighbour;
 	_startTime = pStartTime;
 	_endTime = pEndTime;
-	_biomeNumber = pBiomeNumber;
+
 }
 
 
@@ -58,8 +58,4 @@ int Lane::GetStep()
 	return _step;
 }
 
-int Lane::GetBiome()
-{
-	return _biomeNumber;
-}
 

@@ -19,7 +19,8 @@ public:
 	std::vector<Lane*> GetAllLanes();
 	size_t GetNumberOfLanes();
 	Lane* GetLaneAt(size_t pIndex);
-
+	std::vector <int> GetBiomes();
+	int GetBiomeAt(int pNumber);
 
 private:
 
@@ -29,6 +30,7 @@ private:
 	float _laneSpace = 2;
 	std::string _filePath = "mge/maps/";
 	std::vector<Lane *> _lanes;
+	std::vector <int> _biomes;
 };
 
 #endif

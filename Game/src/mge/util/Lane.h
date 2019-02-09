@@ -8,7 +8,7 @@ class Lane
 {
 public:
 
-	Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour,float pStartTime,float pEndTime,std::vector<int> pSegments,int pStep, int pBiomeNumber);
+	Lane(glm::vec3 pPosition, int pLeftNeighbour, int pRightNeighbour,float pStartTime,float pEndTime,std::vector<int> pSegments,int pStep);
 	~Lane();
 	int GetLeft();
 	int GetRight();
@@ -18,7 +18,6 @@ public:
 	std::vector<int> GetSegments();
 	void AddSegment(int pNumber);
 	int GetStep();
-	int GetBiome();
 	
 private:
 
@@ -29,7 +28,6 @@ private:
 	int _rightNeighbour;
 	float _startTime;
 	float _endTime;
-	int _biomeNumber;
 };
 #endif
 

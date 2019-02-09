@@ -15,7 +15,6 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	e = std::default_random_engine(seed);
 	  //e = d;
 	if(isInstance)instance = this;
-	std::vector<int> biomes;
 	std::vector< Part> parts;
 	std::vector<int> steps;
 	std::string fullPath = _filePath + pName;
@@ -45,7 +44,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	{
 		int a;
 		file >> a;
-		biomes.push_back(a);
+		_biomes.push_back(a);
 	}
 
 	std::cout <<"columns: "<< columns << " rows: " << rows << " number of parts: " << numberOfParts<<'\n';
@@ -57,7 +56,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		for (int j = 0; j < rows; j++)
 		{
 			std::cout << "reading lane " << j <<" of part "<< i << '\n';
-			Lane  lane(glm::vec3(0,0,0),0,0,0,0,std::vector<int>(),0,0);
+			Lane  lane(glm::vec3(0,0,0),0,0,0,0,std::vector<int>(),0);
 			for (int k = 0; k < columns; k++)
 			{
 				std::cout << "reading segment " << k << '\n';
@@ -120,8 +119,9 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 				//sumedSegments.insert(sumedSegments.end(), parts[j].lanes[i].GetSegments().begin(),parts[j].lanes[i].GetSegments().end());
 			}
 		}
+		
 
-		Lane * lane = new Lane(glm::vec3(0 + _laneSpace * i, 0, 0), laneLeft, laneRight, 0, 0, sumedSegments,steps[i],biomes[i]);
+		Lane * lane = new Lane(glm::vec3(0 + _laneSpace * i, 0, 0), laneLeft, laneRight, 0, 0, sumedSegments,steps[i]);
 		_lanes.push_back(lane);
 
 	}
@@ -169,4 +169,25 @@ std::vector<Lane*> MapGenerator::GetAllLanes()
 size_t MapGenerator::GetNumberOfLanes()
 {
 	return (int)_lanes.size();
+}
+
+
+std::vector<int> MapGenerator::GetBiomes()
+{
+	return _biomes;
+}
+
+int MapGenerator::GetBiomeAt(int pNumber)
+{
+	if (pNumber > (int)_biomes.size() - 1 || pNumber < 0)
+	{
+		std::cout << "\n Tring to get a wrong biome \n ";
+		return -1;
+	}
+	return _biomes[pNumber];
+}
+
+int MapGenerator::GetBiomeSize()
+{
+	return (int)_biomes.size();
 }
