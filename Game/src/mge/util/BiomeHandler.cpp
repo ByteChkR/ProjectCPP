@@ -8,7 +8,8 @@ BiomeHandler :: BiomeHandler(std::vector<std::vector<GameObject*>> biomes)
 {
 
 }
-~BiomeHandler::BiomeHandler()
+
+BiomeHandler::~BiomeHandler()
 {
 
 }
