@@ -21,11 +21,12 @@ public:
 	Lane* GetLaneAt(size_t pIndex);
 	std::vector <int> GetBiomes();
 	int GetBiomeAt(int pNumber);
+	int GetBiomeSize();
 
 private:
 
 
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	unsigned seed = unsigned(std::chrono::system_clock::now().time_since_epoch().count());
 	static std::default_random_engine e;
 	float _laneSpace = 2;
 	std::string _filePath = "mge/maps/";

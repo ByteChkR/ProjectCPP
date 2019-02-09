@@ -75,7 +75,8 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 
 	file.close();
 	
-	//auto rng = std::default_random_engine{};
+
+	// randomize the parts
 	if (randomize == 1)
 	{
 		std::shuffle(parts.begin(), parts.end(), e);
@@ -104,7 +105,6 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 			}
 		}
 
-		//TODO: randomize the parts
 
 
 		std::vector<int> sumedSegments = parts[0].lanes[i].GetSegments();
@@ -116,7 +116,6 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 				{
 					sumedSegments.push_back(parts[j].lanes[i].GetSegments()[k]);
 				}
-				//sumedSegments.insert(sumedSegments.end(), parts[j].lanes[i].GetSegments().begin(),parts[j].lanes[i].GetSegments().end());
 			}
 		}
 		
@@ -181,7 +180,7 @@ int MapGenerator::GetBiomeAt(int pNumber)
 {
 	if (pNumber > (int)_biomes.size() - 1 || pNumber < 0)
 	{
-		std::cout << "\n Tring to get a wrong biome \n ";
+		std::cout << "\n Trying to get a wrong biome \n ";
 		return -1;
 	}
 	return _biomes[pNumber];
