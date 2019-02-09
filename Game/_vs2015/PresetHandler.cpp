@@ -38,10 +38,10 @@ PresetHandler::PresetHandler(std::vector<std::string> files)
 	Mesh* m2 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 	Mesh* m3 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 
-	AbstractMaterial* mat = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
-	AbstractMaterial* mat1 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
-	AbstractMaterial* mat2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
-	AbstractMaterial* mat3 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
+	AbstractMaterial* mat = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0.7, 1, 1);
+	AbstractMaterial* mat1 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 1, 10);
+	AbstractMaterial* mat2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 1, 10);
+	AbstractMaterial* mat3 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 1, 10);
 	one->addBehaviour(sbc);
 	two->addBehaviour(sbc->Clone());
 	three->addBehaviour(sbc->Clone());
