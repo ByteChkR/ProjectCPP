@@ -12,6 +12,7 @@ StaticBoxCollider::StaticBoxCollider(float width, float height, float depth) : A
 	_init = false;
 }
 
+StaticBoxCollider::StaticBoxCollider(glm::vec3 dims) :StaticBoxCollider(dims.x, dims.y, dims.z) {}
 StaticBoxCollider::~StaticBoxCollider()
 {
 

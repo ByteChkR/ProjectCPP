@@ -75,6 +75,19 @@ int LuaOperations::TryGetStringFromTable(lua_State* L, char* key, std::string* v
 	return LuaOperations::TryGetString(L, value);
 }
 
+int LuaOperations::SaveLuaCall(lua_State* L, int args, int rets, bool throwLuaError, std::string errMsg)
+{
+	if (lua_pcall(L, args, rets, 0))
+	{
+		if (throwLuaError)
+		{
+			lua_pushstring(L,errMsg.c_str());
+			lua_error(L);
+		}
+		return 1;
+	}
+	return 0;
+}
 
 int LuaOperations::TryGetFloatFromTable(lua_State* L, char* key, float* value)
 {

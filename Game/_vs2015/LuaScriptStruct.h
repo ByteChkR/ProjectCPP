@@ -17,6 +17,8 @@ public:
 	std::string GetTexturePath();
 	glm::vec3 GetPosition();
 	std::vector<std::string> GetAttachedScripts();
+	bool HasCollider();
+	glm::vec3 GetColliderDimensions();
 
 private:
 	Mesh* _mesh;
@@ -25,6 +27,8 @@ private:
 	std::string _name;
 	glm::vec3 _position;
 	std::vector<std::string> _attachedScripts;
+	glm::vec3 _collider;
+
 
 };
 

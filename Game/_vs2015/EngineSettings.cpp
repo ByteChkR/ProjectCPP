@@ -8,10 +8,11 @@ EngineSettings::EngineSettings(const char* file)
 	lua_State* L = luaL_newstate();
 
 	luaL_loadfile(L, file);
-	lua_call(L, 0, 0);
+	LuaOperations::SaveLuaCall(L, 0, 0, true, "Could not load engine settings.");
+
 	int test = lua_gettop(L);
 	lua_getglobal(L, "GetWindow");
-	lua_call(L, 0, 1);
+	if (LuaOperations::SaveLuaCall(L, 0, 1, true, "Could not read engine settings."))return;
 	if (!LuaOperations::TryGetIntFromTable(L, "width", &_width))
 	{
 		_width = 900;
@@ -20,7 +21,7 @@ EngineSettings::EngineSettings(const char* file)
 	}
 
 	lua_getglobal(L, "GetWindow");
-	lua_call(L, 0, 1);
+	if (LuaOperations::SaveLuaCall(L, 0, 1, true, "Could not read engine settings."))return;
 
 	if (!LuaOperations::TryGetIntFromTable(L, "height", &_height))
 	{
@@ -30,7 +31,7 @@ EngineSettings::EngineSettings(const char* file)
 	}
 
 	lua_getglobal(L, "GetWindow");
-	lua_call(L, 0, 1);
+	if (LuaOperations::SaveLuaCall(L, 0, 1, true, "Could not read engine settings."))return;
 
 	if (!LuaOperations::TryGetStringFromTable(L, "windowName", &_windowName))
 	{
