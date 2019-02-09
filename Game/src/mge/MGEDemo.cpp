@@ -70,8 +70,8 @@ void MGEDemo::_initializeScene()
 	AbstractMaterial* test = new GameMaterial(*m);
     //create some materials to display the cube, the plane and the light
     AbstractMaterial* lightMaterial = new ColorMaterial (glm::vec3(1,1,0));
-	AbstractMaterial* runicPlaneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 100, 10);
-	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10);
+	AbstractMaterial* runicPlaneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 100, 10, 1, 1, 10);
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0, 5, 2);
 
     //SCENE SETUP
 
@@ -114,7 +114,7 @@ void MGEDemo::_initializeScene()
     light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
 	new PresetHandler(std::vector<std::string>());
-	mb = new MapBuilder(50);
+	mb = new MapBuilder(50, 15);
 	GameObject* cont = mb->GetContainer();
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
