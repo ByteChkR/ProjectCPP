@@ -151,6 +151,9 @@
     <ClInclude Include="LuaScriptStruct.h">
       <Filter>MGE Source files\mge\util\Lua</Filter>
     </ClInclude>
+    <ClInclude Include="HudText.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -280,6 +283,9 @@
       <Filter>MGE Source files\mge\util\Lua</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\util\Biome.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="HudText.cpp">
       <Filter>MGE Source files\mge\util</Filter>
     </ClCompile>
   </ItemGroup>

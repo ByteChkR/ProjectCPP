@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "../_vs2015/HudSprite.h"
+#include "../_vs2015/HudText.h"
 #include <iostream>
 
 /**
@@ -20,10 +21,7 @@ class DebugHud
 	private:
 		sf::RenderWindow * _window;
 
-        std::string _debugInfo;
-
-        sf::Font _font;
-        sf::Text _debugText;
+        HudText *_debugText;
 		HudSprite *_debugBox;
 
         void _createDebugHud();
