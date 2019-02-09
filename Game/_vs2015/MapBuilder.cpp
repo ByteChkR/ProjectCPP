@@ -1,7 +1,7 @@
 #include "MapBuilder.h"
 #include "mge/core/GameObject.hpp"
 #include "PresetHandler.hpp"
-#include "BiomeHandler.h"
+#include "mge/util/BiomeHandler.h"
 #include "mge/util/MapGenerator.h"
 #include "mge/core/AbstractGame.hpp"
 #include "mge/core/World.hpp"
@@ -44,7 +44,8 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 		if ((*list)[i].second != nullptr && ((v = ((*list)[i].second->getLocalPosition() + _container->getLocalPosition())).z > remOffset || v.z < -genOffset))
 		{
 			biomeID = i / gen->GetNumberOfLanes();
-			BiomeHandler::instance->GivePreset(biomeID,(*list)[i].first, (*list)[i].second);
+
+			BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID),(*list)[i].first, (*list)[i].second);
 			(*list)[i].second = nullptr;
 		}
 		else if ((*list)[i].second == nullptr)
@@ -58,7 +59,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 			{
 				//std::cout << "Created\n";
 				glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
-				GameObject* obj = BiomeHandler::instance->TakePreset(biomeID, (*list)[i].first);
+				GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[i].first);
 				(*list)[i].second = obj;
 				if (obj->getParent() != _container)
 					_container->add(obj);

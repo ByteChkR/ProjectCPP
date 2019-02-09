@@ -185,17 +185,18 @@
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\AudioManager.h" />
+    <ClInclude Include="..\src\mge\util\BiomeHandler.h" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="..\src\mge\util\Lane.h" />
     <ClInclude Include="..\src\mge\util\MapGenerator.h" />
     <ClInclude Include="AbstractStaticCollider.hpp" />
-    <ClInclude Include="BiomeHandler.h" />
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="DynamicBoxCollider.hpp" />
     <ClInclude Include="GLLight.hpp" />
     <ClInclude Include="HudSprite.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LightParams.hpp" />
+    <ClInclude Include="LuaOperations.h" />
     <ClInclude Include="MapBuilder.h" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="ObjectPool.hpp" />
@@ -222,6 +223,7 @@
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\AudioManager.cpp" />
+    <ClCompile Include="..\src\mge\util\BiomeHandler.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\mge\util\Lane.cpp" />
     <ClCompile Include="..\src\mge\util\MapGenerator.cpp" />
@@ -233,6 +235,7 @@
     <ClCompile Include="HudSprite.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LightParams.cpp" />
+    <ClCompile Include="LuaOperations.cpp" />
     <ClCompile Include="MapBuilder.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="ObjectPool.cpp" />

@@ -15,13 +15,12 @@ PresetHandler::~PresetHandler()
 	}
 }
 
-PresetHandler::PresetHandler(std::vector<std::string> files)
+PresetHandler::PresetHandler(std::vector<GameObject*> gobjs)
 {
 	//Create One Gameobject by file
 
 	//SERIALIZATION MISSING
 
-	std::vector<GameObject*> gobjs; //Pretend this is filled with gameobjects
 
 	GameObject* zero = new GameObject("zero");
 	GameObject* one = new GameObject("one"); 
