@@ -10,7 +10,7 @@
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/config.hpp"
 #include "../_vs2015/GLLight.hpp"
-
+#include "mge/core/AbstractGame.hpp"
 ShaderProgram* TextureMaterial::_shader = NULL;
 
 GLint TextureMaterial::_uMMatrix = 0;
@@ -25,10 +25,19 @@ GLLight TextureMaterial::_lightLocations[8];
 GLint TextureMaterial::_lightCount = 0;
 GLint TextureMaterial::_shininess = 0;
 GLint TextureMaterial::_steps = 0;
+GLint TextureMaterial::_time = 0;
 
-TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps) :_diffuseTexture(pDiffuseTexture) {
+GLint TextureMaterial::_blend = 0;
+GLint TextureMaterial::_blendingSoftness = 0;
+GLint TextureMaterial::_colorCount = 0;
+GLint TextureMaterial::_colorTiling = 0;
+
+TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
 	this->shininess = shininess;
 	this->steps = steps;
+	blend = colorTextureBlending;
+	blendingSoftness = blendSmoothing;
+	colorTiling = colorTilin;
 	_offset = offset;
 	offset += 4;
 	_lazyInitializeShader();
@@ -51,6 +60,8 @@ void TextureMaterial::_lazyInitializeShader() {
 		_lightCount = _shader->getUniformLocation("lightCount");
 		_shininess = _shader->getUniformLocation("shininess");
 		_steps = _shader->getUniformLocation("steps");
+
+		
 		//Light Locations
 		for (size_t i = 0; i < 8; i++)
 		{
@@ -63,6 +74,13 @@ void TextureMaterial::_lazyInitializeShader() {
 				_shader->getUniformLocation("lights[" + std::to_string(i) + "].ambientColor")
 			);
 		}
+
+		//Color;
+		_colorCount = _shader->getUniformLocation("colorCount");
+		_colorTiling = _shader->getUniformLocation("colorTiling");
+		_blend = _shader->getUniformLocation("textureBlend");
+		_blendingSoftness = _shader->getUniformLocation("blendSmoothing");
+		_time = _shader->getUniformLocation("time");
 
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
@@ -77,8 +95,8 @@ void TextureMaterial::setDiffuseTexture(Texture* pDiffuseTexture) {
 static glm::vec3 colors[8] =
 {
 	glm::vec3(1,0,0),
-	glm::vec3(0.75,0.25,0),
-	glm::vec3(0.5,0.5,0),
+	glm::vec3(0,1,0),
+	glm::vec3(0,0,1),
 	glm::vec3(0.25,0.75,0),
 	glm::vec3(0,1,0),
 	glm::vec3(0,0.75,0.25),
@@ -110,6 +128,8 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 	glUniform1f(_shininess, shininess);
 	glUniform1i(_steps, steps);
 
+	glUniform1f(_time, AbstractGame::instance->GetTimeSinceStartup());
+
 	glUniform1i(_lightCount, pWorld->getLightCount());
 	for (int i = 0; i < pWorld->getLightCount(); i++)
 	{
@@ -117,9 +137,14 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 		_lightLocations[i].SetLight(&pWorld->getLightAt(i)->GetParams());
 	}
 
-	for (size_t i = 0; i < 8; i++)
+	glUniform1i(_colorCount, 3);
+	glUniform1f(_colorTiling, colorTiling);
+	glUniform1f(_blend, blend);
+	glUniform1f(_blendingSoftness, blendingSoftness);
+
+	for (size_t i = 0; i < colors->length(); i++)
 	{
-		int index = (i + _offset) % 8;
+		int index = (i + _offset) % colors->length();
 		glUniform3f(_shader->getUniformLocation("colors[" + std::to_string(i) + "]"), colors[index].x, colors[index].y, colors[index].z);
 	}
 

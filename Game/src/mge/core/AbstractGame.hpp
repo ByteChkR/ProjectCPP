@@ -27,6 +27,7 @@ class AbstractGame
 		CollisionManager* _manager;
 		World* _world;              //the root game object that represents our scene
 		static AbstractGame* instance;
+		float GetTimeSinceStartup();
     protected:
 
         //methods above delegate behaviour to the methods below so that you can override it in a subclass
@@ -59,6 +60,7 @@ class AbstractGame
 		float _fps;                 //stores the real fps
 
     private:
+		float startupTime;
         AbstractGame(const AbstractGame&);
         AbstractGame& operator=(const AbstractGame&);
 
