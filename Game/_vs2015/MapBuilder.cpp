@@ -49,8 +49,8 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 			int lane = i % gen->GetNumberOfLanes();
 			float dist = (i / gen->GetNumberOfLanes()) * gen->GetLaneAt(lane)->GetStep();
-			float reldist = dist - glm::abs(_container->getLocalPosition().z);
-			if (reldist > 0 && genOffset >= reldist)
+			float reldist = dist - _container->getLocalPosition().z;
+			if (genOffset >= reldist)
 			{
 				//std::cout << "Created\n";
 				glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
