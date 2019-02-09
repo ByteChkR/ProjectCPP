@@ -24,11 +24,15 @@ AudioManager::AudioManager()
 
 AudioManager::~AudioManager()
 {
+	music->stop();
+	delete music;
+	instance = NULL;
+
 }
 
 void AudioManager::LoadMusic(std::string pFileLocation)
 {
-	sf::Music * music = new sf::Music();
+		music = new sf::Music();
 	if (!music->openFromFile(_soundsPath + pFileLocation))
 	{
 		std::cout << "/////////////////   Sound path not found. /////////////////// \n" << pFileLocation << "\n";

@@ -8,6 +8,7 @@ class StaticBoxCollider : public AbstractStaticCollider
 {
 public:
 	StaticBoxCollider(float width, float height, float depth);
+	StaticBoxCollider(glm::vec3 dims);
 	~StaticBoxCollider();
 	virtual void update(float pTime) override;
 	virtual AbstractBehaviour* Clone() override;

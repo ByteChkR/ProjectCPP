@@ -14,6 +14,7 @@
 #include "mge/materials/TextureMaterial.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/config.hpp"
+#include "StaticBoxCollider.hpp"
 
 static const luaL_reg level1API[]
 {
@@ -44,7 +45,8 @@ ScriptableLuaObject::ScriptableLuaObject(std::vector<std::string> attachedScript
 
 		luaL_openlib(L, "Game", level1API, 0);
 		luaL_loadfile(L, path.c_str());
-		lua_call(L, 0, 0); //Compile and run the lua script
+		LuaOperations::SaveLuaCall(L, 0, 0, true, "Could not run script " + path + '\n');
+		//lua_call(L, 0, 0); //Compile and run the lua script
 
 		_attachedScripts.push_back(L);
 	}
@@ -59,7 +61,7 @@ void ScriptableLuaObject::OwnerChanged()
 
 		GameObject** obj = (GameObject**)lua_newuserdata(L, sizeof(GameObject*));
 		*obj = _owner;
-		lua_call(L, 1, 0);
+		LuaOperations::SaveLuaCall(L, 1, 0, false);
 	}
 }
 
@@ -99,6 +101,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			object->setMesh(lss->GetObject());
 			object->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath()), 2, 10, 0, 5, 2));
 			object->addBehaviour(new ScriptableLuaObject(lss->GetAttachedScripts()));
+			if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderDimensions()));
 			return object;
 		}
 	}
@@ -113,7 +116,7 @@ void ScriptableLuaObject::update(float pTime)
 		if (lua_isfunction(L, -1))
 		{
 			lua_pushnumber(L, pTime);
-			lua_call(L, 1, 0);
+			LuaOperations::SaveLuaCall(L, 1, 0, false);
 		}
 		else
 			lua_pop(L, -1); //Remove the thing we just added on the stack. it is for sure not a function.

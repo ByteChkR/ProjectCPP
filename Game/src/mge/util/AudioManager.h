@@ -20,6 +20,7 @@ public:
 	~AudioManager();
 
 private:
+	sf::Music * music;
 	void LoadMusic(std::string pFileLocation);
 	void AddSound(std::string pFileLocation);
 	std::vector<sf::Sound *> _sounds;

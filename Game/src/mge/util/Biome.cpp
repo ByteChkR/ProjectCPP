@@ -11,8 +11,8 @@ Biome::Biome(std::string pLuaFile)
 	std::vector<std::string> objKeys = std::vector<std::string>();
 	lua_State* ls = luaL_newstate();
 	luaL_loadfile(ls, pLuaFile.c_str());
-	lua_call(ls, 0, 0);
-	
+	LuaOperations::SaveLuaCall(ls, 0, 0, true, "Could not read biome file " + pLuaFile + '\n');
+
 	lua_getglobal(ls, "objects");
 
 	if (LuaOperations::TableToVector(ls, &objKeys) == 0) {

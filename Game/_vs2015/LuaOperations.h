@@ -10,6 +10,7 @@ private:
 	LuaOperations();
 
 public:
+	static int SaveLuaCall(lua_State* L, int args, int rets, bool throwLuaError = true, std::string errMsg = "");
 	static int TryGetString(lua_State* L, std::string* value);
 	static int TryGetFloat(lua_State* L, float* value);
 	static int TryGetInt(lua_State* L, int* value);

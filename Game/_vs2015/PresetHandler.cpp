@@ -27,8 +27,7 @@ PresetHandler::PresetHandler(std::vector<GameObject*> gobjs)
 	//GameObject* three = new GameObject("three");
 	//GameObject* four = new GameObject("four");
 	//
-	StaticBoxCollider* sbc = new StaticBoxCollider(1, 1, 1);
-
+	
 	//GameObject* two = new GameObject("two");
 	//Mesh* m = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 	//Mesh* m1 = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth.obj");
@@ -61,9 +60,8 @@ PresetHandler::PresetHandler(std::vector<GameObject*> gobjs)
 	presets = std::vector<ObjectPool<GameObject*>*>();
 	for each (GameObject* g in gobjs)
 	{
-		g->addBehaviour(sbc);
+		
 		presets.push_back(new ObjectPool<GameObject*>(g));
-		sbc = (StaticBoxCollider*)sbc->Clone();
 	}
 
 }
