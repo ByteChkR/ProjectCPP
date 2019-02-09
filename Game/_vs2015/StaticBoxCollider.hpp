@@ -11,6 +11,7 @@ public:
 	~StaticBoxCollider();
 	virtual void update(float pTime) override;
 	virtual AbstractBehaviour* Clone() override;
+	virtual void OwnerChanged(GameObject* owner) override;
 	virtual bool IsCollision(DynamicBoxCollider* ball) override;
 private:
 	bool _init;

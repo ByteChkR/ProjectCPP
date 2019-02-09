@@ -13,10 +13,7 @@ BiomeHandler::BiomeHandler(std::vector<Biome*> biomes)
 	instance = this;
 	_biomes = biomes;
 
-	for (size_t i = 0; i < 16; i++)
-	{
-		_biomes.push_back(new Biome(""));
-	}
+
 }
 
 BiomeHandler::~BiomeHandler()
@@ -46,5 +43,5 @@ void BiomeHandler::GivePreset(int biomeID, size_t index, GameObject* preset)
 GameObject* BiomeHandler::TakePreset(int biomeID, size_t index) 
 {
 	if (biomeID >= _biomes.size())return nullptr;
-	return _biomes[index]->TakePreset(index);
+	return _biomes[biomeID]->TakePreset(index);
 }

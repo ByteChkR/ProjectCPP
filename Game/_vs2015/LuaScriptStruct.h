@@ -14,13 +14,13 @@ public:
 	std::string GetName();
 	std::string GetObjectPath();
 	Mesh* GetObject();
-	std::string GetMaterialPath();
+	std::string GetTexturePath();
 	glm::vec3 GetPosition();
 	std::vector<std::string> GetAttachedScripts();
 
 private:
 	Mesh* _mesh;
-	std::string _materialPath;
+	std::string _texturePath;
 	std::string _objPath;
 	std::string _name;
 	glm::vec3 _position;

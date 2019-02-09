@@ -119,7 +119,8 @@ void MGEDemo::_initializeScene()
     light->setMaterial(lightMaterial);
     light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
-	new BiomeHandler(std::vector<Biome*>());
+	new BiomeHandler(std::vector<Biome*> { new Biome("D:\\Users\\Tim\\Documents\\ProjectCPP\\Game\\assets\\mge\\biomes\\biome.lua"),
+											new Biome("D:\\Users\\Tim\\Documents\\ProjectCPP\\Game\\assets\\mge\\biomes\\biome1.lua")});
 	mb = new MapBuilder(50, 15);
 	GameObject* cont = mb->GetContainer();
 	cont->setLocalPosition(glm::vec3(0, 0, -60));

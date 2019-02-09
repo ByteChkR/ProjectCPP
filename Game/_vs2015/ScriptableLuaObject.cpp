@@ -11,6 +11,9 @@
 #include "mge/core/GameObject.hpp"
 #include "LuaAPI.h"
 #include "mge/core/AbstractGame.hpp"
+#include "mge/materials/TextureMaterial.hpp"
+#include "mge/core/Texture.hpp"
+#include "mge/config.hpp"
 
 static const luaL_reg level1API[]
 {
@@ -45,6 +48,7 @@ ScriptableLuaObject::ScriptableLuaObject(std::vector<std::string> attachedScript
 
 		_attachedScripts.push_back(L);
 	}
+	_scriptPath = attachedScripts;
 }
 
 void ScriptableLuaObject::OwnerChanged()
@@ -72,6 +76,11 @@ void ScriptableLuaObject::Initialize(std::string directory)
 }
 
 
+AbstractBehaviour* ScriptableLuaObject::Clone()
+{
+	return new ScriptableLuaObject(_scriptPath);
+}
+
 GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent)
 {
 
@@ -88,6 +97,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			else
 				AbstractGame::instance->_world->add(object);
 			object->setMesh(lss->GetObject());
+			object->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath()), 2, 10, 0, 5, 2));
 			object->addBehaviour(new ScriptableLuaObject(lss->GetAttachedScripts()));
 			return object;
 		}

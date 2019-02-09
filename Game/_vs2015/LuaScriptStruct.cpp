@@ -41,7 +41,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	lua_call(L, 0, 1);
 	l = lua_gettop(L);
-	if (!LuaOperations::TryGetStringFromTable(L, "materialKey", &_materialPath))
+	if (!LuaOperations::TryGetStringFromTable(L, "texture", &_texturePath))
 	{
 		std::cout << "This object has no material";
 	}
@@ -74,6 +74,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	}
 	l = lua_gettop(L);
 	lua_close(L);
+	_position = glm::vec3(0, 50, 0);
 
 }
 
@@ -87,9 +88,9 @@ std::string LuaScriptStruct::GetName()
 {
 	return _name;
 }
-std::string LuaScriptStruct::GetMaterialPath()
+std::string LuaScriptStruct::GetTexturePath()
 {
-	return _materialPath;
+	return _texturePath;
 }
 std::string LuaScriptStruct::GetObjectPath()
 {

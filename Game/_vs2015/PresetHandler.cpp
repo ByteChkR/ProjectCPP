@@ -22,47 +22,48 @@ PresetHandler::PresetHandler(std::vector<GameObject*> gobjs)
 	//SERIALIZATION MISSING
 
 
-	GameObject* zero = new GameObject("zero");
-	GameObject* one = new GameObject("one"); 
-	GameObject* three = new GameObject("three");
-	GameObject* four = new GameObject("four");
-	
+	//GameObject* zero = new GameObject("zero");
+	//GameObject* one = new GameObject("one"); 
+	//GameObject* three = new GameObject("three");
+	//GameObject* four = new GameObject("four");
+	//
 	StaticBoxCollider* sbc = new StaticBoxCollider(1, 1, 1);
 
-	GameObject* two = new GameObject("two");
-	Mesh* m = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
-	Mesh* m1 = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth.obj");
-	Mesh* m2 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
-	Mesh* m3 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	//GameObject* two = new GameObject("two");
+	//Mesh* m = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	//Mesh* m1 = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth.obj");
+	//Mesh* m2 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	//Mesh* m3 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 
-	AbstractMaterial* mat = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0.7, 1, 1);
-	AbstractMaterial* mat1 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 1, 10);
-	AbstractMaterial* mat2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 1, 10);
-	AbstractMaterial* mat3 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 1, 10);
-	one->addBehaviour(sbc);
-	two->addBehaviour(sbc->Clone());
-	three->addBehaviour(sbc->Clone());
-	four->addBehaviour(sbc->Clone());
-	one->setMaterial(mat);
-	two->setMaterial(mat1);
-	three->setMaterial(mat2);
-	four->setMaterial(mat3);
-	one->setMesh(m1);
-	two->setMesh(m);
-	three->setMesh(m);
-	four->setMesh(m);
-	gobjs.push_back(zero);
-	gobjs.push_back(one);
-	gobjs.push_back(two);
-	gobjs.push_back(three);
-	gobjs.push_back(four);
+	//AbstractMaterial* mat = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0.7, 1, 1);
+	//AbstractMaterial* mat1 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 1, 10);
+	//AbstractMaterial* mat2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 1, 10);
+	//AbstractMaterial* mat3 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 1, 10);
+	//one->addBehaviour(sbc);
+	//two->addBehaviour(sbc->Clone());
+	//three->addBehaviour(sbc->Clone());
+	//four->addBehaviour(sbc->Clone());
+	//one->setMaterial(mat);
+	//two->setMaterial(mat1);
+	//three->setMaterial(mat2);
+	//four->setMaterial(mat3);
+	//one->setMesh(m1);
+	//two->setMesh(m);
+	//three->setMesh(m);
+	//four->setMesh(m);
+	//gobjs.push_back(zero);
+	//gobjs.push_back(one);
+	//gobjs.push_back(two);
+	//gobjs.push_back(three);
+	//gobjs.push_back(four);
 
 
 	presets = std::vector<ObjectPool<GameObject*>*>();
 	for each (GameObject* g in gobjs)
 	{
+		g->addBehaviour(sbc);
 		presets.push_back(new ObjectPool<GameObject*>(g));
-
+		sbc = (StaticBoxCollider*)sbc->Clone();
 	}
 
 }

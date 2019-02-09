@@ -5,6 +5,7 @@
 
 StaticBoxCollider::StaticBoxCollider(float width, float height, float depth) : AbstractStaticCollider()
 {
+	_name = "STATIC BOX COLLIDER";
 	_height = height;
 	_width = width;
 	_depth = depth;
@@ -33,6 +34,11 @@ void StaticBoxCollider::update(float time)
 		_init = false;
 		AbstractGame::instance->_manager->UnRegisterCollider(this);
 	}
+}
+
+void StaticBoxCollider::OwnerChanged(GameObject* newOwner)
+{
+
 }
 
 bool StaticBoxCollider::IsCollision(DynamicBoxCollider* ball)
