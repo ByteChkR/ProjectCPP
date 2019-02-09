@@ -20,6 +20,9 @@
     <Filter Include="MGE Source files\mge\util">
       <UniqueIdentifier>{7d824c34-4bb6-43a4-a48a-0d68b7aad6e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MGE Source files\mge\util\Lua">
+      <UniqueIdentifier>{9ef30825-b8c8-4a77-9bbf-878f8035e016}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp">
@@ -130,6 +133,9 @@
     <ClInclude Include="..\src\mge\util\BiomeHandler.h">
       <Filter>MGE Source files\mge\util</Filter>
     </ClInclude>
+    <ClInclude Include="LuaOperations.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -239,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\util\BiomeHandler.cpp">
       <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaOperations.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

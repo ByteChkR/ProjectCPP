@@ -196,6 +196,7 @@
     <ClInclude Include="HudSprite.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LightParams.hpp" />
+    <ClInclude Include="LuaOperations.h" />
     <ClInclude Include="MapBuilder.h" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="ObjectPool.hpp" />
@@ -234,6 +235,7 @@
     <ClCompile Include="HudSprite.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LightParams.cpp" />
+    <ClCompile Include="LuaOperations.cpp" />
     <ClCompile Include="MapBuilder.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
