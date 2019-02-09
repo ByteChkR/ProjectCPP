@@ -189,6 +189,7 @@
     <ClInclude Include="..\src\mge\util\Lane.h" />
     <ClInclude Include="..\src\mge\util\MapGenerator.h" />
     <ClInclude Include="AbstractStaticCollider.hpp" />
+    <ClInclude Include="BiomeHandler.h" />
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="DynamicBoxCollider.hpp" />
     <ClInclude Include="GLLight.hpp" />
