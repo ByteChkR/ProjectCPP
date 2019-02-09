@@ -3,6 +3,7 @@
   <name>4Lx25PfreeFreeAllSideHouses.pxml</name>
   <partLength>25</partLength>
   <laneCount>4</laneCount>
+  <biomeID>0</biomeID>
   <part>
     <ArrayOfInt>
       <int>2</int>

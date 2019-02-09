@@ -24,6 +24,7 @@ Biome::Biome(std::string pLuaFile)
 	for (size_t i = 0; i < objKeys.size(); i++)
 	{
 		objs.push_back(ScriptableLuaObject::Instantiate(objKeys[i]));
+		objs[i]->setLocalPosition(glm::vec3(0, 0, 50)); //Move the originals out of sight.
 	}
 
 

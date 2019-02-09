@@ -1,6 +1,8 @@
 //DIFFUSE TEXTURE FRAGMENT SHADER
 #version 330 // for glsl version (12 is for older versions , say opengl 2.1
 
+const int COLORCOUNT = 8;
+
 struct Light
 {
 	int type;
@@ -11,7 +13,14 @@ struct Light
 	vec3 ambientColor;
 };
 
-uniform vec3 colors[8];
+uniform float time;
+
+uniform vec3 colors[COLORCOUNT];
+uniform int colorCount;
+uniform float colorTiling;
+uniform float textureBlend;
+uniform float blendSmoothing;
+
 uniform Light lights[8];
 uniform int lightCount;
 uniform sampler2D diffuseTexture;
@@ -23,9 +32,11 @@ out vec4 fragment_color;
 
 vec3 GetToonColor(float intens)
 {
-	float rem = mod(8*intens,1);
-	int col = int(8*intens);
-	return colors[col]*(1-rem) + colors[(col+1)%8] * (rem);
+	float sint = time + colorCount*intens * colorTiling;
+	float rem = mod(sint,1);
+	int col = int(sint);
+	rem = pow(rem, blendSmoothing);
+	return colors[col%colorCount]*(1-rem) + colors[(col+1)%colorCount] * (rem);
 }
 
 vec3 Calculate(int index, vec3 wNormal)
@@ -45,9 +56,9 @@ vec3 Calculate(int index, vec3 wNormal)
 	diffIntensity/=falloff;
 	vec3 ambient  = lights[index].ambientColor;
 	vec3 specular = spec * diffIntensity * vec3(1);
-
+	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(texture(diffuseTexture, texCoord))*textureBlend;
 	
-	vec3 diffuse = (GetToonColor(diffIntensity) * lights[index].intensity) * diffIntensity;
+	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;
 
 	return specular + diffuse + ambient;
 }
