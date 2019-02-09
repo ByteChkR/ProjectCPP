@@ -59,7 +59,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	lua_call(L, 0, 1);
 	l = lua_gettop(L);
-	if (!LuaOperations::TryGetFloatFromTable(L, "posX", &_position.y))
+	if (!LuaOperations::TryGetFloatFromTable(L, "posY", &_position.y))
 	{
 		std::cout << "This object has no y coord. assuming 0";
 	}
@@ -68,13 +68,13 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	lua_call(L, 0, 1);
 	l = lua_gettop(L);
-	if (!LuaOperations::TryGetFloatFromTable(L, "posX", &_position.z))
+	if (!LuaOperations::TryGetFloatFromTable(L, "posZ", &_position.z))
 	{
 		std::cout << "This object has no z coord. assuming 0";
 	}
 	l = lua_gettop(L);
 	lua_close(L);
-	_position = glm::vec3(0, 50, 0);
+	//_position = glm::vec3(0, 50, 0);
 
 }
 
