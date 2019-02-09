@@ -8,7 +8,7 @@
 class MapBuilder
 {
 public:
-	MapBuilder(float generationOffset);
+	MapBuilder(float generationOffset, float removalOffset);
 	~MapBuilder();
 	void Update();
 	std::vector<std::pair<int, GameObject*>> PrepareMap(std::vector<Lane*> lanes, size_t length);
@@ -22,6 +22,7 @@ private:
 	std::vector<std::pair<int, GameObject*>> _mapPropList;
 	std::vector<std::pair<int, GameObject*>> _decoPropList;
 	float genOffset;
+	float remOffset;
 };
 
 #endif // !MAPBUILDER_HPP

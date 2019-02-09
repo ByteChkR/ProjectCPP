@@ -7,12 +7,12 @@
 #include "Level.h"
 MapBuilder* MapBuilder::instance = nullptr;
 
-MapBuilder::MapBuilder(float generationOffset)
+MapBuilder::MapBuilder(float generationOffset, float removalOffset)
 {
 	instance = this;
 	_container = new GameObject("CONTAINER");
 	genOffset = generationOffset;
-
+	remOffset = removalOffset;
 	/*_map = Level::instance->GetMap();
 	_deco = Level::instance->GetDeco();*/
 
@@ -39,7 +39,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 	for (int i = list->size() - 1; i >= 0; i--)
 	{
 		glm::vec3 v;
-		if ((*list)[i].second != nullptr && ((v = ((*list)[i].second->getLocalPosition() + _container->getLocalPosition())).z > 1 || v.z < -genOffset))
+		if ((*list)[i].second != nullptr && ((v = ((*list)[i].second->getLocalPosition() + _container->getLocalPosition())).z > remOffset || v.z < -genOffset))
 		{
 			PresetHandler::instance->GivePreset((*list)[i].first, (*list)[i].second);
 			(*list)[i].second = nullptr;
@@ -50,7 +50,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 			int lane = i % gen->GetNumberOfLanes();
 			float dist = (i / gen->GetNumberOfLanes()) * gen->GetLaneAt(lane)->GetStep();
 			float reldist = dist - _container->getLocalPosition().z;
-			if (genOffset >= reldist)
+			if (reldist > remOffset && genOffset >= reldist)
 			{
 				//std::cout << "Created\n";
 				glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
