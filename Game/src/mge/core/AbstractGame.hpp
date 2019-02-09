@@ -20,6 +20,8 @@ class AbstractGame
         AbstractGame();
         virtual ~AbstractGame();
 
+		sf::RenderWindow* _window;  //sfml window to render into
+
         //creates a window, initializes glew, a renderer and a world instance
         virtual void initialize();
         //run the actual process of updating all objects, rendering them and processing events
@@ -53,7 +55,7 @@ class AbstractGame
         //process any sfml window events (see SystemEventDispatcher/Listener)
         virtual void _processEvents();
 
-		sf::RenderWindow* _window;  //sfml window to render into
+
 		Renderer* _renderer;        //the renderer class to render the world
 		
 		

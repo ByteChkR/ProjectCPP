@@ -23,6 +23,9 @@
     <Filter Include="MGE Source files\mge\util\Lua">
       <UniqueIdentifier>{9ef30825-b8c8-4a77-9bbf-878f8035e016}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MGE Source files\mge\util\Menu">
+      <UniqueIdentifier>{2d47b4e0-2711-486a-9a22-48533a89462a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp">
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="HudText.h">
       <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +293,9 @@
     </ClCompile>
     <ClCompile Include="HudText.cpp">
       <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

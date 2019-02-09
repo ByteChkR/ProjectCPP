@@ -28,12 +28,12 @@ DebugHud::~DebugHud()
 void DebugHud::_organizeHud()
 {
 	_debugBox->sprite.setPosition(0, 0);
+	_debugText->_text.setPosition(10, 10);
 
 }
 
 void DebugHud::setDebugInfo(std::string pInfo) {
     _debugText->_text.setString(pInfo);
-	_debugText->_text.setPosition(10, 10);
 }
 
 void DebugHud::draw()

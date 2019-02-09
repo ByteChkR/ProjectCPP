@@ -190,6 +190,7 @@
     <ClInclude Include="..\src\mge\util\Lane.h" />
     <ClInclude Include="..\src\mge\util\MapGenerator.h" />
     <ClInclude Include="AbstractStaticCollider.hpp" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="DynamicBoxCollider.hpp" />
     <ClInclude Include="EngineSettings.h" />
@@ -235,6 +236,7 @@
     <ClCompile Include="..\src\mge\util\Lane.cpp" />
     <ClCompile Include="..\src\mge\util\MapGenerator.cpp" />
     <ClCompile Include="AbstractStaticCollider.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DynamicBoxCollider.cpp" />
     <ClCompile Include="EngineSettings.cpp" />
