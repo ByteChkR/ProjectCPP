@@ -5,7 +5,6 @@
 #include "mge/materials/TextureMaterial.hpp"
 #include "mge/core/Texture.hpp"
 #include "StaticBoxCollider.hpp"
-PresetHandler* PresetHandler::instance = nullptr;
 
 PresetHandler::~PresetHandler()
 {
@@ -18,7 +17,6 @@ PresetHandler::~PresetHandler()
 
 PresetHandler::PresetHandler(std::vector<std::string> files)
 {
-	instance = this;
 	//Create One Gameobject by file
 
 	//SERIALIZATION MISSING
