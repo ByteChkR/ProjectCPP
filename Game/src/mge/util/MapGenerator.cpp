@@ -24,18 +24,21 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 
 	fullPath ="mge/maps/test.txt";
 	std::string getcontent;
-	std::ifstream openfile(fullPath);
+	//std::ifstream openfile(fullPath);
 
 
-	if (openfile.is_open())
-	{
-		std::cout << "yes";
-		while (!openfile.eof())
-		{
-			getline(openfile, getcontent);
-			std::cout << getcontent << std::endl;
-		}
-	}
+	//if (openfile.is_open())
+	//{
+	//	std::cout << "yes";
+	//	while (!openfile.eof())
+	//	{
+	//		getline(openfile, getcontent);
+	//		std::cout << getcontent << std::endl;
+	//	}
+	//}
+	//
+	std::ifstream file(fullPath);
+	//file.open(fullPath);
 
 	int randomize = 0;
 	int columns = 0;
@@ -44,8 +47,6 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 
 	std::cout<<"The path of the file: " << fullPath << '\n';
 
-	std::ifstream file(fullPath);
-	file.open(fullPath);
 	file >> randomize;
 	file >> columns;
 	file >> rows;
@@ -92,6 +93,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	}
 	std::cout << "reading finished"<< '\n';
 
+	
 	file.close();
 	
 
