@@ -14,15 +14,17 @@ struct Part
 
 MapGenerator::MapGenerator(std::string pName, bool isInstance)
 {
+
 	e = std::default_random_engine(seed);
 	  //e = d;
 	if(isInstance)instance = this;
 	std::vector< Part> parts;
 	std::vector<int> steps;
-	std::string fullPath = config::MGE_MAP_PATH + pName;
+	std::string fullPath = _mapsLocation+pName;
 
 
-	fullPath ="mge/maps/test.txt";
+
+//	fullPath ="mge/maps/test.txt";
 	std::string getcontent;
 	//std::ifstream openfile(fullPath);
 

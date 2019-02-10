@@ -28,6 +28,7 @@ private:
 
 	unsigned seed = unsigned(std::chrono::system_clock::now().time_since_epoch().count());
 	static std::default_random_engine e;
+	std::string _mapsLocation = "mge/maps/";
 	float _laneSpace = 2;
 	std::vector<Lane *> _lanes;
 	std::vector <int> _biomes;
