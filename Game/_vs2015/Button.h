@@ -14,6 +14,7 @@ public:
 private:
 	int _width;
 	int _heigth;
+	bool _clicked = true;
 
 	sf::Vector2f _position;
 	sf::Vector2u _size;
