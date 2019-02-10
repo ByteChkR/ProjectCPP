@@ -62,7 +62,7 @@ void MGEDemo::_initializeScene()
     //load a bunch of meshes we will be using throughout this demo
     //each mesh only has to be loaded once, but can be used multiple times:
     //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
+    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane_8192.obj");
     Mesh* cubeMeshF = Mesh::load (config::MGE_MODEL_PATH+"cube_flat.obj");
     Mesh* sphereMeshS = Mesh::load (config::MGE_MODEL_PATH+"sphere_smooth.obj");
 
@@ -76,24 +76,24 @@ void MGEDemo::_initializeScene()
 	AbstractMaterial* test = new GameMaterial(*m);
     //create some materials to display the cube, the plane and the light
     AbstractMaterial* lightMaterial = new ColorMaterial (glm::vec3(1,1,0));
-	AbstractMaterial* runicPlaneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 100, 10, 1, 1, 10);
-	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0, 5, 2);
+	AbstractMaterial* runicPlaneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 5, 2,Texture::load(config::MGE_TEXTURE_PATH + "height.png", true));
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0, 5, 2, Texture::load(config::MGE_TEXTURE_PATH+"height.png", true));
 
     //SCENE SETUP
 
    //add camera first (it will be updated last)
     Camera* camera = new Camera ("camera", glm::vec3(0,1,0));
-    camera->rotate(glm::radians(-30.0f), glm::vec3(1,0,0));
+    camera->rotate(glm::radians(-0.0f), glm::vec3(1,0,0));
     
     _world->setMainCamera(camera);
 
     //add the floor
-    GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
-	plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
-    plane->scale(glm::vec3(5,5,5));
+    GameObject* plane = new GameObject ("plane", glm::vec3(0,-1,-35));
+	//plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
+    plane->scale(glm::vec3(50,50,50));
     plane->setMesh(planeMeshDefault);
     plane->setMaterial(runicPlaneMaterial);
-    //_world->add(plane);
+    _world->add(plane);
 
     //add a spinning sphere
     GameObject* sphere = new GameObject ("sphere", glm::vec3(0,0,0));
@@ -103,7 +103,7 @@ void MGEDemo::_initializeScene()
     sphere->addBehaviour (new PlayerController());
     _world->add(sphere);
 	sphere->add(camera);
-	camera->setLocalPosition(glm::vec3(0, 8, 12));
+	camera->setLocalPosition(glm::vec3(0, 4, 12));
 
     //add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
     //It's here as a place holder to get you started.
@@ -121,7 +121,7 @@ void MGEDemo::_initializeScene()
 	_world->add(light);
 	new BiomeHandler(std::vector<Biome*> { new Biome("D:\\Users\\Tim\\Documents\\ProjectCPP\\Game\\assets\\mge\\biomes\\biome.lua"),
 											new Biome("D:\\Users\\Tim\\Documents\\ProjectCPP\\Game\\assets\\mge\\biomes\\biome1.lua")});
-	mb = new MapBuilder(50, 15);
+	mb = new MapBuilder(150, 15);
 	GameObject* cont = mb->GetContainer();
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());

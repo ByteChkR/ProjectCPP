@@ -23,6 +23,7 @@ uniform float blendSmoothing;
 
 uniform Light lights[8];
 uniform int lightCount;
+
 uniform sampler2D diffuseTexture;
 uniform float shininess;
 in vec2 texCoord;

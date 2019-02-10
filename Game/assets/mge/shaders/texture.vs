@@ -8,14 +8,27 @@ in vec2 uv;
 uniform	mat4 	projectionMatrix;
 uniform	mat4 	viewMatrix;
 uniform	mat4 	modelMatrix;
+uniform float maxHeight;
+uniform float genOffset;
+uniform float hwm;
+
+uniform sampler2D yOffTexture;
 
 out vec2 texCoord;
 out vec3 worldNormal;
 out vec3 fragmentWorldPosition;
 
 void main( void ){
-    	gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(vertex, 1.f);
+		vec4 vertexWorldPosition = viewMatrix * modelMatrix * vec4(vertex, 1);
+		
+		vec2 heightUV = vec2((-vertexWorldPosition.z) / genOffset,(vec4(vertex,1)*modelMatrix).x/hwm);
+
+		float texoff = texture(yOffTexture, heightUV).y*maxHeight;
+		//float offset = max(sin(-(vertexWorldPosition.z/15))*maxHeight,0.0);
+
+		vertexWorldPosition = (vertexWorldPosition + vec4(0,texoff,0,0));
+    	gl_Position = projectionMatrix * vertexWorldPosition;
     	texCoord = uv;
     	worldNormal = vec3(viewMatrix * modelMatrix * vec4(normal, 0));
-    	fragmentWorldPosition = vec3(viewMatrix * modelMatrix * vec4(vertex, 1));
+    	fragmentWorldPosition = vec3(vertexWorldPosition);
 }
