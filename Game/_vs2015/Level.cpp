@@ -5,9 +5,18 @@
 #include "lua.hpp"
 #include "LuaOperations.h"
 #include "mge/config.hpp"
+#include "mge/materials/TextureMaterial.hpp"
 
 Level* Level::instance = nullptr;
 
+
+Level::Level(bool debug, std::string mapFile)
+{
+	_map = new MapGenerator(mapFile);
+	_decoration = nullptr;
+	instance = this;
+	if (MapBuilder::instance != nullptr)MapBuilder::instance->Reload();
+}
 
 Level::Level(std::string levelLuaFile)
 {
@@ -29,7 +38,7 @@ Level::Level(std::string levelLuaFile)
 		std::cout << "Level has no height map";
 	}
 	else {
-		heightMap = Texture::load(config::MGE_TEXTURE_PATH + height, true);
+		TextureMaterial::_heightMap = Texture::load(config::MGE_TEXTURE_PATH + height, true);
 	}
 
 	lua_getglobal(L, "map");
@@ -61,7 +70,6 @@ Level::Level(std::string levelLuaFile)
 		std::cout << "Error parsing path to deco data\n";
 
 		_decoration = nullptr;
-		return;
 	}
 	else
 	{
@@ -70,8 +78,8 @@ Level::Level(std::string levelLuaFile)
 	}
 
 
-	
 
+	
 
 	MapBuilder::instance->Reload();
 }

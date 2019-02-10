@@ -8,7 +8,7 @@
 #include "../_vs2015/LevelManager.h"
 #include <vector>
 #include "mge/config.hpp"
-
+#include "mge/materials/TextureMaterial.hpp"
 /**
  * Main entry point for the Micro Engine.
 
@@ -27,30 +27,34 @@
 int main(int argc, char *argv[])
 {
 	std::string filename = "maplist.lua";
-	
-	if (argc > 0)
+	LevelManager* lm = nullptr;
+	if (argc > 1)
 	{
-		//filename = argv[1];
-		Level* level = new Level(config::MGE_MAP_PATH+ "map1.lua");
+		filename = argv[1];
 	}
 	else
 	{
-		LevelManager* lm = new LevelManager(filename);
+		lm = new LevelManager(filename);
 	}
 	AudioManager * audioManager = new AudioManager();
-	
+
 	//int t;
 	//std::cin >> t;
 
-    std::cout << "Starting Game" << std::endl;
+	std::cout << "Starting Game" << std::endl;
 
-    AbstractGame* game = new MGEDemo();
-    game->initialize();
-    game->run();
+	AbstractGame* game = new MGEDemo();
+
+	game->initialize();
+
+	if(lm != nullptr)lm->ChangeLevel(0);
+	else Level* level = new Level(true, filename);
+
+	game->run();
 
 	delete game;
 
-    return 0;
+	return 0;
 }
 
 

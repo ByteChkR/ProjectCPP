@@ -15,13 +15,14 @@ class Texture;
 class TextureMaterial : public AbstractMaterial
 {
     public:
-        TextureMaterial (Texture* pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin);
+        TextureMaterial (Texture* pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap = nullptr);
         virtual ~TextureMaterial ();
 
         virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
         void setDiffuseTexture (Texture* pDiffuseTexture);
 
+		static Texture* _heightMap;
     protected:
     private:
         static ShaderProgram* _shader;

@@ -18,7 +18,7 @@ MapBuilder::MapBuilder(float generationOffset, float removalOffset)
 	_deco = Level::instance->GetDeco();*/
 
 
-
+	if (Level::instance == nullptr) return;
 	std::vector<Lane*> lans = Level::instance->GetMap()->GetAllLanes();
 	_mapPropList = PrepareMap(lans, lans[0]->GetSegments().size());
 	if (Level::instance->GetDeco() != nullptr)
@@ -78,7 +78,7 @@ GameObject* MapBuilder::GetContainer()
 
 void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list)
 {
-	if (gen == nullptr) return;
+	if (gen == nullptr || gen->GetNumberOfLanes() == 0||gen->GetPartCount() == 0) return;
 	for (int i = list->size() - 1; i >= 0; i--)
 	{
 		glm::vec3 v;
@@ -114,7 +114,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 void MapBuilder::Update()
 {
-
+	if (Level::instance == nullptr) return;
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 
 	_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 1)*0.4f);

@@ -14,6 +14,8 @@
 #include "../_vs2015/Level.h"
 ShaderProgram* TextureMaterial::_shader = NULL;
 
+Texture* TextureMaterial::_heightMap = nullptr;
+
 GLint TextureMaterial::_uMMatrix = 0;
 GLint TextureMaterial::_uVMatrix = 0;
 GLint TextureMaterial::_uPMatrix = 0;
@@ -37,8 +39,9 @@ GLint TextureMaterial::_blendingSoftness = 0;
 GLint TextureMaterial::_colorCount = 0;
 GLint TextureMaterial::_colorTiling = 0;
 
-TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
+TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
 	maxHeight = 8;
+	if (heightMap != nullptr)_heightMap = heightMap;
 	width = 8;
 	genOffset = 100;
 	this->shininess = shininess;
@@ -146,19 +149,18 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 	glUniform1f(_genOffset, genOffset);
 	glUniform1f(_width, width);
 
-	if (Level::instance->heightMap != nullptr)
+	if (_heightMap != nullptr)
 	{
 		//setup texture slot 0
 		glActiveTexture(GL_TEXTURE1);
 		//bind the texture to the current active slot
-		glBindTexture(GL_TEXTURE_2D, Level::instance->heightMap->getId());
+		glBindTexture(GL_TEXTURE_2D, _heightMap->getId());
 		//tell the shader the texture slot for the diffuse texture is slot 0
 		glUniform1i(_heightTexID, 1);
 
 		glUniform1f(_maxHeight, maxHeight);
 	}
-	else
-		glUniform1f(_maxHeight, 0);
+
 
 
 

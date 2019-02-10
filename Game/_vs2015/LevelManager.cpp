@@ -25,7 +25,6 @@ LevelManager::LevelManager(std::string luaMapList)
 	}
 
 	lua_close(L);
-	if (maps.size() > 0)ChangeLevel(0);
 }
 
 void LevelManager::ChangeLevel(int index)
