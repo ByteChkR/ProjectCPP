@@ -214,6 +214,7 @@
     <ClInclude Include="PresetHandler.hpp" />
     <ClInclude Include="ScriptableLuaObject.h" />
     <ClInclude Include="StaticBoxCollider.hpp" />
+    <ClInclude Include="TextureMovingMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
@@ -265,6 +266,7 @@
     <ClCompile Include="HudText.cpp" />
     <ClCompile Include="ScriptableLuaObject.cpp" />
     <ClCompile Include="StaticBoxCollider.cpp" />
+    <ClCompile Include="TextureMovingMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameMaterial.hpp" />

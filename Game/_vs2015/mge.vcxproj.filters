@@ -172,6 +172,9 @@
     <ClInclude Include="ExitButton.h">
       <Filter>MGE Source files\mge\util\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="TextureMovingMaterial.h">
+      <Filter>MGE Source files\mge\materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -320,6 +323,9 @@
     </ClCompile>
     <ClCompile Include="ExitButton.cpp">
       <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureMovingMaterial.cpp">
+      <Filter>MGE Source files\mge\materials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

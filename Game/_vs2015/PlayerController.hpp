@@ -22,6 +22,7 @@ private:
 	float _jumpForce;
 	float _gravity;
 	float _gravityWhenGoingDown;
+	float _gravityIncreaseWhenGoingDown;
 	float _velocity;
 	bool _isGoingDown;
 	bool _grounded;

@@ -15,6 +15,7 @@
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "../_vs2015/TextureMovingMaterial.h"
 #include "../_vs2015/Material.hpp"
 #include "../_vs2015/GameMaterial.hpp"
 
@@ -76,7 +77,7 @@ void MGEDemo::_initializeScene()
 	AbstractMaterial* test = new GameMaterial(*m);
     //create some materials to display the cube, the plane and the light
     AbstractMaterial* lightMaterial = new ColorMaterial (glm::vec3(1,1,0));
-	AbstractMaterial* runicPlaneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 5, 2);
+	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 5, 2);
 	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0, 5, 2);
 
     //SCENE SETUP
@@ -126,8 +127,7 @@ void MGEDemo::_initializeScene()
 		biomes.push_back(new Biome(biomeFiles[i]));
 	}
 	new BiomeHandler(biomes);
-	mb = new MapBuilder(150, 15);
-	GameObject* cont = mb->GetContainer();
+	GameObject* cont = MapBuilder::instance->GetContainer();
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
@@ -136,7 +136,6 @@ void MGEDemo::_initializeScene()
 
 void MGEDemo::_render() {
     AbstractGame::_render();
-	mb->Update();
     _updateHud();
 }
 

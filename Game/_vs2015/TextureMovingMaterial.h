@@ -1,5 +1,5 @@
-#ifndef TEXTUREMATERIAL_HPP
-#define TEXTUREMATERIAL_HPP
+#ifndef TEXTUREMOVINGMATERIAL_HPP
+#define TEXTUREMOVINGMATERIAL_HPP
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "GL/glew.h"
@@ -12,19 +12,18 @@ class Texture;
  * This material is already a little bit more complicated, instead of a color we can pass in a texture,
  * all attributes and uniforms are cached and we precompute the MVP matrix passing it in as one entity.
  */
-class TextureMaterial : public AbstractMaterial
+class TextureMovingMaterial : public AbstractMaterial
 {
 public:
-	TextureMaterial(Texture* pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap = nullptr);
-	virtual ~TextureMaterial();
+	TextureMovingMaterial(Texture* pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin);
+	virtual ~TextureMovingMaterial();
 
 	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 
-	static Texture* _heightMap;
-	static float maxXOff;
-	static float xOffsetSmootness;
+	static float Movingspeed;
+
 protected:
 private:
 	static ShaderProgram* _shader;
@@ -56,6 +55,7 @@ private:
 	static GLint _width;
 	static GLint _xOffsetSmootness;
 	static GLint _maxXOff;
+	static GLint _movingspeed;
 
 	Texture* _diffuseTexture;
 	float shininess;
@@ -72,8 +72,8 @@ private:
 
 
 
-	TextureMaterial(const TextureMaterial&);
-	TextureMaterial& operator=(const TextureMaterial&);
+	TextureMovingMaterial(const TextureMovingMaterial&);
+	TextureMovingMaterial& operator=(const TextureMovingMaterial&);
 
 };
 

@@ -31,7 +31,6 @@ class MGEDemo: public AbstractGame
 		DebugHud* _hud;                   //hud display
 
         void _updateHud();
-		MapBuilder* mb;
         MGEDemo(const MGEDemo&);
         MGEDemo& operator=(const MGEDemo&);
 };

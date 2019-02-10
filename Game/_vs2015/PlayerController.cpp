@@ -7,6 +7,7 @@ PlayerController::PlayerController()
 	_currentLane = 0;
 	_gravity = -1;
 	_gravityWhenGoingDown = -5;
+
 	_jumpForce = 0.45f;
 	_velocity = 0;
 	_switchTime = 0.1f;
@@ -133,7 +134,7 @@ void PlayerController::switchLeft()
 {
 	if (_isSwitching)return;
 	_nextLane = MapGenerator::instance->GetLaneAt(_currentLane)->GetLeft();
-	if (_nextLane == -1)
+	if (_nextLane == -1 || _nextLane == 0)
 	{
 		return; //Something went wrong. u are already on most left lane? or the next lane has not yet started?
 	}
@@ -145,7 +146,7 @@ void PlayerController::switchRight()
 {
 	if (_isSwitching)return;
 	_nextLane = MapGenerator::instance->GetLaneAt(_currentLane)->GetRight();
-	if (_nextLane == -1)
+	if (_nextLane == -1 || _nextLane == MapGenerator::instance->GetNumberOfLanes()-1)
 	{
 		return; //Something went wrong. u are already on most right lane? or the next lane has not yet started?
 	}

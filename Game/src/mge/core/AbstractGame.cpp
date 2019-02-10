@@ -119,12 +119,11 @@ void AbstractGame::run()
 		if (timeSinceLastUpdate > timePerFrame)
 		{
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
+			startupTime += timeSinceLastUpdate.asSeconds();
 		    while (timeSinceLastUpdate > timePerFrame) {
                 timeSinceLastUpdate -= timePerFrame;
                 _update(timePerFrame.asSeconds());
 				_manager->Update(timePerFrame.asSeconds());
-				startupTime += timePerFrame.asSeconds();
 		    }
 
             _render();
@@ -132,6 +131,7 @@ void AbstractGame::run()
 
             //fps count is updated once every 1 second
             frameCount++;
+			
             timeSinceLastFPSCalculation += renderClock.restart().asSeconds();
             if (timeSinceLastFPSCalculation > 1) {
                 _fps = frameCount/timeSinceLastFPSCalculation;
