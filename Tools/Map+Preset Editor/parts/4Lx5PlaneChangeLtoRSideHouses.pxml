@@ -7,9 +7,9 @@
   <part>
     <ArrayOfInt>
       <int>2</int>
+      <int>3</int>
       <int>2</int>
-      <int>2</int>
-      <int>2</int>
+      <int>3</int>
       <int>2</int>
     </ArrayOfInt>
     <ArrayOfInt>
@@ -28,9 +28,9 @@
     </ArrayOfInt>
     <ArrayOfInt>
       <int>2</int>
+      <int>3</int>
       <int>2</int>
-      <int>2</int>
-      <int>2</int>
+      <int>3</int>
       <int>2</int>
     </ArrayOfInt>
   </part>
