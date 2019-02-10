@@ -148,9 +148,11 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 
 	if (Level::instance->heightMap != nullptr)
 	{
+		//setup texture slot 0
 		glActiveTexture(GL_TEXTURE1);
-
+		//bind the texture to the current active slot
 		glBindTexture(GL_TEXTURE_2D, Level::instance->heightMap->getId());
+		//tell the shader the texture slot for the diffuse texture is slot 0
 		glUniform1i(_heightTexID, 1);
 
 		glUniform1f(_maxHeight, maxHeight);
