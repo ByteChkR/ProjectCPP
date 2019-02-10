@@ -18,10 +18,48 @@ MapBuilder::MapBuilder(float generationOffset, float removalOffset)
 	_deco = Level::instance->GetDeco();*/
 
 
+
 	std::vector<Lane*> lans = Level::instance->GetMap()->GetAllLanes();
 	_mapPropList = PrepareMap(lans, lans[0]->GetSegments().size());
 	lans = Level::instance->GetDeco()->GetAllLanes();
 	_decoPropList = PrepareMap(lans, lans[0]->GetSegments().size());
+}
+
+void MapBuilder::Reload()
+{
+	ReloadGen(Level::instance->GetMap(), &_mapPropList);
+	ReloadGen(Level::instance->GetDeco(), &_decoPropList);
+}
+
+void MapBuilder::Unload()
+{
+	if(&_mapPropList != nullptr && _mapPropList.size() > 0)
+	UnloadGen(Level::instance->GetMap(), &_mapPropList);
+	if (&_decoPropList != nullptr && _decoPropList.size() > 0)
+	UnloadGen(Level::instance->GetDeco(), &_decoPropList);
+
+}
+
+void MapBuilder::UnloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list)
+{
+	if (gen == nullptr) return;
+	for (size_t i = 0; i < (*list).size(); i++)
+	{
+		int biomeID = i / gen->GetNumberOfLanes() / gen->GetPartCount();
+
+		BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID), (*list)[i].first, (*list)[i].second);
+		(*list)[i].second = nullptr;
+	}
+	list->clear();
+}
+
+void MapBuilder::ReloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list)
+{
+	if (gen == nullptr) return;
+	UnloadGen(gen, list);
+
+	std::vector<Lane*> lans = gen->GetAllLanes();
+	*list = PrepareMap(lans, lans[0]->GetSegments().size());
 }
 
 MapBuilder::~MapBuilder()
@@ -37,6 +75,7 @@ GameObject* MapBuilder::GetContainer()
 
 void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list)
 {
+	if (gen == nullptr) return;
 	for (int i = list->size() - 1; i >= 0; i--)
 	{
 		glm::vec3 v;

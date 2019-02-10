@@ -5,7 +5,9 @@
 #include "mge\util\AudioManager.h"
 #include "mge\util\MapGenerator.h"
 #include "../_vs2015/Level.h"
+#include "../_vs2015/LevelManager.h"
 #include <vector>
+#include "mge/config.hpp"
 
 /**
  * Main entry point for the Micro Engine.
@@ -24,14 +26,19 @@
  */
 int main(int argc, char *argv[])
 {
-	std::string filename = "test.txt";
+	std::string filename = "maplist.lua";
 	
-	if (argc > 1)
+	if (argc > 0)
 	{
-		filename = argv[1];
+		//filename = argv[1];
+		Level* level = new Level(config::MGE_MAP_PATH+ "map1.lua");
+	}
+	else
+	{
+		LevelManager* lm = new LevelManager(filename);
 	}
 	AudioManager * audioManager = new AudioManager();
-	Level* level = new Level(filename, "background.txt");
+	
 	//int t;
 	//std::cin >> t;
 

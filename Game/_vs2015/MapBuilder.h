@@ -14,6 +14,10 @@ public:
 	std::vector<std::pair<int, GameObject*>> PrepareMap(std::vector<Lane*> lanes, size_t length);
 	GameObject* GetContainer();
 	static MapBuilder* instance;
+	void UnloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list);
+	void ReloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list);
+	void Reload();
+	void Unload();
 private:
 	GameObject* _container;
 	void UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list);

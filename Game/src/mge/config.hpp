@@ -5,4 +5,5 @@ namespace config {
     const std::string MGE_SHADER_PATH ("mge/shaders/");
     const std::string MGE_FONT_PATH ("mge/fonts/");
 	const std::string LUA_OBJECT_SCRIPT_FOLDER("mge/objectScripts/");
+	const std::string MGE_MAP_PATH("mge/maps/");
 }

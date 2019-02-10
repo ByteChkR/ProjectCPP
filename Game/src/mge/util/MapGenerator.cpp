@@ -1,7 +1,7 @@
 #include "MapGenerator.h"
 #include <fstream>
 #include <iostream>
-
+#include "mge/config.hpp"
 MapGenerator * MapGenerator::instance = nullptr;
 std::default_random_engine MapGenerator::e;
 
@@ -17,7 +17,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	if(isInstance)instance = this;
 	std::vector< Part> parts;
 	std::vector<int> steps;
-	std::string fullPath = _filePath + pName;
+	std::string fullPath = config::MGE_MAP_PATH + pName;
 
 	int randomize = 0;
 	int columns = 0;

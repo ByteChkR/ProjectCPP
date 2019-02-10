@@ -199,6 +199,7 @@
     <ClInclude Include="HudSprite.h" />
     <ClInclude Include="HudText.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LightParams.hpp" />
     <ClInclude Include="LuaAPI.h" />
     <ClInclude Include="LuaOperations.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="GLLight.cpp" />
     <ClCompile Include="HudSprite.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LightParams.cpp" />
     <ClCompile Include="LuaAPI.cpp" />
     <ClCompile Include="LuaOperations.cpp" />

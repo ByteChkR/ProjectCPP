@@ -11,6 +11,7 @@
 #include "mge/config.hpp"
 #include "../_vs2015/GLLight.hpp"
 #include "mge/core/AbstractGame.hpp"
+#include "../_vs2015/Level.h"
 ShaderProgram* TextureMaterial::_shader = NULL;
 
 GLint TextureMaterial::_uMMatrix = 0;
@@ -36,17 +37,12 @@ GLint TextureMaterial::_blendingSoftness = 0;
 GLint TextureMaterial::_colorCount = 0;
 GLint TextureMaterial::_colorTiling = 0;
 
-TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightTexture) :_diffuseTexture(pDiffuseTexture) {
+TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
 	maxHeight = 8;
 	width = 8;
 	genOffset = 100;
 	this->shininess = shininess;
 	this->steps = steps;
-	if (heightTexture == nullptr)hasHeightTex = false;
-	else {
-		hasHeightTex = true;
-		_heightTex = heightTexture;
-	}
 	blend = colorTextureBlending;
 	blendingSoftness = blendSmoothing;
 	colorTiling = colorTilin;
@@ -54,7 +50,6 @@ TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int
 	offset += 4;
 	_lazyInitializeShader();
 
-	if (!hasHeightTex)maxHeight = 0;
 }
 
 TextureMaterial::~TextureMaterial() {}
@@ -151,15 +146,18 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 	glUniform1f(_genOffset, genOffset);
 	glUniform1f(_width, width);
 
-	if (hasHeightTex)
+	if (Level::instance->heightMap != nullptr)
 	{
 		glActiveTexture(GL_TEXTURE1);
 
-		glBindTexture(GL_TEXTURE_2D, _heightTex->getId());
+		glBindTexture(GL_TEXTURE_2D, Level::instance->heightMap->getId());
 		glUniform1i(_heightTexID, 1);
-	}
 
-	glUniform1f(_maxHeight, maxHeight);
+		glUniform1f(_maxHeight, maxHeight);
+	}
+	else
+		glUniform1f(_maxHeight, 0);
+
 
 
 	glUniform1f(_shininess, shininess);
