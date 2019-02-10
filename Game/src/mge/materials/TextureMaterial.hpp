@@ -23,6 +23,8 @@ class TextureMaterial : public AbstractMaterial
         void setDiffuseTexture (Texture* pDiffuseTexture);
 
 		static Texture* _heightMap;
+		static float maxXOff;
+		static float xOffsetSmootness;
     protected:
     private:
         static ShaderProgram* _shader;
@@ -52,10 +54,13 @@ class TextureMaterial : public AbstractMaterial
 		static GLint _maxHeight;
 		static GLint _genOffset;
 		static GLint _width;
+		static GLint _xOffsetSmootness;
+		static GLint _maxXOff;
 
         Texture* _diffuseTexture;
 		float shininess;
 		int steps;
+		
 
 
 		float blendingSoftness;

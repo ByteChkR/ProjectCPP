@@ -28,9 +28,18 @@ int main(int argc, char *argv[])
 {
 	std::string filename = "maplist.lua";
 	LevelManager* lm = nullptr;
-	if (argc > 1)
+	bool isRaw;
+	std::string test = argv[0];
+	if (argc == 2)
+	{
+		isRaw = false;
+		
+		filename = argv[1];
+	}
+	else if (argc > 2)
 	{
 		filename = argv[1];
+		isRaw = argv[2][0] == 'r';
 	}
 	else
 	{
@@ -48,7 +57,7 @@ int main(int argc, char *argv[])
 	game->initialize();
 
 	if(lm != nullptr)lm->ChangeLevel(0);
-	else Level* level = new Level(true, filename);
+	else Level* level = isRaw?new Level(true, filename):new Level(config::MGE_MAP_PATH+filename);
 
 	game->run();
 

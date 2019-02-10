@@ -14,6 +14,8 @@
 #include "../_vs2015/Level.h"
 ShaderProgram* TextureMaterial::_shader = NULL;
 
+float TextureMaterial::maxXOff = 50;
+float TextureMaterial::xOffsetSmootness = 2;
 Texture* TextureMaterial::_heightMap = nullptr;
 
 GLint TextureMaterial::_uMMatrix = 0;
@@ -33,6 +35,8 @@ GLint TextureMaterial::_heightTexID = 0;
 GLint TextureMaterial::_maxHeight = 0;
 GLint TextureMaterial::_width = 0;
 GLint TextureMaterial::_genOffset = 0;
+GLint TextureMaterial::_maxXOff = 0;
+GLint TextureMaterial::_xOffsetSmootness = 0;
 
 GLint TextureMaterial::_blend = 0;
 GLint TextureMaterial::_blendingSoftness = 0;
@@ -43,7 +47,8 @@ TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int
 	maxHeight = 8;
 	if (heightMap != nullptr)_heightMap = heightMap;
 	width = 8;
-	genOffset = 100;
+	genOffset = 150;
+	maxXOff = 50;
 	this->shininess = shininess;
 	this->steps = steps;
 	blend = colorTextureBlending;
@@ -78,7 +83,8 @@ void TextureMaterial::_lazyInitializeShader() {
 		_lightCount = _shader->getUniformLocation("lightCount");
 		_shininess = _shader->getUniformLocation("shininess");
 		_steps = _shader->getUniformLocation("steps");
-
+		_maxXOff = _shader->getUniformLocation("maxXOffset");
+		_xOffsetSmootness = _shader->getUniformLocation("xOffsetSmoothness");
 		
 		//Light Locations
 		for (size_t i = 0; i < 8; i++)
@@ -161,8 +167,8 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 		glUniform1f(_maxHeight, maxHeight);
 	}
 
-
-
+	glUniform1f(_xOffsetSmootness, xOffsetSmootness);
+	glUniform1f(_maxXOff, glm::sin(AbstractGame::instance->GetTimeSinceStartup()/5)*maxXOff);
 
 	glUniform1f(_shininess, shininess);
 	glUniform1i(_steps, steps);

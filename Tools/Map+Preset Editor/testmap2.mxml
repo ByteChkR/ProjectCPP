@@ -45,6 +45,55 @@
     <string>4Lx5PlaneChangeLtoRSideHouses.pxml</string>
     <string>4Lx60PfreejumpRightSideHouses.pxml</string>
     <string>4Lx5PfreeOnRightSideHouses.pxml</string>
+    <string>4Lx5PjumpLateSideHouses.pxml</string>
+    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
+    <string>4Lx10PfreejumpRightSideHouses.pxml</string>
     <string>4Lx5PfreejumpLeftSideHouses.pxml</string>
+    <string>4Lx5PjumpLateSideHouses.pxml</string>
+    <string>4Lx5PfreeFreeAllSideHouses.pxml</string>
+    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
+    <string>4Lx5PfreejumpRightSideHouses.pxml</string>
+    <string>4Lx5PjumpLateSideHouses.pxml</string>
+    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
+    <string>4Lx5PjumpOnLeftSideHouses.pxml</string>
+    <string>4Lx5PfreejumpLeftSideHouses.pxml</string>
+    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
+    <string>4Lx5PjumpOnLeftSideHouses.pxml</string>
+    <string>4Lx5PfreejumpRightSideHouses.pxml</string>
+    <string>4Lx5PjumpEarlySideHouses.pxml</string>
+    <string>4Lx5PfreejumpLeftSideHouses.pxml</string>
+    <string>4Lx5PjumpOnLeftSideHouses.pxml</string>
+    <string>4Lx5PjumpLateSideHouses.pxml</string>
+    <string>4Lx5PfreeFreeAllSideHouses.pxml</string>
+    <string>4Lx5PjumpLateSideHouses.pxml</string>
+    <string>4Lx5PjumpEarlySideHouses.pxml</string>
+    <string>4Lx5PjumpEarlySideHouses.pxml</string>
+    <string>4Lx5PjumpEarlySideHouses.pxml</string>
+    <string>4Lx5PjumpOnRightSideHouses.pxml</string>
+    <string>4Lx5PjumpOnRightSideHouses.pxml</string>
+    <string>4Lx5PjumpOnRightSideHouses.pxml</string>
+    <string>4Lx5PjumpOnRightSideHouses.pxml</string>
+    <string>4Lx5PjumpLateSideHouses.pxml</string>
+    <string>4Lx5PfreejumpRightSideHouses.pxml</string>
+    <string>4Lx5PjumpLateSideHouses.pxml</string>
+    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
+    <string>4Lx5PjumpOnRightSideHouses.pxml</string>
+    <string>4Lx5PfreeOnRightSideHouses.pxml</string>
+    <string>4Lx25PfreeFreeAllSideHouses.pxml</string>
+    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
+    <string>4Lx5PlaneChangeRtoLSideHouses.pxml</string>
+    <string>4Lx5PjumpOnLeftSideHouses.pxml</string>
+    <string>4Lx5PjumpEarlySideHouses.pxml</string>
+    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
+    <string>4Lx5PjumpOnLeftSideHouses.pxml</string>
+    <string>4Lx5PjumpLateSideHouses.pxml</string>
+    <string>4Lx5PjumpLateSideHouses.pxml</string>
+    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
+    <string>4Lx5PjumpEarlySideHouses.pxml</string>
+    <string>4Lx5PfreeOnLeftSideHouses.pxml</string>
+    <string>4Lx5PjumpEarlySideHouses.pxml</string>
+    <string>4Lx5PfreejumpLeftSideHouses.pxml</string>
+    <string>4Lx5PfreejumpLeftSideHouses.pxml</string>
+    <string>deathzone.pxml</string>
   </PartSequence>
 </Map>
