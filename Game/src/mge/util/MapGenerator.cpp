@@ -20,27 +20,11 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	if(isInstance)instance = this;
 	std::vector< Part> parts;
 	std::vector<int> steps;
+
 	std::string fullPath = _mapsLocation+pName;
 
-
-
-//	fullPath ="mge/maps/test.txt";
-	std::string getcontent;
-	//std::ifstream openfile(fullPath);
-
-
-	//if (openfile.is_open())
-	//{
-	//	std::cout << "yes";
-	//	while (!openfile.eof())
-	//	{
-	//		getline(openfile, getcontent);
-	//		std::cout << getcontent << std::endl;
-	//	}
-	//}
-	//
 	std::ifstream file(fullPath);
-	//file.open(fullPath);
+
 
 	int randomize = 0;
 	int columns = 0;
