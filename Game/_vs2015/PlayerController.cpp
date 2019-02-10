@@ -7,7 +7,7 @@ PlayerController::PlayerController()
 	_currentLane = 0;
 	_gravity = -1;
 	_gravityWhenGoingDown = -5;
-	_jumpForce = 0.6f;
+	_jumpForce = 0.45f;
 	_velocity = 0;
 	_switchTime = 0.1f;
 	_curSwitchTime = 0;
