@@ -163,6 +163,15 @@
     <ClInclude Include="LevelManager.h">
       <Filter>MGE Source files\mge\util\Lua</Filter>
     </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayButton.h">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ExitButton.h">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -302,6 +311,15 @@
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
       <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayButton.cpp">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="ExitButton.cpp">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

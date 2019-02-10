@@ -1,5 +1,5 @@
-#ifndef Button_H
-#define Button_H
+#ifndef BUTTON_H
+#define BUTTON_H
 
 #include "SFML\Graphics.hpp"
 
@@ -8,6 +8,7 @@ class Button
 public:
 	Button(sf::RenderWindow *aWindow,sf::Sprite _buttonSprite);
 
+	void SetPosition(int x, int y);
 	void Update();
 
 private:

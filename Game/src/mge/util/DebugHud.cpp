@@ -16,6 +16,7 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText
 
 	_debugText = new HudText();
 	_debugBox =  new HudSprite("HudBox.png");
+	_menu = new Menu(_window);
 
 	_organizeHud();
 }
@@ -34,6 +35,7 @@ void DebugHud::_organizeHud()
 
 void DebugHud::setDebugInfo(std::string pInfo) {
     _debugText->_text.setString(pInfo);
+	_menu->Update();
 }
 
 void DebugHud::draw()
@@ -44,4 +46,6 @@ void DebugHud::draw()
     _window->draw(_debugText->_text);
 	_window->draw(_debugBox->sprite);
 	_window->popGLStates();
+
+	_menu->draw();
 }

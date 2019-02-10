@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "../_vs2015/HudSprite.h"
 #include "../_vs2015/HudText.h"
+#include"../_vs2015/Menu.h"
 #include <iostream>
 
 /**
@@ -23,6 +24,8 @@ class DebugHud
 
         HudText *_debugText;
 		HudSprite *_debugBox;
+
+		Menu *_menu;
 
 		void _organizeHud();
 

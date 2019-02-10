@@ -10,6 +10,12 @@ Button::Button(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite): _window(aWi
 
 }
 
+void Button::SetPosition(int x, int y) 
+{
+	_position.x = x;
+	_position.y = y;
+}
+
 void Button::OnClick() 
 {
 

@@ -11,6 +11,7 @@ class Menu
 	public:
 		Menu(sf::RenderWindow * aWindow);
 		void draw();
+		void Update();
 
 	private:
 		sf::RenderWindow * _window;
@@ -18,6 +19,10 @@ class Menu
 		HudText * _playText;
 		HudSprite *_playBox;
 		Button *_button;
+
+		HudText * _exitText;
+		HudSprite *_exitBox;
+		Button *_exitButton;
 
 		void _organizeMenu();
 
