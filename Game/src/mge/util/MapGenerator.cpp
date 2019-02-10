@@ -1,7 +1,9 @@
 #include "MapGenerator.h"
 #include <fstream>
 #include <iostream>
+#include <string>
 #include "mge/config.hpp"
+
 MapGenerator * MapGenerator::instance = nullptr;
 std::default_random_engine MapGenerator::e;
 
@@ -19,6 +21,22 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	std::vector<int> steps;
 	std::string fullPath = config::MGE_MAP_PATH + pName;
 
+
+	fullPath ="mge/maps/test.txt";
+	std::string getcontent;
+	std::ifstream openfile(fullPath);
+
+
+	if (openfile.is_open())
+	{
+		std::cout << "yes";
+		while (!openfile.eof())
+		{
+			getline(openfile, getcontent);
+			std::cout << getcontent << std::endl;
+		}
+	}
+
 	int randomize = 0;
 	int columns = 0;
 	int rows = 0;
@@ -27,6 +45,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	std::cout<<"The path of the file: " << fullPath << '\n';
 
 	std::ifstream file(fullPath);
+	file.open(fullPath);
 	file >> randomize;
 	file >> columns;
 	file >> rows;
