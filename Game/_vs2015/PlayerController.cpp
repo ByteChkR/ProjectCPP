@@ -57,7 +57,7 @@ void PlayerController::update(float pTime)
 
 	
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		if (_isWPRessed == false)
 		{
@@ -97,7 +97,7 @@ void PlayerController::update(float pTime)
 		_isDPressed = false;
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		if (_grounded == false)
 		{
