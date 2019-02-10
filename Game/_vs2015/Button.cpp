@@ -33,7 +33,7 @@ void Button::Update()
 		}
 		_clicked = false;
 	}
-	else 
+	else if(_clicked == false)
 	{
 		_clicked = true;
 	}
