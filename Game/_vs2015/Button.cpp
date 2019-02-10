@@ -3,13 +3,11 @@
 #include "mge\core\AbstractGame.hpp"
 
 
-Button::Button(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite)
+Button::Button(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite): _window(aWindow), _sprite(_buttonSprite)
 {
-	_window = aWindow;
-	_sprite = _buttonSprite;
 	_position = _sprite.getPosition();
-
 	_size = _sprite.getTexture()->getSize();
+
 }
 
 void Button::OnClick() 

@@ -24,7 +24,6 @@ class DebugHud
         HudText *_debugText;
 		HudSprite *_debugBox;
 
-        void _createDebugHud();
 		void _organizeHud();
 
         DebugHud(const DebugHud&);

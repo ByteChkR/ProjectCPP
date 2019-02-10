@@ -1,7 +1,5 @@
-#pragma once
 #ifndef Button_H
 #define Button_H
-#pragma once
 
 #include "SFML\Graphics.hpp"
 
