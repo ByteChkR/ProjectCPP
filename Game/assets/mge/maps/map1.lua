@@ -1,2 +1,2 @@
 heightTexture = "height.png"
-map = "temp.txt"
+map = "test.txt"

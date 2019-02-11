@@ -76,6 +76,17 @@ int PresetHandler::GetTotalInstances()
 	return count;
 }
 
+int PresetHandler::GetTotalActiveInstances()
+{
+	int count = 0;
+	for each (ObjectPool<GameObject*>* op in presets)
+	{
+		count += op->TotalActiveInstances();
+	}
+	return count;
+}
+
+
 void PresetHandler::GivePreset(size_t index, GameObject* preset)
 {
 	if (index >= presets.size())return;
