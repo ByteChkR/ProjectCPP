@@ -3,6 +3,7 @@
 #include "AbstractGame.hpp"
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
+#include "mge/util/AudioManager.h"
 
 AbstractGame* AbstractGame::instance = nullptr;
 
@@ -103,6 +104,7 @@ void AbstractGame::_initializeCollisionManager()
 
 void AbstractGame::run()
 {
+	
     //setting to calculate fps
 	sf::Clock renderClock;
     int frameCount = 0;
@@ -125,6 +127,34 @@ void AbstractGame::run()
                 _update(timePerFrame.asSeconds());
 				_manager->Update(timePerFrame.asSeconds());
 		    }
+
+
+			AudioManager::instance->Update(timePerFrame.asSeconds());
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+			{
+				AudioManager::instance->ChangeBackgroundMusic(0);
+
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+			{
+				AudioManager::instance->ChangeBackgroundMusic(1);
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+			{
+				AudioManager::instance->ChangeBackgroundMusic(2);
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+			{
+				AudioManager::instance->GameOver();
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+			{
+				AudioManager::instance->Restart(0);
+			}
 
             _render();
             _window->display();

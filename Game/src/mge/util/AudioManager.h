@@ -15,15 +15,31 @@ public:
 		ClothInventory, LetherInventory, MetalClash
 	};
 
-	void PlaySound(SoundEffects pSoundEffect);
+	void AddSound(std::string pFileLocation);
+	void AddMusic(std::string pFileLocation);
+	void Restart(int pNumber);
+	void GameOver();
+	void Update(float pDeltaTime);
+	void PlaySound(int pNumber);
+	void ChangeBackgroundMusic(int pNumber);
+
 	AudioManager();
 	~AudioManager();
 
 private:
-	sf::Music * music;
+	void ControlBackgroundMusic(float pDeltaTime);
+	void ChangeClips();
+	float _crossFader = 0;
+	float _secondsForCrossFader = 4;
+	bool _isClipChanged = true;
+	bool _isInGameOverScreen;
 	void LoadMusic(std::string pFileLocation);
-	void AddSound(std::string pFileLocation);
+
+	std::string _currentMusic;
+	std::string _nextMusic;
+	sf::Music * music;
 	std::vector<sf::Sound *> _sounds;
+	std::vector<std::string> _musicPaths;
 	std::string _soundsPath= "mge/sounds/";
 
 };
