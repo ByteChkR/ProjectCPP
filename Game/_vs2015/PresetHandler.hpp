@@ -13,6 +13,7 @@ public:
 	GameObject* TakePreset(size_t index);
 	void GivePreset(size_t index, GameObject* preset);
 	int GetTotalInstances();
+	int GetTotalActiveInstances();
 private:
 	std::vector<ObjectPool<GameObject*>*> presets;
 };

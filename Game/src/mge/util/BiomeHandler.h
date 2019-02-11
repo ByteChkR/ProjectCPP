@@ -17,6 +17,7 @@ public:
 
 	int GetTotalBiomes();
 	int GetTotalInstances();
+	int GetTotalActiveInstances();
 	void GivePreset(int biomeID, size_t index, GameObject* preset);
 	GameObject* TakePreset(int biomeID, size_t index);
 

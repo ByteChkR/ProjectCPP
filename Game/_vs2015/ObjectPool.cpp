@@ -19,6 +19,10 @@ int ObjectPool<GameObject*>::TotalInstances()
 {
 	return _buffer.size() + _activeBuffer.size();
 }
+int ObjectPool<GameObject*>::TotalActiveInstances()
+{
+	return _activeBuffer.size();
+}
 
 void ObjectPool<GameObject*>::Give(GameObject*  val)
 {

@@ -48,6 +48,11 @@ int Biome::GetTotalInstances()
 	return _handler->GetTotalInstances();
 }
 
+int Biome::GetTotalActiveInstances()
+{
+	return _handler->GetTotalActiveInstances();
+}
+
 GameObject* Biome::TakePreset(size_t index)
 {
 	return _handler->TakePreset(index);

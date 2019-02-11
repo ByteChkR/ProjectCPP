@@ -38,7 +38,7 @@
 #include "../_vs2015/ScriptableLuaObject.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
-MGEDemo::MGEDemo():AbstractGame (),_hud(0)
+MGEDemo::MGEDemo() :AbstractGame(), _hud(0)
 {
 
 	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
@@ -46,10 +46,10 @@ MGEDemo::MGEDemo():AbstractGame (),_hud(0)
 }
 
 void MGEDemo::initialize() {
-    //setup the core part
-    AbstractGame::initialize();
+	//setup the core part
+	AbstractGame::initialize();
 
-    //setup the custom part so we can display some text
+	//setup the custom part so we can display some text
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
@@ -58,16 +58,16 @@ void MGEDemo::initialize() {
 //build the game _world
 void MGEDemo::_initializeScene()
 {
-    //MESHES
+	//MESHES
 
-    //load a bunch of meshes we will be using throughout this demo
-    //each mesh only has to be loaded once, but can be used multiple times:
-    //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane_8192.obj");
-    Mesh* cubeMeshF = Mesh::load (config::MGE_MODEL_PATH+"cube_flat.obj");
-    Mesh* sphereMeshS = Mesh::load (config::MGE_MODEL_PATH+"sphere_smooth.obj");
+	//load a bunch of meshes we will be using throughout this demo
+	//each mesh only has to be loaded once, but can be used multiple times:
+	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
+	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
+	Mesh* cubeMeshF = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
+	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 
-    //MATERIALS
+	//MATERIALS
 	Material* m = new Material();
 	m->diffuse = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
 	m->normal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png");
@@ -75,50 +75,50 @@ void MGEDemo::_initializeScene()
 	m->shininess = 1;
 	m->maxHeight = 0;
 	AbstractMaterial* test = new GameMaterial(*m);
-    //create some materials to display the cube, the plane and the light
-    AbstractMaterial* lightMaterial = new ColorMaterial (glm::vec3(1,1,0));
+	//create some materials to display the cube, the plane and the light
+	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
 	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 5, 2);
 	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0, 5, 2);
 
-    //SCENE SETUP
+	//SCENE SETUP
 
    //add camera first (it will be updated last)
-    Camera* camera = new Camera ("camera", glm::vec3(0,1,0));
-    camera->rotate(glm::radians(-30.0f), glm::vec3(1,0,0));
-    
-    _world->setMainCamera(camera);
+	Camera* camera = new Camera("camera", glm::vec3(0, 1, 0));
+	camera->rotate(glm::radians(-30.0f), glm::vec3(1, 0, 0));
 
-    //add the floor
-    GameObject* plane = new GameObject ("plane", glm::vec3(0,-1,-35));
+	_world->setMainCamera(camera);
+
+	//add the floor
+	GameObject* plane = new GameObject("plane", glm::vec3(0, -1, -35));
 	//plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
-    plane->scale(glm::vec3(50,50,50));
-    plane->setMesh(planeMeshDefault);
-    plane->setMaterial(runicPlaneMaterial);
-    _world->add(plane);
+	plane->scale(glm::vec3(50, 50, 50));
+	plane->setMesh(planeMeshDefault);
+	plane->setMaterial(runicPlaneMaterial);
+	_world->add(plane);
 
-    //add a spinning sphere
-    GameObject* sphere = new GameObject ("sphere", glm::vec3(0,0,0));
+	//add a spinning sphere
+	GameObject* sphere = new GameObject("sphere", glm::vec3(0, 0, 0));
 	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1)));
-    sphere->setMesh (sphereMeshS);
-    sphere->setMaterial(runicStoneMaterial);
-    sphere->addBehaviour (new PlayerController());
-    _world->add(sphere);
+	sphere->setMesh(sphereMeshS);
+	sphere->setMaterial(runicStoneMaterial);
+	sphere->addBehaviour(new PlayerController());
+	_world->add(sphere);
 	sphere->add(camera);
 	camera->setLocalPosition(glm::vec3(0, 8, 12));
 
-    //add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
-    //It's here as a place holder to get you started.
-    //Note how the texture material is able to detect the number of lights in the scene
-    //even though it doesn't implement any lighting yet!
+	//add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
+	//It's here as a place holder to get you started.
+	//Note how the texture material is able to detect the number of lights in the scene
+	//even though it doesn't implement any lighting yet!
 
 	LightParams* params = new LightParams();
 
-    Light* light = new Light("light", glm::vec3(0,4,0));
+	Light* light = new Light("light", glm::vec3(0, 4, 0));
 	light->SetParams(*params);
-    light->scale(glm::vec3(0.1f, 0.1f, 0.1f));
-    light->setMesh(cubeMeshF);
-    light->setMaterial(lightMaterial);
-    light->addBehaviour(new KeysBehaviour(25));
+	light->scale(glm::vec3(0.1f, 0.1f, 0.1f));
+	light->setMesh(cubeMeshF);
+	light->setMaterial(lightMaterial);
+	light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
 	std::vector<Biome*> biomes = std::vector<Biome*>();
 	std::vector<std::string> biomeFiles = FileLoader::GetFilesFromFolder(config::MGE_BIOME_PATH);
@@ -131,20 +131,20 @@ void MGEDemo::_initializeScene()
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
-	
+
 }
 
 void MGEDemo::_render() {
-    AbstractGame::_render();
-    _updateHud();
+	AbstractGame::_render();
+	_updateHud();
 }
 
 void MGEDemo::_updateHud() {
-    std::string debugInfo = "";
-    debugInfo += std::string("Instances:") + std::to_string(BiomeHandler::instance->GetTotalInstances()) + "\n" +std::string ("FPS:") + std::to_string((int)_fps)+"\n";
+	std::string debugInfo = "";
+	debugInfo += std::string("Active Instances: ") + std::to_string(BiomeHandler::instance->GetTotalActiveInstances()) + '\n' + std::string("Instances:") + std::to_string(BiomeHandler::instance->GetTotalInstances()) + "\n" + std::string("FPS:") + std::to_string((int)_fps) + "\n";
 
-    _hud->setDebugInfo(debugInfo);
-    _hud->draw();
+	_hud->setDebugInfo(debugInfo);
+	_hud->draw();
 }
 
 MGEDemo::~MGEDemo()

@@ -78,8 +78,9 @@ GameObject* MapBuilder::GetContainer()
 
 void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list)
 {
-	if (gen == nullptr || gen->GetNumberOfLanes() == 0||gen->GetPartCount() == 0) return;
-	for (int i = list->size() - 1; i >= 0; i--)
+	if (gen == nullptr || gen->GetNumberOfLanes() == 0 || gen->GetPartCount() == 0) return;
+	int lastAdd = -1;
+	for (int i = 0; i < list->size(); ++i)
 	{
 		glm::vec3 v;
 		int biomeID;
@@ -92,13 +93,14 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 		}
 		else if ((*list)[i].second == nullptr)
 		{
-
+			if (lastAdd != -1 && lastAdd != i - 1)break;
 			int lane = i % gen->GetNumberOfLanes();
 			biomeID = i / gen->GetNumberOfLanes();
 			float dist = biomeID * gen->GetLaneAt(lane)->GetStep();
 			float reldist = dist - _container->getLocalPosition().z;
 			if (reldist > remOffset && genOffset >= reldist)
 			{
+				lastAdd = i;
 				biomeID /= gen->GetPartCount();
 				//std::cout << "Created\n";
 				glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;

@@ -11,6 +11,7 @@ public:
 	T Take();
 	void Give(T val);
 	int TotalInstances();
+	int TotalActiveInstances();
 private:
 	std::vector<T> _buffer;
 	std::vector<T> _activeBuffer;

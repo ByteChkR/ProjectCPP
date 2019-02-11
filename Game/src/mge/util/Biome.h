@@ -17,6 +17,7 @@ public:
 	void GivePreset(size_t index, GameObject* preset);
 	GameObject* TakePreset(size_t index);
 	int GetTotalInstances();
+	int GetTotalActiveInstances();
 
 private:
 	PresetHandler* _handler;

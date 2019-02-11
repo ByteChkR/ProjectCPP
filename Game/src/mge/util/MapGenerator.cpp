@@ -61,11 +61,11 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		Part part;
 		for (int j = 0; j < rows; j++)
 		{
-			std::cout << "reading lane " << j <<" of part "<< i << '\n';
+			//std::cout << "reading lane " << j <<" of part "<< i << '\n';
 			Lane  lane(glm::vec3(0,0,0),0,0,0,0,std::vector<int>(),0);
 			for (int k = 0; k < columns; k++)
 			{
-				std::cout << "reading segment " << k << '\n';
+				//std::cout << "reading segment " << k << '\n';
 				int segment;
 				file >> segment;
 				lane.AddSegment((int)segment);
