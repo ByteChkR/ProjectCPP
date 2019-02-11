@@ -106,7 +106,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32d.lib;opengl32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32d.lib;opengl32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">
@@ -140,7 +140,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Static|Win32'">
@@ -184,14 +184,37 @@
     <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
+    <ClInclude Include="..\src\mge\util\AudioManager.h" />
+    <ClInclude Include="..\src\mge\util\BiomeHandler.h" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
+    <ClInclude Include="..\src\mge\util\Lane.h" />
+    <ClInclude Include="..\src\mge\util\MapGenerator.h" />
     <ClInclude Include="AbstractStaticCollider.hpp" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="DynamicBoxCollider.hpp" />
+    <ClInclude Include="EngineSettings.h" />
+    <ClInclude Include="ExitButton.h" />
+    <ClInclude Include="FileLoader.h" />
     <ClInclude Include="GLLight.hpp" />
+    <ClInclude Include="HudSprite.h" />
+    <ClInclude Include="HudText.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LightParams.hpp" />
+    <ClInclude Include="LuaAPI.h" />
+    <ClInclude Include="LuaOperations.h" />
+    <ClInclude Include="LuaScriptStruct.h" />
+    <ClInclude Include="MapBuilder.h" />
     <ClInclude Include="Material.hpp" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="ObjectPool.hpp" />
+    <ClInclude Include="PlayButton.h" />
+    <ClInclude Include="PlayerController.hpp" />
+    <ClInclude Include="PresetHandler.hpp" />
+    <ClInclude Include="ScriptableLuaObject.h" />
     <ClInclude Include="StaticBoxCollider.hpp" />
+    <ClInclude Include="TextureMovingMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
@@ -211,15 +234,39 @@
     <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
+    <ClCompile Include="..\src\mge\util\AudioManager.cpp" />
+    <ClCompile Include="..\src\mge\util\Biome.cpp" />
+    <ClCompile Include="..\src\mge\util\BiomeHandler.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
+    <ClCompile Include="..\src\mge\util\Lane.cpp" />
+    <ClCompile Include="..\src\mge\util\MapGenerator.cpp" />
     <ClCompile Include="AbstractStaticCollider.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DynamicBoxCollider.cpp" />
+    <ClCompile Include="EngineSettings.cpp" />
+    <ClCompile Include="ExitButton.cpp" />
+    <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="GameMaterial.cpp" />
     <ClCompile Include="GLLight.cpp" />
+    <ClCompile Include="HudSprite.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LightParams.cpp" />
+    <ClCompile Include="LuaAPI.cpp" />
+    <ClCompile Include="LuaOperations.cpp" />
+    <ClCompile Include="LuaScriptStruct.cpp" />
+    <ClCompile Include="MapBuilder.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="PlayButton.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="PresetHandler.cpp" />
+    <ClCompile Include="HudText.cpp" />
+    <ClCompile Include="ScriptableLuaObject.cpp" />
     <ClCompile Include="StaticBoxCollider.cpp" />
+    <ClCompile Include="TextureMovingMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameMaterial.hpp" />

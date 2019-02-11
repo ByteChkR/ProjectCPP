@@ -5,7 +5,9 @@
 
 # User-specific files
 *.suo
+*.tlog
 # *.user
+*.tlog
 *.userosscache
 *.sln.docstates
 
@@ -18,6 +20,8 @@
 [Rr]elease/
 [Rr]eleases/
 debug_dynamic_build/
+debug_dynamic_exe/
+release_dynamic_build/
 x64/
 x86/
 bld/

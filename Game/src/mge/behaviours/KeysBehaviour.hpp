@@ -14,6 +14,7 @@ class KeysBehaviour : public AbstractBehaviour
 		KeysBehaviour(float pMoveSpeed = 5, float pTurnSpeed = 45);
 		virtual ~KeysBehaviour();
 		virtual void update( float pStep );
+		virtual AbstractBehaviour* Clone() override;
 
     private:
         float _moveSpeed;

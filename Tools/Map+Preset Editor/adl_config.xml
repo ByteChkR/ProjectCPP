@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ADLConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ADLEnabled>false</ADLEnabled>
+  <SendUpdateMessageOnFirstLog>true</SendUpdateMessageOnFirstLog>
+  <UpdateMask>32</UpdateMask>
+  <WarningMask>4</WarningMask>
+  <SendWarnings>false</SendWarnings>
+  <Prefixes>
+    <Keys>
+      <int>1</int>
+      <int>2</int>
+      <int>4</int>
+      <int>8</int>
+      <int>16</int>
+      <int>32</int>
+      <int>64</int>
+      <int>128</int>
+      <int>256</int>
+      <int>512</int>
+      <int>-1</int>
+    </Keys>
+    <Values>
+      <string>[General]</string>
+      <string>[Log]</string>
+      <string>[Warning]</string>
+      <string>[Error]</string>
+      <string>[ADL]</string>
+      <string>[MAIN_EDITOR]</string>
+      <string>[WINDOWS_FORM]</string>
+      <string>[LANESTEP_EDITOR]</string>
+      <string>[PARTCREATOR_EDITOR]</string>
+      <string>[NEWMAPDIALOG_EDITOR]</string>
+      <string>[GLOBAL]</string>
+    </Values>
+  </Prefixes>
+  <PrefixLookupMode>ADDPREFIXIFAVAILABLE</PrefixLookupMode>
+</ADLConfig>

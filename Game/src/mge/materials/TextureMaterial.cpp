@@ -10,8 +10,13 @@
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/config.hpp"
 #include "../_vs2015/GLLight.hpp"
-
+#include "mge/core/AbstractGame.hpp"
+#include "../_vs2015/Level.h"
 ShaderProgram* TextureMaterial::_shader = NULL;
+
+float TextureMaterial::maxXOff = 50;
+float TextureMaterial::xOffsetSmootness = 2;
+Texture* TextureMaterial::_heightMap = nullptr;
 
 GLint TextureMaterial::_uMMatrix = 0;
 GLint TextureMaterial::_uVMatrix = 0;
@@ -25,11 +30,34 @@ GLLight TextureMaterial::_lightLocations[8];
 GLint TextureMaterial::_lightCount = 0;
 GLint TextureMaterial::_shininess = 0;
 GLint TextureMaterial::_steps = 0;
+GLint TextureMaterial::_time = 0;
+GLint TextureMaterial::_heightTexID = 0;
+GLint TextureMaterial::_maxHeight = 0;
+GLint TextureMaterial::_width = 0;
+GLint TextureMaterial::_genOffset = 0;
+GLint TextureMaterial::_maxXOff = 0;
+GLint TextureMaterial::_xOffsetSmootness = 0;
 
-TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps) :_diffuseTexture(pDiffuseTexture) {
+GLint TextureMaterial::_blend = 0;
+GLint TextureMaterial::_blendingSoftness = 0;
+GLint TextureMaterial::_colorCount = 0;
+GLint TextureMaterial::_colorTiling = 0;
+
+TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
+	maxHeight = 8;
+	if (heightMap != nullptr)_heightMap = heightMap;
+	width = 8;
+	genOffset = 150;
+	maxXOff = 50;
 	this->shininess = shininess;
 	this->steps = steps;
+	blend = colorTextureBlending;
+	blendingSoftness = blendSmoothing;
+	colorTiling = colorTilin;
+	_offset = offset;
+	offset += 4;
 	_lazyInitializeShader();
+
 }
 
 TextureMaterial::~TextureMaterial() {}
@@ -45,10 +73,19 @@ void TextureMaterial::_lazyInitializeShader() {
 		_uMMatrix = _shader->getUniformLocation("modelMatrix");
 		_uVMatrix = _shader->getUniformLocation("viewMatrix");
 		_uPMatrix = _shader->getUniformLocation("projectionMatrix");
+
+
+		_heightTexID = _shader->getUniformLocation("yOffTexture");
+		_maxHeight = _shader->getUniformLocation("maxHeight");
+
+
 		_uDiffuseTexture = _shader->getUniformLocation("diffuseTexture");
 		_lightCount = _shader->getUniformLocation("lightCount");
 		_shininess = _shader->getUniformLocation("shininess");
 		_steps = _shader->getUniformLocation("steps");
+		_maxXOff = _shader->getUniformLocation("maxXOffset");
+		_xOffsetSmootness = _shader->getUniformLocation("xOffsetSmoothness");
+		
 		//Light Locations
 		for (size_t i = 0; i < 8; i++)
 		{
@@ -62,6 +99,16 @@ void TextureMaterial::_lazyInitializeShader() {
 			);
 		}
 
+		//Color;
+		_colorCount = _shader->getUniformLocation("colorCount");
+		_colorTiling = _shader->getUniformLocation("colorTiling");
+		_blend = _shader->getUniformLocation("textureBlend");
+		_blendingSoftness = _shader->getUniformLocation("blendSmoothing");
+		_time = _shader->getUniformLocation("time");
+		
+		_width = _shader->getUniformLocation("hwm");
+		_genOffset = _shader->getUniformLocation("genOffset");
+
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
 		_aUV = _shader->getAttribLocation("uv");
@@ -71,6 +118,21 @@ void TextureMaterial::_lazyInitializeShader() {
 void TextureMaterial::setDiffuseTexture(Texture* pDiffuseTexture) {
 	_diffuseTexture = pDiffuseTexture;
 }
+
+static glm::vec3 colors[8] =
+{
+	glm::vec3(1,0,0),
+	glm::vec3(0,1,0),
+	glm::vec3(0,0,1),
+	glm::vec3(0.25,0.75,0),
+	glm::vec3(0,1,0),
+	glm::vec3(0,0.75,0.25),
+	glm::vec3(0,0.5,0.5),
+	glm::vec3(0,0,1),
+
+};
+
+int TextureMaterial::offset = 0;
 
 void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
 	if (!_diffuseTexture) return;
@@ -90,13 +152,45 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 	//tell the shader the texture slot for the diffuse texture is slot 0
 	glUniform1i(_uDiffuseTexture, 0);
 
+	glUniform1f(_genOffset, genOffset);
+	glUniform1f(_width, width);
+
+	if (_heightMap != nullptr)
+	{
+		//setup texture slot 0
+		glActiveTexture(GL_TEXTURE1);
+		//bind the texture to the current active slot
+		glBindTexture(GL_TEXTURE_2D, _heightMap->getId());
+		//tell the shader the texture slot for the diffuse texture is slot 0
+		glUniform1i(_heightTexID, 1);
+
+		glUniform1f(_maxHeight, maxHeight);
+	}
+
+	glUniform1f(_xOffsetSmootness, xOffsetSmootness);
+	glUniform1f(_maxXOff, glm::sin(AbstractGame::instance->GetTimeSinceStartup()/5)*maxXOff);
+
 	glUniform1f(_shininess, shininess);
 	glUniform1i(_steps, steps);
+
+	glUniform1f(_time, AbstractGame::instance->GetTimeSinceStartup());
 
 	glUniform1i(_lightCount, pWorld->getLightCount());
 	for (int i = 0; i < pWorld->getLightCount(); i++)
 	{
+		
 		_lightLocations[i].SetLight(&pWorld->getLightAt(i)->GetParams());
+	}
+
+	glUniform1i(_colorCount, 3);
+	glUniform1f(_colorTiling, colorTiling);
+	glUniform1f(_blend, blend);
+	glUniform1f(_blendingSoftness, blendingSoftness);
+
+	for (size_t i = 0; i < colors->length(); i++)
+	{
+		int index = (i + _offset) % colors->length();
+		glUniform3f(_shader->getUniformLocation("colors[" + std::to_string(i) + "]"), colors[index].x, colors[index].y, colors[index].z);
 	}
 
 	//pass in a precalculate mvp matrix (see texture material for the opposite)

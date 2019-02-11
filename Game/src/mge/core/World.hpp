@@ -2,6 +2,7 @@
 #define WORLD_HPP
 
 #include "mge/core/GameObject.hpp"
+#include "../_vs2015/MapBuilder.h"
 
 class Camera;
 class Light;
@@ -18,6 +19,8 @@ class World : public GameObject
         void registerLight (Light* pLight);
         void unregisterLight (Light* pLight);
 
+		virtual void update(float pTime) override;
+
         Light* getLightAt (int pIndex);
 		
         int getLightCount();
@@ -28,6 +31,7 @@ class World : public GameObject
 
         World(const World&);
         World& operator=(const World&);
+		MapBuilder* _mb;
 };
 
 

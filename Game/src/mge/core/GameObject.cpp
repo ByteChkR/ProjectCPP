@@ -16,6 +16,7 @@ GameObject::~GameObject()
 
 	for (size_t i = 0; i < _behaviours.size(); i++)
 	{
+		if (_behaviours[i]->getOwner() == nullptr)continue;
 		delete _behaviours[i];
 	}
 	_behaviours.empty();
@@ -149,6 +150,28 @@ void GameObject::FireCollision(GameObject* other)
 	}
 }
 
+GameObject* GameObject::Clone()
+{
+	GameObject* gobj = new GameObject(_name+ "(CLONE)");
+	gobj->setTransform(glm::mat4(_transform));
+	gobj->setLocalPosition(getLocalPosition());
+	gobj->setParent(_parent);
+	gobj->setMesh(_mesh);
+	gobj->setMaterial(_material);
+	
+	for each (GameObject* child in _children)
+	{
+		gobj->add(child->Clone());
+	}
+	for each (AbstractBehaviour* beh in _behaviours)
+	{
+		gobj->addBehaviour(beh->Clone());
+	}
+
+
+	return gobj;
+}
+
 void GameObject::_innerRemove(GameObject* pChild) {
 	for (auto i = _children.begin(); i != _children.end(); ++i) {
 		if (*i == pChild) {
@@ -238,5 +261,27 @@ int GameObject::getChildCount() const {
 
 GameObject* GameObject::getChildAt(int pIndex) const {
 	return _children[pIndex];
+}
+
+GameObject* GameObject::FindInChildren(std::string name, bool recursive)
+{
+	if (_name == name)return this;
+
+	for each (GameObject* child in _children)
+	{
+		GameObject* ch;
+		if (recursive)
+		{
+			ch = child->FindInChildren(name);
+		}
+		else if(child->_name == name)
+		{
+			return child;
+		}
+		if (ch != nullptr) return ch; //If Find children has found somwthing we return this and break the recursion
+	}
+	//If every child in the tree was visited
+	return nullptr;
+
 }
 

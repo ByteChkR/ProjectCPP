@@ -14,39 +14,66 @@ class Texture;
  */
 class TextureMaterial : public AbstractMaterial
 {
-    public:
-        TextureMaterial (Texture* pDiffuseTexture, float shininess, int steps);
-        virtual ~TextureMaterial ();
+public:
+	TextureMaterial(Texture* pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap = nullptr);
+	virtual ~TextureMaterial();
 
-        virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
-        void setDiffuseTexture (Texture* pDiffuseTexture);
+	void setDiffuseTexture(Texture* pDiffuseTexture);
 
-    protected:
-    private:
-        static ShaderProgram* _shader;
-        static void _lazyInitializeShader();
+	static Texture* _heightMap;
+	static float maxXOff;
+	static float xOffsetSmootness;
+protected:
+private:
+	static ShaderProgram* _shader;
+	static void _lazyInitializeShader();
 
-        //in this example we cache all identifiers for uniforms & attributes
-		static GLint _uMMatrix;
-		static GLint _uVMatrix;
-		static GLint _uPMatrix;
-        static GLint _uDiffuseTexture;
-		static GLLight _lightLocations[8];
-		static GLint _lightCount;
-		static GLint _shininess;
-		static GLint _steps;
+	//in this example we cache all identifiers for uniforms & attributes
+	static GLint _uMMatrix;
+	static GLint _uVMatrix;
+	static GLint _uPMatrix;
+	static GLint _uDiffuseTexture;
+	static GLLight _lightLocations[8];
+	static GLint _lightCount;
+	static GLint _shininess;
+	static GLint _steps;
+	static int offset;
+	int _offset;
+	static GLint _aVertex;
+	static GLint _aNormal;
+	static GLint _aUV;
 
-        static GLint _aVertex ;
-        static GLint _aNormal;
-        static GLint _aUV ;
+	static GLint _colorCount;
+	static GLint _blendingSoftness;
+	static GLint _blend;
+	static GLint _colorTiling;
+	static GLint _time;
+	static GLint _heightTexID;
+	static GLint _maxHeight;
+	static GLint _genOffset;
+	static GLint _width;
+	static GLint _xOffsetSmootness;
+	static GLint _maxXOff;
 
-        Texture* _diffuseTexture;
-		float shininess;
-		int steps;
+	Texture* _diffuseTexture;
+	float shininess;
+	int steps;
 
-        TextureMaterial(const TextureMaterial&);
-        TextureMaterial& operator=(const TextureMaterial&);
+
+
+	float blendingSoftness;
+	float blend;
+	float colorTiling;
+	float maxHeight;
+	float genOffset;
+	float width;
+
+
+
+	TextureMaterial(const TextureMaterial&);
+	TextureMaterial& operator=(const TextureMaterial&);
 
 };
 

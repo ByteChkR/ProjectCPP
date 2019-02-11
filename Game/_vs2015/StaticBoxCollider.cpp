@@ -5,23 +5,47 @@
 
 StaticBoxCollider::StaticBoxCollider(float width, float height, float depth) : AbstractStaticCollider()
 {
+	_name = "STATIC BOX COLLIDER";
 	_height = height;
 	_width = width;
 	_depth = depth;
-	AbstractGame::instance->_manager->RegisterCollider(this);
+	_init = false;
 }
 
+StaticBoxCollider::StaticBoxCollider(glm::vec3 dims) :StaticBoxCollider(dims.x, dims.y, dims.z) {}
 StaticBoxCollider::~StaticBoxCollider()
 {
 
 }
 
-void StaticBoxCollider::update(float time){}
+AbstractBehaviour* StaticBoxCollider::Clone()
+{
+	return new StaticBoxCollider(_width, _height, _depth);
+}
+
+void StaticBoxCollider::update(float time)
+{
+	if (!_init && _owner != nullptr)
+	{
+		_init = true;
+		AbstractGame::instance->_manager->RegisterCollider(this);
+	}
+	else if (_init && _owner == nullptr)
+	{
+		_init = false;
+		AbstractGame::instance->_manager->UnRegisterCollider(this);
+	}
+}
+
+void StaticBoxCollider::OwnerChanged(GameObject* newOwner)
+{
+
+}
 
 bool StaticBoxCollider::IsCollision(DynamicBoxCollider* ball)
 {
 	if (_owner == nullptr)return false;
-	glm::vec3 pos = _owner->getLocalPosition();
+	glm::vec3 pos = _owner->getWorldPosition();
 	glm::vec3 min, max;
 	min = ball->GetMin();
 	max = ball->GetMax();

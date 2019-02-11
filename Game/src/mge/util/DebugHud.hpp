@@ -2,6 +2,9 @@
 #define DEBUGHUD_HPP
 
 #include <SFML/Graphics.hpp>
+#include "../_vs2015/HudSprite.h"
+#include "../_vs2015/HudText.h"
+#include"../_vs2015/Menu.h"
 #include <iostream>
 
 /**
@@ -19,12 +22,12 @@ class DebugHud
 	private:
 		sf::RenderWindow * _window;
 
-        std::string _debugInfo;
+        HudText *_debugText;
+		HudSprite *_debugBox;
 
-        sf::Font _font;
-        sf::Text _debugText;
+		Menu *_menu;
 
-        void _createDebugHud();
+		void _organizeHud();
 
         DebugHud(const DebugHud&);
         DebugHud& operator=(const DebugHud&);

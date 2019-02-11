@@ -20,12 +20,16 @@ class AbstractGame
         AbstractGame();
         virtual ~AbstractGame();
 
+		sf::RenderWindow* _window;  //sfml window to render into
+
         //creates a window, initializes glew, a renderer and a world instance
         virtual void initialize();
         //run the actual process of updating all objects, rendering them and processing events
         virtual void run();
 		CollisionManager* _manager;
+		World* _world;              //the root game object that represents our scene
 		static AbstractGame* instance;
+		float GetTimeSinceStartup();
     protected:
 
         //methods above delegate behaviour to the methods below so that you can override it in a subclass
@@ -51,13 +55,14 @@ class AbstractGame
         //process any sfml window events (see SystemEventDispatcher/Listener)
         virtual void _processEvents();
 
-		sf::RenderWindow* _window;  //sfml window to render into
+
 		Renderer* _renderer;        //the renderer class to render the world
-		World* _world;              //the root game object that represents our scene
+		
 		
 		float _fps;                 //stores the real fps
 
     private:
+		float startupTime;
         AbstractGame(const AbstractGame&);
         AbstractGame& operator=(const AbstractGame&);
 

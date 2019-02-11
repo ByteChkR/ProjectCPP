@@ -8,13 +8,27 @@ AbstractBehaviour::~AbstractBehaviour()
 	_owner = nullptr;
 }
 
-void AbstractBehaviour::setOwner (GameObject* pOwner) {
-    _owner = pOwner;
+void AbstractBehaviour::setOwner(GameObject* pOwner) {
+	_owner = pOwner;
+	OwnerChanged();
+}
+
+void AbstractBehaviour::OwnerChanged() {}
+
+
+
+GameObject* AbstractBehaviour::getOwner() {
+	return _owner;
 }
 
 void AbstractBehaviour::OnCollision(GameObject* other)
 {
 
+}
+
+AbstractBehaviour* AbstractBehaviour::Clone()
+{
+	return nullptr;
 }
 
 std::string AbstractBehaviour::GetName()

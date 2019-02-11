@@ -2,6 +2,7 @@
 #define MGEDEMO_HPP
 
 #include "mge/core/AbstractGame.hpp"
+#include "../_vs2015/MapBuilder.h"
 
 class DebugHud;
 
@@ -30,7 +31,6 @@ class MGEDemo: public AbstractGame
 		DebugHud* _hud;                   //hud display
 
         void _updateHud();
-
         MGEDemo(const MGEDemo&);
         MGEDemo& operator=(const MGEDemo&);
 };

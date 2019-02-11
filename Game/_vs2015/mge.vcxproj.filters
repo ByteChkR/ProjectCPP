@@ -20,6 +20,12 @@
     <Filter Include="MGE Source files\mge\util">
       <UniqueIdentifier>{7d824c34-4bb6-43a4-a48a-0d68b7aad6e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MGE Source files\mge\util\Lua">
+      <UniqueIdentifier>{9ef30825-b8c8-4a77-9bbf-878f8035e016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MGE Source files\mge\util\Menu">
+      <UniqueIdentifier>{2d47b4e0-2711-486a-9a22-48533a89462a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp">
@@ -100,6 +106,75 @@
     <ClInclude Include="DynamicBoxCollider.hpp">
       <Filter>MGE Source files\mge\core</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerController.hpp">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\util\AudioManager.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\util\MapGenerator.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\util\Lane.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="MapBuilder.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="PresetHandler.hpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.hpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HudSprite.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\util\BiomeHandler.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaOperations.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaAPI.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptableLuaObject.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoader.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineSettings.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaScriptStruct.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="HudText.h">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayButton.h">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ExitButton.h">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureMovingMaterial.h">
+      <Filter>MGE Source files\mge\materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -179,6 +254,78 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>MGE Source files\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\AudioManager.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\MapGenerator.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\Lane.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="MapBuilder.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="PresetHandler.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="HudSprite.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\BiomeHandler.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaOperations.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaAPI.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptableLuaObject.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoader.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSettings.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaScriptStruct.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\Biome.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="HudText.cpp">
+      <Filter>MGE Source files\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>MGE Source files\mge\util\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayButton.cpp">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="ExitButton.cpp">
+      <Filter>MGE Source files\mge\util\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureMovingMaterial.cpp">
+      <Filter>MGE Source files\mge\materials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,7 @@
 
 AbstractGame* AbstractGame::instance = nullptr;
 
-AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0)
+AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0), startupTime(0)
 {
 	instance = this;
     //ctor
@@ -40,6 +40,11 @@ void AbstractGame::_initializeWindow() {
 	_window = new sf::RenderWindow( sf::VideoMode(800,600), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
 	//_window->setVerticalSyncEnabled(true);
     std::cout << "Window initialized." << std::endl << std::endl;
+}
+
+float AbstractGame::GetTimeSinceStartup()
+{
+	return startupTime;
 }
 
 void AbstractGame::_printVersionInfo() {
@@ -114,7 +119,7 @@ void AbstractGame::run()
 		if (timeSinceLastUpdate > timePerFrame)
 		{
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
+			startupTime += timeSinceLastUpdate.asSeconds();
 		    while (timeSinceLastUpdate > timePerFrame) {
                 timeSinceLastUpdate -= timePerFrame;
                 _update(timePerFrame.asSeconds());
@@ -126,6 +131,7 @@ void AbstractGame::run()
 
             //fps count is updated once every 1 second
             frameCount++;
+			
             timeSinceLastFPSCalculation += renderClock.restart().asSeconds();
             if (timeSinceLastFPSCalculation > 1) {
                 _fps = frameCount/timeSinceLastFPSCalculation;

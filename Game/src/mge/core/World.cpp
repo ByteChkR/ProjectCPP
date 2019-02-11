@@ -3,10 +3,12 @@
 
 #include "mge/core/World.hpp"
 #include "mge/core/Light.hpp"
+#include "../_vs2015/MapBuilder.h"
 
 World::World():GameObject("root"), _mainCamera(0)
 {
 	_world = this;
+	_mb = new MapBuilder(150, 15);
 }
 
 void World::setMainCamera (Camera* pCamera) {
@@ -35,4 +37,10 @@ Light* World::getLightAt (int pIndex) {
 
 int World::getLightCount() {
     return _lights.size();
+}
+
+void World::update(float pTime)
+{
+	GameObject::update(pTime);
+	_mb->Update(pTime);
 }
