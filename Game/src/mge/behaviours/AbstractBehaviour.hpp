@@ -19,6 +19,8 @@ class AbstractBehaviour
 		virtual ~AbstractBehaviour() = 0;
 
         //for internal administration, do not use directly
+		void disable();
+		void enable();
         virtual void setOwner (GameObject* pGameObject);
 		virtual GameObject* getOwner();
 
@@ -27,11 +29,12 @@ class AbstractBehaviour
 		virtual void OnCollision(GameObject* other);
 		virtual AbstractBehaviour* Clone();
 		std::string GetName();
+		bool IsEnabled();
     protected:
 		std::string _name = "NAME";
 		GameObject* _owner;
 		virtual void OwnerChanged();
-
+		bool _enabled;
     private:
 
         //disallow copy and assignment

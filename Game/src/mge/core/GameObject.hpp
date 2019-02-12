@@ -75,8 +75,11 @@ class GameObject
 
 		GameObject* FindInChildren(std::string name, bool recursive = true);
 
+		void EnableBehaviours();
+		void DisableBehaviours();
 
 	protected:
+		bool _enabled;
 		std::string _name;
 		glm::mat4 _transform;
 

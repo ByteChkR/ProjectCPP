@@ -7,10 +7,12 @@ GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	_mesh(nullptr), _behaviours(), _material(nullptr), _world(nullptr)
 
 {
+	_enabled = true;
 }
 
 GameObject::~GameObject()
 {
+
 	//detach all children
 	std::cout << "GC running on:" << _name << std::endl;
 
@@ -27,6 +29,28 @@ GameObject::~GameObject()
 	}
 
 	//do not forget to delete behaviour, material, mesh, collider manually if required!
+}
+
+void GameObject::EnableBehaviours()
+{
+	_enabled = true;
+	if (_behaviours.size() > 0) {
+		for each (AbstractBehaviour* b in _behaviours)
+		{
+			b->enable();
+		}
+	}
+}
+
+void GameObject::DisableBehaviours()
+{
+	_enabled = false;
+	if (_behaviours.size() > 0) {
+		for each (AbstractBehaviour* b in _behaviours)
+		{
+			b->disable();
+		}
+	}
 }
 
 void GameObject::setName(const std::string& pName)
@@ -158,6 +182,7 @@ GameObject* GameObject::Clone()
 	gobj->setParent(_parent);
 	gobj->setMesh(_mesh);
 	gobj->setMaterial(_material);
+	if (!_enabled)gobj->DisableBehaviours();
 	
 	for each (GameObject* child in _children)
 	{
@@ -235,7 +260,7 @@ void GameObject::rotate(float pAngle, glm::vec3 pAxis)
 void GameObject::update(float pStep)
 {
 	//make sure behaviour is updated after worldtransform is set
-	if (_behaviours.size() > 0) {
+	if (_behaviours.size() > 0 && _enabled) {
 		for each (AbstractBehaviour* b in _behaviours)
 		{
 			b->update(pStep);

@@ -27,6 +27,8 @@ private:
 	std::vector<std::pair<int, GameObject*>> _decoPropList;
 	float genOffset;
 	float remOffset;
+	float lastContainerPos;
+	int lastRemove;
 };
 
 #endif // !MAPBUILDER_HPP

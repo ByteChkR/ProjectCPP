@@ -5,7 +5,8 @@
 void CollisionManager::Update(float time)
 {
 	for each (AbstractStaticCollider* col in staticColliders)
-	{
+	{ 
+		if (!col->IsEnabled())continue;
 		for each (DynamicBoxCollider* box in dynamicColliders)
 		{
 			bool isCollision = col->IsCollision(box);
@@ -26,9 +27,9 @@ void CollisionManager::RegisterDynamic(DynamicBoxCollider* box)
 
 void CollisionManager::UnRegisterCollider(AbstractStaticCollider* col)
 {
-	for (int i = staticColliders.size(); i >= 0; i--)
+	for (int i = staticColliders.size()-1; i >= 0; i--)
 	{
-		if (&(*col) == &(*staticColliders[i]))
+		if (col == staticColliders[i])
 		{
 			staticColliders.erase(staticColliders.begin() + i);
 		}
@@ -37,9 +38,9 @@ void CollisionManager::UnRegisterCollider(AbstractStaticCollider* col)
 
 void CollisionManager::UnRegisterDynamic(DynamicBoxCollider* box)
 {
-	for (int i = dynamicColliders.size(); i >= 0; i--)
+	for (int i = dynamicColliders.size()-1; i >= 0; i--)
 	{
-		if (&(*box) == &(*dynamicColliders[i]))
+		if (box == dynamicColliders[i])
 		{
 			dynamicColliders.erase(dynamicColliders.begin() + i);
 		}
