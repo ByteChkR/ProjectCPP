@@ -33,23 +33,44 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 
 	std::cout<<"The path of the file: " << fullPath << '\n';
 
-	file >> randomize;
-	file >> columns;
-	file >> rows;
+	std::string s;
+	file.seekg(0, std::ios::end);
+	s.reserve(file.tellg());
+	file.seekg(0, std::ios::beg);
+
+	s.assign(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
+
+	file.close();
+
+	//file = std::ifstream(fullPath);
+
+	int index = 0;
+
+	//file >> randomize;
+	randomize = NextInt(s, index, &index);
+	//file >> columns;
+	columns = NextInt(s, index, &index);
+	//file >> rows;
+	rows = NextInt(s, index, &index);
+
 
 	for (int i = 0; i < rows; i++)
 	{
 		int a;
-		file >> a;
+		//file >> a;
+		a = NextInt(s, index, &index);
 		steps.push_back(a);
 	}
 
-	file >> numberOfParts;
+	//file >> numberOfParts;
+	numberOfParts = NextInt(s, index, &index);
+
 
 	for (int i = 0; i < numberOfParts; i++)
 	{
 		int a;
-		file >> a;
+		//file >> a;
+		a = NextInt(s, index, &index);
 		_biomes.push_back(a);
 	}
 
@@ -67,7 +88,8 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 			{
 				//std::cout << "reading segment " << k << '\n';
 				int segment;
-				file >> segment;
+				//file >> segment;
+				segment = NextInt(s, index, &index);
 				lane.AddSegment((int)segment);
 			}
 			part.lanes.push_back(lane);
@@ -80,7 +102,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	std::cout << "reading finished"<< '\n';
 
 	
-	file.close();
+	//file.close();
 	
 
 	// randomize the parts
@@ -142,6 +164,40 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		std::cout << '\n';
 	}
 
+}
+
+int MapGenerator::NextInt(std::string file, int index, int* newIndex)
+{
+	int startWord = -1;
+	int endWord = -1;
+	for (size_t i = index; i < file.size(); i++)
+	{
+		if (startWord == -1)
+		{
+			if (file[i] == '\n' || file[i] == ' ')
+			{
+
+			}
+			else
+			{
+				startWord = i;
+			}
+		}
+		else if (startWord != -1 && endWord == -1)
+		{
+			if (file[i] == '\n' || file[i] == ' ')
+			{
+				endWord = i;
+				break;
+			}
+		}
+	}
+	*newIndex = file.size()-1;
+	if (endWord == -1 || startWord == -1) return 0;
+
+	*newIndex = endWord;
+
+	return std::stoi(file.substr(startWord, endWord-startWord));
 }
 
 

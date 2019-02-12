@@ -22,6 +22,7 @@ public:
 	std::vector <int> GetBiomes();
 	int GetBiomeAt(int pNumber);
 	int GetPartCount();
+	int NextInt(std::string file, int index, int* charsRead);
 
 private:
 
