@@ -53,7 +53,7 @@ void AudioManager::LoadMusic(std::string pFileLocation)
 	_musics[_currentMusic]->setVolume(100);
 
 	_musics[_currentMusic]->setLoop(true);
-	PlaySound(1);
+
 	
 }
 
