@@ -58,7 +58,7 @@ vec3 Calculate(int index, vec3 wNormal)
 	diffIntensity/=falloff;
 	vec3 ambient  = lights[index].ambientColor;
 	vec3 specular = spec * diffIntensity * vec3(1);
-	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(texture(diffuseTexture, texCoord+vec2(0, time*movingspeed)))*textureBlend;
+	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(texture(diffuseTexture, texCoord))*textureBlend;
 	
 	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;
 

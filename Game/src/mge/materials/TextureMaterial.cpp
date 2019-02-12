@@ -12,11 +12,16 @@
 #include "../_vs2015/GLLight.hpp"
 #include "mge/core/AbstractGame.hpp"
 #include "../_vs2015/Level.h"
+#include "../_vs2015/TextureMovingMaterial.h"
 ShaderProgram* TextureMaterial::_shader = NULL;
 
+float TextureMaterial::heightmapTiling = 1.6;
+float TextureMaterial::heightmapSpeed = 0.2;
 float TextureMaterial::maxXOff = 50;
 float TextureMaterial::xOffsetSmootness = 2;
 Texture* TextureMaterial::_heightMap = nullptr;
+
+GLint TextureMaterial::_heightMapTiling = 0;
 
 GLint TextureMaterial::_uMMatrix = 0;
 GLint TextureMaterial::_uVMatrix = 0;
@@ -37,6 +42,8 @@ GLint TextureMaterial::_width = 0;
 GLint TextureMaterial::_genOffset = 0;
 GLint TextureMaterial::_maxXOff = 0;
 GLint TextureMaterial::_xOffsetSmootness = 0;
+GLint TextureMaterial::_movingspeed = 0;
+GLint TextureMaterial::_heightMapSpeed = 0;
 
 GLint TextureMaterial::_blend = 0;
 GLint TextureMaterial::_blendingSoftness = 0;
@@ -44,7 +51,7 @@ GLint TextureMaterial::_colorCount = 0;
 GLint TextureMaterial::_colorTiling = 0;
 
 TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
-	maxHeight = 8;
+	maxHeight = 5;
 	if (heightMap != nullptr)_heightMap = heightMap;
 	width = 8;
 	genOffset = 150;
@@ -74,6 +81,7 @@ void TextureMaterial::_lazyInitializeShader() {
 		_uVMatrix = _shader->getUniformLocation("viewMatrix");
 		_uPMatrix = _shader->getUniformLocation("projectionMatrix");
 
+		_heightMapSpeed = _shader->getUniformLocation("heightMapSpeed");
 
 		_heightTexID = _shader->getUniformLocation("yOffTexture");
 		_maxHeight = _shader->getUniformLocation("maxHeight");
@@ -108,6 +116,8 @@ void TextureMaterial::_lazyInitializeShader() {
 		
 		_width = _shader->getUniformLocation("hwm");
 		_genOffset = _shader->getUniformLocation("genOffset");
+		_movingspeed = _shader->getUniformLocation("movingspeed");
+		_heightMapTiling = _shader->getUniformLocation("heightMapTiling");
 
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
@@ -166,6 +176,11 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 
 		glUniform1f(_maxHeight, maxHeight);
 	}
+
+	glUniform1f(_movingspeed, TextureMovingMaterial::Movingspeed);
+
+	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
+	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
 
 	glUniform1f(_xOffsetSmootness, xOffsetSmootness);
 	glUniform1f(_maxXOff, glm::sin(AbstractGame::instance->GetTimeSinceStartup()/5)*maxXOff);

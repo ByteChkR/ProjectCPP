@@ -43,6 +43,8 @@ private:
 	static GLint _aVertex;
 	static GLint _aNormal;
 	static GLint _aUV;
+	static GLint _heightMapTiling;
+	static GLint _heightMapSpeed;
 
 	static GLint _colorCount;
 	static GLint _blendingSoftness;

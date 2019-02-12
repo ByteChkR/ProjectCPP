@@ -25,6 +25,8 @@ public:
 	static Texture* _heightMap;
 	static float maxXOff;
 	static float xOffsetSmootness;
+	static float heightmapTiling;
+	static float heightmapSpeed;
 protected:
 private:
 	static ShaderProgram* _shader;
@@ -56,6 +58,10 @@ private:
 	static GLint _width;
 	static GLint _xOffsetSmootness;
 	static GLint _maxXOff;
+	static GLint _movingspeed;
+	static GLint _heightMapTiling;
+	static GLint _heightMapSpeed;
+
 
 	Texture* _diffuseTexture;
 	float shininess;

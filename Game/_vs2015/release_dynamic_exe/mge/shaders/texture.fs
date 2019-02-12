@@ -26,6 +26,7 @@ uniform int lightCount;
 
 uniform sampler2D diffuseTexture;
 uniform float shininess;
+uniform float movingspeed;
 in vec2 texCoord;
 in vec3 worldNormal;
 in vec3 fragmentWorldPosition;

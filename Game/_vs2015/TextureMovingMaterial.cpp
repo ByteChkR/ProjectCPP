@@ -15,7 +15,8 @@
 #include "../_vs2015/Level.h"
 ShaderProgram* TextureMovingMaterial::_shader = NULL;
 
-float TextureMovingMaterial::Movingspeed = 0.3f;
+float TextureMovingMaterial::Movingspeed = 0.2f;
+GLint TextureMovingMaterial::_heightMapTiling = 0;
 GLint TextureMovingMaterial::_uMMatrix = 0;
 GLint TextureMovingMaterial::_uVMatrix = 0;
 GLint TextureMovingMaterial::_uPMatrix = 0;
@@ -41,9 +42,10 @@ GLint TextureMovingMaterial::_blendingSoftness = 0;
 GLint TextureMovingMaterial::_colorCount = 0;
 GLint TextureMovingMaterial::_colorTiling = 0;
 GLint TextureMovingMaterial::_movingspeed = 0;
+GLint TextureMovingMaterial::_heightMapSpeed = 0;
 
 TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
-	maxHeight = 8;
+	maxHeight = 5;
 	width = 8;
 	genOffset = 150;
 	this->shininess = shininess;
@@ -62,7 +64,7 @@ TextureMovingMaterial::~TextureMovingMaterial() {}
 void TextureMovingMaterial::_lazyInitializeShader() {
 	if (!_shader) {
 		_shader = new ShaderProgram();
-		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "texture.vs");
+		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "texturemoving.vs");
 		_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "texturemoving.fs");
 		_shader->finalize();
 
@@ -75,6 +77,7 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_heightTexID = _shader->getUniformLocation("yOffTexture");
 		_maxHeight = _shader->getUniformLocation("maxHeight");
 
+		_heightMapSpeed = _shader->getUniformLocation("heightMapSpeed");
 		_movingspeed = _shader->getUniformLocation("movingspeed");
 
 		_uDiffuseTexture = _shader->getUniformLocation("diffuseTexture");
@@ -106,6 +109,7 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 
 		_width = _shader->getUniformLocation("hwm");
 		_genOffset = _shader->getUniformLocation("genOffset");
+		_heightMapTiling = _shader->getUniformLocation("heightMapTiling");
 
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
@@ -153,6 +157,8 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 	glUniform1f(_genOffset, genOffset);
 	glUniform1f(_width, width);
 	glUniform1f(_movingspeed, Movingspeed);
+	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
+	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
 
 	if (TextureMaterial::_heightMap != nullptr)
 	{

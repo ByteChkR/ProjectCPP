@@ -11,8 +11,12 @@ uniform	mat4 	modelMatrix;
 uniform float maxHeight;
 uniform float genOffset;
 uniform float hwm;
+uniform float time;
 uniform float maxXOffset;
 uniform float xOffsetSmoothness;
+uniform float movingspeed;
+uniform float heightMapTiling;
+uniform float heightMapSpeed;
 
 uniform sampler2D yOffTexture;
 
@@ -23,7 +27,9 @@ out vec3 fragmentWorldPosition;
 void main( void ){
 		vec4 vertexWorldPosition = viewMatrix * modelMatrix * vec4(vertex, 1);
 		
-		vec2 heightUV = vec2((-vertexWorldPosition.z) / genOffset,(vec4(vertex,1)*modelMatrix).x/hwm);
+		vec2 heightUV = vec2((-vertexWorldPosition.z) / genOffset,(vec4(vertex,1)*modelMatrix).x/hwm) + vec2(time*heightMapSpeed, 0);
+
+		heightUV/=heightMapTiling;
 
 		float t = pow(clamp(-vertexWorldPosition.z/genOffset, 0 , 1), xOffsetSmoothness);
 

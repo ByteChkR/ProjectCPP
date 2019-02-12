@@ -121,10 +121,10 @@ void MapBuilder::Update(float pTime)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 
-		_container->setLocalPosition(_container->getLocalPosition() - glm::vec3(0, 0, 30) * pTime);
+		_container->setLocalPosition(_container->getLocalPosition() - glm::vec3(0, 0, 20) * pTime);
 	}
 	else
-		_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 30)* pTime);
+		_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 20)* pTime);
 
 	UpdateGen(Level::instance->GetMap(), &_mapPropList);
 	UpdateGen(Level::instance->GetDeco(), &_decoPropList);
