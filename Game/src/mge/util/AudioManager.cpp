@@ -10,6 +10,8 @@ AudioManager::AudioManager()
 		instance = this;
 	}
 
+	_musics = std::vector < sf::Music*>();
+
 	LoadMusic("Dark _Atmosphere13_Looped_24bit.wav");
 	AddMusic("GameOver.wav");
 	AddMusic("Background.wav");
@@ -28,8 +30,13 @@ AudioManager::AudioManager()
 
 AudioManager::~AudioManager()
 {
-	music->stop();
-	delete music;
+	for (int i = 0; i < (int)_musics.size(); i++)
+	{
+		delete _musics[i];
+	}
+
+	_musics.clear();
+
 	instance = nullptr;
 
 }
@@ -37,22 +44,15 @@ AudioManager::~AudioManager()
 void AudioManager::LoadMusic(std::string pFileLocation)
 {
 	AddMusic(pFileLocation);
-	_currentMusic = _musicPaths[0];
-	_nextMusic = _musicPaths[0];
+	_currentMusic = 0;
+	_nextMusic = 0;
 
-		music = new sf::Music();
-
-	if (!music->openFromFile(_musicPaths[0]))
-	{
-		std::cout << "/////////////////   Sound path not found. /////////////////// \n" << pFileLocation << "\n";
-		return;
-	}
 	
-	music->play();
+	_musics[_currentMusic]->play();
 
-	music->setVolume(100);
+	_musics[_currentMusic]->setVolume(100);
 
-	music->setLoop(true);
+	_musics[_currentMusic]->setLoop(true);
 	PlaySound(1);
 	
 }
@@ -88,31 +88,44 @@ void AudioManager::AddSound(std::string pFileLocation)
 void AudioManager::AddMusic(std::string pFileLocation)
 {
 	_musicPaths.push_back(_soundsPath + pFileLocation);
+
+	sf::Music * music = new sf::Music();
+
+	if (!music->openFromFile(_soundsPath + pFileLocation))
+	{
+		std::cout << "/////////////////   Sound path not found. /////////////////// \n" << pFileLocation << "\n";
+		return;
+	}
+
+	music->setLoop(true);
+
+	_musics.push_back(music);
+
 }
 
 void AudioManager::Restart(int pNumber)
 {
+
+
 	if (pNumber > (int)_musicPaths.size() - 1)
 	{
 		std::cout << "can't restart index out of range";
 		return;
 	}
 
-	_currentMusic = _musicPaths[pNumber];
+	_currentMusic = pNumber;
 	_nextMusic = _currentMusic;
 	_isClipChanged = true;
 	_crossFader = 0;
 	_isInGameOverScreen = false;
 
-	if (!music->openFromFile(_currentMusic))
-	{
-		std::cout << "/////////////////   Sound path not found. /////////////////// \n" << _currentMusic << "\n";
-		return;
-	}
+	StopAll();
 
-	music->setVolume(100);
+	// Restart the track if needed.
+	
+	_musics[pNumber]->setVolume(100);
 
-	music->play();
+	_musics[pNumber]->play();
 
 
 }
@@ -121,15 +134,11 @@ void AudioManager::GameOver()
 {
 	_isInGameOverScreen = true;
 
-	if (!music->openFromFile(_musicPaths[1]))
-	{
-		std::cout << "/////////////////   Sound path not found. /////////////////// \n" << _musicPaths[1] << "\n";
-		return;
-	}
+	StopAll();
 
-	music->play();
+	_musics[1]->play();
 
-	music->setVolume(100);
+	_musics[1]->setVolume(100);
 }
 
 void AudioManager::Update(float pDeltaTime)
@@ -148,13 +157,13 @@ void AudioManager::ControlBackgroundMusic(float pDeltaTime)
 	{
 		if (_crossFader > _secondsForCrossFader / 2)
 		{
-			music->setVolume( ((_crossFader - ( _secondsForCrossFader / 2)) / (_secondsForCrossFader / 2)) * 100);
+			_musics[_currentMusic]->setVolume( ((_crossFader - ( _secondsForCrossFader / 2)) / (_secondsForCrossFader / 2)) * 100);
 		}
 		else
 			if (_crossFader <= _secondsForCrossFader / 2 && _crossFader > 0)
 			{
 				ChangeClips();
-				music->setVolume( (1 - (_crossFader / (_secondsForCrossFader / 2))) * 100);
+				_musics[_nextMusic]->setVolume( (1 - (_crossFader / (_secondsForCrossFader / 2))) * 100);
 			}
 			else
 			{
@@ -190,7 +199,7 @@ void AudioManager::ChangeBackgroundMusic(int pNumber)
 
 	_isClipChanged = false;
 	_crossFader = _secondsForCrossFader;
-	_nextMusic = _musicPaths[pNumber];
+	_nextMusic = pNumber;
 		
 }
 
@@ -200,13 +209,19 @@ void AudioManager::ChangeClips()
 	{
 		_isClipChanged = true;
 
-		if (!music->openFromFile(_nextMusic))
-		{
-			std::cout << "/////////////////   Sound path not found. /////////////////// \n" << _musicPaths[1] << "\n";
-			return;
-		}
+		StopAll();
 
-		music->play();
+		_musics[_nextMusic]->setVolume(0);
 
+		_musics[_nextMusic]->play();
+
+	}
+}
+
+void AudioManager::StopAll()
+{
+	for (int i = 0; i < (int)_musics.size(); ++i)
+	{
+		_musics[i]->pause();
 	}
 }

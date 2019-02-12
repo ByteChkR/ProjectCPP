@@ -34,13 +34,14 @@ private:
 	bool _isClipChanged = true;
 	bool _isInGameOverScreen;
 	void LoadMusic(std::string pFileLocation);
+	void StopAll();
 
-	std::string _currentMusic;
-	std::string _nextMusic;
-	sf::Music * music;
+	int _currentMusic;
+	int _nextMusic;
 	std::vector<sf::Sound *> _sounds;
 	std::vector<std::string> _musicPaths;
 	std::string _soundsPath= "mge/sounds/";
+	std::vector<sf::Music*> _musics;
 
 };
 
