@@ -21,7 +21,7 @@ public:
 private:
 	GameObject* _container;
 	void UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list);
-
+	
 	
 	std::vector<std::pair<int, GameObject*>> _mapPropList;
 	std::vector<std::pair<int, GameObject*>> _decoPropList;

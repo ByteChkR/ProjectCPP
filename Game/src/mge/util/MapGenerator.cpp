@@ -16,12 +16,12 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 {
 
 	e = std::default_random_engine(seed);
-	  //e = d;
-	if(isInstance)instance = this;
+	//e = d;
+	if (isInstance)instance = this;
 	std::vector< Part> parts;
 	std::vector<int> steps;
 
-	std::string fullPath = _mapsLocation+pName;
+	std::string fullPath = _mapsLocation + pName;
 
 	std::ifstream file(fullPath);
 
@@ -31,7 +31,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	int rows = 0;
 	int numberOfParts = 0;
 
-	std::cout<<"The path of the file: " << fullPath << '\n';
+	std::cout << "The path of the file: " << fullPath << '\n';
 
 	std::string s;
 	file.seekg(0, std::ios::end);
@@ -74,16 +74,16 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		_biomes.push_back(a);
 	}
 
-	std::cout <<"columns: "<< columns << " rows: " << rows << " number of parts: " << numberOfParts<<'\n';
+	std::cout << "columns: " << columns << " rows: " << rows << " number of parts: " << numberOfParts << '\n';
 
 	for (int i = 0; i < numberOfParts; i++)
 	{
-		std::cout <<"reading part " << i << '\n';
+		std::cout << "reading part " << i << '\n';
 		Part part;
 		for (int j = 0; j < rows; j++)
 		{
 			//std::cout << "reading lane " << j <<" of part "<< i << '\n';
-			Lane  lane(glm::vec3(0,0,0),0,0,0,0,std::vector<int>(),0);
+			Lane  lane(glm::vec3(0, 0, 0), 0, 0, 0, 0, std::vector<int>(), 0);
 			for (int k = 0; k < columns; k++)
 			{
 				//std::cout << "reading segment " << k << '\n';
@@ -99,11 +99,11 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		parts.push_back(part);
 
 	}
-	std::cout << "reading finished"<< '\n';
+	std::cout << "reading finished" << '\n';
 
-	
+
 	//file.close();
-	
+
 
 	// randomize the parts
 	if (randomize == 1)
@@ -147,19 +147,19 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 				}
 			}
 		}
-		
 
-		Lane * lane = new Lane(glm::vec3(0 + _laneSpace * i, 0, 0), laneLeft, laneRight, 0, 0, sumedSegments,steps[i]);
+
+		Lane * lane = new Lane(glm::vec3(0 + _laneSpace * i, 0, 0), laneLeft, laneRight, 0, 0, sumedSegments, steps[i]);
 		_lanes.push_back(lane);
 
 	}
 
 	for (int i = 0; i < (int)_lanes.size(); i++)
 	{
-		std::cout <<"Step of line "<< i<< " is: "<< _lanes[i]->GetStep() << " " << '\n';
+		std::cout << "Step of line " << i << " is: " << _lanes[i]->GetStep() << " " << '\n';
 		for (int j = 0; j < columns; j++)
 		{
-			std::cout << _lanes[i]->GetSegments()[j]<<" ";
+			std::cout << _lanes[i]->GetSegments()[j] << " ";
 		}
 		std::cout << '\n';
 	}
@@ -170,34 +170,31 @@ int MapGenerator::NextInt(std::string file, int index, int* newIndex)
 {
 	int startWord = -1;
 	int endWord = -1;
+	//std::cout << index << '\n';
 	for (size_t i = index; i < file.size(); i++)
 	{
 		if (startWord == -1)
 		{
-			if (file[i] == '\n' || file[i] == ' ')
-			{
-
-			}
-			else
+			if (file[i] <= NINE_ID && file[i] >= ZERO_ID)
 			{
 				startWord = i;
 			}
 		}
 		else if (startWord != -1 && endWord == -1)
 		{
-			if (file[i] == '\n' || file[i] == ' ')
+			if (file[i] > NINE_ID || file[i] < ZERO_ID)
 			{
 				endWord = i;
 				break;
 			}
 		}
 	}
-	*newIndex = file.size()-1;
+	*newIndex = file.size() - 1;
 	if (endWord == -1 || startWord == -1) return 0;
 
 	*newIndex = endWord;
 
-	return std::stoi(file.substr(startWord, endWord-startWord));
+	return std::stoi(file.substr(startWord, endWord - startWord));
 }
 
 
