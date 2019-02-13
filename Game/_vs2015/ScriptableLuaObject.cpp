@@ -100,7 +100,11 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			else
 				AbstractGame::instance->_world->add(object);
 			object->setMesh(lss->GetObject());
-			object->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath()), 2, 10, 0, 5, 2));
+			Texture* tex = Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath());
+			Texture* em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap());
+			Texture* sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular());
+
+			object->setMaterial(new TextureMaterial(tex, em, sp, 2, 10, 1, 5, 2));
 			object->addBehaviour(new ScriptableLuaObject(lss->GetAttachedScripts()));
 			if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderDimensions()));
 			return object;

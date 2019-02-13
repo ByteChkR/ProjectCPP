@@ -21,6 +21,8 @@ GLint TextureMovingMaterial::_uMMatrix = 0;
 GLint TextureMovingMaterial::_uVMatrix = 0;
 GLint TextureMovingMaterial::_uPMatrix = 0;
 GLint TextureMovingMaterial::_uDiffuseTexture = 0;
+GLint TextureMovingMaterial::_uEmmissiveTexture = 0;
+GLint TextureMovingMaterial::_uSpecularTexture = 0;
 
 GLint TextureMovingMaterial::_aVertex = 0;
 GLint TextureMovingMaterial::_aNormal = 0;
@@ -44,10 +46,12 @@ GLint TextureMovingMaterial::_colorTiling = 0;
 GLint TextureMovingMaterial::_movingspeed = 0;
 GLint TextureMovingMaterial::_heightMapSpeed = 0;
 
-TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
+TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
 	maxHeight = 5;
 	width = 8;
 	genOffset = 150;
+	_emmissiveTexture = emmissiveTexture;
+	_specularTexture = specularTexture;
 	this->shininess = shininess;
 	this->steps = steps;
 	blend = colorTextureBlending;
@@ -81,6 +85,9 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_movingspeed = _shader->getUniformLocation("movingspeed");
 
 		_uDiffuseTexture = _shader->getUniformLocation("diffuseTexture");
+
+		_uSpecularTexture = _shader->getUniformLocation("specularTexture");
+		_uEmmissiveTexture = _shader->getUniformLocation("emissiveTexture");
 		_lightCount = _shader->getUniformLocation("lightCount");
 		_shininess = _shader->getUniformLocation("shininess");
 		_steps = _shader->getUniformLocation("steps");
@@ -170,6 +177,19 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 		glUniform1i(_heightTexID, 1);
 
 		glUniform1f(_maxHeight, maxHeight);
+
+	}
+	if (_emmissiveTexture != nullptr)
+	{
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, _emmissiveTexture->getId());
+		glUniform1i(_uEmmissiveTexture, 2);
+	}
+	if (_specularTexture != nullptr)
+	{
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, _specularTexture->getId());
+		glUniform1i(_uSpecularTexture, 3);
 	}
 
 	glUniform1f(_xOffsetSmootness, TextureMaterial::xOffsetSmootness);

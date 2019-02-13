@@ -85,12 +85,12 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 	//float delta = _container->getLocalPosition().z - lastContainerPos;
 
-	float fend = ((int)_container->getLocalPosition().z + genOffset)*gen->GetNumberOfLanes();
-	int end = (int)(glm::min(fend, (float)list->size() - 1));
-	end = lastRemove + gen->GetNumberOfLanes()*genOffset;
 
-	float fstart = ((int)_container->getLocalPosition().z - remOffset)*gen->GetNumberOfLanes();
-	int start = (int)(glm::max(fstart, 0.0f));
+	int end = lastRemove + gen->GetNumberOfLanes()*genOffset;
+	end = glm::min(end, (int)list->size() - 1);
+
+	//float fstart = ((int)_container->getLocalPosition().z - remOffset)*gen->GetNumberOfLanes();
+	//int start = (int)(glm::max(fstart, 0.0f));
 
 	//std::cout << "I size: " << std::to_string(end-lastRemove) << '\n';
 
@@ -142,7 +142,6 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 		}
 	}
-	lastContainerPos = _container->getLocalPosition().z;
 }
 
 void MapBuilder::Update(float pTime)
