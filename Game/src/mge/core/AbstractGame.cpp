@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "../_vs2015/GameStateManager.h"
 #include "AbstractGame.hpp"
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
@@ -179,7 +180,7 @@ void AbstractGame::run()
 }
 
 void AbstractGame::_update(float pStep) {
-    _world->update(pStep);
+	GameStateManager::instance->Update(pStep,_world);
 }
 
 void AbstractGame::_render () {

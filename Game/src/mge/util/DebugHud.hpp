@@ -25,7 +25,7 @@ class DebugHud
         HudText *_debugText;
 		HudSprite *_debugBox;
 
-		Menu *_menu;
+		//Menu *_menu;
 
 		void _organizeHud();
 

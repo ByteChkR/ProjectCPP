@@ -9,6 +9,7 @@
 #include <vector>
 #include "mge/config.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "../_vs2015/GameStateManager.h"
 /**
  * Main entry point for the Micro Engine.
 
@@ -46,6 +47,7 @@ int main(int argc, char *argv[])
 		lm = new LevelManager(filename);
 	}
 	AudioManager * audioManager = new AudioManager();
+	GameStateManager * gameStateManager = new GameStateManager();
 
 	//int t;
 	//std::cin >> t;
