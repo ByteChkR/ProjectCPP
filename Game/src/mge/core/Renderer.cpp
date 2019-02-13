@@ -16,7 +16,6 @@ Renderer::Renderer():debug(false)
 	//tell opengl to enable face culling for the back faces
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-
 	//set the default blend mode aka dark magic:
 	//https://www.opengl.org/sdk/docs/man/html/glBlendFunc.xhtml
     //https://www.opengl.org/wiki/Blending

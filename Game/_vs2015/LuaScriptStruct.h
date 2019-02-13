@@ -19,10 +19,15 @@ public:
 	std::vector<std::string> GetAttachedScripts();
 	bool HasCollider();
 	glm::vec3 GetColliderDimensions();
+	std::string GetEmmissiveMap();
+
+	std::string GetSpecular();
 
 private:
 	Mesh* _mesh;
 	std::string _texturePath;
+	std::string _emmissiveTexture;
+	std::string _specularTexture;
 	std::string _objPath;
 	std::string _name;
 	glm::vec3 _position;

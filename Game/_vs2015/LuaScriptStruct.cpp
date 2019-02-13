@@ -62,6 +62,29 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	{
 		std::cout << "This object has no texture";
 	}
+	lua_pop(L, 1);
+	lua_getglobal(L, "GetMeta");
+	if (LuaOperations::SaveLuaCall(L, 0, 1))
+	{
+		return;
+	}
+	l = lua_gettop(L);
+	if (!LuaOperations::TryGetStringFromTable(L, "emissive", &_emmissiveTexture))
+	{
+		std::cout << "This object has no emmissive map";
+	}
+	l = lua_gettop(L);
+	lua_pop(L, 1);
+	lua_getglobal(L, "GetMeta");
+	if (LuaOperations::SaveLuaCall(L, 0, 1))
+	{
+		return;
+	}
+	l = lua_gettop(L);
+	if (!LuaOperations::TryGetStringFromTable(L, "specular", &_specularTexture))
+	{
+		std::cout << "This object has no specular map";
+	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
 	lua_getglobal(L, "GetMeta");
@@ -167,4 +190,14 @@ Mesh* LuaScriptStruct::GetObject()
 glm::vec3 LuaScriptStruct::GetPosition()
 {
 	return _position;
+}
+
+std::string LuaScriptStruct::GetEmmissiveMap()
+{
+	return _emmissiveTexture;
+}
+
+std::string LuaScriptStruct::GetSpecular()
+{
+	return _specularTexture;
 }

@@ -197,6 +197,7 @@
     <ClInclude Include="EngineSettings.h" />
     <ClInclude Include="ExitButton.h" />
     <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="GLLight.hpp" />
     <ClInclude Include="HudSprite.h" />
     <ClInclude Include="HudText.h" />
@@ -250,6 +251,7 @@
     <ClCompile Include="ExitButton.cpp" />
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="GameMaterial.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GLLight.cpp" />
     <ClCompile Include="HudSprite.cpp" />
     <ClCompile Include="Level.cpp" />

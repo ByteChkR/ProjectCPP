@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "../_vs2015/GameStateManager.h"
 #include "AbstractGame.hpp"
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
@@ -38,7 +39,9 @@ void AbstractGame::initialize() {
 
 void AbstractGame::_initializeWindow() {
 	std::cout << "Initializing window..." << std::endl;
-	_window = new sf::RenderWindow( sf::VideoMode(800,600), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
+	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
+	_window = new sf::RenderWindow( sf::VideoMode(800,600), "My Game!", sf::Style::Default, cs);
+	glEnable(GL_MULTISAMPLE);
 	//_window->setVerticalSyncEnabled(true);
     std::cout << "Window initialized." << std::endl << std::endl;
 }
@@ -177,7 +180,7 @@ void AbstractGame::run()
 }
 
 void AbstractGame::_update(float pStep) {
-    _world->update(pStep);
+	GameStateManager::instance->Update(pStep,_world);
 }
 
 void AbstractGame::_render () {

@@ -48,8 +48,10 @@ void MapBuilder::Unload()
 void MapBuilder::UnloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list)
 {
 	if (gen == nullptr) return;
+	lastRemove = 0;
 	for (size_t i = 0; i < (*list).size(); i++)
 	{
+		if ((*list)[i].second == nullptr)continue;
 		int biomeID = i / gen->GetNumberOfLanes() / gen->GetPartCount();
 
 		BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID), (*list)[i].first, (*list)[i].second);
@@ -85,13 +87,14 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 	//float delta = _container->getLocalPosition().z - lastContainerPos;
 
-	float fend = (_container->getLocalPosition().z + genOffset)*gen->GetNumberOfLanes();
-	int end = (int)(glm::min(fend, (float)list->size() - 1));
 
-	float fstart = (_container->getLocalPosition().z - remOffset)*gen->GetNumberOfLanes();
-	int start = (int)(glm::max(fstart, 0.0f));
+	int end = lastRemove + gen->GetNumberOfLanes()*genOffset;
+	end = glm::min(end, (int)list->size() - 1);
 
-	//std::cout << "I size: " << std::to_string(lastRemove-start) << '\n';
+	//float fstart = ((int)_container->getLocalPosition().z - remOffset)*gen->GetNumberOfLanes();
+	//int start = (int)(glm::max(fstart, 0.0f));
+
+	//std::cout << "I size: " << std::to_string(end-lastRemove) << '\n';
 
 	for (int i = lastRemove; i < end; ++i)
 	{
@@ -141,7 +144,6 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 		}
 	}
-	lastContainerPos = _container->getLocalPosition().z;
 }
 
 void MapBuilder::Update(float pTime)

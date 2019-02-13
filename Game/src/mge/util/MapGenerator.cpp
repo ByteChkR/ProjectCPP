@@ -78,7 +78,10 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 
 	for (int i = 0; i < numberOfParts; i++)
 	{
-		std::cout << "reading part " << i << '\n';
+		if (numberOfParts < 100)std::cout << "reading part " << i << '\n';
+		else if(numberOfParts >= 1000 && i % 250 == 0)std::cout << "reading part " << i << " to " << (i + 250) << '\n'; 
+		else if (numberOfParts < 1000 && i % 25 == 0)std::cout << "reading part " << i << " to " << (i + 25) << '\n';
+
 		Part part;
 		for (int j = 0; j < rows; j++)
 		{
@@ -156,12 +159,12 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 
 	for (int i = 0; i < (int)_lanes.size(); i++)
 	{
-		std::cout << "Step of line " << i << " is: " << _lanes[i]->GetStep() << " " << '\n';
+		//std::cout << "Step of line " << i << " is: " << _lanes[i]->GetStep() << " " << '\n';
 		for (int j = 0; j < columns; j++)
 		{
 			std::cout << _lanes[i]->GetSegments()[j] << " ";
 		}
-		std::cout << '\n';
+		//std::cout << '\n';
 	}
 
 }

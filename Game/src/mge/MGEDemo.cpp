@@ -37,6 +37,7 @@
 #include "../_vs2015/MapBuilder.h"
 #include "../_vs2015/PresetHandler.hpp"
 #include "../_vs2015/ScriptableLuaObject.h"
+#include "../_vs2015/GameStateManager.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo() :AbstractGame(), _hud(0)
@@ -53,6 +54,7 @@ void MGEDemo::initialize() {
 	//setup the custom part so we can display some text
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
+	_menu = new Menu(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
 }
 
@@ -76,10 +78,15 @@ void MGEDemo::_initializeScene()
 	m->shininess = 1;
 	m->maxHeight = 0;
 	AbstractMaterial* test = new GameMaterial(*m);
+	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
+	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
+	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
+	Texture* white = Texture::load(config::MGE_TEXTURE_PATH + "white.png");
+	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
 	//create some materials to display the cube, the plane and the light
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
-	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 5, 2);
-	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0, 5, 2);
+	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
 
 	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 4);
 	//SCENE SETUP
@@ -155,7 +162,8 @@ void MGEDemo::_initializeScene()
 
 void MGEDemo::_render() {
 	AbstractGame::_render();
-	_updateHud();
+	if (GameStateManager::instance->_state == GameStateManager::StateGame) _updateHud();
+	if(GameStateManager::instance->_state == GameStateManager::StateMenu) _menu->Update();
 }
 
 void MGEDemo::_updateHud() {

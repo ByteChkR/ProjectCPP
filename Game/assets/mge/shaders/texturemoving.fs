@@ -25,6 +25,7 @@ uniform Light lights[8];
 uniform int lightCount;
 
 uniform sampler2D diffuseTexture;
+uniform sampler2D emissionMap;
 uniform float shininess;
 uniform float movingspeed;
 in vec2 texCoord;
@@ -60,9 +61,11 @@ vec3 Calculate(int index, vec3 wNormal)
 	vec3 specular = spec * diffIntensity * vec3(1);
 	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(texture(diffuseTexture, texCoord))*textureBlend;
 	
+	vec3 emmision = texture(emissionMap, texCoord).rgb;
+
 	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;
 
-	return specular + diffuse + ambient;
+	return specular + diffuse + ambient + emmision;
 }
 
 
