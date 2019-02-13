@@ -3,6 +3,7 @@
 
 #include "mge\core\World.hpp"
 #include <iostream>
+#include"../_vs2015/Menu.h"
 
 static class GameStateManager 
 {
@@ -11,16 +12,16 @@ static class GameStateManager
 		GameStateManager();
 		enum GameState
 		{
-			Menu,
-			Game,
-			GameOver
+			StateMenu,
+			StateGame,
+			StateGameOver
 		};
 
 		GameState _state;
 		void Update(float pTime ,World *_world = nullptr);
 
 	private:
-
+		Menu *_menu;
 };
 
 #endif

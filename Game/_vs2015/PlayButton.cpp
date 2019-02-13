@@ -12,5 +12,5 @@ PlayButton::PlayButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite) : Bu
 void PlayButton::OnClick()
 {
 	std::cout << "Play" << std::endl;
-	GameStateManager::instance->_state = GameStateManager::Game;
+	GameStateManager::instance->_state = GameStateManager::StateGame;
 }

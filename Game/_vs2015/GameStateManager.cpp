@@ -7,19 +7,20 @@ GameStateManager *GameStateManager::instance;
 GameStateManager::GameStateManager()
 {
 	GameStateManager::instance = this;
-	_state = GameState(Menu);
+	_state = GameState(StateMenu);
 }
 
 void GameStateManager::Update(float pTime ,World *_world) 
 {
 	switch (_state)
 	{
-	case GameStateManager::Menu:
+	case GameStateManager::StateMenu:
+		
 		break;
-	case GameStateManager::Game:
+	case GameStateManager::StateGame:
 		if (_world != nullptr) _world->update(pTime); 
 		break;
-	case GameStateManager::GameOver:
+	case GameStateManager::StateGameOver:
 		break;
 	default:
 		break;

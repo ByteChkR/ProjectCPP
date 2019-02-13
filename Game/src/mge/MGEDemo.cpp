@@ -36,6 +36,7 @@
 #include "../_vs2015/MapBuilder.h"
 #include "../_vs2015/PresetHandler.hpp"
 #include "../_vs2015/ScriptableLuaObject.h"
+#include "../_vs2015/GameStateManager.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo() :AbstractGame(), _hud(0)
@@ -52,6 +53,7 @@ void MGEDemo::initialize() {
 	//setup the custom part so we can display some text
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
+	_menu = new Menu(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
 }
 
@@ -136,7 +138,8 @@ void MGEDemo::_initializeScene()
 
 void MGEDemo::_render() {
 	AbstractGame::_render();
-	_updateHud();
+	if (GameStateManager::instance->_state == GameStateManager::StateGame) _updateHud();
+	if(GameStateManager::instance->_state == GameStateManager::StateMenu) _menu->Update();
 }
 
 void MGEDemo::_updateHud() {

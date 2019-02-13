@@ -41,6 +41,7 @@ void Menu::Update()
 {
 	_button->Update();
 	_exitButton->Update();
+	draw();
 }
 
 void Menu::draw() 
