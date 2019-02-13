@@ -178,8 +178,8 @@ void AbstractGame::run()
 }
 
 void AbstractGame::_update(float pStep) {
-	_world->update(pStep);
-	//GameStateManager::instance->Update(pStep);
+	//_world->update(pStep);
+	GameStateManager::instance->Update(pStep,_world);
 }
 
 void AbstractGame::_render () {

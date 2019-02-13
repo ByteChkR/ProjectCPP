@@ -7,7 +7,7 @@
 static class GameStateManager 
 {
 	public:
-		GameStateManager *instance;
+		static GameStateManager *instance;
 		GameStateManager();
 		enum GameState
 		{
@@ -16,10 +16,10 @@ static class GameStateManager
 			GameOver
 		};
 
+		GameState _state;
 		void Update(float pTime ,World *_world = nullptr);
 
 	private:
-		GameState _state;
 
 };
 

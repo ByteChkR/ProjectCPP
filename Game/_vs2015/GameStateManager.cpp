@@ -2,10 +2,12 @@
 #include "GameStateManager.h"
 #include "mge\core\World.hpp"
 
+GameStateManager *GameStateManager::instance;
+
 GameStateManager::GameStateManager()
 {
 	GameStateManager::instance = this;
-	_state = GameState(Game);
+	_state = GameState(Menu);
 }
 
 void GameStateManager::Update(float pTime ,World *_world) 
@@ -15,7 +17,7 @@ void GameStateManager::Update(float pTime ,World *_world)
 	case GameStateManager::Menu:
 		break;
 	case GameStateManager::Game:
-		_world->update(pTime);
+		if (_world != nullptr) _world->update(pTime); 
 		break;
 	case GameStateManager::GameOver:
 		break;
