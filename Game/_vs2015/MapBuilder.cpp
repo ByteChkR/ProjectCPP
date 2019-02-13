@@ -48,8 +48,10 @@ void MapBuilder::Unload()
 void MapBuilder::UnloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list)
 {
 	if (gen == nullptr) return;
+	lastRemove = 0;
 	for (size_t i = 0; i < (*list).size(); i++)
 	{
+		if ((*list)[i].second == nullptr)continue;
 		int biomeID = i / gen->GetNumberOfLanes() / gen->GetPartCount();
 
 		BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID), (*list)[i].first, (*list)[i].second);

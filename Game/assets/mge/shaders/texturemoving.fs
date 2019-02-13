@@ -25,8 +25,7 @@ uniform Light lights[8];
 uniform int lightCount;
 
 uniform sampler2D diffuseTexture;
-uniform sampler2D emissiveTexture;
-uniform sampler2D specularTexture;
+uniform sampler2D emissionMap;
 uniform float shininess;
 uniform float movingspeed;
 in vec2 texCoord;
@@ -58,17 +57,15 @@ vec3 Calculate(int index, vec3 wNormal)
 	float spec = pow(max(dot(dirN, refDir),0.0),shininess)/falloff;
 
 	diffIntensity/=falloff;
-	vec3 ambient  = lights[index].ambientColor* lights[index].intensity;
-	vec3 specular = lights[index].intensity * spec * diffIntensity * texture(specularTexture, texCoord).rgb;
+	vec3 ambient  = lights[index].ambientColor;
+	vec3 specular = spec * diffIntensity * vec3(1);
 	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(texture(diffuseTexture, texCoord))*textureBlend;
 	
-	vec3 diffuse = (finalDiffuse) * diffIntensity;
+	vec3 emmision = texture(emissionMap, texCoord).rgb;
 
-	
-	vec3 emmissive = texture(emissiveTexture, texCoord).rgb;
-	//emmissive /= falloff;
-	
-	return specular + diffuse + ambient + emmissive;
+	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;
+
+	return specular + diffuse + ambient + emmision;
 }
 
 

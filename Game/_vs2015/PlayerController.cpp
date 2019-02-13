@@ -1,10 +1,11 @@
 #include "PlayerController.hpp"
 #include "SFML/Window.hpp"
 #include "mge/util/MapGenerator.h"
+#include "GameStateManager.h"
 #include "MapBuilder.h"
 PlayerController::PlayerController()
 {
-	_currentLane = 0;
+	_currentLane = 1;
 	_gravity = -1;
 	_gravityWhenGoingDown = -5;
 
@@ -38,6 +39,8 @@ void PlayerController::OnCollision(GameObject* other)
 {
 	//Player dies if not a coin
 	std::cout << "COLLISION\n";
+	GameStateManager::instance->_state = GameStateManager::StateMenu;
+	MapBuilder::instance->Unload();
 	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
 }
 
