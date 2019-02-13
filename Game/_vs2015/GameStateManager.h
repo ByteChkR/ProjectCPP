@@ -1,11 +1,13 @@
 #ifndef GAMESTATEMANAGER_HPP
 #define GAMESTATEMANAGER_HPP
 
+#include "mge\core\World.hpp"
 #include <iostream>
 
-class GameStateManager 
+static class GameStateManager 
 {
 	public:
+		GameStateManager *instance;
 		GameStateManager();
 		enum GameState
 		{
@@ -14,7 +16,7 @@ class GameStateManager
 			GameOver
 		};
 
-		void Update();
+		void Update(float pTime ,World *_world = nullptr);
 
 	private:
 		GameState _state;
