@@ -181,6 +181,7 @@
     <ClInclude Include="..\src\mge\core\Texture.hpp" />
     <ClInclude Include="..\src\mge\core\World.hpp" />
     <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\AnimationMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
@@ -231,6 +232,7 @@
     <ClCompile Include="..\src\mge\core\Texture.cpp" />
     <ClCompile Include="..\src\mge\core\World.cpp" />
     <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\AnimationMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />

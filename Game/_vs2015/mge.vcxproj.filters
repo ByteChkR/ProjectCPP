@@ -175,6 +175,9 @@
     <ClInclude Include="TextureMovingMaterial.h">
       <Filter>MGE Source files\mge\materials</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\materials\AnimationMaterial.hpp">
+      <Filter>MGE Source files\mge\materials</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -325,6 +328,9 @@
       <Filter>MGE Source files\mge\util\Menu</Filter>
     </ClCompile>
     <ClCompile Include="TextureMovingMaterial.cpp">
+      <Filter>MGE Source files\mge\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\AnimationMaterial.cpp">
       <Filter>MGE Source files\mge\materials</Filter>
     </ClCompile>
   </ItemGroup>
