@@ -16,7 +16,7 @@ public:
 	};
 
 	void AddSound(std::string pFileLocation);
-	void AddMusic(std::string pFileLocation);
+	void AddMusic(std::string pFileLocation, std::string pAmbientPath);
 	void Restart(int pNumber);
 	void GameOver();
 	void Update(float pDeltaTime);
@@ -33,15 +33,15 @@ private:
 	float _secondsForCrossFader = 4;
 	bool _isClipChanged = true;
 	bool _isInGameOverScreen;
-	void LoadMusic(std::string pFileLocation);
+	void LoadMusic(std::string pFileLocation, std::string pAmbientLocation);
 	void StopAll();
 
 	int _currentMusic;
 	int _nextMusic;
 	std::vector<sf::Sound *> _sounds;
-	std::vector<std::string> _musicPaths;
 	std::string _soundsPath= "mge/sounds/";
 	std::vector<sf::Music*> _musics;
+	std::vector<sf::Music*> _ambients;
 
 };
 
