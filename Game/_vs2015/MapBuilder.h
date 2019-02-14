@@ -22,12 +22,13 @@ private:
 	GameObject* _container;
 	void UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list);
 	
-	
+
+	void RemoveFromPropList(std::vector<std::pair<int, GameObject*>> *list, MapGenerator* gen, size_t index);
+	void AddToPropList(std::vector<std::pair<int, GameObject*>> *list, MapGenerator* gen, size_t index);
 	std::vector<std::pair<int, GameObject*>> _mapPropList;
 	std::vector<std::pair<int, GameObject*>> _decoPropList;
 	float genOffset;
 	float remOffset;
-	float lastContainerPos;
 	int lastRemove;
 };
 

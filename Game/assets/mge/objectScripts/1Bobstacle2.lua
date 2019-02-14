@@ -1,5 +1,5 @@
 local scripts = {}
-local meta = {["name"] = "Test4", ["objPath"] = "mge/models/sphere_smooth.obj", ["texture"] = "diffuse4.jpg", ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0 }
+local meta = {["name"] = "1Bobstacle2", ["objPath"] = "mge/models/teapot_smooth.obj", ["texture"] = "bricks.jpg", ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0 }
 collider = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
 function AttachedScripts()
 	return scripts

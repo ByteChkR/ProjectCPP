@@ -175,8 +175,12 @@
     <ClInclude Include="TextureMovingMaterial.h">
       <Filter>MGE Source files\mge\materials</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\materials\AnimationMaterial.hpp">
+      <Filter>MGE Source files\mge\materials</Filter>
+    </ClInclude>
     <ClInclude Include="GameStateManager.h">
       <Filter>MGE Source files\mge\util</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -330,8 +334,13 @@
     <ClCompile Include="TextureMovingMaterial.cpp">
       <Filter>MGE Source files\mge\materials</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="..\src\mge\materials\AnimationMaterial.cpp">
+      <Filter>MGE Source files\mge\materials</Filter>
+=======
     <ClCompile Include="GameStateManager.cpp">
       <Filter>MGE Source files\mge\util</Filter>
+>>>>>>> 02acc474fda0f465167f29f62cbe51d6e8aa3d6a
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

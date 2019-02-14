@@ -15,6 +15,7 @@
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "mge\materials\AnimationMaterial.hpp"
 #include "../_vs2015/TextureMovingMaterial.h"
 #include "../_vs2015/Material.hpp"
 #include "../_vs2015/GameMaterial.hpp"
@@ -77,11 +78,17 @@ void MGEDemo::_initializeScene()
 	m->shininess = 1;
 	m->maxHeight = 0;
 	AbstractMaterial* test = new GameMaterial(*m);
+	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
+	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
+	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
+	Texture* white = Texture::load(config::MGE_TEXTURE_PATH + "white.png");
+	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
 	//create some materials to display the cube, the plane and the light
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
-	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 1, 5, 2);
-	AbstractMaterial* runicStoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png"), 2, 10, 0, 5, 2);
+	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
 
+	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 4);
 	//SCENE SETUP
 
    //add camera first (it will be updated last)
@@ -98,15 +105,32 @@ void MGEDemo::_initializeScene()
 	plane->setMaterial(runicPlaneMaterial);
 	_world->add(plane);
 
+
 	//add a spinning sphere
 	GameObject* sphere = new GameObject("sphere", glm::vec3(0, 0, 0));
 	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1)));
 	sphere->setMesh(sphereMeshS);
 	sphere->setMaterial(runicStoneMaterial);
+
 	sphere->addBehaviour(new PlayerController());
 	_world->add(sphere);
 	sphere->add(camera);
 	camera->setLocalPosition(glm::vec3(0, 8, 12));
+
+	GameObject * playerAnimation = new GameObject("playerAnimation", glm::vec3(0, 5, 0));
+
+	playerAnimation->setMesh(planeMeshDefault);
+	playerAnimation->setMaterial(runicMihai);
+	playerAnimation->scale(glm::vec3(1, 1, 1));
+	playerAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
+	_world->add(playerAnimation);
+
+	AnimationMaterial* caster = dynamic_cast<AnimationMaterial*>(runicMihai);
+	caster->NextFrame();
+	caster->NextFrame();
+	caster->NextFrame();
+	caster->NextFrame();
+	//background->setLocalPosition(glm::vec3(0, 7, 0));
 
 	//add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
 	//It's here as a place holder to get you started.

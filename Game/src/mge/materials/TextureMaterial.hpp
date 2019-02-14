@@ -15,7 +15,7 @@ class Texture;
 class TextureMaterial : public AbstractMaterial
 {
 public:
-	TextureMaterial(Texture* pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap = nullptr);
+	TextureMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap = nullptr);
 	virtual ~TextureMaterial();
 
 	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
@@ -61,7 +61,10 @@ private:
 	static GLint _movingspeed;
 	static GLint _heightMapTiling;
 	static GLint _heightMapSpeed;
-
+	static GLint _uEmmissiveTexture;
+	Texture* _emmissiveTexture;
+	static GLint _uSpecularTexture;
+	Texture* _specularTexture;
 
 	Texture* _diffuseTexture;
 	float shininess;
