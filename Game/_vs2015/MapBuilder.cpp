@@ -60,6 +60,37 @@ void MapBuilder::UnloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 	list->clear();
 }
 
+void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, MapGenerator* gen, size_t index)
+{
+	int lane = index % gen->GetNumberOfLanes();
+	int biomeID = index / gen->GetNumberOfLanes(); //theoretical distance from container origin
+	float dist = biomeID * gen->GetLaneAt(lane)->GetStep(); //Distance from container origin with step size
+	float reldist = dist - _container->getLocalPosition().z; //Global distance to origin
+
+	//std::cout << "Reldist: " << std::to_string(reldist) << '\n';
+	if (reldist > -remOffset && reldist < genOffset)
+	{
+		biomeID = (biomeID / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
+		//std::cout << "Created\n";
+		glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
+		//std::cout << "Offset On Lane: " << dist << '\n';
+		GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[index].first);
+		(*list)[index].second = obj;
+		(*list)[index].second->EnableBehaviours();
+		if (obj->getParent() != _container)
+			_container->add(obj);
+		obj->setLocalPosition(pos);
+	}
+}
+void MapBuilder::RemoveFromPropList(std::vector<std::pair<int, GameObject*>> * list, MapGenerator* gen, size_t index)
+{
+	int biomeID = (index / gen->GetNumberOfLanes() / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
+	(*list)[index].second->DisableBehaviours();
+	BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID), (*list)[index].first, (*list)[index].second);
+	(*list)[index].second = nullptr;
+}
+
+
 void MapBuilder::ReloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list)
 {
 	if (gen == nullptr) return;
@@ -96,7 +127,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 	//std::cout << "I size: " << std::to_string(end-lastRemove) << '\n';
 
-	for (int i = lastRemove; i < end; ++i)
+	for (size_t i = lastRemove; i < end; ++i)
 	{
 		if ((*list)[i].second != nullptr)
 		{
@@ -104,43 +135,20 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 			if (v.z > remOffset)
 			{
-				int biomeID = (i / gen->GetNumberOfLanes() / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
-				(*list)[i].second->DisableBehaviours();
-				BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID), (*list)[i].first, (*list)[i].second);
-				(*list)[i].second = nullptr;
+				RemoveFromPropList(list, gen, i);
 				lastRemove = i;
 			}
 			else if (v.z < -genOffset)
 			{
-				int biomeID = (i / gen->GetNumberOfLanes() / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
-				(*list)[i].second->DisableBehaviours();
-				BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID), (*list)[i].first, (*list)[i].second);
-				(*list)[i].second = nullptr;
+				RemoveFromPropList(list, gen, i);
 			}
 		}
 		else if ((*list)[i].second == nullptr)
 		{
-			if (lastAdd != -1 && lastAdd < i - 1)break;
-			int lane = i % gen->GetNumberOfLanes();
-			int biomeID = i / gen->GetNumberOfLanes(); //theoretical distance from container origin
-			float dist = biomeID * gen->GetLaneAt(lane)->GetStep(); //Distance from container origin with step size
-			float reldist = dist - _container->getLocalPosition().z; //Global distance to origin
 
-			//std::cout << "Reldist: " << std::to_string(reldist) << '\n';
-			if (reldist > -remOffset && reldist < genOffset)
-			{
-				lastAdd = i;
-				biomeID = (biomeID / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
-				//std::cout << "Created\n";
-				glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
-				//std::cout << "Offset On Lane: " << dist << '\n';
-				GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[i].first);
-				(*list)[i].second = obj;
-				(*list)[i].second->EnableBehaviours();
-				if (obj->getParent() != _container)
-					_container->add(obj);
-				obj->setLocalPosition(pos);
-			}
+			//if (lastAdd != -1 && lastAdd < i - 1)break;
+			AddToPropList(list, gen, i);
+			lastAdd = i;
 
 		}
 	}
