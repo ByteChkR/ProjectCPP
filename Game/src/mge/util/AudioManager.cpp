@@ -55,6 +55,8 @@ void AudioManager::LoadMusic(std::string pFileLocation, std::string pAmbientLoca
 
 	_musics[_currentMusic]->setVolume(100);
 	_ambients[_currentMusic]->setVolume(100);
+	_musics[_currentMusic]->play();
+	_ambients[_currentMusic]->play();
 
 
 
@@ -119,16 +121,10 @@ void AudioManager::AddMusic(std::string pFileLocation, std::string pAmbientPath)
 
 	ambient->setLoop(true);
 
-	ambient->play();
+	//ambient->play();
 	ambient->setVolume(0);
 
 	_ambients.push_back(ambient);
-
-
-
-
-
-
 
 }
 
@@ -154,6 +150,8 @@ void AudioManager::Restart(int pNumber)
 	
 	_musics[pNumber]->setVolume(100);
 	_ambients[pNumber]->setVolume(100);
+	_musics[pNumber]->play();
+	_ambients[pNumber]->play();
 
 }
 
@@ -165,6 +163,8 @@ void AudioManager::GameOver()
 
 	_musics[1]->setVolume(100);
 	_ambients[1]->setVolume(100);
+	_musics[1]->play();
+	_ambients[1]->play();
 }
 
 void AudioManager::Update(float pDeltaTime)
@@ -239,7 +239,8 @@ void AudioManager::ChangeClips()
 
 		StopAll();
 
-		_musics[_nextMusic]->setVolume(0);
+		_musics[_nextMusic]->play();
+		_ambients[_nextMusic]->play();
 
 
 	}
@@ -249,7 +250,7 @@ void AudioManager::StopAll()
 {
 	for (int i = 0; i < (int)_musics.size(); ++i)
 	{
-		_musics[i]->setVolume(0);
-		_ambients[i]->setVolume(0);
+		_musics[i]->pause();
+		_ambients[i]->pause();
 	}
 }
