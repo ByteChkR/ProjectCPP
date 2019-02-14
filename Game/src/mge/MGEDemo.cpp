@@ -138,7 +138,9 @@ void MGEDemo::_initializeScene()
 
 void MGEDemo::_render() {
 	AbstractGame::_render();
-	if (GameStateManager::instance->_state == GameStateManager::StateGame) _updateHud();
+	if (GameStateManager::instance->_state == GameStateManager::StateGame) { 
+		_updateHud();
+	}
 	if(GameStateManager::instance->_state == GameStateManager::StateMenu) _menu->Update();
 }
 
