@@ -41,6 +41,7 @@
 #include "../_vs2015/ParticleSystem.h"
 #include "../_vs2015/ParticleEmitter.h"
 
+#include "mge/util/DataManager.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo() :AbstractGame(), _hud(0)
@@ -193,6 +194,10 @@ void MGEDemo::_initializeScene()
 	_world->add(cont);
 	//particleEm->Start();
 
+	DataManager::instance->SetPlayer(sphere);
+	DataManager::instance->SetBackground(BackGroundImage);
+	DataManager::instance->SetGround(plane);
+		
 }
 
 void MGEDemo::_render() {

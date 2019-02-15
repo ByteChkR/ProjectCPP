@@ -10,6 +10,7 @@
 #include "mge/config.hpp"
 #include "mge/materials/TextureMaterial.hpp"
 #include "../_vs2015/GameStateManager.h"
+#include "mge/util/DataManager.h"
 /**
  * Main entry point for the Micro Engine.
 
@@ -48,7 +49,7 @@ int main(int argc, char *argv[])
 	}
 	AudioManager * audioManager = new AudioManager();
 	GameStateManager * gameStateManager = new GameStateManager();
-
+	DataManager * dataManager = new DataManager();
 	//int t;
 	//std::cin >> t;
 

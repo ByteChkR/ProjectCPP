@@ -56,6 +56,7 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="..\src\mge\util\DataManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="..\src\mge\util\DataManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameMaterial.hpp" />
