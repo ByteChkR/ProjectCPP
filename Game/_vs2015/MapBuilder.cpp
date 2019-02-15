@@ -71,6 +71,10 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 	if (reldist > -remOffset && reldist < genOffset)
 	{
 		biomeID = (biomeID / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
+		if (biomeID == 0)
+		{
+			return;
+		}
 		//std::cout << "Created\n";
 		glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
 		//std::cout << "Offset On Lane: " << dist << '\n';

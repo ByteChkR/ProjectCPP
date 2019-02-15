@@ -17,6 +17,8 @@ void ParticleSystem::Update(float pTime)
 	}
 }
 
+
+
 void ParticleSystem::RegisterParticleEmitter(ParticleEmitter* em)
 {
 	_emitters.push_back(em);

@@ -42,7 +42,7 @@ vec3 GetToonColor(float intens)
 	return colors[col%colorCount]*(1-rem) + colors[(col+1)%colorCount] * (rem);
 }
 
-vec3 Calculate(int index, vec3 wNormal)
+vec4 Calculate(int index, vec3 wNormal)
 {
 	vec3 dir = lights[index].position-fragmentWorldPosition;
 	vec3 dirN = normalize(dir);
@@ -59,25 +59,28 @@ vec3 Calculate(int index, vec3 wNormal)
 	diffIntensity/=falloff;
 	vec3 ambient  = lights[index].ambientColor;
 	vec3 specular = spec * diffIntensity * vec3(1);
-	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(texture(diffuseTexture, texCoord))*textureBlend;
+	vec4 difftexcolor = texture(diffuseTexture, texCoord);
+	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(difftexcolor)*textureBlend;
 	
-	vec3 emmision = texture(emissionMap, texCoord).rgb;
+	vec3 emmissive = texture(emissionMap, texCoord).rgb;
 
 	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;
-
-	return specular + diffuse + ambient + emmision;
+	vec4 result = vec4(0);
+	result.rgb = specular + diffuse + ambient + emmissive;
+	result.a = difftexcolor.a;
+	return result;
 }
 
 
 
 void main( void ) {
 
-	vec3 ret = vec3(0);
+	vec4 ret = vec4(0);
 	vec3 wn = normalize(worldNormal);
 	for(int i = 0; i < lightCount; i++)
 	{
 		ret += Calculate(i, wn);
 	}
 
-	fragment_color = vec4(ret, 1);
+	fragment_color = ret;
 }
