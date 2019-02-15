@@ -100,7 +100,9 @@ void MGEDemo::_initializeScene()
 	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
 	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
 
+
 	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 4);
+	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png"), 4);
 	//SCENE SETUP
 
    //add camera first (it will be updated last)
@@ -150,6 +152,16 @@ void MGEDemo::_initializeScene()
 	caster->NextFrame();
 	caster->NextFrame();
 	caster->NextFrame();
+
+	
+	GameObject * BackGroundImage = new GameObject("background image", glm::vec3(0, 0, -1000));
+
+	BackGroundImage->setMesh(testQuad);
+	BackGroundImage->setMaterial(backGroundMaterial);
+	BackGroundImage->scale(glm::vec3(1920 , 1080 , 1));
+	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
+	_world->add(BackGroundImage);
+
 	//background->setLocalPosition(glm::vec3(0, 7, 0));
 
 	//add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
