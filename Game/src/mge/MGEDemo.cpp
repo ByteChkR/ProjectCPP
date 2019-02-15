@@ -67,11 +67,12 @@ void MGEDemo::_initializeScene()
 	//MESHES
 
 	Particle* particle = new Particle();
+	particle->color = glm::vec4(1,1,1,1);//(R;G;B;A)
 	particle->acceleration = glm::vec3(0, 0.3f, 0);
 	particle->gravity = 0.3f;
 	particle->life = 5;
 	
-	ParticleEmitter * particleEm = new ParticleEmitter(particle, 150);
+	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
 
 	//load a bunch of meshes we will be using throughout this demo
 	//each mesh only has to be loaded once, but can be used multiple times:

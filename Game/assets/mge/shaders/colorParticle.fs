@@ -5,8 +5,11 @@
 
 uniform vec4 ParticleColor;
 
+uniform sampler2D particleTexture;
+in vec2 fUV;
 out vec4 fragment_color;
 
 void main( void ) {
-	fragment_color = ParticleColor;
+	
+	fragment_color = texture(particleTexture, fUV) * ParticleColor;
 }

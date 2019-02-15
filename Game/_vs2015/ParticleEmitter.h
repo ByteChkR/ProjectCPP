@@ -10,10 +10,11 @@
 #include <random>
 #include <chrono>
 #include <iostream>
+#include "mge/core/Texture.hpp"
 class ParticleEmitter : AbstractMaterial
 {
 public:
-	ParticleEmitter(Particle* original, int maxParticles = 500);
+	ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles = 500);
 	//void SetParticleLifetime(float maxTime);
 	//void SetParticleStartPosition(glm::vec3 startPosition);
 	//void SetParticleStartColor(glm::vec4 startColor);
@@ -46,7 +47,8 @@ private:
 	static GLint _aUV;
 	static GLint _offset;
 	static GLint _color;
-
+	static GLint _texture;
+	Texture* _particleTexture;
 	std::vector<Particle*> _activeParticles;
 	unsigned seed = unsigned(std::chrono::system_clock::now().time_since_epoch().count());
 	static std::default_random_engine e;

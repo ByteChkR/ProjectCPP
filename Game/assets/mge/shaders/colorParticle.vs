@@ -12,10 +12,11 @@ uniform	mat4 	modelMatrix;
 
 uniform vec3 offset;
 
+out vec2 fUV;
 
 void main( void ){
 	
-
+	fUV = uv;
 
 	vec4 v = projectionMatrix * modelMatrix * vec4(vertex, 1.f);
 	

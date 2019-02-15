@@ -6,6 +6,7 @@
 #include "mge/config.hpp"
 #include "ParticleSystem.h"
 #include <random>
+#include "mge/core/Texture.hpp"
 #include <chrono>
 #include <iostream>
 
@@ -18,12 +19,13 @@ GLint ParticleEmitter::_aVertex = 0;
 GLint ParticleEmitter::_aNormal = 0;
 GLint ParticleEmitter::_color = 0;
 GLint ParticleEmitter::_offset = 0;
+GLint ParticleEmitter::_texture = 0;
 
 std::default_random_engine ParticleEmitter::e;
 
-ParticleEmitter::ParticleEmitter(Particle* original, int maxParticles)
+ParticleEmitter::ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles)
 {
-
+	_particleTexture = particleTexture;
 	e = std::default_random_engine(seed);
 	ParticleSystem::instance->RegisterParticleEmitter(this);
 	_original = original;
@@ -71,7 +73,7 @@ void ParticleEmitter::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 {
 
 	_shader->use();
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
 	glm::mat4 test = glm::mat4(1);
 	test[3] = glm::vec4(pViewMatrix[3]);
@@ -81,6 +83,12 @@ void ParticleEmitter::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 	glUniformMatrix4fv(_uPMatrix, 1, GL_FALSE, glm::value_ptr(pPerspectiveMatrix));
 	glUniformMatrix4fv(_uVMatrix, 1, GL_FALSE, glm::value_ptr(pViewMatrix));
 	glUniformMatrix4fv(_uMMatrix, 1, GL_FALSE, glm::value_ptr(test));
+	if (_particleTexture != nullptr || _texture == -1)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, _particleTexture->getId());
+		glUniform1i(_texture, 0);
+	}
 
 	for (size_t i = 0; i < _activeParticles.size(); i++)
 	{
@@ -98,7 +106,7 @@ void ParticleEmitter::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 
 
 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 }
 
@@ -183,6 +191,7 @@ void ParticleEmitter::_initializeShader()
 		_aNormal = _shader->getAttribLocation("normal");
 		_aUV = _shader->getAttribLocation("uv");
 
+		_texture = _shader->getUniformLocation("particleTexture");
 
 		_offset = _shader->getUniformLocation("offset");
 		_color = _shader->getUniformLocation("ParticleColor");
