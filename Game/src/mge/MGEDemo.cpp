@@ -72,7 +72,7 @@ void MGEDemo::_initializeScene()
 	particle->gravity = 0.3f;
 	particle->life = 5;
 	
-	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
+	//ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
 
 	//load a bunch of meshes we will be using throughout this demo
 	//each mesh only has to be loaded once, but can be used multiple times:
@@ -117,13 +117,13 @@ void MGEDemo::_initializeScene()
 	plane->setMaterial(runicPlaneMaterial);
 	_world->add(plane);
 
-	GameObject* testParticle = new GameObject("particle", glm::vec3(0, 6, 0));
-	testParticle->setMesh(testQuad);
-	testParticle->setMaterial((AbstractMaterial*)particleEm);
+	//GameObject* testParticle = new GameObject("particle", glm::vec3(0, 6, 0));
+	//testParticle->setMesh(testQuad);
+	//testParticle->setMaterial((AbstractMaterial*)particleEm);
 
-	testParticle->scale(glm::vec3(0.5, 0.5, 0.5));
-	_world->add(testParticle);
-	particleEm->Start();
+	//testParticle->scale(glm::vec3(0.5, 0.5, 0.5));
+	//_world->add(testParticle);
+	//particleEm->Start();
 
 
 	//add a spinning sphere
@@ -177,7 +177,7 @@ void MGEDemo::_initializeScene()
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
-	particleEm->Start();
+	//particleEm->Start();
 
 }
 
