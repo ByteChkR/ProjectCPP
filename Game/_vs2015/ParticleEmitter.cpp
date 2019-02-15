@@ -149,7 +149,7 @@ void ParticleEmitter::SpawnParticles(int amount)
 {
 	for (size_t i = 0; i < amount; i++)
 	{
-		int rand0, rand1, rand2, rand3, rand4, rand5, rand6;
+		float rand0, rand1, rand2, rand3, rand4, rand5, rand6;
 		
 		std::uniform_real_distribution<float> unif(0, 1);
 		rand0 = unif(e);

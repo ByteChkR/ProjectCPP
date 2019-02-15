@@ -119,13 +119,15 @@ void MGEDemo::_initializeScene()
 	plane->setMaterial(runicPlaneMaterial);
 	_world->add(plane);
 
-	//GameObject* testParticle = new GameObject("particle", glm::vec3(0, 6, 0));
-	//testParticle->setMesh(testQuad);
-	//testParticle->setMaterial((AbstractMaterial*)particleEm);
+	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
 
-	//testParticle->scale(glm::vec3(0.5, 0.5, 0.5));
-	//_world->add(testParticle);
-	//particleEm->Start();
+	GameObject* testParticle = new GameObject("particle", glm::vec3(0, 6, 0));
+	testParticle->setMesh(testQuad);
+	testParticle->setMaterial((AbstractMaterial*)particleEm);
+
+	testParticle->scale(glm::vec3(0.5, 0.5, 0.5));
+	_world->add(testParticle);
+	particleEm->Start();
 
 
 	//add a spinning sphere
