@@ -38,13 +38,16 @@
 #include "../_vs2015/PresetHandler.hpp"
 #include "../_vs2015/ScriptableLuaObject.h"
 #include "../_vs2015/GameStateManager.h"
+#include "../_vs2015/ParticleSystem.h"
+#include "../_vs2015/ParticleEmitter.h"
+
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo() :AbstractGame(), _hud(0)
 {
 
 	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
-
+	
 }
 
 void MGEDemo::initialize() {
@@ -63,12 +66,21 @@ void MGEDemo::_initializeScene()
 {
 	//MESHES
 
+	Particle* particle = new Particle();
+	particle->color = glm::vec4(1,1,1,1);//(R;G;B;A)
+	particle->acceleration = glm::vec3(0, 0.3f, 0);
+	particle->gravity = 0.3f;
+	particle->life = 5;
+	
+	//ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
+
 	//load a bunch of meshes we will be using throughout this demo
 	//each mesh only has to be loaded once, but can be used multiple times:
 	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
 	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
 	Mesh* cubeMeshF = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
 	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 
 	//MATERIALS
 	Material* m = new Material();
@@ -104,6 +116,14 @@ void MGEDemo::_initializeScene()
 	plane->setMesh(planeMeshDefault);
 	plane->setMaterial(runicPlaneMaterial);
 	_world->add(plane);
+
+	//GameObject* testParticle = new GameObject("particle", glm::vec3(0, 6, 0));
+	//testParticle->setMesh(testQuad);
+	//testParticle->setMaterial((AbstractMaterial*)particleEm);
+
+	//testParticle->scale(glm::vec3(0.5, 0.5, 0.5));
+	//_world->add(testParticle);
+	//particleEm->Start();
 
 
 	//add a spinning sphere
@@ -157,6 +177,7 @@ void MGEDemo::_initializeScene()
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
+	//particleEm->Start();
 
 }
 

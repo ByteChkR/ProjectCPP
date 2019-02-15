@@ -211,6 +211,9 @@
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="ObjectPool.hpp" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleEmitter.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PlayButton.h" />
     <ClInclude Include="PlayerController.hpp" />
     <ClInclude Include="PresetHandler.hpp" />
@@ -264,6 +267,9 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PlayButton.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PresetHandler.cpp" />

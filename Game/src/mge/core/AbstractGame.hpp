@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <string>
 #include "../_vs2015/CollisionManager.hpp"
+#include "../_vs2015/ParticleSystem.h"
 class World;
 class Renderer;
 
@@ -65,6 +66,7 @@ class AbstractGame
 		float startupTime;
         AbstractGame(const AbstractGame&);
         AbstractGame& operator=(const AbstractGame&);
+		ParticleSystem* _particleSystem;
 
 
 };
