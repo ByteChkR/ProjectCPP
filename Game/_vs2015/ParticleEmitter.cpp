@@ -83,7 +83,7 @@ void ParticleEmitter::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 {
 
 	_shader->use();
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
 	glm::mat4 test = glm::mat4(1);
 	test[3] = glm::vec4(pViewMatrix[3]);
@@ -132,7 +132,7 @@ void ParticleEmitter::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 
 
 
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 }
 
@@ -148,7 +148,7 @@ void ParticleEmitter::UpdateParticles(float pTime)
 	if (_activeParticles.size() < _maxParticles && !_stopProduce)
 	{
 		SpawnParticles(glm::min(_maxParticles - totalActive, maxParticlesPerStep));
-		std::cout << "Adding particles: "<< std::to_string(_maxParticles - totalActive) << "\n";
+		std::cout << "Adding particles: " << std::to_string(_maxParticles - totalActive) << "\n";
 	}
 	if (_activeParticles.size() > 0)
 		for (size_t i = _activeParticles.size() - 1; i > 0; i--)
@@ -176,7 +176,7 @@ void ParticleEmitter::SpawnParticles(int amount)
 	for (size_t i = 0; i < amount; i++)
 	{
 		float rand0, rand1, rand2, rand3, rand4, rand5, rand6;
-		
+
 		std::uniform_real_distribution<float> unif(0, 1);
 		rand0 = unif(e);
 		rand1 = unif(e);
@@ -188,7 +188,7 @@ void ParticleEmitter::SpawnParticles(int amount)
 		Particle* p = _pool->Take();
 		p->life = _original->life;
 		p->gravity = _original->gravity;
-		p->acceleration = _original->acceleration + glm::vec3((2*rand0-1) / 2, 0, (2*rand1-1) / 2);
+		p->acceleration = _original->acceleration + glm::vec3((2 * rand0 - 1) / 2, 0, (2 * rand1 - 1) / 2);
 		p->color = _original->color;
 		p->position = _original->position;
 		p->velocity = _original->velocity;

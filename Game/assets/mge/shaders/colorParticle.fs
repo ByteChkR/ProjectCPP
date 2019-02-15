@@ -10,6 +10,7 @@ in vec2 fUV;
 out vec4 fragment_color;
 
 void main( void ) {
-	
-	fragment_color = texture(particleTexture, fUV) * ParticleColor;
+	vec4 color = texture(particleTexture, fUV) * ParticleColor;
+	if(color.a < 0.1)discard;
+	fragment_color = color;
 }

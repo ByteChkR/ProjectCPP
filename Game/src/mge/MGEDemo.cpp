@@ -91,6 +91,7 @@ void MGEDemo::_initializeScene()
 	m->shininess = 1;
 	m->maxHeight = 0;
 	AbstractMaterial* test = new GameMaterial(*m);
+	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png");
 	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
 	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
 	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
@@ -98,7 +99,7 @@ void MGEDemo::_initializeScene()
 	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
 	//create some materials to display the cube, the plane and the light
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
-	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
+	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(planetTexture, black, black, 2, 10, 1, 5, 2);
 	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
 
 

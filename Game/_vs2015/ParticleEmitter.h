@@ -26,6 +26,7 @@ public:
 	void Stop(bool immediate = false);
 
 	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pPerspectiveMatrix) override;
+	
 	void UpdateParticles(float pTime);
 	void SpawnParticles(int amount);
 	bool IsEnabled();
