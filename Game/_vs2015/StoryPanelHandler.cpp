@@ -24,7 +24,9 @@ HudSprite* StoryPanelHandler::GetPanelAt(int _storyPart, int _part){
 }
 
 void StoryPanelHandler::InitializePanels(){
-	_panelsOne.push_back(new HudSprite("tmpMenu.png"));
+	_panelsOne.push_back(new HudSprite("tempMenu.png"));
+	_panelsOne.push_back(new HudSprite("tmpPanel0.png"));
+	_panelsOne.push_back(new HudSprite("tmpPanel1.png"));
 }
 
 int StoryPanelHandler::GetSize(int _storyPart) {

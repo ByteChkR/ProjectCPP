@@ -13,5 +13,5 @@ void PlayButton::OnClick()
 {
 	std::cout << "Play" << std::endl;
 	MapBuilder::instance->Reload();
-	GameStateManager::instance->_state = GameStateManager::StateGame;
+	GameStateManager::instance->_state = GameStateManager::StatePanel;
 }

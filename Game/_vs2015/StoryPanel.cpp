@@ -25,7 +25,10 @@ void StoryPanel::OrganizePanel()
 
 void StoryPanel::NextPanel()
 {
-	if(_part < _maxPart) ++_part;
+	if (_part < _maxPart - 1) { 
+		++_part; 
+		_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart, _part);
+	}
 	else {
 		GameStateManager::instance->_state = GameStateManager::StateGame;
 		NextStoryPart();
@@ -48,6 +51,7 @@ void StoryPanel::draw() {
 
 	_window->draw(_currentPanel->sprite);
 	_window->draw(_nextButtonBox->sprite);
+	_window->draw(_nextText->_text);
 
 	_window->popGLStates();
 }
