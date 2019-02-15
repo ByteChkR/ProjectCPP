@@ -14,6 +14,7 @@ class StoryPanel
 
 		void NextPanel();
 		void NextStoryPart();
+		void Reset();
 		void Update();
 	private:
 		void draw();
@@ -27,5 +28,6 @@ class StoryPanel
 		int _storyPart;
 		int _part;
 		int _maxPart;
+		bool _isResetted = false;
 };
 #endif

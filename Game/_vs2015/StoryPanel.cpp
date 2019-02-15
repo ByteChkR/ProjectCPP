@@ -37,10 +37,21 @@ void StoryPanel::NextPanel()
 void StoryPanel::NextStoryPart()
 {
 	++_storyPart;
+	_part = 0;
+}
+
+void StoryPanel::Reset() {
+	if (!_isResetted) {
+		_storyPart = 0;
+		_part = 0;
+		_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart, _part);
+		_isResetted = true;
+	}
 }
 
 void StoryPanel::Update()
 {
+	if (_isResetted) _isResetted = false;
 	_nextButton->Update();
 	draw();
 }

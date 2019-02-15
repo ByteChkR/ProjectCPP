@@ -207,7 +207,10 @@ void MGEDemo::_render() {
 	if (GameStateManager::instance->_state == GameStateManager::StateGame) { 
 		_updateHud();
 	}
-	if(GameStateManager::instance->_state == GameStateManager::StateMenu) _menu->Update();
+	if (GameStateManager::instance->_state == GameStateManager::StateMenu) { 
+		_menu->Update();
+		_storyPanel->Reset();     //could be solved more optimized
+	}
 	if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
 }
 
