@@ -48,6 +48,14 @@ private:
 	static GLint _offset;
 	static GLint _color;
 	static GLint _texture;
+	static GLint _maxHeight;
+	static GLint _heightTexID;
+	static GLint _genOffset;
+	static GLint _hwm;
+	static GLint _heightMapSpeed;
+	static GLint _time;
+	static GLint _heightMapTiling;
+
 	Texture* _particleTexture;
 	std::vector<Particle*> _activeParticles;
 	unsigned seed = unsigned(std::chrono::system_clock::now().time_since_epoch().count());

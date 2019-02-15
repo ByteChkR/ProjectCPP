@@ -14,7 +14,6 @@ uniform float hwm;
 uniform float time;
 uniform float maxXOffset;
 uniform float xOffsetSmoothness;
-uniform float movingspeed;
 uniform float heightMapTiling;
 uniform float heightMapSpeed;
 

@@ -7,7 +7,9 @@
 #include "ParticleSystem.h"
 #include <random>
 #include "mge/core/Texture.hpp"
+#include "mge/materials/TextureMaterial.hpp"
 #include <chrono>
+#include "mge/core/AbstractGame.hpp"
 #include <iostream>
 
 ShaderProgram* ParticleEmitter::_shader = nullptr;
@@ -20,6 +22,14 @@ GLint ParticleEmitter::_aNormal = 0;
 GLint ParticleEmitter::_color = 0;
 GLint ParticleEmitter::_offset = 0;
 GLint ParticleEmitter::_texture = 0;
+GLint ParticleEmitter::_heightTexID = 0;
+GLint ParticleEmitter::_maxHeight = 0;
+GLint ParticleEmitter::_time = 0;
+GLint ParticleEmitter::_genOffset = 0;
+GLint ParticleEmitter::_hwm = 0;
+GLint ParticleEmitter::_heightMapTiling = 0;
+GLint ParticleEmitter::_heightMapSpeed = 0;
+
 
 std::default_random_engine ParticleEmitter::e;
 
@@ -89,7 +99,23 @@ void ParticleEmitter::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 		glBindTexture(GL_TEXTURE_2D, _particleTexture->getId());
 		glUniform1i(_texture, 0);
 	}
+	if (TextureMaterial::_heightMap != nullptr)
+	{
+		//setup texture slot 0
+		glActiveTexture(GL_TEXTURE1);
+		//bind the texture to the current active slot
+		glBindTexture(GL_TEXTURE_2D, TextureMaterial::_heightMap->getId());
+		//tell the shader the texture slot for the diffuse texture is slot 0
+		glUniform1i(_heightTexID, 1);
 
+		glUniform1f(_maxHeight, TextureMaterial::maxHeight);
+
+	}
+	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
+	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
+	glUniform1f(_time, AbstractGame::instance->GetTimeSinceStartup());
+	glUniform1f(_genOffset, TextureMaterial::genOffset);
+	glUniform1f(_hwm, TextureMaterial::width);
 	for (size_t i = 0; i < _activeParticles.size(); i++)
 	{
 		if (_activeParticles[i]->life > 0.0f)
@@ -112,18 +138,18 @@ void ParticleEmitter::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 
 void ParticleEmitter::UpdateParticles(float pTime)
 {
-	int maxParticlesPerStep = 2;
-	int totalActive = _pool->TotalActiveInstances();
+	int maxParticlesPerStep = 1;
+	int totalActive = _activeParticles.size();
 	if (_stopProduce && totalActive == 0)
 	{
 		_isEnabled = false;
 		return;
 	}
-	if (totalActive < _maxParticles && !_stopProduce)
+	if (_activeParticles.size() < _maxParticles && !_stopProduce)
 	{
 		SpawnParticles(glm::min(_maxParticles - totalActive, maxParticlesPerStep));
+		std::cout << "Adding particles: "<< std::to_string(_maxParticles - totalActive) << "\n";
 	}
-
 	if (_activeParticles.size() > 0)
 		for (size_t i = _activeParticles.size() - 1; i > 0; i--)
 		{
@@ -135,7 +161,7 @@ void ParticleEmitter::UpdateParticles(float pTime)
 				p->acceleration *= 0.99f;
 				p->velocity += p->acceleration;
 				p->position += p->velocity*pTime;
-				p->color.a -= p->transparencyPerSecond*pTime;
+				//p->color.a -= p->transparencyPerSecond*pTime;
 			}
 			else
 			{
@@ -162,10 +188,10 @@ void ParticleEmitter::SpawnParticles(int amount)
 		Particle* p = _pool->Take();
 		p->life = _original->life;
 		p->gravity = _original->gravity;
-		p->acceleration = _original->acceleration + glm::vec3(rand0 / 4, rand1, rand1 / 4);
+		p->acceleration = _original->acceleration + glm::vec3((2*rand0-1) / 2, 0, (2*rand1-1) / 2);
 		p->color = _original->color;
-		p->position = _original->position + glm::vec3(rand3 / 4, rand4, rand5 / 4);
-		p->velocity = _original->velocity + glm::vec3(rand3 / 4, rand6, rand4 / 4);
+		p->position = _original->position;
+		p->velocity = _original->velocity;
 		p->transparencyPerSecond = _original->transparencyPerSecond;
 		p->transparencyStart = _original->transparencyStart;
 		_activeParticles.push_back(p);
@@ -196,7 +222,13 @@ void ParticleEmitter::_initializeShader()
 		_offset = _shader->getUniformLocation("offset");
 		_color = _shader->getUniformLocation("ParticleColor");
 
-
+		_heightTexID = _shader->getUniformLocation("heightMap");
+		_maxHeight = _shader->getUniformLocation("maxHeight");
+		_genOffset = _shader->getUniformLocation("genOffset");
+		_hwm = _shader->getUniformLocation("hwm");
+		_heightMapSpeed = _shader->getUniformLocation("heightMapSpeed");
+		_time = _shader->getUniformLocation("time");
+		_heightMapTiling = _shader->getUniformLocation("heightMapTiling");
 
 	}
 }

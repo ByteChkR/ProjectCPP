@@ -27,6 +27,9 @@ public:
 	static float xOffsetSmootness;
 	static float heightmapTiling;
 	static float heightmapSpeed;
+	static float maxHeight;
+	static float genOffset;
+	static float width;
 protected:
 private:
 	static ShaderProgram* _shader;
@@ -75,9 +78,6 @@ private:
 	float blendingSoftness;
 	float blend;
 	float colorTiling;
-	float maxHeight;
-	float genOffset;
-	float width;
 
 
 

@@ -19,6 +19,9 @@ float TextureMaterial::heightmapTiling = 1.6;
 float TextureMaterial::heightmapSpeed = 0.2;
 float TextureMaterial::maxXOff = 50;
 float TextureMaterial::xOffsetSmootness = 2;
+float TextureMaterial::maxHeight = 5;
+float TextureMaterial::genOffset = 150;
+float TextureMaterial::width = 8;
 Texture* TextureMaterial::_heightMap = nullptr;
 
 GLint TextureMaterial::_heightMapTiling = 0;
@@ -52,13 +55,11 @@ GLint TextureMaterial::_blendingSoftness = 0;
 GLint TextureMaterial::_colorCount = 0;
 GLint TextureMaterial::_colorTiling = 0;
 
+
 TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
-	maxHeight = 5;
 	_emmissiveTexture = emmissiveTexture;
 	_specularTexture = specularTexture;
 	if (heightMap != nullptr)_heightMap = heightMap;
-	width = 8;
-	genOffset = 150;
 	maxXOff = 50;
 	this->shininess = shininess;
 	this->steps = steps;

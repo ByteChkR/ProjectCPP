@@ -69,9 +69,9 @@ void MGEDemo::_initializeScene()
 
 	Particle* particle = new Particle();
 	particle->color = glm::vec4(1,1,1,1);//(R;G;B;A)
-	particle->acceleration = glm::vec3(0, 0.3f, 0);
-	particle->gravity = 0.3f;
-	particle->life = 5;
+	particle->acceleration = glm::vec3(0, 1, 0);
+	particle->gravity = 1;
+	particle->life = 1;
 	
 	//ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
 
@@ -122,7 +122,7 @@ void MGEDemo::_initializeScene()
 
 	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
 
-	GameObject* testParticle = new GameObject("particle", glm::vec3(0, 6, 0));
+	GameObject* testParticle = new GameObject("particle", glm::vec3(0, 10, 0));
 	testParticle->setMesh(testQuad);
 	testParticle->setMaterial((AbstractMaterial*)particleEm);
 
@@ -192,7 +192,7 @@ void MGEDemo::_initializeScene()
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
-	//particleEm->Start();
+	particleEm->Start();
 
 	DataManager::instance->SetPlayer(sphere);
 	DataManager::instance->SetBackground(BackGroundImage);

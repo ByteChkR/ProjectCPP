@@ -47,9 +47,7 @@ GLint TextureMovingMaterial::_movingspeed = 0;
 GLint TextureMovingMaterial::_heightMapSpeed = 0;
 
 TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
-	maxHeight = 5;
-	width = 8;
-	genOffset = 150;
+
 	_emmissiveTexture = emmissiveTexture;
 	_specularTexture = specularTexture;
 	this->shininess = shininess;
@@ -161,8 +159,8 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 	//tell the shader the texture slot for the diffuse texture is slot 0
 	glUniform1i(_uDiffuseTexture, 0);
 
-	glUniform1f(_genOffset, genOffset);
-	glUniform1f(_width, width);
+	glUniform1f(_genOffset, TextureMaterial::genOffset);
+	glUniform1f(_width, TextureMaterial::width);
 	glUniform1f(_movingspeed, Movingspeed);
 	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
@@ -176,7 +174,7 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 		//tell the shader the texture slot for the diffuse texture is slot 0
 		glUniform1i(_heightTexID, 1);
 
-		glUniform1f(_maxHeight, maxHeight);
+		glUniform1f(_maxHeight, TextureMaterial::maxHeight);
 
 	}
 	if (_emmissiveTexture != nullptr)
