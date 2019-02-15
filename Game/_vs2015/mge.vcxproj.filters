@@ -62,6 +62,10 @@
     <ClCompile Include="NextButton.cpp">
       <Filter>NewFolder</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="..\src\mge\util\DataManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -132,5 +136,12 @@
     <Filter Include="NewFolder">
       <UniqueIdentifier>{35404faa-f81d-4ba8-a099-db1b207e481c}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleEmitter.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="..\src\mge\util\DataManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameMaterial.hpp" />
   </ItemGroup>
 </Project>

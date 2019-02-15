@@ -13,6 +13,7 @@ static class GameStateManager
 		enum GameState
 		{
 			StateMenu,
+			StatePanel,
 			StateGame,
 			StateGameOver
 		};

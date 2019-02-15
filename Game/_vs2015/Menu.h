@@ -16,6 +16,8 @@ class Menu
 	private:
 		sf::RenderWindow * _window;
 
+		HudSprite *_background;
+
 		HudText * _playText;
 		HudSprite *_playBox;
 		Button *_button;

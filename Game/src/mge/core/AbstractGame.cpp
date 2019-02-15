@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "../_vs2015/GameStateManager.h"
+#include "../_vs2015/ParticleSystem.h"
+
 #include "AbstractGame.hpp"
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
@@ -11,6 +13,7 @@ AbstractGame* AbstractGame::instance = nullptr;
 AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0), startupTime(0)
 {
 	instance = this;
+	_particleSystem = new ParticleSystem();
     //ctor
 }
 
@@ -40,7 +43,7 @@ void AbstractGame::initialize() {
 void AbstractGame::_initializeWindow() {
 	std::cout << "Initializing window..." << std::endl;
 	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
-	_window = new sf::RenderWindow( sf::VideoMode(1920,1080), "My Game!", sf::Style::Default, cs);
+	_window = new sf::RenderWindow( sf::VideoMode(900,600), "My Game!", sf::Style::Default, cs);
 	glEnable(GL_MULTISAMPLE);
 	//_window->setVerticalSyncEnabled(true);
     std::cout << "Window initialized." << std::endl << std::endl;
@@ -114,7 +117,7 @@ void AbstractGame::run()
     float timeSinceLastFPSCalculation = 0;
 
 	//settings to make sure the update loop runs at 60 fps
-	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
+	sf::Time timePerFrame = sf::seconds(1.0f / 120.0f);
 	sf::Clock updateClock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
@@ -180,6 +183,7 @@ void AbstractGame::run()
 }
 
 void AbstractGame::_update(float pStep) {
+	_particleSystem->Update(pStep);
 	GameStateManager::instance->Update(pStep,_world);
 }
 

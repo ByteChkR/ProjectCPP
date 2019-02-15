@@ -187,6 +187,7 @@
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\AudioManager.h" />
     <ClInclude Include="..\src\mge\util\BiomeHandler.h" />
+    <ClInclude Include="..\src\mge\util\DataManager.h" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="..\src\mge\util\Lane.h" />
     <ClInclude Include="..\src\mge\util\MapGenerator.h" />
@@ -212,6 +213,9 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NextButton.h" />
     <ClInclude Include="ObjectPool.hpp" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleEmitter.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PlayButton.h" />
     <ClInclude Include="PlayerController.hpp" />
     <ClInclude Include="PresetHandler.hpp" />
@@ -243,6 +247,7 @@
     <ClCompile Include="..\src\mge\util\AudioManager.cpp" />
     <ClCompile Include="..\src\mge\util\Biome.cpp" />
     <ClCompile Include="..\src\mge\util\BiomeHandler.cpp" />
+    <ClCompile Include="..\src\mge\util\DataManager.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\mge\util\Lane.cpp" />
     <ClCompile Include="..\src\mge\util\MapGenerator.cpp" />
@@ -268,6 +273,9 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NextButton.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PlayButton.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PresetHandler.cpp" />

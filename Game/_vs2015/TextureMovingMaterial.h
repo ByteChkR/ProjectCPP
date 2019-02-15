@@ -72,9 +72,6 @@ private:
 	float blendingSoftness;
 	float blend;
 	float colorTiling;
-	float maxHeight;
-	float genOffset;
-	float width;
 
 
 

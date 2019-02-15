@@ -11,6 +11,7 @@
 #include "mge/materials/TextureMaterial.hpp"
 #include "../_vs2015/GameStateManager.h"
 #include "../_vs2015/StoryPanelHandler.h"
+#include "mge/util/DataManager.h"
 /**
  * Main entry point for the Micro Engine.
 
@@ -51,6 +52,7 @@ int main(int argc, char *argv[])
 	GameStateManager * gameStateManager = new GameStateManager();
 	StoryPanelHandler * storyPanelHandler = new StoryPanelHandler();
 
+	DataManager * dataManager = new DataManager();
 	//int t;
 	//std::cin >> t;
 

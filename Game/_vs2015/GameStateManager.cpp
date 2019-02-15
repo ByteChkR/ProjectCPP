@@ -17,6 +17,8 @@ void GameStateManager::Update(float pTime ,World *_world)
 	case GameStateManager::StateMenu:
 		
 		break;
+	case GameStateManager::StatePanel:
+		break;
 	case GameStateManager::StateGame:
 		if (_world != nullptr) _world->update(pTime); 
 		break;

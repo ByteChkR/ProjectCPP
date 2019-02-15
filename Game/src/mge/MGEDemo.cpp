@@ -38,13 +38,17 @@
 #include "../_vs2015/PresetHandler.hpp"
 #include "../_vs2015/ScriptableLuaObject.h"
 #include "../_vs2015/GameStateManager.h"
+#include "../_vs2015/ParticleSystem.h"
+#include "../_vs2015/ParticleEmitter.h"
+
+#include "mge/util/DataManager.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo() :AbstractGame(), _hud(0)
 {
 
 	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
-
+	
 }
 
 void MGEDemo::initialize() {
@@ -64,12 +68,21 @@ void MGEDemo::_initializeScene()
 {
 	//MESHES
 
+	Particle* particle = new Particle();
+	particle->color = glm::vec4(1,1,1,1);//(R;G;B;A)
+	particle->acceleration = glm::vec3(0, 1, 0);
+	particle->gravity = 1;
+	particle->life = 1;
+	
+	//ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
+
 	//load a bunch of meshes we will be using throughout this demo
 	//each mesh only has to be loaded once, but can be used multiple times:
 	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
 	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
 	Mesh* cubeMeshF = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
 	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 
 	//MATERIALS
 	Material* m = new Material();
@@ -79,6 +92,7 @@ void MGEDemo::_initializeScene()
 	m->shininess = 1;
 	m->maxHeight = 0;
 	AbstractMaterial* test = new GameMaterial(*m);
+	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png");
 	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
 	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
 	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
@@ -86,10 +100,12 @@ void MGEDemo::_initializeScene()
 	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
 	//create some materials to display the cube, the plane and the light
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
-	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
+	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(planetTexture, black, black, 2, 10, 1, 5, 2);
 	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
 
+
 	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 4);
+	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png"), 4);
 	//SCENE SETUP
 
    //add camera first (it will be updated last)
@@ -99,12 +115,22 @@ void MGEDemo::_initializeScene()
 	_world->setMainCamera(camera);
 
 	//add the floor
-	GameObject* plane = new GameObject("plane", glm::vec3(-75, -1, -75));
+	GameObject* plane = new GameObject("plane", glm::vec3(0, -1, -75));
 	//plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
 	plane->scale(glm::vec3(150, 150, 150));
 	plane->setMesh(planeMeshDefault);
 	plane->setMaterial(runicPlaneMaterial);
 	_world->add(plane);
+
+	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
+
+	GameObject* testParticle = new GameObject("particle", glm::vec3(0, 10, 0));
+	testParticle->setMesh(testQuad);
+	testParticle->setMaterial((AbstractMaterial*)particleEm);
+
+	testParticle->scale(glm::vec3(0.5, 0.5, 0.5));
+	_world->add(testParticle);
+	particleEm->Start();
 
 
 	//add a spinning sphere
@@ -131,6 +157,16 @@ void MGEDemo::_initializeScene()
 	caster->NextFrame();
 	caster->NextFrame();
 	caster->NextFrame();
+
+	
+	GameObject * BackGroundImage = new GameObject("background image", glm::vec3(0, 0, -1000));
+
+	BackGroundImage->setMesh(testQuad);
+	BackGroundImage->setMaterial(backGroundMaterial);
+	BackGroundImage->scale(glm::vec3(1920 , 1080 , 1));
+	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
+	_world->add(BackGroundImage);
+
 	//background->setLocalPosition(glm::vec3(0, 7, 0));
 
 	//add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
@@ -158,7 +194,12 @@ void MGEDemo::_initializeScene()
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
+	particleEm->Start();
 
+	DataManager::instance->SetPlayer(sphere);
+	DataManager::instance->SetBackground(BackGroundImage);
+	DataManager::instance->SetGround(plane);
+		
 }
 
 void MGEDemo::_render() {

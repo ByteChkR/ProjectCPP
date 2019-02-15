@@ -1,0 +1,53 @@
+#include "StoryPanel.h"
+#include "StoryPanelHandler.h"
+#include "NextButton.h"
+#include "GameStateManager.h"
+
+StoryPanel::StoryPanel(sf::RenderWindow *aWindow)
+{
+	_storyPart = 0;
+	_part = 0;
+	_window = aWindow;
+	_maxPart = StoryPanelHandler::instance->GetSize(_storyPart);
+	_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart,_part);
+	_nextButtonBox = new HudSprite("HudBox.png");
+	_nextText = new HudText();
+	_nextButton = new NextButton(_window, _nextButtonBox->sprite, this);
+	OrganizePanel();
+}
+
+StoryPanel::StoryPanel(){}
+
+void StoryPanel::OrganizePanel()
+{
+	_nextText->_text.setString("Next");
+}
+
+void StoryPanel::NextPanel()
+{
+	if(_part < _maxPart) ++_part;
+	else {
+		GameStateManager::instance->_state = GameStateManager::StateGame;
+		NextStoryPart();
+	}
+}
+void StoryPanel::NextStoryPart()
+{
+	++_storyPart;
+}
+
+void StoryPanel::Update()
+{
+	_nextButton->Update();
+	draw();
+}
+
+void StoryPanel::draw() {
+	glActiveTexture(GL_TEXTURE0);
+	_window->pushGLStates();
+
+	_window->draw(_currentPanel->sprite);
+	_window->draw(_nextButtonBox->sprite);
+
+	_window->popGLStates();
+}

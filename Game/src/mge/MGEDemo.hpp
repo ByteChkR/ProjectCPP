@@ -4,6 +4,7 @@
 #include "mge/core/AbstractGame.hpp"
 #include "../_vs2015/MapBuilder.h"
 #include"../_vs2015/Menu.h"
+#include "../_vs2015/StoryPanel.h"
 
 class DebugHud;
 
@@ -31,6 +32,7 @@ class MGEDemo: public AbstractGame
 	private:
 		DebugHud* _hud;                   //hud display
 		Menu* _menu;
+		StoryPanel* _storyPanel;
 
         void _updateHud();
         MGEDemo(const MGEDemo&);

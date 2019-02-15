@@ -13,6 +13,8 @@ Menu::Menu(sf::RenderWindow *aWindow) : _window(aWindow)
 {
 	assert(_window != NULL);
 
+	_background = new HudSprite("tempMenu.png");
+
 	_playText = new HudText();
 	_playBox = new HudSprite("HudBox.png");
 	_button = new PlayButton(_window,_playBox->sprite);
@@ -47,8 +49,10 @@ void Menu::Update()
 void Menu::draw() 
 {
 	glActiveTexture(GL_TEXTURE0);
-	_window->pushGLStates()
-		;
+	_window->pushGLStates();
+
+	_window->draw(_background->sprite);
+
 	_window->draw(_playText->_text);
 	_window->draw(_playBox->sprite);
 
