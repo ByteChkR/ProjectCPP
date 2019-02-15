@@ -55,6 +55,7 @@ void MGEDemo::initialize() {
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	_menu = new Menu(_window);
+	_storyPanel = new StoryPanel(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
 }
 
@@ -166,6 +167,7 @@ void MGEDemo::_render() {
 		_updateHud();
 	}
 	if(GameStateManager::instance->_state == GameStateManager::StateMenu) _menu->Update();
+	//if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
 }
 
 void MGEDemo::_updateHud() {

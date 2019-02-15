@@ -22,7 +22,7 @@
     <ProjectGuid>{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>mge</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>mge</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -210,12 +210,15 @@
     <ClInclude Include="MapBuilder.h" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="NextButton.h" />
     <ClInclude Include="ObjectPool.hpp" />
     <ClInclude Include="PlayButton.h" />
     <ClInclude Include="PlayerController.hpp" />
     <ClInclude Include="PresetHandler.hpp" />
     <ClInclude Include="ScriptableLuaObject.h" />
     <ClInclude Include="StaticBoxCollider.hpp" />
+    <ClInclude Include="StoryPanel.h" />
+    <ClInclude Include="StoryPanelHandler.h" />
     <ClInclude Include="TextureMovingMaterial.h" />
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +266,7 @@
     <ClCompile Include="MapBuilder.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="NextButton.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="PlayButton.cpp" />
     <ClCompile Include="PlayerController.cpp" />
@@ -270,6 +274,8 @@
     <ClCompile Include="HudText.cpp" />
     <ClCompile Include="ScriptableLuaObject.cpp" />
     <ClCompile Include="StaticBoxCollider.cpp" />
+    <ClCompile Include="StoryPanel.cpp" />
+    <ClCompile Include="StoryPanelHandler.cpp" />
     <ClCompile Include="TextureMovingMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
