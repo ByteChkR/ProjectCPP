@@ -21,6 +21,7 @@ uniform float colorTiling;
 uniform float textureBlend;
 uniform float blendSmoothing;
 
+
 uniform Light lights[8];
 uniform int lightCount;
 
@@ -28,9 +29,12 @@ uniform sampler2D diffuseTexture;
 uniform sampler2D emissionMap;
 uniform float shininess;
 uniform float movingspeed;
+uniform float ShadowSize;
+uniform float ShadowLength;
 in vec2 texCoord;
 in vec3 worldNormal;
 in vec3 fragmentWorldPosition;
+in vec3 fPlayerPosition;
 out vec4 fragment_color;
 
 vec3 GetToonColor(float intens)
@@ -75,6 +79,8 @@ vec4 Calculate(int index, vec3 wNormal)
 
 void main( void ) {
 
+	float d = distance(fPlayerPosition.xz , fragmentWorldPosition.xz);
+	float yd = fPlayerPosition.y-fragmentWorldPosition.y;
 	vec4 ret = vec4(0);
 	vec3 wn = normalize(worldNormal);
 	for(int i = 0; i < lightCount; i++)
@@ -82,5 +88,5 @@ void main( void ) {
 		ret += Calculate(i, wn);
 	}
 
-	fragment_color = ret;
+	fragment_color = d > ShadowSize * clamp( 1-( yd / ShadowLength) ,0,1) ? ret : vec4(0,0,0,1);
 }
