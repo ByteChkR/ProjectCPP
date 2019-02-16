@@ -15,7 +15,7 @@ public:
 	std::string GetObjectPath();
 	Mesh* GetObject();
 	std::string GetTexturePath();
-	glm::vec3 GetPosition();
+	glm::vec3 GetPositionOffset();
 	std::vector<std::string> GetAttachedScripts();
 	bool HasCollider();
 	glm::vec3 GetColliderDimensions();

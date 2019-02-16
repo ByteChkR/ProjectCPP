@@ -52,7 +52,7 @@ class AbstractGame
         //call update on all game objects in the display root
         virtual void _update(float pStep);
         //render all game objects in the display root
-        virtual void _render();
+        virtual void _render(int pass);
         //process any sfml window events (see SystemEventDispatcher/Listener)
         virtual void _processEvents();
 

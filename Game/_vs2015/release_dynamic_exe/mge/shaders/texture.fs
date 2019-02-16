@@ -28,7 +28,6 @@ uniform sampler2D emissiveTexture;
 uniform sampler2D specularTexture;
 uniform sampler2D diffuseTexture;
 uniform float shininess;
-uniform float movingspeed;
 in vec2 texCoord;
 in vec3 worldNormal;
 in vec3 fragmentWorldPosition;
@@ -43,7 +42,7 @@ vec3 GetToonColor(float intens)
 	return colors[col%colorCount]*(1-rem) + colors[(col+1)%colorCount] * (rem);
 }
 
-vec3 Calculate(int index, vec3 wNormal)
+vec4 Calculate(int index, vec3 wNormal)
 {
 	vec3 dir = lights[index].position-fragmentWorldPosition;
 	vec3 dirN = normalize(dir);
@@ -60,27 +59,30 @@ vec3 Calculate(int index, vec3 wNormal)
 	diffIntensity/=falloff;
 	vec3 ambient  = lights[index].ambientColor*lights[index].intensity;
 	vec3 specular = lights[index].intensity*spec * diffIntensity * texture(specularTexture, texCoord).rgb;
-	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(texture(diffuseTexture, texCoord))*textureBlend;
+	vec4 difftexcolor = texture(diffuseTexture, texCoord);
+	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(difftexcolor)*textureBlend;
 	
 	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;
 
 
 	vec3 emmissive = texture(emissiveTexture, texCoord).rgb;
 	//emmissive/=falloff;
-
-	return specular + diffuse + ambient + emmissive;
+	vec4 result = vec4(0);
+	result.rgb = specular + diffuse + ambient + emmissive;
+	result.a = difftexcolor.a;
+	return result;
 }
 
 
 
 void main( void ) {
 
-	vec3 ret = vec3(0);
+	vec4 ret = vec4(0);
 	vec3 wn = normalize(worldNormal);
 	for(int i = 0; i < lightCount; i++)
 	{
 		ret += Calculate(i, wn);
 	}
 
-	fragment_color = vec4(ret, 1);
+	fragment_color = ret;
 }

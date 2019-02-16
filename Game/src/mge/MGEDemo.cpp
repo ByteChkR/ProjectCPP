@@ -18,7 +18,6 @@
 #include "mge\materials\AnimationMaterial.hpp"
 #include "../_vs2015/TextureMovingMaterial.h"
 #include "../_vs2015/Material.hpp"
-#include "../_vs2015/GameMaterial.hpp"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -48,7 +47,7 @@ MGEDemo::MGEDemo() :AbstractGame(), _hud(0)
 {
 
 	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
-	
+
 }
 
 void MGEDemo::initialize() {
@@ -69,11 +68,11 @@ void MGEDemo::_initializeScene()
 	//MESHES
 
 	Particle* particle = new Particle();
-	particle->color = glm::vec4(1,1,1,1);//(R;G;B;A)
-	particle->acceleration = glm::vec3(0, 1, 0);
-	particle->gravity = 1;
-	particle->life = 1;
-	
+	particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
+	particle->acceleration = glm::vec3(0, 0.6, 0);
+	particle->gravity = 1.5;
+	particle->life = 1.5;
+
 	//ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
 
 	//load a bunch of meshes we will be using throughout this demo
@@ -91,7 +90,6 @@ void MGEDemo::_initializeScene()
 	m->specular = Texture::load(config::MGE_TEXTURE_PATH + "testSpecular.png");
 	m->shininess = 1;
 	m->maxHeight = 0;
-	AbstractMaterial* test = new GameMaterial(*m);
 	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png");
 	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
 	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
@@ -110,7 +108,7 @@ void MGEDemo::_initializeScene()
 
    //add camera first (it will be updated last)
 	Camera* camera = new Camera("camera", glm::vec3(0, 1, 0));
-	camera->rotate(glm::radians(-30.0f), glm::vec3(1, 0, 0));
+	camera->rotate(glm::radians(-15.0f), glm::vec3(1, 0, 0));
 
 	_world->setMainCamera(camera);
 
@@ -142,7 +140,7 @@ void MGEDemo::_initializeScene()
 	sphere->addBehaviour(new PlayerController());
 	_world->add(sphere);
 	sphere->add(camera);
-	camera->setLocalPosition(glm::vec3(0, 8, 12));
+	camera->setLocalPosition(glm::vec3(0, 4, 12));
 
 	GameObject * playerAnimation = new GameObject("playerAnimation", glm::vec3(0, 5, 0));
 
@@ -158,12 +156,12 @@ void MGEDemo::_initializeScene()
 	caster->NextFrame();
 	caster->NextFrame();
 
-	
+
 	GameObject * BackGroundImage = new GameObject("background image", glm::vec3(0, 0, -1000));
 
 	BackGroundImage->setMesh(testQuad);
 	BackGroundImage->setMaterial(backGroundMaterial);
-	BackGroundImage->scale(glm::vec3(1920 , 1080 , 1));
+	BackGroundImage->scale(glm::vec3(1920, 1080, 1));
 	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(BackGroundImage);
 
@@ -199,15 +197,15 @@ void MGEDemo::_initializeScene()
 	DataManager::instance->SetPlayer(sphere);
 	DataManager::instance->SetBackground(BackGroundImage);
 	DataManager::instance->SetGround(plane);
-		
+
 }
 
-void MGEDemo::_render() {
-	AbstractGame::_render();
-	if (GameStateManager::instance->_state == GameStateManager::StateGame) { 
+void MGEDemo::_render(int pass) {
+	AbstractGame::_render(pass);
+	if (GameStateManager::instance->_state == GameStateManager::StateGame) {
 		_updateHud();
 	}
-	if (GameStateManager::instance->_state == GameStateManager::StateMenu) { 
+	if (GameStateManager::instance->_state == GameStateManager::StateMenu) {
 		_menu->Update();
 		_storyPanel->Reset();     //could be solved more optimized
 	}

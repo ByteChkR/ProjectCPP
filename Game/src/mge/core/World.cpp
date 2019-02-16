@@ -4,11 +4,12 @@
 #include "mge/core/World.hpp"
 #include "mge/core/Light.hpp"
 #include "../_vs2015/MapBuilder.h"
+#include "mge/materials/TextureMaterial.hpp"
 
 World::World():GameObject("root"), _mainCamera(0)
 {
 	_world = this;
-	_mb = new MapBuilder(150, 15);
+	_mb = new MapBuilder(75, 15);
 }
 
 void World::setMainCamera (Camera* pCamera) {

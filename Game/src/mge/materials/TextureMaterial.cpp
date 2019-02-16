@@ -15,15 +15,18 @@
 #include "../_vs2015/TextureMovingMaterial.h"
 ShaderProgram* TextureMaterial::_shader = NULL;
 
-float TextureMaterial::heightmapTiling = 1.6;
-float TextureMaterial::heightmapSpeed = 0.2;
-float TextureMaterial::maxXOff = 50;
-float TextureMaterial::xOffsetSmootness = 2;
-float TextureMaterial::maxHeight = 5;
-float TextureMaterial::genOffset = 150;
+float TextureMaterial::heightmapTiling = 1;
+float TextureMaterial::heightmapSpeed = 0.0;
+float TextureMaterial::maxXOff = 0;
+float TextureMaterial::xOffsetSmootness = 5;
+float TextureMaterial::maxHeight = 10;
+float TextureMaterial::genOffset = 50;
 float TextureMaterial::width = 8;
+float TextureMaterial::xMoveTiling = 100;
 Texture* TextureMaterial::_heightMap = nullptr;
 
+
+GLint TextureMaterial::_xMoveTiling = 0;
 GLint TextureMaterial::_heightMapTiling = 0;
 
 GLint TextureMaterial::_uMMatrix = 0;
@@ -117,6 +120,8 @@ void TextureMaterial::_lazyInitializeShader() {
 			);
 		}
 
+		_xMoveTiling = _shader->getUniformLocation("xMoveTiling");
+
 		//Color;
 		_colorCount = _shader->getUniformLocation("colorCount");
 		_colorTiling = _shader->getUniformLocation("colorTiling");
@@ -154,8 +159,8 @@ static glm::vec3 colors[8] =
 
 int TextureMaterial::offset = 0;
 
-void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
-	if (!_diffuseTexture) return;
+void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
+	if (pass != 0 || !_diffuseTexture) return;
 
 	_shader->use();
 
@@ -174,6 +179,7 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 
 	glUniform1f(_genOffset, genOffset);
 	glUniform1f(_width, width);
+	glUniform1f(_xMoveTiling, xMoveTiling);
 
 	if (_heightMap != nullptr)
 	{
@@ -201,13 +207,13 @@ void TextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 		glUniform1i(_uSpecularTexture, 3);
 	}
 
-	glUniform1f(_movingspeed, TextureMovingMaterial::Movingspeed);
+	//glUniform1f(_movingspeed, TextureMovingMaterial::Movingspeed);
 
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
 	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
 
 	glUniform1f(_xOffsetSmootness, xOffsetSmootness);
-	glUniform1f(_maxXOff, glm::sin(AbstractGame::instance->GetTimeSinceStartup()/5)*maxXOff);
+	glUniform1f(_maxXOff, maxXOff);
 
 	glUniform1f(_shininess, shininess);
 	glUniform1i(_steps, steps);

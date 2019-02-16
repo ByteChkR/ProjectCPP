@@ -54,8 +54,8 @@ void AnimationMaterial::setDiffuseTexture (Texture* pDiffuseTexture) {
     _diffuseTexture = pDiffuseTexture;
 }
 
-void AnimationMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
-    if (!_diffuseTexture) return;
+void AnimationMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
+    if (pass != 1 || !_diffuseTexture) return;
     _shader->use();
 
     //Print the number of lights in the scene and the position of the first light.

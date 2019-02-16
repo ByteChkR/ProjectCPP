@@ -32,7 +32,6 @@
     <ClCompile Include="EngineSettings.cpp" />
     <ClCompile Include="ExitButton.cpp" />
     <ClCompile Include="FileLoader.cpp" />
-    <ClCompile Include="GameMaterial.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GLLight.cpp" />
     <ClCompile Include="HudSprite.cpp" />
@@ -128,9 +127,6 @@
     <ClInclude Include="NextButton.h">
       <Filter>NewFolder</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="GameMaterial.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="NewFolder">

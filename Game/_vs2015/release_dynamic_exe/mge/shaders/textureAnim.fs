@@ -7,11 +7,11 @@ out vec4 fragment_color;
 
 void main( void ) {
 
-vec4 test = texture(diffuseTexture,texCoord);
-if(test.a <0.1)
-{
-discard;
-}
+	vec4 test = texture(diffuseTexture,texCoord);
+	if(test.a <0.1)
+	{
+		discard;
+	}
 
 	fragment_color = test;
 }

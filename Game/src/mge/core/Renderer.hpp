@@ -30,7 +30,7 @@ public:
 	 * Convenience method to render whole world, visits each gameobject in the world recursively,
 	 * using each gameobject's mesh & material, and the world's main camera.
 	 */
-	void render(World* pWorld);
+	void render(int pass, World* pWorld);
 
 	/**
 	 * Renders a specific GameObject in the world using a specific camera.
@@ -42,7 +42,7 @@ public:
 	 * @param pCamera used for the view and perspective matrix
      * @param pRecursive render everything recursively
 	 */
-	void render(World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, Camera* pCamera, bool pRecursive);
+	void render(int pass, World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, Camera* pCamera, bool pRecursive);
 
 	/**
 	 * Renders a specific game object in the world by calling:
@@ -57,7 +57,7 @@ public:
 	 * @param pProjectionMatrix the projectionmatrix of the camera
 	 * @param pRecursive render everything recursively
 	 */
-	void render(World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, bool pRecursive);
+	void render(int pass, World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, bool pRecursive);
 
 	/**
 	* Renders a specific mesh in the world.
@@ -69,12 +69,12 @@ public:
 	* @param pViewMatrix the view matrix of the camera
 	* @param pProjectionMatrix the projectionmatrix of the camera
 	*/
-	void render(World* pWorld, Mesh* pMesh, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
+	void render(int pass, World* pWorld, Mesh* pMesh, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
 
 	/**
 	 * Helper method to render debug info for a mesh
 	 */
-	void renderMeshDebugInfo(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
+	void renderMeshDebugInfo(int pass, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
 
 protected:
 
@@ -88,10 +88,10 @@ protected:
 	* @param pViewMatrix the view matrix of the camera
 	* @param pProjectionMatrix the projectionmatrix of the camera
 	*/
-	void renderSelf(World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
+	void renderSelf(int pass, World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
 
 	//calls render on each and every child gameobject, material cannot be null!
-	void renderChildren(World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, bool pRecursive);
+	void renderChildren(int pass, World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, bool pRecursive);
 };
 
 #endif // RENDERER_HPP

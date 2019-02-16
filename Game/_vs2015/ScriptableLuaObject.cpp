@@ -34,11 +34,16 @@ static const luaL_reg level1API[]
 
 };
 
-
-
-ScriptableLuaObject::ScriptableLuaObject(std::vector<std::string> attachedScripts)
+glm::vec3 ScriptableLuaObject::GetLuaOffset()
 {
+	return _lss->GetPositionOffset();
+}
 
+ScriptableLuaObject::ScriptableLuaObject(LuaScriptStruct* lss)
+{
+	_lss = lss;
+	_name = "SCLO";
+	std::vector<std::string> attachedScripts = lss->GetAttachedScripts();
 	for each (std::string path in attachedScripts)
 	{
 		lua_State* L = luaL_newstate();
@@ -81,7 +86,7 @@ void ScriptableLuaObject::Initialize(std::string directory)
 
 AbstractBehaviour* ScriptableLuaObject::Clone()
 {
-	return new ScriptableLuaObject(_scriptPath);
+	return new ScriptableLuaObject(_lss);
 }
 
 GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent)
@@ -94,7 +99,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 		if (lss->GetName() == key)
 		{
 
-			GameObject* object = new GameObject(lss->GetName(), lss->GetPosition());
+			GameObject* object = new GameObject(lss->GetName());
 			if (parent != NULL)
 				parent->add(object);
 			else
@@ -105,7 +110,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			Texture* sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular());
 
 			object->setMaterial(new TextureMaterial(tex, em, sp, 2, 10, 1, 5, 2));
-			object->addBehaviour(new ScriptableLuaObject(lss->GetAttachedScripts()));
+			object->addBehaviour(new ScriptableLuaObject(lss));
 			if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderDimensions()));
 			return object;
 		}

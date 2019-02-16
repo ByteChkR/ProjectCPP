@@ -79,10 +79,12 @@ void ParticleEmitter::Stop(bool immediate)
 	}
 }
 
-void ParticleEmitter::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pPerspectiveMatrix)
+void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pPerspectiveMatrix)
 {
-
+	if (pass != 1)return;
 	_shader->use();
+	glEnable(GL_BLEND);
+	glDepthMask(GL_FALSE);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
 	glm::mat4 test = glm::mat4(1);
@@ -130,7 +132,8 @@ void ParticleEmitter::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModel
 	}
 
 
-
+	glDepthMask(GL_TRUE);
+	glDisable(GL_BLEND);
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -148,7 +151,7 @@ void ParticleEmitter::UpdateParticles(float pTime)
 	if (_activeParticles.size() < _maxParticles && !_stopProduce)
 	{
 		SpawnParticles(glm::min(_maxParticles - totalActive, maxParticlesPerStep));
-		std::cout << "Adding particles: " << std::to_string(_maxParticles - totalActive) << "\n";
+		//std::cout << "Adding particles: " << std::to_string(_maxParticles - totalActive) << "\n";
 	}
 	if (_activeParticles.size() > 0)
 		for (size_t i = _activeParticles.size() - 1; i > 0; i--)

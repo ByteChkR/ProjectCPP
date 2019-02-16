@@ -18,7 +18,7 @@ public:
 	TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture,Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin);
 	virtual ~TextureMovingMaterial();
 
-	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+	virtual void render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 
@@ -44,6 +44,7 @@ private:
 	static GLint _aNormal;
 	static GLint _aUV;
 	static GLint _heightMapTiling;
+	static GLint _xMoveTiling;
 	static GLint _heightMapSpeed;
 
 	static GLint _colorCount;

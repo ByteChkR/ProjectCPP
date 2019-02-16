@@ -162,7 +162,8 @@ void AbstractGame::run()
 				AudioManager::instance->Restart(0);
 			}
 
-            _render();
+            _render(0);
+			_render(1);
             _window->display();
 
             //fps count is updated once every 1 second
@@ -187,8 +188,8 @@ void AbstractGame::_update(float pStep) {
 	GameStateManager::instance->Update(pStep,_world);
 }
 
-void AbstractGame::_render () {
-    _renderer->render(_world);
+void AbstractGame::_render (int pass) {
+    _renderer->render(pass, _world);
 }
 
 void AbstractGame::_processEvents()

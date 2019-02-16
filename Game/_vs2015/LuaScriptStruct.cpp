@@ -187,7 +187,7 @@ Mesh* LuaScriptStruct::GetObject()
 	return _mesh = Mesh::load(_objPath);
 }
 
-glm::vec3 LuaScriptStruct::GetPosition()
+glm::vec3 LuaScriptStruct::GetPositionOffset()
 {
 	return _position;
 }

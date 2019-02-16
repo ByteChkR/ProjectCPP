@@ -7,6 +7,8 @@
 #include "mge/core/World.hpp"
 #include "Level.h"
 #include "StaticBoxCollider.hpp"
+#include "LuaScriptStruct.h"
+#include "ScriptableLuaObject.h"
 MapBuilder* MapBuilder::instance = nullptr;
 
 MapBuilder::MapBuilder(float generationOffset, float removalOffset)
@@ -76,9 +78,9 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 			return;
 		}
 		//std::cout << "Created\n";
-		glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist;
-		//std::cout << "Offset On Lane: " << dist << '\n';
 		GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[index].first);
+		glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist + ((ScriptableLuaObject*)obj->getBehaviour("SCLO"))->GetLuaOffset();
+		//std::cout << "Offset On Lane: " << dist << '\n';
 		(*list)[index].second = obj;
 		(*list)[index].second->EnableBehaviours();
 		if (obj->getParent() != _container)

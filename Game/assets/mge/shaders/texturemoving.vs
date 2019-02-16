@@ -13,6 +13,7 @@ uniform float genOffset;
 uniform float hwm;
 uniform float time;
 uniform float maxXOffset;
+uniform float xMoveTiling;
 uniform float xOffsetSmoothness;
 uniform float movingspeed;
 uniform float heightMapSpeed;
@@ -28,14 +29,13 @@ void main( void ){
 		
 		vec2 heightUV = vec2((-vertexWorldPosition.z) / genOffset,(vec4(vertex,1)*modelMatrix).x/hwm) + vec2(time*heightMapSpeed, 0);
 
-		
 		heightUV/=heightMapTiling;
 
-		float t = pow(clamp(-vertexWorldPosition.z/genOffset, 0 , 1), xOffsetSmoothness);
+		float t = pow(clamp(-vertexWorldPosition.z/xMoveTiling, 0 , 1), xOffsetSmoothness);
 
 		float texoffx = t*maxXOffset;
 
-		float texoff = texture(yOffTexture, heightUV).y*maxHeight;
+		float texoff = texture(yOffTexture, clamp(heightUV,0,1)).y*maxHeight;
 		//float offset = max(sin(-(vertexWorldPosition.z/15))*maxHeight,0.0);
 
 		vertexWorldPosition = (vertexWorldPosition + vec4(texoffx,texoff,0,0));

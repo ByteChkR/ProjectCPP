@@ -18,18 +18,20 @@ public:
 	TextureMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap = nullptr);
 	virtual ~TextureMaterial();
 
-	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+	virtual void render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 
 	static Texture* _heightMap;
 	static float maxXOff;
+	static float currentXOff;
 	static float xOffsetSmootness;
 	static float heightmapTiling;
 	static float heightmapSpeed;
 	static float maxHeight;
 	static float genOffset;
 	static float width;
+	static float xMoveTiling;
 protected:
 private:
 	static ShaderProgram* _shader;
@@ -65,6 +67,7 @@ private:
 	static GLint _heightMapTiling;
 	static GLint _heightMapSpeed;
 	static GLint _uEmmissiveTexture;
+	static GLint _xMoveTiling;
 	Texture* _emmissiveTexture;
 	static GLint _uSpecularTexture;
 	Texture* _specularTexture;

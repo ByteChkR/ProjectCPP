@@ -44,6 +44,7 @@ GLint TextureMovingMaterial::_blendingSoftness = 0;
 GLint TextureMovingMaterial::_colorCount = 0;
 GLint TextureMovingMaterial::_colorTiling = 0;
 GLint TextureMovingMaterial::_movingspeed = 0;
+GLint TextureMovingMaterial::_xMoveTiling = 0;
 GLint TextureMovingMaterial::_heightMapSpeed = 0;
 
 TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
@@ -141,8 +142,8 @@ static glm::vec3 colors[8] =
 
 int TextureMovingMaterial::offset = 0;
 
-void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
-	if (!_diffuseTexture) return;
+void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
+	if (pass != 0 || !_diffuseTexture) return;
 
 	_shader->use();
 
@@ -164,6 +165,7 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 	glUniform1f(_movingspeed, Movingspeed);
 	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
+	glUniform1f(_xMoveTiling, TextureMaterial::xMoveTiling);
 
 	if (TextureMaterial::_heightMap != nullptr)
 	{
@@ -191,7 +193,7 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 	}
 
 	glUniform1f(_xOffsetSmootness, TextureMaterial::xOffsetSmootness);
-	glUniform1f(_maxXOff, glm::sin(AbstractGame::instance->GetTimeSinceStartup() / 5)*TextureMaterial::maxXOff);
+	glUniform1f(_maxXOff, TextureMaterial::maxXOff);
 
 	glUniform1f(_shininess, shininess);
 	glUniform1i(_steps, steps);
