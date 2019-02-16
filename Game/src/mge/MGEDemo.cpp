@@ -113,7 +113,7 @@ void MGEDemo::_initializeScene()
 	_world->setMainCamera(camera);
 
 	//add the floor
-	GameObject* plane = new GameObject("plane", glm::vec3(0, -1, -75));
+	GameObject* plane = new GameObject("plane", glm::vec3(-65, -1, 0));
 	//plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
 	plane->scale(glm::vec3(150, 150, 150));
 	plane->setMesh(planeMeshDefault);
