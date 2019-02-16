@@ -64,6 +64,10 @@ void MapBuilder::UnloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, MapGenerator* gen, size_t index)
 {
+	if ((*list)[index].first == 0)
+	{
+		return;
+	}
 	int lane = index % gen->GetNumberOfLanes();
 	int biomeID = index / gen->GetNumberOfLanes(); //theoretical distance from container origin
 	float dist = biomeID * gen->GetLaneAt(lane)->GetStep(); //Distance from container origin with step size
@@ -73,10 +77,7 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 	if (reldist > -remOffset && reldist < genOffset)
 	{
 		biomeID = (biomeID / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
-		if (biomeID == 0)
-		{
-			return;
-		}
+		
 		//std::cout << "Created\n";
 		GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[index].first);
 		glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist + ((ScriptableLuaObject*)obj->getBehaviour("SCLO"))->GetLuaOffset();
