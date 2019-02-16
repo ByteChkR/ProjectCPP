@@ -214,6 +214,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="NextButton.h" />
+    <ClInclude Include="NextStageButton.h" />
     <ClInclude Include="ObjectPool.hpp" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleEmitter.h" />
@@ -223,6 +224,7 @@
     <ClInclude Include="PresetHandler.hpp" />
     <ClInclude Include="RetryButton.h" />
     <ClInclude Include="ScriptableLuaObject.h" />
+    <ClInclude Include="StageClear.h" />
     <ClInclude Include="StaticBoxCollider.hpp" />
     <ClInclude Include="StoryPanel.h" />
     <ClInclude Include="StoryPanelHandler.h" />
@@ -276,6 +278,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="NextButton.cpp" />
+    <ClCompile Include="NextStageButtoncpp.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
@@ -286,6 +289,7 @@
     <ClCompile Include="HudText.cpp" />
     <ClCompile Include="RetryButton.cpp" />
     <ClCompile Include="ScriptableLuaObject.cpp" />
+    <ClCompile Include="StageClear.cpp" />
     <ClCompile Include="StaticBoxCollider.cpp" />
     <ClCompile Include="StoryPanel.cpp" />
     <ClCompile Include="StoryPanelHandler.cpp" />

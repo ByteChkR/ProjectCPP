@@ -39,8 +39,8 @@ void StoryPanel::NextStoryPart()
 {
 	if (_storyPart < _storyParts) {
 		++_storyPart;
-		_part = 0;
 	}
+	_part = 0;
 }
 
 void StoryPanel::Reset() {

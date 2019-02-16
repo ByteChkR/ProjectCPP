@@ -12,7 +12,7 @@ StoryPanelHandler::StoryPanelHandler(){
 
 int StoryPanelHandler::GetTotalStoryParts()
 {
-	return 1;
+	return 0;
 }
 
 void StoryPanelHandler::AddPanel(HudSprite *_sprite,int _storyPart){
