@@ -22,6 +22,10 @@ class GameOverScreen{
 		Button *_retryButton;
 		HudText *_retryText;
 
+		HudSprite *_menuButtonBox;
+		Button *_menuButton;
+		HudText *_menuText;
+
 };
 
 #endif

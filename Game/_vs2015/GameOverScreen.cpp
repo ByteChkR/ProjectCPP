@@ -1,22 +1,32 @@
 #include "../_vs2015/RetryButton.h"
-#include "SFML\Graphics.hpp"
 #include "../_vs2015/HudSprite.h"
 #include "../_vs2015/HudText.h""
 #include "GameOverScreen.h"
 #include "RetryButton.h"
-#include "../include/GL/glew.h"
+#include "MenuButton.h"
+#include "GL/glew.h"
 
 GameOverScreen::GameOverScreen(sf::RenderWindow *aWindow){
+	
+	_window = aWindow;
 	_background = new HudSprite("tmpPanel0.png");
+
 	_retryButtonBox = new HudSprite("HudBox.png");
 	_retryText = new HudText();
 	_retryButton = new RetryButton(_window, _retryButtonBox->sprite);
+
+	_menuButtonBox = new HudSprite("HudBox.png");
+	_menuText = new HudText();
+	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 
 	OrganizeScreen();
 }
 
 void GameOverScreen::OrganizeScreen(){
 	_retryText->_text.setString("Retry");
+	_menuButtonBox->sprite.setPosition(0, 200);
+	_menuText->_text.setPosition(0, 200);
+	_menuButton->SetPosition(0, 200);
 }
 
 void GameOverScreen::Update() {
