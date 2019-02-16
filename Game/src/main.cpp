@@ -33,23 +33,28 @@ int main(int argc, char *argv[])
 	LevelManager* lm = nullptr;
 	bool isRaw;
 	std::string test = argv[0];
+	GameStateManager::GameState gs = GameStateManager::StateMenu;
+
 	if (argc == 2)
 	{
 		isRaw = false;
-		
+		gs = GameStateManager::StateGame;
 		filename = argv[1];
 	}
 	else if (argc > 2)
 	{
 		filename = argv[1];
 		isRaw = argv[2][0] == 'r';
+
+		gs = GameStateManager::StateGame;
 	}
 	else
 	{
 		lm = new LevelManager(filename);
+
 	}
 	AudioManager * audioManager = new AudioManager();
-	GameStateManager * gameStateManager = new GameStateManager();
+	GameStateManager * gameStateManager = new GameStateManager(gs);
 	StoryPanelHandler * storyPanelHandler = new StoryPanelHandler();
 
 	DataManager * dataManager = new DataManager();

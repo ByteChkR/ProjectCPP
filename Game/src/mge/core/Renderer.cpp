@@ -62,7 +62,8 @@ void Renderer::renderChildren(int pass, World* pWorld, GameObject* pGameObject, 
 	GameObject* child = 0;
 	for (int i = 0; i < childCount; i++) {
 		child = pGameObject->getChildAt(i);
-		render(pass, pWorld, child, pMaterial, pModelMatrix * child->getTransform(), pViewMatrix, pProjectionMatrix, pRecursive);
+		if(child->IsEnabled())
+			render(pass, pWorld, child, pMaterial, pModelMatrix * child->getTransform(), pViewMatrix, pProjectionMatrix, pRecursive);
 	}
 }
 

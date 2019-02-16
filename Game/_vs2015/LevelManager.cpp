@@ -37,7 +37,13 @@ void LevelManager::ChangeLevel(int index)
 		currentLevel = nullptr;
 
 	}
+	_curLevel = index % maps.size();
 
-	currentLevel = new Level(config::MGE_MAP_PATH+maps[index%maps.size()]);
+	currentLevel = new Level(config::MGE_MAP_PATH+maps[_curLevel]);
 
+}
+
+void LevelManager::NextLevel()
+{
+	ChangeLevel(_curLevel + 1);
 }

@@ -10,6 +10,11 @@ GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	_enabled = true;
 }
 
+bool GameObject::IsEnabled()
+{
+	return _enabled;
+}
+
 GameObject::~GameObject()
 {
 

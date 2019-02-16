@@ -3,6 +3,7 @@
 #include "mge/util/MapGenerator.h"
 #include "GameStateManager.h"
 #include "MapBuilder.h"
+#include "LevelManager.h"
 
 PlayerController* PlayerController::instance = nullptr;
 
@@ -17,7 +18,7 @@ PlayerController::PlayerController()
 	_switchTime = 0.1f;
 	_curSwitchTime = 0;
 	_nextLane = -1;
-
+	_coins = 0;
 	_grounded = false;
 	_isSwitching = false;
 	_isJumping = true;
@@ -42,9 +43,25 @@ void PlayerController::OnCollision(GameObject* other)
 {
 	//Player dies if not a coin
 	std::cout << "COLLISION\n";
-	GameStateManager::instance->_state = GameStateManager::StateMenu;
-	MapBuilder::instance->Unload();
-	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
+	if (!other->getName().find("endoflevel"))
+	{
+
+		MapBuilder::instance->Unload();
+		LevelManager::instance->NextLevel();
+		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
+	}
+	else if (!other->getName().find("coin"))
+	{
+		other->DisableBehaviours(); //Also turns it invisible
+		_coins++;
+	}
+	else
+	{
+
+		GameStateManager::instance->_state = GameStateManager::StateMenu;
+		MapBuilder::instance->Unload();
+		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
+	}
 }
 
 
@@ -62,7 +79,7 @@ void PlayerController::update(float pTime)
 		nextL = MapGenerator::instance->GetLaneAt(_nextLane)->GetPosition();
 	}
 
-	
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
@@ -111,7 +128,7 @@ void PlayerController::update(float pTime)
 			_isGoingDown = true;
 		}
 	}
-	
+
 
 	//if jumpButton
 	//jump()
@@ -152,7 +169,7 @@ void PlayerController::switchRight()
 {
 	if (_isSwitching)return;
 	_nextLane = MapGenerator::instance->GetLaneAt(_currentLane)->GetRight();
-	if (_nextLane == -1 || _nextLane == MapGenerator::instance->GetNumberOfLanes()-1)
+	if (_nextLane == -1 || _nextLane == MapGenerator::instance->GetNumberOfLanes() - 1)
 	{
 		return; //Something went wrong. u are already on most right lane? or the next lane has not yet started?
 	}

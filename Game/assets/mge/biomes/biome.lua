@@ -1,1 +1,1 @@
-objects = {"none", "0Bhouse0", "0Bobstacle0", "0Bobstacle1", "0Bobstacle2", "0Bcoin"}
+objects = {"none", "0Bhouse0", "0Bobstacle0", "0Bobstacle1", "0Bobstacle2", "0Bcoin", "endoflevel"}

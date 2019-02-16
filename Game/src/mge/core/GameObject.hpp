@@ -77,6 +77,7 @@ class GameObject
 
 		void EnableBehaviours();
 		void DisableBehaviours();
+		bool IsEnabled();
 
 	protected:
 		bool _enabled;

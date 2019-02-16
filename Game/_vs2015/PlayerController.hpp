@@ -14,6 +14,7 @@ public:
 	virtual void OnCollision(GameObject* other) override;
 	virtual AbstractBehaviour* Clone() override;
 	static PlayerController* instance;
+	int GetCoinCount();
 private:
 	int _currentLane;
 	int _nextLane;
@@ -24,6 +25,7 @@ private:
 	float _gravityWhenGoingDown;
 	float _gravityIncreaseWhenGoingDown;
 	float _velocity;
+	int _coins;
 	bool _isGoingDown;
 	bool _grounded;
 	bool _isJumping;

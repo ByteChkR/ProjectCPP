@@ -4,10 +4,10 @@
 
 GameStateManager *GameStateManager::instance;
 
-GameStateManager::GameStateManager()
+GameStateManager::GameStateManager(GameStateManager::GameState state)
 {
 	GameStateManager::instance = this;
-	_state = GameState(StateMenu);
+	_state = GameState(state);
 }
 
 void GameStateManager::Update(float pTime ,World *_world) 

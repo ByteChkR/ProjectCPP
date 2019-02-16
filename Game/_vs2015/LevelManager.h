@@ -11,10 +11,12 @@ public:
 	static LevelManager* instance;
 	LevelManager(std::string maplist);
 	void ChangeLevel(int index);
+	void NextLevel();
 
 private:
 	std::vector<std::string> maps;
 	Level* currentLevel;
+	int _curLevel;
 };
 
 

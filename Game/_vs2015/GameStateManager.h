@@ -9,7 +9,7 @@ static class GameStateManager
 {
 	public:
 		static GameStateManager *instance;
-		GameStateManager();
+
 		enum GameState
 		{
 			StateMenu,
@@ -17,6 +17,9 @@ static class GameStateManager
 			StateGame,
 			StateGameOver
 		};
+
+
+		GameStateManager(GameState initialState = GameState::StateMenu);
 
 		GameState _state;
 		void Update(float pTime ,World *_world = nullptr);

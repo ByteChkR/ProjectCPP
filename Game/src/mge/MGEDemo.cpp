@@ -140,7 +140,7 @@ void MGEDemo::_initializeScene()
 	sphere->addBehaviour(new PlayerController());
 	_world->add(sphere);
 	sphere->add(camera);
-	camera->setLocalPosition(glm::vec3(0, 4, 12));
+	camera->setLocalPosition(glm::vec3(0, 5, 4.5));
 
 	GameObject * playerAnimation = new GameObject("playerAnimation", glm::vec3(0, 5, 0));
 
