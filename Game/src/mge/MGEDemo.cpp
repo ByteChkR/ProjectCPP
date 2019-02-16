@@ -59,6 +59,7 @@ void MGEDemo::initialize() {
 	_hud = new DebugHud(_window);
 	_menu = new Menu(_window);
 	_storyPanel = new StoryPanel(_window);
+	_gameOverScreen = new GameOverScreen(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
 }
 
@@ -210,6 +211,7 @@ void MGEDemo::_render(int pass) {
 		_storyPanel->Reset();     //could be solved more optimized
 	}
 	if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
+	if (GameStateManager::instance->_state == GameStateManager::StateGameOver)_gameOverScreen->Update();
 }
 
 void MGEDemo::_updateHud() {

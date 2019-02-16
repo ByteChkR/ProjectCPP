@@ -45,9 +45,9 @@ void PlayerController::OnCollision(GameObject* other)
 	std::cout << "COLLISION\n";
 	if (!other->getName().find("endoflevel"))
 	{
-
+		GameStateManager::instance->_state = GameStateManager::StateGameOver;
 		MapBuilder::instance->Unload();
-		LevelManager::instance->NextLevel();
+		//LevelManager::instance->NextLevel();
 		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
 	}
 	else if (!other->getName().find("coin"))
@@ -59,7 +59,7 @@ void PlayerController::OnCollision(GameObject* other)
 	else
 	{
 
-		GameStateManager::instance->_state = GameStateManager::StateMenu;
+		GameStateManager::instance->_state = GameStateManager::StateGameOver;
 		MapBuilder::instance->Unload();
 		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
 	}

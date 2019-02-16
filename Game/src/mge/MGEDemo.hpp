@@ -5,6 +5,7 @@
 #include "../_vs2015/MapBuilder.h"
 #include"../_vs2015/Menu.h"
 #include "../_vs2015/StoryPanel.h"
+#include "../_vs2015/GameOverScreen.h"
 
 class DebugHud;
 
@@ -33,6 +34,7 @@ class MGEDemo: public AbstractGame
 		DebugHud* _hud;                   //hud display
 		Menu* _menu;
 		StoryPanel* _storyPanel;
+		GameOverScreen* _gameOverScreen;
 
         void _updateHud();
         MGEDemo(const MGEDemo&);

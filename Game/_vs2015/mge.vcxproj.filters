@@ -65,6 +65,12 @@
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="..\src\mge\util\DataManager.cpp" />
+    <ClCompile Include="GameOverScreen.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="RetryButton.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -127,6 +133,12 @@
     <ClInclude Include="NextButton.h">
       <Filter>NewFolder</Filter>
     </ClInclude>
+    <ClInclude Include="GameOverScreen.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="RetryButton.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="NewFolder">
@@ -136,8 +148,5 @@
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="..\src\mge\util\DataManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="GameMaterial.hpp" />
   </ItemGroup>
 </Project>
