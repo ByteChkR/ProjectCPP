@@ -105,7 +105,7 @@ void AudioManager::AddMusic(std::string pFileLocation, std::string pAmbientPath)
 
 	musicTrack->setLoop(true);
 
-	musicTrack->play();
+	//musicTrack->play();
 	musicTrack->setVolume(0);
 
 	_musics.push_back(musicTrack);
