@@ -77,7 +77,7 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 	if (reldist > -remOffset && reldist < genOffset)
 	{
 		biomeID = (biomeID / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
-		
+
 		//std::cout << "Created\n";
 		GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[index].first);
 		glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist + ((ScriptableLuaObject*)obj->getBehaviour("SCLO"))->GetLuaOffset();
@@ -89,6 +89,17 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 		obj->setLocalPosition(pos);
 	}
 }
+
+
+float MapBuilder::GetProgress()
+{
+	MapGenerator* map;
+	if (_mapPropList.size() < 1 || Level::instance == nullptr || (map = Level::instance->GetMap()) == nullptr || map->GetNumberOfLanes() == 0 || _mapPropList.size() == 0)return 0;
+	float test = (_container->getLocalPosition().z / map->GetLaneAt(0)->GetStep()) / (_mapPropList.size() / map->GetNumberOfLanes());
+	//std::cout << "Progress: " << std::to_string(test) << '\n';
+	return glm::clamp(test, 0.0f, 1.0f);;
+}
+
 void MapBuilder::RemoveFromPropList(std::vector<std::pair<int, GameObject*>> * list, MapGenerator* gen, size_t index)
 {
 	int biomeID = (index / gen->GetNumberOfLanes() / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
@@ -172,7 +183,6 @@ void MapBuilder::Update(float pTime)
 	}
 	else
 		_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 20)* pTime);
-
 	UpdateGen(Level::instance->GetMap(), &_mapPropList);
 	UpdateGen(Level::instance->GetDeco(), &_decoPropList);
 
