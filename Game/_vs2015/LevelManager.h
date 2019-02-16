@@ -12,6 +12,7 @@ public:
 	LevelManager(std::string maplist);
 	void ChangeLevel(int index);
 	void NextLevel();
+	int GetCurrent();
 
 private:
 	std::vector<std::string> maps;

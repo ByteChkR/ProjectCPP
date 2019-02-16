@@ -53,6 +53,7 @@ void PlayerController::OnCollision(GameObject* other)
 	else if (!other->getName().find("coin"))
 	{
 		other->DisableBehaviours(); //Also turns it invisible
+		// particles
 		_coins++;
 	}
 	else
