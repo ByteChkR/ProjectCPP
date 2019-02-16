@@ -18,6 +18,7 @@ public:
 	void ReloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list);
 	void Reload();
 	void Unload();
+	float GetProgress();
 private:
 	GameObject* _container;
 	void UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list);
