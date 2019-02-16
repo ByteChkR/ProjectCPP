@@ -10,6 +10,11 @@ StoryPanelHandler::StoryPanelHandler(){
 	InitializePanels();
 }
 
+int StoryPanelHandler::GetTotalStoryParts()
+{
+	return 1;
+}
+
 void StoryPanelHandler::AddPanel(HudSprite *_sprite,int _storyPart){
 	if(_storyPart == 0){
 		_panelsOne.push_back(_sprite);

@@ -6,6 +6,7 @@
 #include"../_vs2015/Menu.h"
 #include "../_vs2015/StoryPanel.h"
 #include "../_vs2015/GameOverScreen.h"
+#include "../_vs2015/StageClear.h"
 
 class DebugHud;
 
@@ -35,6 +36,7 @@ class MGEDemo: public AbstractGame
 		Menu* _menu;
 		StoryPanel* _storyPanel;
 		GameOverScreen* _gameOverScreen;
+		StageClear* _stageClear;
 
         void _updateHud();
         MGEDemo(const MGEDemo&);

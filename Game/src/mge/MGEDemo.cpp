@@ -60,6 +60,8 @@ void MGEDemo::initialize() {
 	_menu = new Menu(_window);
 	_storyPanel = new StoryPanel(_window);
 	_gameOverScreen = new GameOverScreen(_window);
+	_stageClear = new StageClear(_window);
+
 	std::cout << "HUD initialized." << std::endl << std::endl;
 }
 
@@ -212,6 +214,7 @@ void MGEDemo::_render(int pass) {
 	}
 	if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
 	if (GameStateManager::instance->_state == GameStateManager::StateGameOver)_gameOverScreen->Update();
+	if (GameStateManager::instance->_state == GameStateManager::StateNextStage)_stageClear->Update();
 }
 
 void MGEDemo::_updateHud() {

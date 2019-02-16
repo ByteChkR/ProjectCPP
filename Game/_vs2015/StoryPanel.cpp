@@ -7,6 +7,7 @@ StoryPanel::StoryPanel(sf::RenderWindow *aWindow)
 {
 	_storyPart = 0;
 	_part = 0;
+	_storyParts = StoryPanelHandler::instance->GetTotalStoryParts();
 	_window = aWindow;
 	_maxPart = StoryPanelHandler::instance->GetSize(_storyPart);
 	_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart,_part);
@@ -36,8 +37,10 @@ void StoryPanel::NextPanel()
 }
 void StoryPanel::NextStoryPart()
 {
-	++_storyPart;
-	_part = 0;
+	if (_storyPart < _storyParts) {
+		++_storyPart;
+		_part = 0;
+	}
 }
 
 void StoryPanel::Reset() {

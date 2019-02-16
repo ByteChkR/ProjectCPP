@@ -46,7 +46,8 @@ void PlayerController::OnCollision(GameObject* other)
 	if (!other->getName().find("endoflevel"))
 	{
 		MapBuilder::instance->Unload();
-		LevelManager::instance->NextLevel();
+		//LevelManager::instance->NextLevel();
+		GameStateManager::instance->_state = GameStateManager::StateNextStage;
 		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
 	}
 	else if (!other->getName().find("coin"))

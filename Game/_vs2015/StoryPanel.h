@@ -26,6 +26,7 @@ class StoryPanel
 		Button *_nextButton;
 		HudText *_nextText;
 		int _storyPart;
+		int _storyParts;
 		int _part;
 		int _maxPart;
 		bool _isResetted = false;

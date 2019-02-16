@@ -15,7 +15,8 @@ static class GameStateManager
 			StateMenu,
 			StatePanel,
 			StateGame,
-			StateGameOver
+			StateGameOver,
+			StateNextStage
 		};
 
 
