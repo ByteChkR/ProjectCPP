@@ -9,7 +9,8 @@ LevelManager* LevelManager::instance = nullptr;
 
 LevelManager::LevelManager(std::string luaMapList)
 {
-	currentLevel = nullptr;
+	
+	_currentLevel = nullptr;
 	instance = this;
 	lua_State* L = luaL_newstate();
 
@@ -18,7 +19,7 @@ LevelManager::LevelManager(std::string luaMapList)
 
 	lua_getglobal(L, "levels");
 
-	if (!LuaOperations::TableToVector(L, &maps))
+	if (!LuaOperations::TableToVector(L, &_maps))
 	{
 		std::cout << "could not read levels from map list\n";
 		return;
@@ -29,17 +30,17 @@ LevelManager::LevelManager(std::string luaMapList)
 
 void LevelManager::ChangeLevel(int index)
 {
-	if (maps.size() == 0)return;
-	if (currentLevel != nullptr)
+	if (_maps.size() == 0)return;
+	if (_currentLevel != nullptr)
 	{
-		currentLevel->Unload();
-		delete currentLevel;
-		currentLevel = nullptr;
+		_currentLevel->Unload();
+		delete _currentLevel;
+		_currentLevel = nullptr;
 
 	}
-	_curLevel = index % maps.size();
+	_curLevel = index % _maps.size();
 
-	currentLevel = new Level(config::MGE_MAP_PATH+maps[_curLevel]);
+	_currentLevel = new Level(config::MGE_MAP_PATH+_maps[_curLevel]);
 
 	if (_curLevel < (int)_backgroundTextures.size()-1)
 	{
@@ -55,7 +56,7 @@ void LevelManager::ChangeLevel(int index)
 
 void LevelManager::NextLevel()
 {
-	if (_curLevel == (int)maps.size() - 1)
+	if (_curLevel == (int)_maps.size() - 1)
 	{
 		//display you win screen
 	}
