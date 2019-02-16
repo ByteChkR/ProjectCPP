@@ -41,14 +41,38 @@ void LevelManager::ChangeLevel(int index)
 
 	currentLevel = new Level(config::MGE_MAP_PATH+maps[_curLevel]);
 
+	if (_curLevel < (int)_backgroundTextures.size()-1)
+	{
+		// cahnge background texture
+	}
+
+	if (_curLevel < (int)_groundTextures.size()-1)
+	{
+		// cahnge ground texture
+	}
+
 }
 
 void LevelManager::NextLevel()
 {
+	if (_curLevel == (int)maps.size() - 1)
+	{
+		//display you win screen
+	}
 	ChangeLevel(_curLevel + 1);
 }
 
 int LevelManager::GetCurrent()
 {
 	return _curLevel;
+}
+
+void LevelManager::AddGroundTexture(std::string pFileLocation)
+{
+	_groundTextures.push_back(pFileLocation);
+}
+
+void LevelManager::AddBackgroundTexture(std::string pFileLocation)
+{
+	_backgroundTextures.push_back(pFileLocation);
 }
