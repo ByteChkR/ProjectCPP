@@ -19,17 +19,19 @@ uniform float movingspeed;
 uniform float heightMapSpeed;
 uniform float heightMapTiling;
 uniform sampler2D yOffTexture;
+uniform vec3 playerPosition;
 
 out vec2 texCoord;
 out vec3 worldNormal;
 out vec3 fragmentWorldPosition;
+out vec3 fPlayerPosition;
 
 void main( void ){
 		vec4 vertexWorldPosition = viewMatrix * modelMatrix * vec4(vertex, 1);
-		
+
 		vec2 heightUV = vec2((-vertexWorldPosition.z) / genOffset,(vec4(vertex,1)*modelMatrix).x/hwm) + vec2(time*heightMapSpeed, 0);
 
-		heightUV/=heightMapTiling;
+		heightUV /= heightMapTiling;
 
 		float t = pow(clamp(-vertexWorldPosition.z/xMoveTiling, 0 , 1), xOffsetSmoothness);
 
@@ -37,10 +39,10 @@ void main( void ){
 
 		float texoff = texture(yOffTexture, clamp(heightUV,0,1)).y*maxHeight;
 		//float offset = max(sin(-(vertexWorldPosition.z/15))*maxHeight,0.0);
-
 		vertexWorldPosition = (vertexWorldPosition + vec4(texoffx,texoff,0,0));
     	gl_Position = projectionMatrix * vertexWorldPosition;
     	texCoord = uv + vec2(0, time*movingspeed/3);
     	worldNormal = vec3(viewMatrix * modelMatrix * vec4(normal, 0));
+		fPlayerPosition = playerPosition;
     	fragmentWorldPosition = vec3(vertexWorldPosition);
 }

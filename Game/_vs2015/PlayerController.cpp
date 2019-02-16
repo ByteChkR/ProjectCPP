@@ -3,6 +3,9 @@
 #include "mge/util/MapGenerator.h"
 #include "GameStateManager.h"
 #include "MapBuilder.h"
+
+PlayerController* PlayerController::instance = nullptr;
+
 PlayerController::PlayerController()
 {
 	_currentLane = 1;
@@ -22,7 +25,7 @@ PlayerController::PlayerController()
 	_isAPressed = false;
 	_isDPressed = false;
 	_isWPRessed = false;
-
+	instance = this;
 }
 
 AbstractBehaviour* PlayerController::Clone()

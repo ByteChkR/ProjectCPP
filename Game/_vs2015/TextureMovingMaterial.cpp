@@ -5,6 +5,7 @@
 #include "glm.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/core/Light.hpp"
+
 #include "mge/core/World.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/GameObject.hpp"
@@ -13,6 +14,8 @@
 #include "../_vs2015/GLLight.hpp"
 #include "mge/core/AbstractGame.hpp"
 #include "../_vs2015/Level.h"
+#include "../_vs2015/PlayerController.hpp"
+#include "mge/core/Camera.hpp"
 ShaderProgram* TextureMovingMaterial::_shader = NULL;
 
 float TextureMovingMaterial::Movingspeed = 0.2f;
@@ -46,6 +49,12 @@ GLint TextureMovingMaterial::_colorTiling = 0;
 GLint TextureMovingMaterial::_movingspeed = 0;
 GLint TextureMovingMaterial::_xMoveTiling = 0;
 GLint TextureMovingMaterial::_heightMapSpeed = 0;
+GLint TextureMovingMaterial::_playerPos = 0;
+float TextureMovingMaterial::ShadowSize = 1;
+float TextureMovingMaterial::ShadowLength = 2;
+GLint TextureMovingMaterial::_shadowLength = 0;
+GLint TextureMovingMaterial::_shadowSize = 0;
+
 
 TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
 
@@ -72,6 +81,8 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_shader->finalize();
 
 		//cache all the uniform and attribute indexes
+		_shadowSize = _shader->getUniformLocation("ShadowSize");
+		_shadowLength = _shader->getUniformLocation("ShadowLength");
 		_uMMatrix = _shader->getUniformLocation("modelMatrix");
 		_uVMatrix = _shader->getUniformLocation("viewMatrix");
 		_uPMatrix = _shader->getUniformLocation("projectionMatrix");
@@ -120,6 +131,7 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
 		_aUV = _shader->getAttribLocation("uv");
+		_playerPos = _shader->getUniformLocation("playerPosition");
 	}
 }
 
@@ -160,12 +172,20 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 	//tell the shader the texture slot for the diffuse texture is slot 0
 	glUniform1i(_uDiffuseTexture, 0);
 
+	glm::vec3 ppos = PlayerController::instance->getOwner()->getLocalPosition()*glm::vec3(0, 0, 1);
+	ppos -= AbstractGame::instance->_world->getMainCamera()->getLocalPosition()*glm::vec3(0, 0, 1);//Camera has different y and x component. so we are discarding that
+
+
+	glUniform3f(_playerPos, ppos.x, ppos.y, ppos.z);
+
 	glUniform1f(_genOffset, TextureMaterial::genOffset);
 	glUniform1f(_width, TextureMaterial::width);
 	glUniform1f(_movingspeed, Movingspeed);
 	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
 	glUniform1f(_xMoveTiling, TextureMaterial::xMoveTiling);
+	glUniform1f(_shadowSize, ShadowSize);
+	glUniform1f(_shadowLength, 2);
 
 	if (TextureMaterial::_heightMap != nullptr)
 	{

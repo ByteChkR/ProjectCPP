@@ -13,6 +13,7 @@
 #include "mge/core/AbstractGame.hpp"
 #include "../_vs2015/Level.h"
 #include "../_vs2015/TextureMovingMaterial.h"
+#include "../_vs2015/PlayerController.hpp"
 ShaderProgram* TextureMaterial::_shader = NULL;
 
 float TextureMaterial::heightmapTiling = 1;
@@ -180,7 +181,6 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	glUniform1f(_genOffset, genOffset);
 	glUniform1f(_width, width);
 	glUniform1f(_xMoveTiling, xMoveTiling);
-
 	if (_heightMap != nullptr)
 	{
 		//setup texture slot 0

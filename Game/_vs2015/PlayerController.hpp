@@ -13,7 +13,7 @@ public:
 	virtual void update(float pTime) override;
 	virtual void OnCollision(GameObject* other) override;
 	virtual AbstractBehaviour* Clone() override;
-
+	static PlayerController* instance;
 private:
 	int _currentLane;
 	int _nextLane;
