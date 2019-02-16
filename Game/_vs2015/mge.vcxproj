@@ -212,6 +212,7 @@
     <ClInclude Include="MapBuilder.h" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuButton.h" />
     <ClInclude Include="NextButton.h" />
     <ClInclude Include="ObjectPool.hpp" />
     <ClInclude Include="Particle.h" />
@@ -273,6 +274,7 @@
     <ClCompile Include="MapBuilder.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="NextButton.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="Particle.cpp" />
