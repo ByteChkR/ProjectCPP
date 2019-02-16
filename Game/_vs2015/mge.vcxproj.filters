@@ -71,6 +71,9 @@
     <ClCompile Include="RetryButton.cpp">
       <Filter>NewFolder</Filter>
     </ClCompile>
+    <ClCompile Include="MenuButton.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -137,6 +140,9 @@
       <Filter>NewFolder</Filter>
     </ClInclude>
     <ClInclude Include="RetryButton.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuButton.h">
       <Filter>NewFolder</Filter>
     </ClInclude>
   </ItemGroup>

@@ -24,6 +24,11 @@ GameOverScreen::GameOverScreen(sf::RenderWindow *aWindow){
 
 void GameOverScreen::OrganizeScreen(){
 	_retryText->_text.setString("Retry");
+	_retryButtonBox->sprite.setPosition(200, 200);
+	_retryButton->SetPosition(200, 200);
+	_retryText->_text.setPosition(200, 200);
+
+	_menuText->_text.setString("Menu");
 	_menuButtonBox->sprite.setPosition(0, 200);
 	_menuText->_text.setPosition(0, 200);
 	_menuButton->SetPosition(0, 200);
@@ -32,6 +37,7 @@ void GameOverScreen::OrganizeScreen(){
 void GameOverScreen::Update() {
 	draw();
 	_retryButton->Update();
+	_menuButton->Update();
 }
 
 void GameOverScreen::draw() {
@@ -41,6 +47,9 @@ void GameOverScreen::draw() {
 	_window->draw(_background->sprite);
 	_window->draw(_retryButtonBox->sprite);
 	_window->draw(_retryText->_text);
+
+	_window->draw(_menuButtonBox->sprite);
+	_window->draw(_menuText->_text);
 
 	_window->popGLStates();
 }
