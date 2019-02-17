@@ -57,7 +57,7 @@ GLint TextureMovingMaterial::_shadowSize = 0;
 
 
 TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
-
+	_diffuseTexture = pDiffuseTexture;
 	_emmissiveTexture = emmissiveTexture;
 	_specularTexture = specularTexture;
 	this->shininess = shininess;

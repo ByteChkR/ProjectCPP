@@ -7,6 +7,8 @@
 #include "mge/config.hpp"
 #include "mge/materials/TextureMaterial.hpp"
 #include "mge/util/DataManager.h"
+#include "../_vs2015/TextureMovingMaterial.h"
+#include "mge\materials\AnimationMaterial.hpp"
 
 Level* Level::instance = nullptr;
 
@@ -113,10 +115,12 @@ Level::Level(std::string levelLuaFile)
 	
 	//Insert logic for data manager here.
 	//I Am Supplying with Textures, you have gameobjects.
-	DataManager::instance->GetBackground();
-	DataManager::instance->GetGround();
-
-
+	if (DataManager::instance->GetBackground()->getMaterial() != nullptr && DataManager::instance->GetGround()->getMaterial() != nullptr)
+	{
+		dynamic_cast<AnimationMaterial*>(DataManager::instance->GetBackground()->getMaterial())->setDiffuseTexture(background);
+		dynamic_cast<TextureMovingMaterial*>(DataManager::instance->GetGround()->getMaterial())->setDiffuseTexture(mapGround);
+	}
+	
 	
 
 	MapBuilder::instance->Reload();

@@ -21,10 +21,10 @@ GLint AnimationMaterial::_aNormal = 0;
 GLint AnimationMaterial::_aUV = 0;
 
 AnimationMaterial::AnimationMaterial(Texture* pDiffuseTexture, int pNumberOfFrames) {
-    _lazyInitializeShader();
-	_framesCount = pNumberOfFrames;
 	_diffuseTexture = pDiffuseTexture;
+	_framesCount = pNumberOfFrames;
 	_currentFrame = 0;
+    _lazyInitializeShader();
 	//_uNumberFrames = pNumberOfFrames;
 }
 
