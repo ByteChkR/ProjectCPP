@@ -80,6 +80,9 @@
     <ClCompile Include="NextStageButtoncpp.cpp">
       <Filter>NewFolder</Filter>
     </ClCompile>
+    <ClCompile Include="WinScreen.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -155,6 +158,9 @@
       <Filter>NewFolder</Filter>
     </ClInclude>
     <ClInclude Include="NextStageButton.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScreen.h">
       <Filter>NewFolder</Filter>
     </ClInclude>
   </ItemGroup>

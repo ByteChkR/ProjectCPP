@@ -16,7 +16,8 @@ class GameStateManager
 			StatePanel,
 			StateGame,
 			StateGameOver,
-			StateNextStage
+			StateNextStage,
+			StateWin
 		};
 
 

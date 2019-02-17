@@ -13,11 +13,11 @@ class StoryPanelHandler
 		StoryPanelHandler();
 
 		int GetSize(int _storyPart);
-		void AddPanel(HudSprite *_sprite, int _storyPart);
 		HudSprite* GetPanelAt(int _storyPart, int _part);
 		int GetTotalStoryParts();
 	private:
 		std::vector<HudSprite*> _panelsOne;
+		std::vector<HudSprite*> _panelsTwo;
 		void InitializePanels();
 };
 

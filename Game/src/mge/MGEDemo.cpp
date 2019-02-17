@@ -61,6 +61,7 @@ void MGEDemo::initialize() {
 	_storyPanel = new StoryPanel(_window);
 	_gameOverScreen = new GameOverScreen(_window);
 	_stageClear = new StageClear(_window);
+	_winScreen = new WinScreen(_window);
 
 	std::cout << "HUD initialized." << std::endl << std::endl;
 }
@@ -205,16 +206,15 @@ void MGEDemo::_initializeScene()
 
 void MGEDemo::_render(int pass) {
 	AbstractGame::_render(pass);
-	if (GameStateManager::instance->_state == GameStateManager::StateGame) {
-		_updateHud();
-	}
-	if (GameStateManager::instance->_state == GameStateManager::StateMenu) {
+	if (GameStateManager::instance->_state == GameStateManager::StateGame) _updateHud();
+	else if (GameStateManager::instance->_state == GameStateManager::StateMenu) {
 		_menu->Update();
 		_storyPanel->Reset();     //could be solved more optimized
 	}
-	if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
-	if (GameStateManager::instance->_state == GameStateManager::StateGameOver)_gameOverScreen->Update();
-	if (GameStateManager::instance->_state == GameStateManager::StateNextStage)_stageClear->Update();
+	else if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
+	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)_gameOverScreen->Update();
+	else if (GameStateManager::instance->_state == GameStateManager::StateNextStage)_stageClear->Update();
+	else if (GameStateManager::instance->_state == GameStateManager::StateWin)_winScreen->Update();
 }
 
 void MGEDemo::_updateHud() {
