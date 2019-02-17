@@ -157,15 +157,15 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 
 	}
 
-	for (int i = 0; i < (int)_lanes.size(); i++)
-	{
-		//std::cout << "Step of line " << i << " is: " << _lanes[i]->GetStep() << " " << '\n';
-		for (int j = 0; j < columns; j++)
-		{
-			std::cout << _lanes[i]->GetSegments()[j] << " ";
-		}
-		//std::cout << '\n';
-	}
+	//for (int i = 0; i < (int)_lanes.size(); i++)
+	//{
+	//	//std::cout << "Step of line " << i << " is: " << _lanes[i]->GetStep() << " " << '\n';
+	//	for (int j = 0; j < columns; j++)
+	//	{
+	//		std::cout << _lanes[i]->GetSegments()[j] << " ";
+	//	}
+	//	//std::cout << '\n';
+	//}
 
 }
 

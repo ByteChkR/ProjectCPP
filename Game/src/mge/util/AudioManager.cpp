@@ -69,7 +69,7 @@ void AudioManager::PlaySound(int pNumber)
 	if (pNumber > (int)_sounds.size() -1)
 	{
 		std::cout << "Number higher then number of sounds. The number is " << pNumber<<
-			" and the size is: " << _sounds.size();
+			" and the size is: " << _sounds.size()<< '\n';
 		return;
 	}
 	_sounds[pNumber]->play();
@@ -134,7 +134,7 @@ void AudioManager::Restart(int pNumber)
 
 	if (pNumber > (int)_musics.size() - 1)
 	{
-		std::cout << "can't restart index out of range";
+		std::cout << "can't restart index out of range\n";
 		return;
 	}
 
@@ -216,7 +216,7 @@ void AudioManager::ChangeBackgroundMusic(int pNumber)
 {
 	if (pNumber > (int)_musics.size() - 1)
 	{
-		std::cout << "can't change music index out of range" << pNumber;
+		std::cout << "can't change music index out of range" << pNumber<<'\n';
 		return;
 	}
 

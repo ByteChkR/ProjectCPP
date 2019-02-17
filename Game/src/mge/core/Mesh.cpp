@@ -65,6 +65,7 @@ Mesh::~Mesh()
  */
 Mesh* Mesh::load(std::string pFilename)
 {
+	if (pFilename == " ")return NULL;
     std::cout << "Loading " << pFilename << "...";
 
 	Mesh* mesh = new Mesh();

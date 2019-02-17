@@ -30,13 +30,13 @@ Level::Level(std::string levelLuaFile)
 	lua_State* L = luaL_newstate();
 
 	luaL_loadfile(L, levelLuaFile.c_str());
-	LuaOperations::SaveLuaCall(L, 0, 0, true, "Could not load Level("+levelLuaFile+") settings.");
+	LuaOperations::SaveLuaCall(L, 0, 0, true, "Could not load Level("+levelLuaFile+") settings.\n");
 
 	lua_getglobal(L, "heightTexture");
 	std::string height;
 	if (!LuaOperations::TryGetString(L, &height))
 	{
-		std::cout << "Level has no height map";
+		std::cout << "Level has no height map\n";
 	}
 	else {
 		TextureMaterial::_heightMap = Texture::load(config::MGE_TEXTURE_PATH + height, true);
@@ -101,7 +101,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetString(L, &mbg))
 	{
-		std::cout << "Error parsing path to background image\n";
+		std::cout << "Error parsing path to Map Ground Texure image\n";
 		mapGround = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
 
 	}

@@ -87,13 +87,13 @@ void AnimationMaterial::SetFrame(int pFrame)
 {
 	if (pFrame < 0)
 	{
-		std::cout << "ERROR: Tried to set frame smalled than 0";
+		std::cout << "ERROR: Tried to set frame smaller than 0\n";
 		return;
 	}
 
 	if (pFrame > _framesCount - 1)
 	{
-		std::cout << "ERROR: Tried to set frame bigger than the frame count";
+		std::cout << "ERROR: Tried to set frame bigger than the frame count\n";
 		return;
 	}
 

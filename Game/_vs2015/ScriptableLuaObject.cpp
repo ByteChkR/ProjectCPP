@@ -117,9 +117,12 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			else
 				AbstractGame::instance->_world->add(object);
 			object->setMesh(lss->GetObject());
-			Texture* tex = Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath());
-			Texture* em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap());
-			Texture* sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular());
+			Texture* tex = nullptr;
+			if(lss->GetTexturePath() != " ")tex = Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath());
+			Texture* em = nullptr;
+			if(lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap());
+			Texture* sp = nullptr;
+			if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular());
 
 			object->setMaterial(new TextureMaterial(tex, em, sp, 2, 10, 1, 5, 2));
 			object->addBehaviour(new ScriptableLuaObject(lss));

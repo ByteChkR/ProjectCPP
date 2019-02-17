@@ -14,19 +14,8 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 		return;
 	}
 	int l = lua_gettop(L);
-	lua_getglobal(L, "AttachedScripts");
-	if (LuaOperations::SaveLuaCall(L, 0, 1))
-	{
-		return;
-	}
-	l = lua_gettop(L);
-	if (!LuaOperations::TableToVector(L, &_attachedScripts))
-	{
-		std::cout << "This object has no scripts attached";
-		_attachedScripts = std::vector<std::string>();
-	}
-	l = lua_gettop(L);
-	lua_pop(L, 1);
+
+
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
@@ -35,8 +24,20 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "name", &_name))
 	{
-		std::cout << "This object has no name";
+		std::cout << "This object has no name default name: NoNameObject\n";
 		_name = "NoNameObject";
+	}
+
+	lua_getglobal(L, "AttachedScripts");
+	if (LuaOperations::SaveLuaCall(L, 0, 1))
+	{
+		return;
+	}
+	l = lua_gettop(L);
+	if (!LuaOperations::TableToVector(L, &_attachedScripts))
+	{
+		std::cout << "Object with key: "<< _name <<" has no scripts attached\n";
+		_attachedScripts = std::vector<std::string>();
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -48,7 +49,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "objPath", &_objPath))
 	{
-		std::cout << "This object has no mesh";
+		std::cout << "Object with key: " << _name << " has no mesh\n";
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -60,7 +61,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "texture", &_texturePath))
 	{
-		std::cout << "This object has no texture";
+		std::cout << "Object with key: " << _name << " has no texture\n";
 	}
 	lua_pop(L, 1);
 	lua_getglobal(L, "GetMeta");
@@ -71,7 +72,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "emissive", &_emmissiveTexture))
 	{
-		std::cout << "This object has no emmissive map";
+		std::cout << "Object with key: " << _name << " has no emmissive map\n";
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -83,7 +84,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "specular", &_specularTexture))
 	{
-		std::cout << "This object has no specular map";
+		std::cout << "Object with key: " << _name << " has no specular map\n";
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -95,7 +96,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posX", &_position.x))
 	{
-		std::cout << "This object has no x coord. assuming 0";
+		std::cout << "Object with key: " << _name << " has no x coord. assuming 0\n";
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -107,7 +108,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posY", &_position.y))
 	{
-		std::cout << "This object has no y coord. assuming 0";
+		std::cout << "Object with key: " << _name << " has no y coord. assuming 0\n";
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -119,7 +120,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posZ", &_position.z))
 	{
-		std::cout << "This object has no z coord. assuming 0";
+		std::cout << "Object with key: " << _name << " has no z coord. assuming 0\n";
 	}
 	l = lua_gettop(L);
 
@@ -128,21 +129,21 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "collider");
 	if (!LuaOperations::TryGetFloatFromTable(L, "width", &_collider.x))
 	{
-		std::cout << "This object has no collider.";
+		std::cout << "Object with key: " << _name << " has no collider.\n";
 	}
 	else
 	{
 		lua_getglobal(L, "collider");
 		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_collider.y))
 		{
-			std::cout << "This object has no collider.";
+			std::cout << "Object with key: " << _name << " has no collider.\n";
 		}
 		else
 		{
 			lua_getglobal(L, "collider");
 			if (!LuaOperations::TryGetFloatFromTable(L, "width", &_collider.z))
 			{
-				std::cout << "This object has no collider.";
+				std::cout << "Object with key: " << _name << " has no collider.\n";
 			}
 		}
 	}
