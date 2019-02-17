@@ -30,6 +30,9 @@ void StoryPanel::NextPanel()
 		++_part; 
 		_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart, _part);
 	}
+	else if(_storyPart == _storyParts){
+		GameStateManager::instance->_state = GameStateManager::StateWin;
+	}
 	else {
 		GameStateManager::instance->_state = GameStateManager::StateGame;
 		NextStoryPart();
@@ -37,10 +40,12 @@ void StoryPanel::NextPanel()
 }
 void StoryPanel::NextStoryPart()
 {
+	_part = 0;
 	if (_storyPart < _storyParts) {
 		++_storyPart;
+		_maxPart = StoryPanelHandler::instance->GetSize(_storyPart);
+		_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart, _part);
 	}
-	_part = 0;
 }
 
 void StoryPanel::Reset() {
