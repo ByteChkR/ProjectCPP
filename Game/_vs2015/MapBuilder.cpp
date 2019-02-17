@@ -70,13 +70,13 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 	}
 	int lane = index % gen->GetNumberOfLanes();
 	int biomeID = index / gen->GetNumberOfLanes(); //theoretical distance from container origin
-	float dist = biomeID * gen->GetLaneAt(lane)->GetStep(); //Distance from container origin with step size
+	float dist = ((float)biomeID * gen->GetLaneAt(lane)->GetStep()); //Distance from container origin with step size
 	float reldist = dist - _container->getLocalPosition().z; //Global distance to origin
 
 	//std::cout << "Reldist: " << std::to_string(reldist) << '\n';
 	if (reldist > -remOffset && reldist < genOffset)
 	{
-		biomeID = (biomeID / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
+		biomeID = (int)((biomeID / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount());
 
 		//std::cout << "Created\n";
 		GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[index].first);
@@ -102,7 +102,7 @@ float MapBuilder::GetProgress()
 
 void MapBuilder::RemoveFromPropList(std::vector<std::pair<int, GameObject*>> * list, MapGenerator* gen, size_t index)
 {
-	int biomeID = (index / gen->GetNumberOfLanes() / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount();
+	int biomeID = (int)((index / gen->GetNumberOfLanes() / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount());
 	(*list)[index].second->DisableBehaviours();
 	BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID), (*list)[index].first, (*list)[index].second);
 	(*list)[index].second = nullptr;
@@ -137,7 +137,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 	//float delta = _container->getLocalPosition().z - lastContainerPos;
 
 
-	int end = lastRemove + gen->GetNumberOfLanes()*genOffset;
+	int end = (int)(lastRemove + gen->GetNumberOfLanes()*genOffset);
 	end = glm::min(end, (int)list->size() - 1);
 
 	//float fstart = ((int)_container->getLocalPosition().z - remOffset)*gen->GetNumberOfLanes();
@@ -145,7 +145,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 	//std::cout << "I size: " << std::to_string(end-lastRemove) << '\n';
 
-	for (size_t i = lastRemove; i < end; ++i)
+	for (int i = lastRemove; i < end; ++i)
 	{
 		if ((*list)[i].second != nullptr)
 		{

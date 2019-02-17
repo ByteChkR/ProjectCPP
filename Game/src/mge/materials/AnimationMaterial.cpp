@@ -111,3 +111,8 @@ void  AnimationMaterial::NextFrame()
 	_currentFrame++;
 
 }
+
+int AnimationMaterial::GetCurrentFrameNum()
+{
+	return _currentFrame;
+}

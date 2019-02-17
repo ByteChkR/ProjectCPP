@@ -7,6 +7,69 @@
 #include "ScriptableLuaObject.h"
 #include "mge/core/AbstractGame.hpp"
 #include "lua.hpp"
+#include "MapBuilder.h"
+#include "mge/util/AudioManager.h"
+#include "LevelManager.h"
+#include "mge/materials/AnimationMaterial.hpp"
+int LuaAPI::Lua_PlayMusic(lua_State* L)
+{
+	double nr = 0;
+	if (!LuaOperations::TryGetDouble(L, &nr))
+	{
+		lua_pushstring(L, "Could not read the music number."); //Push error.
+		lua_error(L);
+		return 1;
+	}
+	else
+		AudioManager::instance->ChangeBackgroundMusic((int)nr);//If it worked we play the sound(or we try)
+	return 0; //We return nothing if it worked
+
+}
+
+int LuaAPI::Lua_PlaySound(lua_State* L)
+{
+	double nr = 0;
+	if (!LuaOperations::TryGetDouble(L, &nr))
+	{
+		lua_pushstring(L, "Could not read the sound number."); //Push error.
+		lua_error(L);
+		return 1;
+	}
+	else
+		AudioManager::instance->PlaySound((int)nr);//If it worked we play the sound(or we try)
+	return 0; //We return nothing if it worked
+
+}
+
+int LuaAPI::Lua_GetCurrentLevelProgress(lua_State* L)
+{
+	if (MapBuilder::instance != nullptr)
+	{
+		lua_pushnumber(L, MapBuilder::instance->GetProgress());
+		return 1;
+	}
+	else
+	{
+		lua_pushstring(L, "There was no level initialized.");
+		lua_error(L);
+		return 1;
+	}
+}
+
+int LuaAPI::Lua_GetCurrentLevel(lua_State* L)
+{
+	if (MapBuilder::instance != nullptr)
+	{
+		lua_pushnumber(L, LevelManager::instance->GetCurrent());
+		return 1;
+	}
+	else
+	{
+		lua_pushstring(L, "There was no level manager initialized.");
+		lua_error(L);
+		return 1;
+	}
+}
 
 int LuaAPI::Lua_AddChild(lua_State* L)
 {
@@ -24,7 +87,173 @@ int LuaAPI::Lua_AddChild(lua_State* L)
 	GameObject** child = (GameObject**)lua_touserdata(L, 2);
 
 	(*parent)->add((*child));
+	return 0;
 
+}
+
+int LuaAPI::Lua_NextAnimationFrame(lua_State* L)
+{
+	if (!lua_isuserdata(L, 1))
+	{
+		lua_pushstring(L, "NextAnimationFrame can only be called with a valid object reference");
+		lua_error(L);
+		return 1;
+	}
+	else
+	{
+		GameObject** obj = (GameObject**)lua_touserdata(L, 1);
+		AnimationMaterial* am;
+		if ((am = dynamic_cast<AnimationMaterial*>((*obj)->getMaterial())) != nullptr)
+		{
+			am->NextFrame();
+			return 0;
+		}
+		else
+		{
+
+			lua_pushstring(L, "NextAnimationFrame can only be called with a valid object reference that has a AnimationMaterial Attached.");
+			lua_error(L);
+			return 1;
+		}
+	}
+}
+
+int LuaAPI::Lua_GetCurrentAnimationFrame(lua_State* L)
+{
+	if (!lua_isuserdata(L, 1))
+	{
+		lua_pushstring(L, "GetAnimationFrame can only be called with a valid object reference");
+		lua_error(L);
+		return 1;
+	}
+	else
+	{
+		GameObject** obj = (GameObject**)lua_touserdata(L, 1); 
+		AnimationMaterial* am;
+		if ((am = dynamic_cast<AnimationMaterial*>((*obj)->getMaterial())) != nullptr)
+		{
+			lua_pushnumber(L, am->GetCurrentFrameNum());
+			return 1;
+		}
+		else
+		{
+			lua_pushstring(L, "GetAnimationFrame can only be called with a valid object reference that contains an AnimationMaterial");
+			lua_error(L);
+			return 1;
+		}
+	}
+}
+
+int LuaAPI::Lua_StopParticleEffect(lua_State* L)
+{
+	if (!lua_isuserdata(L, 1))
+	{
+		lua_pushstring(L, "StopParticleEffec can only be called with a valid object reference");
+		lua_error(L);
+		return 1;
+	}
+	else
+	{
+		GameObject** obj = (GameObject**)lua_touserdata(L, 1);
+		ParticleEmitter* am;
+		if ((am = dynamic_cast<ParticleEmitter*>((*obj)->getMaterial())) != nullptr)
+		{
+			am->Stop();
+			return 1;
+		}
+		else
+		{
+			lua_pushstring(L, "StopParticleEffec can only be called with a valid object reference that contains an ParticleEmitter");
+			lua_error(L);
+			return 1;
+		}
+	}
+}
+
+int LuaAPI::Lua_StopParticleEffectImmediate(lua_State* L)
+{
+	if (!lua_isuserdata(L, 1))
+	{
+		lua_pushstring(L, "StopParticleEffec can only be called with a valid object reference");
+		lua_error(L);
+		return 1;
+	}
+	else
+	{
+		GameObject** obj = (GameObject**)lua_touserdata(L, 1);
+		ParticleEmitter* am;
+		if ((am = dynamic_cast<ParticleEmitter*>((*obj)->getMaterial())) != nullptr)
+		{
+			am->Stop(true);
+			return 1;
+		}
+		else
+		{
+			lua_pushstring(L, "StopParticleEffec can only be called with a valid object reference that contains an ParticleEmitter");
+			lua_error(L);
+			return 1;
+		}
+	}
+}
+
+int LuaAPI::Lua_PlayParticleEffect(lua_State* L)
+{
+	if (!lua_isuserdata(L, 1))
+	{
+		lua_pushstring(L, "StopParticleEffec can only be called with a valid object reference");
+		lua_error(L);
+		return 1;
+	}
+	else
+	{
+		GameObject** obj = (GameObject**)lua_touserdata(L, 1);
+		ParticleEmitter* am;
+		if ((am = dynamic_cast<ParticleEmitter*>((*obj)->getMaterial())) != nullptr)
+		{
+			am->Start();
+			return 1;
+		}
+		else
+		{
+			lua_pushstring(L, "StopParticleEffec can only be called with a valid object reference that contains an ParticleEmitter");
+			lua_error(L);
+			return 1;
+		}
+	}
+}
+
+int LuaAPI::Lua_ChangeAnimationFrame(lua_State* L)
+{
+	if (!lua_isuserdata(L, 1))
+	{
+		lua_pushstring(L, "NextAnimationFrame can only be called with a valid object reference");
+		lua_error(L);
+		return 1;
+	}
+	else
+	{
+		GameObject** obj = (GameObject**)lua_touserdata(L, 1);
+		AnimationMaterial* am;
+		if ((am = dynamic_cast<AnimationMaterial*>((*obj)->getMaterial())) != nullptr)
+		{
+			double framenum;
+			if (!LuaOperations::TryGetDouble(L, &framenum))
+			{
+				lua_pushstring(L, "Could not get the frame number. Is it a number?");
+				lua_error(L);
+				return 1;
+			}
+			am->SetFrame((int)framenum);
+			return 0;
+		}
+		else
+		{
+
+			lua_pushstring(L, "NextAnimationFrame can only be called with a valid object reference that has a AnimationMaterial Attached.");
+			lua_error(L);
+			return 1;
+		}
+	}
 }
 
 int LuaAPI::Lua_GameObjectEquals(lua_State* L)
@@ -97,6 +326,7 @@ int LuaAPI::Lua_AddPosition(lua_State* L)
 	}
 
 	(*pptr)->setLocalPosition((*pptr)->getLocalPosition() + pos);
+	return 0;
 }
 
 int LuaAPI::Lua_GetObject(lua_State* L)

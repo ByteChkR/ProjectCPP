@@ -232,7 +232,7 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	glUniform1f(_blend, blend);
 	glUniform1f(_blendingSoftness, blendingSoftness);
 
-	for (size_t i = 0; i < colors->length(); i++)
+	for (int i = 0; i < colors->length(); i++)
 	{
 		int index = (i + _offset) % colors->length();
 		glUniform3f(_shader->getUniformLocation("colors[" + std::to_string(i) + "]"), colors[index].x, colors[index].y, colors[index].z);

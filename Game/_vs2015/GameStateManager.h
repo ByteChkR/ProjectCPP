@@ -5,7 +5,7 @@
 #include <iostream>
 #include"../_vs2015/Menu.h"
 
-static class GameStateManager 
+class GameStateManager 
 {
 	public:
 		static GameStateManager *instance;

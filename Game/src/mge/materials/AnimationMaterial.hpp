@@ -24,7 +24,7 @@ public:
 
 	void SetFrame(int pFrame);
 	void NextFrame();
-
+	int GetCurrentFrameNum();
 protected:
 private:
 	static ShaderProgram* _shader;

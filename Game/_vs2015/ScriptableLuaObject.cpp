@@ -29,6 +29,18 @@ static const luaL_reg level1API[]
 	{"GetParent", LuaAPI::Lua_GetParent},
 	{"AddChild", LuaAPI::Lua_AddChild},
 	{"CompareRef", LuaAPI::Lua_GameObjectEquals},
+	{"PlaySound", LuaAPI::Lua_PlaySound},
+	{"PlayMusic", LuaAPI::Lua_PlayMusic},
+	{"GetLevelNum", LuaAPI::Lua_GetCurrentLevel},
+	{"GetLevelProgress", LuaAPI::Lua_GetCurrentLevelProgress},
+	{"NextAnimationFrame", LuaAPI::Lua_NextAnimationFrame},
+	{"ChangeAnimationFrame", LuaAPI::Lua_ChangeAnimationFrame},
+	{"GetAnimationFrame", LuaAPI::Lua_GetCurrentAnimationFrame},
+	{"PlayParticleEffect", LuaAPI::Lua_PlayParticleEffect},
+	{"StopParticleEffect", LuaAPI::Lua_StopParticleEffect},
+	{"StopParticleEffectImmediate", LuaAPI::Lua_StopParticleEffectImmediate},
+
+
 	//{"GameOver", LuaAPI::Lua_ResetGame},
 	{NULL, NULL}
 

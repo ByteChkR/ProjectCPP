@@ -22,6 +22,40 @@ public:
 	//static int Lua_RemoveBehaviour(lua_State* L);
 #pragma endregion
 
+#pragma region SoundManagement
+
+	static int Lua_PlayMusic(lua_State* L);
+	static int Lua_PlaySound(lua_State* L);
+
+#pragma endregion
+
+#pragma region AnimationManagement
+
+	static int Lua_NextAnimationFrame(lua_State* L);
+	static int Lua_ChangeAnimationFrame(lua_State* L);
+	static int Lua_GetCurrentAnimationFrame(lua_State* L);
+
+#pragma endregion
+
+#pragma region ParticleManagement
+
+	static int Lua_PlayParticleEffect(lua_State* L);
+	static int Lua_StopParticleEffect(lua_State* L);
+	static int Lua_StopParticleEffectImmediate(lua_State* L);
+
+
+#pragma endregion
+
+
+#pragma region LevelInfo
+
+	static int Lua_GetCurrentLevel(lua_State* L);
+	static int Lua_GetCurrentLevelProgress(lua_State* L);
+
+#pragma endregion
+
+
+
 #pragma region Movement
 	static int Lua_GetPosition(lua_State* L);
 	static int Lua_GetDistance(lua_State* L);

@@ -6,7 +6,7 @@
 #include "../_vs2015/HudText.h"
 #include <vector>
 
-static class StoryPanelHandler
+class StoryPanelHandler
 {
 	public:
 		static StoryPanelHandler *instance;
