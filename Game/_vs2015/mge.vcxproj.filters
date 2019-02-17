@@ -83,6 +83,9 @@
     <ClCompile Include="WinScreen.cpp">
       <Filter>NewFolder</Filter>
     </ClCompile>
+    <ClCompile Include="LoadingScreen.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -161,6 +164,9 @@
       <Filter>NewFolder</Filter>
     </ClInclude>
     <ClInclude Include="WinScreen.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScreen.h">
       <Filter>NewFolder</Filter>
     </ClInclude>
   </ItemGroup>

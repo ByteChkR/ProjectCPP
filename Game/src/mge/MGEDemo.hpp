@@ -8,6 +8,7 @@
 #include "../_vs2015/GameOverScreen.h"
 #include "../_vs2015/StageClear.h"
 #include "../_vs2015/WinScreen.h"
+#include "../_vs2015/LoadingScreen.h"
 
 class DebugHud;
 
@@ -39,6 +40,7 @@ class MGEDemo: public AbstractGame
 		GameOverScreen* _gameOverScreen;
 		StageClear* _stageClear;
 		WinScreen* _winScreen;
+		LoadingScreen* _loadingScreen;
 
         void _updateHud();
         MGEDemo(const MGEDemo&);

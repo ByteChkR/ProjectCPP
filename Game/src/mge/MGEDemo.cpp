@@ -62,6 +62,7 @@ void MGEDemo::initialize() {
 	_gameOverScreen = new GameOverScreen(_window);
 	_stageClear = new StageClear(_window);
 	_winScreen = new WinScreen(_window);
+	_loadingScreen = new LoadingScreen(_window);
 
 	std::cout << "HUD initialized." << std::endl << std::endl;
 }
@@ -215,6 +216,7 @@ void MGEDemo::_render(int pass) {
 	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)_gameOverScreen->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateNextStage)_stageClear->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateWin)_winScreen->Update();
+	else if (GameStateManager::instance->_state == GameStateManager::StateLoad)_loadingScreen->Update();
 }
 
 void MGEDemo::_updateHud() {

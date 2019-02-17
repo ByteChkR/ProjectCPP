@@ -4,6 +4,7 @@
 #include <vector>
 #include "LuaOperations.h"
 #include "mge/config.hpp"
+#include "GameStateManager.h"
 
 LevelManager* LevelManager::instance = nullptr;
 

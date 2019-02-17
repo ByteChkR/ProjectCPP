@@ -206,6 +206,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LightParams.hpp" />
+    <ClInclude Include="LoadingScreen.h" />
     <ClInclude Include="LuaAPI.h" />
     <ClInclude Include="LuaOperations.h" />
     <ClInclude Include="LuaScriptStruct.h" />
@@ -271,6 +272,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LightParams.cpp" />
+    <ClCompile Include="LoadingScreen.cpp" />
     <ClCompile Include="LuaAPI.cpp" />
     <ClCompile Include="LuaOperations.cpp" />
     <ClCompile Include="LuaScriptStruct.cpp" />
