@@ -18,7 +18,7 @@
 #include "mge/core/Camera.hpp"
 ShaderProgram* TextureMovingMaterial::_shader = NULL;
 
-float TextureMovingMaterial::Movingspeed = 0.2f;
+float TextureMovingMaterial::Movingspeed = 0.13f;
 GLint TextureMovingMaterial::_heightMapTiling = 0;
 GLint TextureMovingMaterial::_uMMatrix = 0;
 GLint TextureMovingMaterial::_uVMatrix = 0;

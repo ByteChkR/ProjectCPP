@@ -13,10 +13,14 @@ public:
 	static Level* instance;
 	MapGenerator* GetMap();
 	MapGenerator* GetDeco();
+	Texture* GetBackground();
+	Texture* GetMapGround();
 	void Unload();
 private:
 	MapGenerator* _map;
 	MapGenerator* _decoration;
+	Texture* background;
+	Texture* mapGround;
 };
 
 #endif // !LEVEL_HPP

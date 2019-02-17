@@ -6,6 +6,7 @@
 #include "LuaOperations.h"
 #include "mge/config.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "mge/util/DataManager.h"
 
 Level* Level::instance = nullptr;
 
@@ -78,11 +79,58 @@ Level::Level(std::string levelLuaFile)
 	}
 
 
+	lua_getglobal(L, "ground");
+	std::string bg;
+	/*
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetString(L, &bg))
+	{
+		std::cout << "Error parsing path to background image\n";
+		background = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
+
+	}
+	else
+	{
+
+		background = Texture::load(config::MGE_TEXTURE_PATH + bg);
+	}
+
+	lua_getglobal(L, "mapGround");
+	std::string mbg;
+	/*
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetString(L, &mbg))
+	{
+		std::cout << "Error parsing path to background image\n";
+		mapGround = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
+
+	}
+	else
+	{
+
+		mapGround = Texture::load(config::MGE_TEXTURE_PATH + mbg);
+	}
+	
+	//Insert logic for data manager here.
+	//I Am Supplying with Textures, you have gameobjects.
+	DataManager::instance->GetBackground();
+	DataManager::instance->GetGround();
+
 
 	
 
 	MapBuilder::instance->Reload();
 }
+
+Texture* Level::GetBackground()
+{
+	return background;
+}
+Texture* Level::GetMapGround()
+{
+	return mapGround;
+}
+
 Level::~Level()
 {
 	_map = nullptr;
