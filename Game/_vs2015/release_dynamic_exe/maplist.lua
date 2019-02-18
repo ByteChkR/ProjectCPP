@@ -1,1 +1,1 @@
-levels = {"map1.lua", "map2.lua"}
+levels = {"map1.lua", "map2.lua", "map3.lua"}
