@@ -19,6 +19,8 @@ public:
 	void Reload();
 	void Unload();
 	float GetProgress();
+
+	float genOffset;
 private:
 	GameObject* _container;
 	void UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list);
@@ -28,7 +30,6 @@ private:
 	void AddToPropList(std::vector<std::pair<int, GameObject*>> *list, MapGenerator* gen, size_t index);
 	std::vector<std::pair<int, GameObject*>> _mapPropList;
 	std::vector<std::pair<int, GameObject*>> _decoPropList;
-	float genOffset;
 	float remOffset;
 	int lastRemove;
 };

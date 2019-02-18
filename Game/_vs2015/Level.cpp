@@ -124,10 +124,12 @@ Level::Level(std::string levelLuaFile)
 		
 
 		TextureMaterial::genOffset = 75;
+		MapBuilder::instance->genOffset = 75;
 	}
 	else
 	{
 		TextureMaterial::genOffset = (float)go;
+		MapBuilder::instance->genOffset = (float)go;
 	}
 
 	lua_getglobal(L, "xCurvature");
