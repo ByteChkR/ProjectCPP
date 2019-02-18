@@ -32,24 +32,21 @@ HudSprite* StoryPanelHandler::GetPanelAt(int _storyPart, int _part){
 }
 
 void StoryPanelHandler::InitializePanels(){
-	_panelsOne.push_back(new HudSprite("tempMenu.png"));
-	_panelsOne.push_back(new HudSprite("tmpPanel0.png"));
-	_panelsOne.push_back(new HudSprite("tmpPanel1.png"));
+	_panelsOne.push_back(new HudSprite("Panel1,1.png"));
+	_panelsOne.push_back(new HudSprite("Panel1,2.png"));
+	_panelsOne.push_back(new HudSprite("Panel1,3.png"));
 
-	_panelsTwo.push_back(new HudSprite("tmpPanel0.png"));
-	_panelsTwo.push_back(new HudSprite("tempMenu.png"));
-	_panelsTwo.push_back(new HudSprite("tmpPanel1.png"));
+	_panelsTwo.push_back(new HudSprite("Panel2,1.png"));
+	_panelsTwo.push_back(new HudSprite("Panel2,2.png"));
+	_panelsTwo.push_back(new HudSprite("Panel2,3.png"));
 
-	_panelsThree.push_back(new HudSprite("tmpPanel1.png"));
-	_panelsThree.push_back(new HudSprite("tmpPanel0.png"));
-	_panelsThree.push_back(new HudSprite("tmpPanel1.png"));
-	_panelsThree.push_back(new HudSprite("tmpPanel0.png"));
-	_panelsThree.push_back(new HudSprite("tmpPanel1.png"));
+	_panelsThree.push_back(new HudSprite("Panel3,1.png"));
+	_panelsThree.push_back(new HudSprite("Panel3,2.png"));
 
-	_panelsFour.push_back(new HudSprite("tmpPanel0.png"));
-	_panelsFour.push_back(new HudSprite("tmpPanel1.png"));
-	_panelsFour.push_back(new HudSprite("tempMenu.png"));
-	_panelsFour.push_back(new HudSprite("tmpPanel0.png"));
+	_panelsFour.push_back(new HudSprite("Panel4,1.png"));
+	_panelsFour.push_back(new HudSprite("Panel4,2.png"));
+	_panelsFour.push_back(new HudSprite("Panel4,3.png"));
+	_panelsFour.push_back(new HudSprite("Panel4,4.png"));
 }
 
 int StoryPanelHandler::GetSize(int _storyPart) {
