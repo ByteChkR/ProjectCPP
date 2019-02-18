@@ -45,4 +45,12 @@
     <string>7L25PLeftCoin1.pxml</string>
     <string>7L25PRightCoin1.pxml</string>
   </PartSequence>
+  <genOffset>74</genOffset>
+  <xCurvature>50</xCurvature>
+  <xCurvatureSmoothness>2</xCurvatureSmoothness>
+  <heightMapTiling>1</heightMapTiling>
+  <heightMapSpeed>0</heightMapSpeed>
+  <heightMapMaxHeight>10</heightMapMaxHeight>
+  <heightMapSamplingWidth>8</heightMapSamplingWidth>
+  <xMoveTiling>100</xMoveTiling>
 </Map>

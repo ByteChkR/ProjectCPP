@@ -4,7 +4,7 @@
   <DefaultPartsFolder>.\parts\</DefaultPartsFolder>
   <HeightMap>9</HeightMap>
   <GroundMap>8</GroundMap>
-  <HorizonMap>2</HorizonMap>
+  <HorizonMap>3</HorizonMap>
   <biomeCount>2</biomeCount>
   <isRaw>false</isRaw>
 </editorConfig>
