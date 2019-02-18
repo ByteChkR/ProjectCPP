@@ -1,4 +1,4 @@
 heightTexture = "height.png"
-map = "test.txt"
+map = "map1.txt"
 ground = "backg.png"
 mapGround = "ground2.png"

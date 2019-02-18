@@ -43,15 +43,7 @@ void LevelManager::ChangeLevel(int index)
 
 	_currentLevel = new Level(config::MGE_MAP_PATH+_maps[_curLevel]);
 
-	if (_curLevel < (int)_backgroundTextures.size()-1)
-	{
-		// cahnge background texture
-	}
 
-	if (_curLevel < (int)_groundTextures.size()-1)
-	{
-		// cahnge ground texture
-	}
 
 }
 

@@ -1,5 +1,5 @@
 local scripts = {}
-local meta = {["name"] = "1Bhouse0", ["objPath"] = "mge/models/cube_smooth.obj", ["specular"]  = "sp_runicfloor.png", ["texture"] = "runicfloor.png", ["emissive"] = "em_runicfloor.png", ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0 }
+local meta = {["name"] = "1Bhouse0", ["objPath"] = "mge/models/1_CityB_NewHouse_v1.obj", ["specular"]  = "black.png", ["texture"] = "red.png", ["emissive"] = "black.png", ["posX"] = -2, ["posY"] = -0.8, ["posZ"] = 0 }
 collider = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
 function AttachedScripts()
 	return scripts

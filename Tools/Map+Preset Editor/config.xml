@@ -2,7 +2,7 @@
 <editorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <EnginePath>..\..\Game\_vs2015\release_dynamic_exe\mge.exe</EnginePath>
   <DefaultPartsFolder>.\parts\</DefaultPartsFolder>
-  <HeightMap>0</HeightMap>
+  <HeightMap>9</HeightMap>
   <GroundMap>8</GroundMap>
   <HorizonMap>3</HorizonMap>
   <biomeCount>2</biomeCount>
