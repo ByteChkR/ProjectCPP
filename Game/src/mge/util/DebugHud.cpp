@@ -27,8 +27,8 @@ DebugHud::~DebugHud()
 
 void DebugHud::_organizeHud()
 {
-	_debugBox->sprite.setPosition(0, 0);
-	_debugText->_text.setPosition(10, 10);
+	_debugBox->sprite.setPosition(100, 100);
+	_debugText->_text.setPosition(25, 75);
 
 }
 

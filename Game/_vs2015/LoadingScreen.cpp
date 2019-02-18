@@ -15,7 +15,7 @@ LoadingScreen::LoadingScreen(sf::RenderWindow *aWindow) {
 }
 
 void LoadingScreen::OrganizeScreen() {
-
+	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x/2, _background->sprite.getTexture()->getSize().y / 2);
 }
 
 void LoadingScreen::Update() {

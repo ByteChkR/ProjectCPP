@@ -28,6 +28,8 @@ Menu::Menu(sf::RenderWindow *aWindow) : _window(aWindow)
 
 void Menu::_organizeMenu() 
 {
+	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
+
 	_playText->_text.setString("PLAY");
 	_playBox->sprite.setPosition(100, 100);
 	_playText->_text.setPosition(_playBox->sprite.getPosition());
