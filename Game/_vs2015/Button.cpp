@@ -38,6 +38,7 @@ void Button::Update()
 			OnClick();
 			_clicked = false;
 		}
+		else if (_clicked == false && !sf::Mouse::isButtonPressed(sf::Mouse::Button(0))) _clicked = true;
 	}
 	else if(_clicked == false)
 	{

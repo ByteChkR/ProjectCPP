@@ -52,6 +52,7 @@ void StoryPanel::Reset() {
 	if (!_isResetted) {
 		_storyPart = 0;
 		_part = 0;
+		_maxPart = StoryPanelHandler::instance->GetSize(_storyPart);
 		_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart, _part);
 		_isResetted = true;
 	}
