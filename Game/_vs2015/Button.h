@@ -9,7 +9,10 @@ public:
 	Button(sf::RenderWindow *aWindow,sf::Sprite _buttonSprite);
 
 	void SetPosition(float x, float y);
+	void SetPosition(const sf::Vector2f _pos);
 	void Update();
+
+	bool scaled = false;
 
 private:
 	int _width;

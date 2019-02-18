@@ -25,6 +25,7 @@ GameOverScreen::GameOverScreen(sf::RenderWindow *aWindow){
 void GameOverScreen::OrganizeScreen(){
 	_retryText->_text.setString("Retry");
 	_retryButtonBox->sprite.setPosition(200, 200);
+	_retryButtonBox->sprite.setPosition(200, 200);
 	_retryButton->SetPosition(200, 200);
 	_retryText->_text.setPosition(200, 200);
 

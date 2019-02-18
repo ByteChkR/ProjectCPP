@@ -18,6 +18,8 @@ class StoryPanelHandler
 	private:
 		std::vector<HudSprite*> _panelsOne;
 		std::vector<HudSprite*> _panelsTwo;
+		std::vector<HudSprite*> _panelsThree;
+		std::vector<HudSprite*> _panelsFour;
 		void InitializePanels();
 };
 

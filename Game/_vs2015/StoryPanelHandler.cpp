@@ -12,7 +12,7 @@ StoryPanelHandler::StoryPanelHandler(){
 
 int StoryPanelHandler::GetTotalStoryParts()
 {
-	return 1;							//starts counting from 0
+	return 3;							//starts counting from 0
 }
 
 HudSprite* StoryPanelHandler::GetPanelAt(int _storyPart, int _part){
@@ -21,6 +21,12 @@ HudSprite* StoryPanelHandler::GetPanelAt(int _storyPart, int _part){
 	}
 	else if(_storyPart == 1){
 		return _panelsTwo[_part];
+	}
+	else if(_storyPart == 2){
+		return _panelsThree[_part];
+	}
+	else if (_storyPart == 3) {
+		return _panelsFour[_part];
 	}
 	return nullptr;
 }
@@ -33,6 +39,17 @@ void StoryPanelHandler::InitializePanels(){
 	_panelsTwo.push_back(new HudSprite("tmpPanel0.png"));
 	_panelsTwo.push_back(new HudSprite("tempMenu.png"));
 	_panelsTwo.push_back(new HudSprite("tmpPanel1.png"));
+
+	_panelsThree.push_back(new HudSprite("tmpPanel1.png"));
+	_panelsThree.push_back(new HudSprite("tmpPanel0.png"));
+	_panelsThree.push_back(new HudSprite("tmpPanel1.png"));
+	_panelsThree.push_back(new HudSprite("tmpPanel0.png"));
+	_panelsThree.push_back(new HudSprite("tmpPanel1.png"));
+
+	_panelsFour.push_back(new HudSprite("tmpPanel0.png"));
+	_panelsFour.push_back(new HudSprite("tmpPanel1.png"));
+	_panelsFour.push_back(new HudSprite("tempMenu.png"));
+	_panelsFour.push_back(new HudSprite("tmpPanel0.png"));
 }
 
 int StoryPanelHandler::GetSize(int _storyPart) {
@@ -41,6 +58,12 @@ int StoryPanelHandler::GetSize(int _storyPart) {
 	}
 	else if(_storyPart == 1){
 		return _panelsTwo.size();
+	}
+	else if(_storyPart == 2){
+		return _panelsThree.size();
+	}
+	else if (_storyPart == 3) {
+		return _panelsFour.size();
 	}
 	return 0;
 }

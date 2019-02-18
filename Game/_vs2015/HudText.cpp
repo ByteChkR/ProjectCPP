@@ -11,7 +11,6 @@ HudText::HudText(std::string filename, int fontSize, sf::Color color) : _font(),
 		std::cout << "Could not load font, exiting..." << std::endl;
 		return;
 	}
-
 	_text.setString("");
 	_text.setFont(_font);
 	_text.setCharacterSize(fontSize);
