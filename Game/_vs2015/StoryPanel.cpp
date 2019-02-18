@@ -11,6 +11,7 @@ StoryPanel::StoryPanel(sf::RenderWindow *aWindow)
 	_window = aWindow;
 	_maxPart = StoryPanelHandler::instance->GetSize(_storyPart);
 	_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart,_part);
+	_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x/2, _currentPanel->sprite.getTexture()->getSize().y/2);
 	_nextButtonBox = new HudSprite("HudBox.png");
 	_nextText = new HudText();
 	_nextButton = new NextButton(_window, _nextButtonBox->sprite, this);
@@ -29,6 +30,7 @@ void StoryPanel::NextPanel()
 	if (_part < _maxPart - 1) { 
 		++_part; 
 		_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart, _part);
+		_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x / 2, _currentPanel->sprite.getTexture()->getSize().y / 2);
 	}
 	else if(_storyPart == _storyParts){
 		GameStateManager::instance->_state = GameStateManager::StateWin;
@@ -45,6 +47,7 @@ void StoryPanel::NextStoryPart()
 		++_storyPart;
 		_maxPart = StoryPanelHandler::instance->GetSize(_storyPart);
 		_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart, _part);
+		_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x / 2, _currentPanel->sprite.getTexture()->getSize().y / 2);
 	}
 }
 
