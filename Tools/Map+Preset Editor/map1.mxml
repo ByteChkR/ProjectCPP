@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Map xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <PartSize>25</PartSize>
-  <LaneCount>7</LaneCount>
+  <PartSize>10</PartSize>
+  <LaneCount>10</LaneCount>
   <RandomizePartOrder>0</RandomizePartOrder>
   <LaneSteps>
     <int>3</int>
@@ -11,25 +11,35 @@
     <int>3</int>
     <int>3</int>
     <int>3</int>
+    <int>3</int>
+    <int>3</int>
+    <int>3</int>
   </LaneSteps>
   <PartSequence>
-    <string>7L25PDivider.pxml</string>
-    <string>7L25PDivider.pxml</string>
-    <string>7L25PDivider.pxml</string>
-    <string>7L25PDivider.pxml</string>
-    <string>7L25PDivider.pxml</string>
-    <string>7L25PDivider.pxml</string>
-    <string>7L25PAllFree.pxml</string>
-    <string>7L25PAllFree.pxml</string>
-    <string>7L25PAllFree.pxml</string>
+    <string>test.pxml</string>
+    <string>10x10House0.pxml</string>
+    <string>test.pxml</string>
+    <string>10x10House1.pxml</string>
+    <string>test.pxml</string>
+    <string>10x10House2.pxml</string>
+    <string>test.pxml</string>
+    <string>10x10House3.pxml</string>
+    <string>test.pxml</string>
+    <string>10x10House4.pxml</string>
+    <string>test.pxml</string>
+    <string>10x10House5.pxml</string>
+    <string>test.pxml</string>
+    <string>10x10House6.pxml</string>
+    <string>test.pxml</string>
+    <string>10x10House7.pxml</string>
     <string>endoflevel.pxml</string>
   </PartSequence>
-  <genOffset>74</genOffset>
+  <genOffset>75</genOffset>
   <xCurvature>50</xCurvature>
   <xCurvatureSmoothness>2</xCurvatureSmoothness>
   <heightMapTiling>1</heightMapTiling>
   <heightMapSpeed>0</heightMapSpeed>
-  <heightMapMaxHeight>10</heightMapMaxHeight>
+  <heightMapMaxHeight>0</heightMapMaxHeight>
   <heightMapSamplingWidth>8</heightMapSamplingWidth>
   <xMoveTiling>100</xMoveTiling>
-</Map>
+</Map>>
