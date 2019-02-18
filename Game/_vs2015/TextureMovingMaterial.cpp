@@ -33,7 +33,6 @@ GLint TextureMovingMaterial::_aUV = 0;
 GLLight TextureMovingMaterial::_lightLocations[8];
 GLint TextureMovingMaterial::_lightCount = 0;
 GLint TextureMovingMaterial::_shininess = 0;
-GLint TextureMovingMaterial::_steps = 0;
 GLint TextureMovingMaterial::_time = 0;
 GLint TextureMovingMaterial::_heightTexID = 0;
 GLint TextureMovingMaterial::_maxHeight = 0;
@@ -56,12 +55,11 @@ GLint TextureMovingMaterial::_shadowLength = 0;
 GLint TextureMovingMaterial::_shadowSize = 0;
 
 
-TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
+TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
 	_diffuseTexture = pDiffuseTexture;
 	_emmissiveTexture = emmissiveTexture;
 	_specularTexture = specularTexture;
 	this->shininess = shininess;
-	this->steps = steps;
 	blend = colorTextureBlending;
 	blendingSoftness = blendSmoothing;
 	colorTiling = colorTilin;
@@ -100,10 +98,9 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_uEmmissiveTexture = _shader->getUniformLocation("emissiveTexture");
 		_lightCount = _shader->getUniformLocation("lightCount");
 		_shininess = _shader->getUniformLocation("shininess");
-		_steps = _shader->getUniformLocation("steps");
 		_maxXOff = _shader->getUniformLocation("maxXOffset");
 		_xOffsetSmootness = _shader->getUniformLocation("xOffsetSmoothness");
-
+		_xMoveTiling = _shader->getUniformLocation("xMoveTiling");
 		//Light Locations
 		for (size_t i = 0; i < 8; i++)
 		{
@@ -216,7 +213,7 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 	glUniform1f(_maxXOff, TextureMaterial::maxXOff);
 
 	glUniform1f(_shininess, shininess);
-	glUniform1i(_steps, steps);
+
 
 	glUniform1f(_time, AbstractGame::instance->GetTimeSinceStartup());
 

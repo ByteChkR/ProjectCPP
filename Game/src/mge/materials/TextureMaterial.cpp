@@ -18,10 +18,10 @@ ShaderProgram* TextureMaterial::_shader = NULL;
 
 float TextureMaterial::heightmapTiling = 1;
 float TextureMaterial::heightmapSpeed = 0.0;
-float TextureMaterial::maxXOff = 0;
-float TextureMaterial::xOffsetSmootness = 5;
+float TextureMaterial::maxXOff = 50;
+float TextureMaterial::xOffsetSmootness = 3;
 float TextureMaterial::maxHeight = 10;
-float TextureMaterial::genOffset = 50;
+float TextureMaterial::genOffset = 100;
 float TextureMaterial::width = 8;
 float TextureMaterial::xMoveTiling = 100;
 Texture* TextureMaterial::_heightMap = nullptr;
@@ -43,7 +43,6 @@ GLint TextureMaterial::_aUV = 0;
 GLLight TextureMaterial::_lightLocations[8];
 GLint TextureMaterial::_lightCount = 0;
 GLint TextureMaterial::_shininess = 0;
-GLint TextureMaterial::_steps = 0;
 GLint TextureMaterial::_time = 0;
 GLint TextureMaterial::_heightTexID = 0;
 GLint TextureMaterial::_maxHeight = 0;
@@ -60,13 +59,11 @@ GLint TextureMaterial::_colorCount = 0;
 GLint TextureMaterial::_colorTiling = 0;
 
 
-TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
+TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
 	_emmissiveTexture = emmissiveTexture;
 	_specularTexture = specularTexture;
 	if (heightMap != nullptr)_heightMap = heightMap;
-	maxXOff = 50;
 	this->shininess = shininess;
-	this->steps = steps;
 	blend = colorTextureBlending;
 	blendingSoftness = blendSmoothing;
 	colorTiling = colorTilin;
@@ -104,7 +101,6 @@ void TextureMaterial::_lazyInitializeShader() {
 
 		_lightCount = _shader->getUniformLocation("lightCount");
 		_shininess = _shader->getUniformLocation("shininess");
-		_steps = _shader->getUniformLocation("steps");
 		_maxXOff = _shader->getUniformLocation("maxXOffset");
 		_xOffsetSmootness = _shader->getUniformLocation("xOffsetSmoothness");
 		
@@ -178,9 +174,9 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	//tell the shader the texture slot for the diffuse texture is slot 0
 	glUniform1i(_uDiffuseTexture, 0);
 
-	glUniform1f(_genOffset, genOffset);
-	glUniform1f(_width, width);
-	glUniform1f(_xMoveTiling, xMoveTiling);
+	glUniform1f(_genOffset, TextureMaterial::genOffset);
+	glUniform1f(_width, TextureMaterial::width);
+	glUniform1f(_xMoveTiling, TextureMaterial::xMoveTiling);
 	if (_heightMap != nullptr)
 	{
 		//setup texture slot 0
@@ -190,7 +186,7 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 		//tell the shader the texture slot for the diffuse texture is slot 0
 		glUniform1i(_heightTexID, 1);
 
-		glUniform1f(_maxHeight, maxHeight);
+		glUniform1f(_maxHeight, TextureMaterial::maxHeight);
 	}
 
 	if (_emmissiveTexture != nullptr)
@@ -212,11 +208,11 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
 	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
 
-	glUniform1f(_xOffsetSmootness, xOffsetSmootness);
-	glUniform1f(_maxXOff, maxXOff);
+	glUniform1f(_xOffsetSmootness, TextureMaterial::xOffsetSmootness);
+	glUniform1f(_maxXOff, TextureMaterial::maxXOff);
+
 
 	glUniform1f(_shininess, shininess);
-	glUniform1i(_steps, steps);
 
 	glUniform1f(_time, AbstractGame::instance->GetTimeSinceStartup());
 

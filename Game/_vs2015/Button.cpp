@@ -10,7 +10,7 @@ Button::Button(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite): _window(aWi
 
 }
 
-void Button::SetPosition(int x, int y) 
+void Button::SetPosition(float x, float y) 
 {
 	_position.x = x;
 	_position.y = y;

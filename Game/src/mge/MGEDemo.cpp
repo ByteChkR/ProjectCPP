@@ -103,8 +103,8 @@ void MGEDemo::_initializeScene()
 	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
 	//create some materials to display the cube, the plane and the light
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
-	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(planetTexture, black, black, 2, 10, 1, 5, 2);
-	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 10, 1, 5, 2);
+	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(planetTexture, black, black, 2, 1, 5, 2);
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 1, 5, 2);
 
 
 	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 4);

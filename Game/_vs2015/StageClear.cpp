@@ -1,6 +1,6 @@
 #include "../_vs2015/RetryButton.h"
 #include "../_vs2015/HudSprite.h"
-#include "../_vs2015/HudText.h""
+#include "../_vs2015/HudText.h"
 #include "StageClear.h"
 #include "NextStageButton.h"
 #include "MenuButton.h"

@@ -35,7 +35,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 
 	std::string s;
 	file.seekg(0, std::ios::end);
-	s.reserve(file.tellg());
+	s.reserve((int)file.tellg());
 	file.seekg(0, std::ios::beg);
 
 	s.assign(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
