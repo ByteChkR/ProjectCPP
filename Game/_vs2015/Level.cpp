@@ -112,7 +112,140 @@ Level::Level(std::string levelLuaFile)
 
 		mapGround = Texture::load(config::MGE_TEXTURE_PATH + mbg);
 	}
+
+	lua_getglobal(L, "genOffset");
+	double go;
+	/*
 	
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetDouble(L, &go))
+	{
+		std::cout << "Error parsing Generation offset from map file. Default = 75\n";
+		
+
+		TextureMaterial::genOffset = 75;
+	}
+	else
+	{
+		TextureMaterial::genOffset = (float)go;
+	}
+
+	lua_getglobal(L, "xCurvature");
+	double xCurv;
+	/*
+
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetDouble(L, &xCurv))
+	{
+		std::cout << "Error parsing xCurvature from map file. Default = 50\n";
+		TextureMaterial::maxXOff = 50;
+
+	}
+	else
+	{
+		TextureMaterial::maxXOff = (float)xCurv;
+		
+	}
+
+	lua_getglobal(L, "xCurvatureSmoothness");
+	double xCurvSmooth;
+	/*
+
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetDouble(L, &xCurvSmooth))
+	{
+		std::cout << "Error parsing xCurvatureSmoothness from map file. Default = 2\n";
+
+		TextureMaterial::xOffsetSmootness = 2;
+	}
+	else
+	{
+
+		TextureMaterial::xOffsetSmootness = (float)xCurvSmooth;
+	}
+
+	lua_getglobal(L, "heightMapTiling");
+	double hmTiling;
+	/*
+
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetDouble(L, &hmTiling))
+	{
+		std::cout << "Error parsing HeightMapTiling from map file. Default = 1\n";
+
+		TextureMaterial::heightmapTiling = 1;
+
+	}
+	else
+	{
+		TextureMaterial::heightmapTiling = (float)hmTiling;
+	}
+
+	lua_getglobal(L, "heightMapSpeed");
+	double hmSpeed;
+	/*
+
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetDouble(L, &hmSpeed))
+	{
+		std::cout << "Error parsing heightMapSpeed from map file. Default = 0\n";
+
+		TextureMaterial::heightmapSpeed = 0;
+
+	}
+	else
+	{
+		TextureMaterial::heightmapSpeed = (float)hmSpeed;
+	}
+
+	lua_getglobal(L, "heightMapMaxHeight");
+	double hmHeight;
+	/*
+
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetDouble(L, &hmHeight))
+	{
+		std::cout << "Error parsing heightMapMaxHeight from map file. Default = 10\n";
+
+		TextureMaterial::maxHeight = 10;
+	}
+	else
+	{
+		TextureMaterial::maxHeight = (float)hmHeight;
+	}
+
+	lua_getglobal(L, "heightMapSamplingWidth");
+	double hmSW;
+	/*
+
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetDouble(L, &hmSW))
+	{
+		std::cout << "Error parsing Height Sampling Width from map file. Default = 8\n";
+		
+
+		TextureMaterial::width = 8;
+	}
+	else
+	{
+		TextureMaterial::width = (float)hmSW;
+	}
+
+	lua_getglobal(L, "xMoveTiling");
+	double xMT;
+	/*
+
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetDouble(L, &xMT))
+	{
+		std::cout << "Error parsing xMoveTiling from map file. Default = 100\n";
+		TextureMaterial::xMoveTiling = 100;
+	}
+	else
+	{
+		TextureMaterial::xMoveTiling = (float)xMT;
+	}
+
 	//Insert logic for data manager here.
 	//I Am Supplying with Textures, you have gameobjects.
 	if (DataManager::instance->GetBackground()->getMaterial() != nullptr && DataManager::instance->GetGround()->getMaterial() != nullptr)
