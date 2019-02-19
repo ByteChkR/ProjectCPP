@@ -117,17 +117,20 @@ void MapBuilder::ReloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 	std::vector<Lane*> lans = gen->GetAllLanes();
 	*list = PrepareMap(lans, lans[0]->GetSegments().size());
-	int totBiomes = BiomeHandler::instance->GetTotalBiomes();
-	std::vector<bool> usedBiomes = std::vector<bool>(totBiomes);
-
-	for (size_t j = 0; j < gen->GetPartCount(); j++)
+	if (BiomeHandler::instance != nullptr)
 	{
-		usedBiomes[gen->GetBiomeAt(j)] = true;
-	}
+		int totBiomes = BiomeHandler::instance->GetTotalBiomes();
+		std::vector<bool> usedBiomes = std::vector<bool>(totBiomes);
 
-	for (size_t i = 0; i < usedBiomes.size(); i++)
-	{
-		if (!usedBiomes[i])BiomeHandler::instance->UnloadBiome(i);
+		for (size_t j = 0; j < gen->GetPartCount(); j++)
+		{
+			usedBiomes[gen->GetBiomeAt(j)] = true;
+		}
+
+		for (size_t i = 0; i < usedBiomes.size(); i++)
+		{
+			if (!usedBiomes[i])BiomeHandler::instance->UnloadBiome(i);
+		}
 	}
 }
 

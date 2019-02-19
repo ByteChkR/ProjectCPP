@@ -29,46 +29,16 @@
  */
 int main(int argc, char *argv[])
 {
-	std::string filename = "maplist.lua";
-	LevelManager* lm = nullptr;
-	bool isRaw;
-	std::string test = argv[0];
-	GameStateManager::GameState gs = GameStateManager::StateMenu;
-
-	if (argc == 2)
-	{
-		isRaw = false;
-		gs = GameStateManager::StateGame;
-		filename = argv[1];
-	}
-	else if (argc > 2)
-	{
-		filename = argv[1];
-		isRaw = argv[2][0] == 'r';
-
-		gs = GameStateManager::StateGame;
-	}
-	else
-	{
-		lm = new LevelManager(filename);
-
-	}
-	AudioManager * audioManager = new AudioManager();
-	GameStateManager * gameStateManager = new GameStateManager(gs);
-	StoryPanelHandler * storyPanelHandler = new StoryPanelHandler();
-
-	DataManager * dataManager = new DataManager();
+	
 	//int t;
 	//std::cin >> t;
 
 	std::cout << "Starting Game" << std::endl;
 
-	AbstractGame* game = new MGEDemo();
+	AbstractGame* game = new MGEDemo(argc, argv);
 
 	game->initialize();
 
-	if(lm != nullptr)lm->ChangeLevel(0);
-	else Level* level = isRaw?new Level(true, filename):new Level(config::MGE_MAP_PATH+filename);
 
 	game->run();
 

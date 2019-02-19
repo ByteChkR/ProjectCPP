@@ -18,6 +18,10 @@
 #include "mge\materials\AnimationMaterial.hpp"
 #include "../_vs2015/TextureMovingMaterial.h"
 #include "../_vs2015/Material.hpp"
+#include "mge/util/AudioManager.h"
+#include "mge/util/DataManager.h"
+#include "../_vs2015/StoryPanelHandler.h"
+#include "../_vs2015/LevelManager.h"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -43,9 +47,14 @@
 #include "mge/util/DataManager.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
-MGEDemo::MGEDemo() :AbstractGame(), _hud(0)
+MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
 {
-
+	this->argc = argc;
+	this->argv = std::vector<std::string>();
+	for (size_t i = 0; i < argc; i++)
+	{
+		this->argv.push_back(argv[i]);
+	}
 	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
 
 }
@@ -54,23 +63,46 @@ void MGEDemo::initialize() {
 	//setup the core part
 	AbstractGame::initialize();
 
-	//setup the custom part so we can display some text
-	std::cout << "Initializing HUD" << std::endl;
-	_hud = new DebugHud(_window);
-	_menu = new Menu(_window);
-	_storyPanel = new StoryPanel(_window);
-	_gameOverScreen = new GameOverScreen(_window);
-	_stageClear = new StageClear(_window);
-	_winScreen = new WinScreen(_window);
-	_loadingScreen = new LoadingScreen(_window);
-
-	std::cout << "HUD initialized." << std::endl << std::endl;
+	
 }
 
-//build the game _world
-void MGEDemo::_initializeScene()
+void MGEDemo::_initializeResources()
 {
+
+
+#pragma region GameSetup
 	//MESHES
+
+
+	std::string filename = "maplist.lua";
+	LevelManager* lm = nullptr;
+	bool isRaw;
+	std::string test = argv[0];
+	GameStateManager::GameState gs = GameStateManager::StateMenu;
+
+	if (argc == 2)
+	{
+		isRaw = false;
+		gs = GameStateManager::StateGame;
+		filename = argv[1];
+	}
+	else if (argc > 2)
+	{
+		filename = argv[1];
+		isRaw = argv[2][0] == 'r';
+
+		gs = GameStateManager::StateGame;
+	}
+	else
+	{
+		lm = new LevelManager(filename);
+
+	}
+
+	_loadingScreen->Update();
+
+	if (lm != nullptr)lm->ChangeLevel(0);
+	else Level* level = isRaw ? new Level(true, filename) : new Level(config::MGE_MAP_PATH + filename);
 
 	Particle* particle = new Particle();
 	particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
@@ -83,47 +115,40 @@ void MGEDemo::_initializeScene()
 	//load a bunch of meshes we will be using throughout this demo
 	//each mesh only has to be loaded once, but can be used multiple times:
 	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
 	Mesh* cubeMeshF = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
-	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
 	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 
+	_loadingScreen->Update();
 	//MATERIALS
 	Material* m = new Material();
 	m->diffuse = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
 	m->normal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png");
 	m->specular = Texture::load(config::MGE_TEXTURE_PATH + "testSpecular.png");
+	_loadingScreen->Update();
 	m->shininess = 1;
 	m->maxHeight = 0;
-	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png");
 	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
 	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
 	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
 	Texture* white = Texture::load(config::MGE_TEXTURE_PATH + "white.png");
-	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
+	_loadingScreen->Update();
 	//create some materials to display the cube, the plane and the light
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
-	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(planetTexture, black, black, 2, 1, 5, 2);
-	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 1, 5, 2);
 
-
-	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 4);
-	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png"), 4);
+	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 4);;
 	//SCENE SETUP
 
-   //add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 1, 0));
-	camera->rotate(glm::radians(-15.0f), glm::vec3(1, 0, 0));
+		//Biome Setup
+	std::vector<Biome*> biomes = std::vector<Biome*>();
+	std::vector<std::string> biomeFiles = FileLoader::GetFilesFromFolder(config::MGE_BIOME_PATH);
+	_loadingScreen->Update();
+	for (size_t i = 0; i < biomeFiles.size(); i++)
+	{
+		biomes.push_back(new Biome(biomeFiles[i]));
 
-	_world->setMainCamera(camera);
-
-	//add the floor
-	GameObject* plane = new GameObject("plane", glm::vec3(-65, -1, 0));
-	//plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
-	plane->scale(glm::vec3(150, 150, 150));
-	plane->setMesh(planeMeshDefault);
-	plane->setMaterial(runicPlaneMaterial);
-	_world->add(plane);
+		_loadingScreen->Update();
+	}
+	new BiomeHandler(biomes);
 
 	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
 
@@ -137,19 +162,11 @@ void MGEDemo::_initializeScene()
 
 
 	//add a spinning sphere
-	GameObject* sphere = new GameObject("sphere", glm::vec3(0, 0, 0));
-	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1)));
-	sphere->setMesh(sphereMeshS);
-	sphere->setMaterial(runicStoneMaterial);
-
-	sphere->addBehaviour(new PlayerController());
-	_world->add(sphere);
-	sphere->add(camera);
-	camera->setLocalPosition(glm::vec3(0, 5, 4.5));
+	
 
 	GameObject * playerAnimation = new GameObject("playerAnimation", glm::vec3(0, 5, 0));
 
-	playerAnimation->setMesh(planeMeshDefault);
+	playerAnimation->setMesh(testQuad);
 	playerAnimation->setMaterial(runicMihai);
 	playerAnimation->scale(glm::vec3(1, 1, 1));
 	playerAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
@@ -162,13 +179,7 @@ void MGEDemo::_initializeScene()
 	caster->NextFrame();
 
 
-	GameObject * BackGroundImage = new GameObject("background image", glm::vec3(0, 0, -1000));
 
-	BackGroundImage->setMesh(testQuad);
-	BackGroundImage->setMaterial(backGroundMaterial);
-	BackGroundImage->scale(glm::vec3(1920, 1080, 1));
-	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
-	_world->add(BackGroundImage);
 
 	//background->setLocalPosition(glm::vec3(0, 7, 0));
 
@@ -186,26 +197,115 @@ void MGEDemo::_initializeScene()
 	light->setMaterial(lightMaterial);
 	light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
-	std::vector<Biome*> biomes = std::vector<Biome*>();
-	std::vector<std::string> biomeFiles = FileLoader::GetFilesFromFolder(config::MGE_BIOME_PATH);
-	for (size_t i = 0; i < biomeFiles.size(); i++)
-	{
-		biomes.push_back(new Biome(biomeFiles[i]));
-	}
-	new BiomeHandler(biomes);
+
+
+
 	GameObject* cont = MapBuilder::instance->GetContainer();
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
 	particleEm->Start();
 
+#pragma endregion
+
+	
+}
+
+//build the game _world
+void MGEDemo::_initializeScene()
+{
+	//HUD Setup
+
+#pragma region First Setup
+
+
+
+	DataManager * dataManager = new DataManager();
+
+	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
+
+
+	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png"), 4);
+	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
+	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
+	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
+
+	//add camera first (it will be updated last)
+	Camera* camera = new Camera("camera", glm::vec3(0, 1, 0));
+	camera->rotate(glm::radians(-15.0f), glm::vec3(1, 0, 0));
+
+	_world->setMainCamera(camera);
+
+
+	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png");
+	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
+	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(planetTexture, black, black, 2, 1, 5, 2);
+
+
+	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
+	//add the floor
+	GameObject* plane = new GameObject("plane", glm::vec3(-65, -1, 0));
+	//plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
+	plane->scale(glm::vec3(150, 150, 150));
+	plane->setMesh(planeMeshDefault);
+	plane->setMaterial(runicPlaneMaterial);
+	_world->add(plane);
+
+	GameObject * BackGroundImage = new GameObject("background image", glm::vec3(0, 0, -1000));
+
+	BackGroundImage->setMesh(testQuad);
+	BackGroundImage->setMaterial(backGroundMaterial);
+	BackGroundImage->scale(glm::vec3(1920, 1080, 1));
+	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
+	_world->add(BackGroundImage);
+
+	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 1, 5, 2);
+	GameObject* sphere = new GameObject("sphere", glm::vec3(0, 0, 0));
+	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1)));
+	sphere->setMesh(sphereMeshS);
+	sphere->setMaterial(runicStoneMaterial);
+
+	sphere->addBehaviour(new PlayerController());
+	_world->add(sphere);
+	sphere->add(camera);
+	camera->setLocalPosition(glm::vec3(0, 5, 4.5));
+
+
 	DataManager::instance->SetPlayer(sphere);
 	DataManager::instance->SetBackground(BackGroundImage);
 	DataManager::instance->SetGround(plane);
 
+
+	GameStateManager * gameStateManager = new GameStateManager(GameStateManager::StateLoad);
+	AudioManager * audioManager = new AudioManager();
+
+
+#pragma endregion
+
+
+	StoryPanelHandler * storyPanelHandler = new StoryPanelHandler();
+
+	//setup the custom part so we can display some text
+	std::cout << "Initializing HUD" << std::endl;
+	_hud = new DebugHud(_window);
+	_menu = new Menu(_window);
+	_storyPanel = new StoryPanel(_window);
+	_gameOverScreen = new GameOverScreen(_window);
+	_stageClear = new StageClear(_window);
+	_winScreen = new WinScreen(_window);
+	_loadingScreen = new LoadingScreen(_window);
+
+	std::cout << "HUD initialized." << std::endl << std::endl;
+
+
+	GameStateManager::instance->_state = GameStateManager::StateLoad;
+
 }
 
 void MGEDemo::_render(int pass) {
+	
 	AbstractGame::_render(pass);
 	if (GameStateManager::instance->_state == GameStateManager::StateGame) _updateHud();
 	else if (GameStateManager::instance->_state == GameStateManager::StateMenu) {
@@ -217,6 +317,16 @@ void MGEDemo::_render(int pass) {
 	else if (GameStateManager::instance->_state == GameStateManager::StateNextStage)_stageClear->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateWin)_winScreen->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateLoad)_loadingScreen->Update();
+	if (_initFrame == 3)
+	{
+		_initFrame = -1;
+		_initializeResources();
+		
+		GameStateManager::instance->_state = GameStateManager::StateMenu;
+		
+	}
+	else if(_initFrame != -1)
+		_initFrame++;
 }
 
 void MGEDemo::_updateHud() {

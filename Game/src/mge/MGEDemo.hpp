@@ -20,7 +20,7 @@ class MGEDemo: public AbstractGame
     //PUBLIC FUNCTIONS
 
 	public:
-		MGEDemo();
+		MGEDemo(int argc, char *argv[]);
 		virtual ~MGEDemo();
 
         //override initialize so we can add a DebugHud
@@ -30,10 +30,13 @@ class MGEDemo: public AbstractGame
 	    //override so we can construct the actual scene
         virtual void _initializeScene();
 
+		void _initializeResources();
 	    //override render to render the hud as well.
 	    virtual void _render(int pass) override;
 
 	private:
+		int argc;
+		std::vector<std::string> argv;
 		DebugHud* _hud;                   //hud display
 		Menu* _menu;
 		StoryPanel* _storyPanel;
@@ -41,6 +44,8 @@ class MGEDemo: public AbstractGame
 		StageClear* _stageClear;
 		WinScreen* _winScreen;
 		LoadingScreen* _loadingScreen;
+
+		int _initFrame = 0;
 
         void _updateHud();
         MGEDemo(const MGEDemo&);
