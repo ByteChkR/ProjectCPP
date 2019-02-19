@@ -5,6 +5,6 @@
   <HeightMap>9</HeightMap>
   <GroundMap>8</GroundMap>
   <HorizonMap>3</HorizonMap>
-  <biomeCount>2</biomeCount>
+  <biomeCount>3</biomeCount>
   <isRaw>false</isRaw>
 </editorConfig>

@@ -1,0 +1,2 @@
+objects = {"none", "2Bhouse0","2Bhouse1","2Bhouse2","2Bhouse3","2Bhouse4","2Bhouse5","2Bhouse6","2Bhouse7"
+, "2Bobstacle0", "2Bobstacle1", "2Bobstacle2", "2Bobstacle3", "2Bobstacle4", "coin", "endoflevel"}

@@ -15,6 +15,7 @@ public:
 	BiomeHandler(std::vector<Biome*> biomes);
 	~BiomeHandler();
 
+	void UnloadBiome(int id);
 	int GetTotalBiomes();
 	int GetTotalInstances();
 	int GetTotalActiveInstances();

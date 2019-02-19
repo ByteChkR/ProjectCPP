@@ -10,6 +10,23 @@ ObjectPool<GameObject*>::ObjectPool(GameObject*  original)
 	_activeBuffer = std::vector<GameObject*>();
 }
 
+
+void ObjectPool<GameObject*>::Unload()
+{
+	for (size_t i = 0; i < _buffer.size(); i++)
+	{
+		if (_buffer[i]->getParent() != nullptr)_buffer[i]->getParent()->remove(_buffer[i]);
+		delete _buffer[i];
+	}
+	_buffer.clear();
+	for (size_t i = 0; i < _activeBuffer.size(); i++)
+	{
+		if (_activeBuffer[i]->getParent() != nullptr)_activeBuffer[i]->getParent()->remove(_activeBuffer[i]);
+		delete _activeBuffer[i];
+	}
+	_activeBuffer.clear();
+}
+
 ObjectPool<GameObject*>::~ObjectPool()
 {
 	_activeBuffer.clear();
@@ -64,6 +81,20 @@ ObjectPool<Particle*>::ObjectPool(Particle*  original)
 	_original = original;
 	_buffer = std::vector<Particle*>();
 	_activeBuffer = std::vector<Particle*>();
+}
+
+void ObjectPool<Particle*>::Unload()
+{
+	for (size_t i = 0; i < _buffer.size(); i++)
+	{
+		delete _buffer[i];
+	}
+	_buffer.clear();
+	for (size_t i = 0; i < _activeBuffer.size(); i++)
+	{
+		delete _activeBuffer[i];
+	}
+	_activeBuffer.clear();
 }
 
 ObjectPool<Particle*>::~ObjectPool()

@@ -45,6 +45,12 @@ int BiomeHandler::GetTotalActiveInstances()
 	return ret;
 }
 
+void BiomeHandler::UnloadBiome(int id)
+{
+	if (id < 0 || id > _biomes.size())return;
+	if (_biomes[id]->GetTotalActiveInstances() != 0)return;
+	_biomes[id]->Unload();
+}
 
 void BiomeHandler::GivePreset(size_t biomeID, size_t index, GameObject* preset) 
 {

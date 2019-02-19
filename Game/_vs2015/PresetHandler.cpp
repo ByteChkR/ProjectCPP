@@ -66,6 +66,14 @@ PresetHandler::PresetHandler(std::vector<GameObject*> gobjs)
 
 }
 
+void PresetHandler::Unload()
+{
+	for (size_t i = 0; i < presets.size(); i++)
+	{
+		presets[i]->Unload();
+	}
+}
+
 int PresetHandler::GetTotalInstances()
 {
 	int count = 0;

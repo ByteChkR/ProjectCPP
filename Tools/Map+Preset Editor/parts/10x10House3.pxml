@@ -3,7 +3,7 @@
   <name>10x10House3.pxml</name>
   <partLength>10</partLength>
   <laneCount>10</laneCount>
-  <biomeID>0</biomeID>
+  <biomeID>2</biomeID>
   <part>
     <ArrayOfInt>
       <int>4</int>

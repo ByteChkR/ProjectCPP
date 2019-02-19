@@ -38,7 +38,7 @@ glm::vec3 DynamicBoxCollider::GetPosition()
 
 DynamicBoxCollider::~DynamicBoxCollider()
 {
-
+	AbstractGame::instance->_manager->UnRegisterDynamic(this);
 }
 
 void DynamicBoxCollider::OnCollision(GameObject* other)

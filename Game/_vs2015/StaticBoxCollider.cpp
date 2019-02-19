@@ -16,6 +16,7 @@ StaticBoxCollider::StaticBoxCollider(glm::vec3 dims) :StaticBoxCollider(dims.x, 
 StaticBoxCollider::~StaticBoxCollider()
 {
 
+	AbstractGame::instance->_manager->UnRegisterCollider(this);
 }
 
 AbstractBehaviour* StaticBoxCollider::Clone()

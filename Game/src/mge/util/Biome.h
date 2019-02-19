@@ -14,6 +14,7 @@ public:
 	Biome(std::string pLuaFile);
 	~Biome();
 
+	void Unload();
 	void GivePreset(size_t index, GameObject* preset);
 	GameObject* TakePreset(size_t index);
 	int GetTotalInstances();
