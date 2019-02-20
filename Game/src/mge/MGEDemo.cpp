@@ -55,7 +55,6 @@ MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
 	{
 		this->argv.push_back(argv[i]);
 	}
-	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
 
 }
 
@@ -71,6 +70,62 @@ void MGEDemo::_initializeResources()
 
 
 #pragma region GameSetup
+
+	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
+
+
+	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png"), 4);
+	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
+	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
+	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
+
+	//add camera first (it will be updated last)
+	
+
+
+	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png");
+	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
+	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(planetTexture, black, black, 2, 1, 5, 2);
+
+
+	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
+	//add the floor
+	GameObject* plane = new GameObject("plane", glm::vec3(-65, -1, 0));
+	//plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
+	plane->scale(glm::vec3(150, 150, 150));
+	plane->setMesh(planeMeshDefault);
+	plane->setMaterial(runicPlaneMaterial);
+	_world->add(plane);
+
+	GameObject * BackGroundImage = new GameObject("background image", glm::vec3(0, 0, -1000));
+
+	BackGroundImage->setMesh(testQuad);
+	BackGroundImage->setMaterial(backGroundMaterial);
+	BackGroundImage->scale(glm::vec3(1920, 1080, 1));
+	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
+	_world->add(BackGroundImage);
+
+	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 1, 5, 2);
+	GameObject* sphere = new GameObject("sphere", glm::vec3(0, 0, 0));
+	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, 0.5)));
+	sphere->setMesh(sphereMeshS);
+	sphere->setMaterial(runicStoneMaterial);
+
+	sphere->addBehaviour(new PlayerController());
+	_world->add(sphere);
+	sphere->add(_world->getMainCamera());
+	_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 4.5));
+
+
+	DataManager::instance->SetPlayer(sphere);
+	DataManager::instance->SetBackground(BackGroundImage);
+	DataManager::instance->SetGround(plane);
+
+
+
+
 	//MESHES
 
 
@@ -116,7 +171,6 @@ void MGEDemo::_initializeResources()
 	//each mesh only has to be loaded once, but can be used multiple times:
 	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
 	Mesh* cubeMeshF = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
-	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 
 	_loadingScreen->Update();
 	//MATERIALS
@@ -127,9 +181,6 @@ void MGEDemo::_initializeResources()
 	_loadingScreen->Update();
 	m->shininess = 1;
 	m->maxHeight = 0;
-	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
-	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
-	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
 	Texture* white = Texture::load(config::MGE_TEXTURE_PATH + "white.png");
 	_loadingScreen->Update();
 	//create some materials to display the cube, the plane and the light
@@ -138,6 +189,7 @@ void MGEDemo::_initializeResources()
 	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 4);;
 	//SCENE SETUP
 
+	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
 		//Biome Setup
 	std::vector<Biome*> biomes = std::vector<Biome*>();
 	std::vector<std::string> biomeFiles = FileLoader::GetFilesFromFolder(config::MGE_BIOME_PATH);
@@ -218,65 +270,14 @@ void MGEDemo::_initializeScene()
 
 #pragma region First Setup
 
-
-
-	DataManager * dataManager = new DataManager();
-
-	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
-
-
-	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png"), 4);
-	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
-	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
-	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
-
-	//add camera first (it will be updated last)
 	Camera* camera = new Camera("camera", glm::vec3(0, 1, 0));
 	camera->rotate(glm::radians(-15.0f), glm::vec3(1, 0, 0));
 
 	_world->setMainCamera(camera);
 
+	DataManager * dataManager = new DataManager();
 
-	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png");
-	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
-	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(planetTexture, black, black, 2, 1, 5, 2);
-
-
-	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
-	//add the floor
-	GameObject* plane = new GameObject("plane", glm::vec3(-65, -1, 0));
-	//plane->addBehaviour(new StaticBoxCollider(1, 0, 1));
-	plane->scale(glm::vec3(150, 150, 150));
-	plane->setMesh(planeMeshDefault);
-	plane->setMaterial(runicPlaneMaterial);
-	_world->add(plane);
-
-	GameObject * BackGroundImage = new GameObject("background image", glm::vec3(0, 0, -1000));
-
-	BackGroundImage->setMesh(testQuad);
-	BackGroundImage->setMaterial(backGroundMaterial);
-	BackGroundImage->scale(glm::vec3(1920, 1080, 1));
-	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
-	_world->add(BackGroundImage);
-
-	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
-
-	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 1, 5, 2);
-	GameObject* sphere = new GameObject("sphere", glm::vec3(0, 0, 0));
-	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, 0.5)));
-	sphere->setMesh(sphereMeshS);
-	sphere->setMaterial(runicStoneMaterial);
-
-	sphere->addBehaviour(new PlayerController());
-	_world->add(sphere);
-	sphere->add(camera);
-	camera->setLocalPosition(glm::vec3(0, 5, 4.5));
-
-
-	DataManager::instance->SetPlayer(sphere);
-	DataManager::instance->SetBackground(BackGroundImage);
-	DataManager::instance->SetGround(plane);
-
+	
 
 	GameStateManager * gameStateManager = new GameStateManager(GameStateManager::StateLoad);
 	AudioManager * audioManager = new AudioManager();
