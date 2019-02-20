@@ -3,7 +3,7 @@
   <EnginePath>..\..\Game\_vs2015\release_dynamic_exe\mge.exe</EnginePath>
   <DefaultPartsFolder>.\parts\</DefaultPartsFolder>
   <HeightMap>15</HeightMap>
-  <GroundMap>14</GroundMap>
+  <GroundMap>13</GroundMap>
   <HorizonMap>6</HorizonMap>
   <biomeCount>3</biomeCount>
   <isRaw>false</isRaw>
