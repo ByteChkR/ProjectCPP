@@ -57,7 +57,7 @@ bool StaticBoxCollider::IsCollision(DynamicBoxCollider* ball)
 	if (pos.y - _height / 2 > ballPos.y + max.y)return false;
 	if (pos.y + _height / 2 < ballPos.y + min.y)return false;
 	if (pos.z - _depth / 2 > ballPos.z + max.z)return false;
-	if (pos.z + _depth / 2 < ballPos.z + max.z)return false;
+	if (pos.z + _depth / 2 < ballPos.z + min.z)return false;
 
 	return true;
 }

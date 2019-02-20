@@ -34,6 +34,7 @@ private:
 	bool _isAPressed;
 	bool _isDPressed;
 	bool _isWPRessed;
+	bool _isBackSwitching;
 	
 
 	void jump();

@@ -263,7 +263,7 @@ void MGEDemo::_initializeScene()
 
 	AbstractMaterial* runicStoneMaterial = new TextureMaterial(rstonetex, emrstonetex, sprstonetex, 2, 1, 5, 2);
 	GameObject* sphere = new GameObject("sphere", glm::vec3(0, 0, 0));
-	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1)));
+	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, 0.5)));
 	sphere->setMesh(sphereMeshS);
 	sphere->setMaterial(runicStoneMaterial);
 

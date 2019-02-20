@@ -13,7 +13,7 @@ PlayerController::PlayerController()
 	_currentLane = 1;
 	_gravity = -1;
 	_gravityWhenGoingDown = -5;
-
+	_isBackSwitching = false;
 	_jumpForce = 0.45f;
 	_velocity = 0;
 	_switchTime = 0.1f;
@@ -68,6 +68,15 @@ void PlayerController::OnCollision(GameObject* other)
 		// particles
 		_coins++;
 	}
+	else if(!_isBackSwitching && _isSwitching) //When In the middle of switching
+	{
+		int lane = _nextLane;
+		_nextLane = _currentLane;
+		_currentLane = lane;
+		_curSwitchTime = _switchTime - _curSwitchTime;
+		_isBackSwitching = true;
+	}
+	else if (_isBackSwitching)return;
 	else
 	{
 
@@ -208,6 +217,10 @@ void PlayerController::handleSwitch(float pTime)
 		if (_curSwitchTime >= _switchTime)
 		{
 			_isSwitching = false;
+			if (_isBackSwitching)
+			{
+				_isBackSwitching = false;
+			}
 			_currentLane = _nextLane;
 			//Set the position of the player to the lane diectly to avoid unpresicion
 			glm::vec3 posWithOwnerY = newLane;
