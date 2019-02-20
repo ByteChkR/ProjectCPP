@@ -16,30 +16,30 @@
     <int>3</int>
   </LaneSteps>
   <PartSequence>
-    <string>test.pxml</string>
-    <string>10x10House0.pxml</string>
-    <string>test.pxml</string>
-    <string>10x10House1.pxml</string>
-    <string>test.pxml</string>
-    <string>10x10House2.pxml</string>
-    <string>test.pxml</string>
-    <string>10x10House3.pxml</string>
-    <string>test.pxml</string>
-    <string>10x10House4.pxml</string>
-    <string>test.pxml</string>
-    <string>10x10House5.pxml</string>
-    <string>test.pxml</string>
-    <string>10x10House6.pxml</string>
-    <string>test.pxml</string>
-    <string>10x10House7.pxml</string>
-    <string>endoflevel.pxml</string>
+    <string>0Btest.pxml</string>
+    <string>0B10x10House0.pxml</string>
+    <string>0Btest.pxml</string>
+    <string>0B10x10House1.pxml</string>
+    <string>0Btest.pxml</string>
+    <string>0B10x10House2.pxml</string>
+    <string>0Btest.pxml</string>
+    <string>0B10x10House3.pxml</string>
+    <string>0Btest.pxml</string>
+    <string>0B10x10House4.pxml</string>
+    <string>0Btest.pxml</string>
+    <string>0B10x10House5.pxml</string>
+    <string>0Btest.pxml</string>
+    <string>0B10x10House6.pxml</string>
+    <string>0Btest.pxml</string>
+    <string>0B10x10House7.pxml</string>
+    <string>0Bendoflevel.pxml</string>
   </PartSequence>
   <genOffset>75</genOffset>
   <xCurvature>50</xCurvature>
   <xCurvatureSmoothness>2</xCurvatureSmoothness>
   <heightMapTiling>1</heightMapTiling>
   <heightMapSpeed>0</heightMapSpeed>
-  <heightMapMaxHeight>0</heightMapMaxHeight>
+  <heightMapMaxHeight>10</heightMapMaxHeight>
   <heightMapSamplingWidth>8</heightMapSamplingWidth>
   <xMoveTiling>100</xMoveTiling>
 </Map>
