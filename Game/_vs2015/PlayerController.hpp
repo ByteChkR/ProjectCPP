@@ -15,6 +15,7 @@ public:
 	virtual AbstractBehaviour* Clone() override;
 	static PlayerController* instance;
 	int GetCoinCount();
+	void SetCurrentLane(int lane);
 private:
 	int _currentLane;
 	int _nextLane;

@@ -9,6 +9,7 @@ PlayerController* PlayerController::instance = nullptr;
 
 PlayerController::PlayerController()
 {
+	
 	_currentLane = 1;
 	_gravity = -1;
 	_gravityWhenGoingDown = -5;
@@ -37,6 +38,17 @@ AbstractBehaviour* PlayerController::Clone()
 PlayerController::~PlayerController()
 {
 
+}
+
+void PlayerController::SetCurrentLane(int lane)
+{
+	_currentLane = lane;
+}
+
+
+int PlayerController::GetCoinCount()
+{
+	return _coins;
 }
 
 void PlayerController::OnCollision(GameObject* other)

@@ -4,6 +4,7 @@
 #include <vector>
 #include "LuaOperations.h"
 #include "mge/config.hpp"
+#include "PlayerController.hpp"
 #include "GameStateManager.h"
 
 LevelManager* LevelManager::instance = nullptr;
@@ -43,6 +44,7 @@ void LevelManager::ChangeLevel(int index)
 
 	_currentLevel = new Level(config::MGE_MAP_PATH+_maps[_curLevel]);
 
+	PlayerController::instance->SetCurrentLane(_currentLevel->GetMap()->GetNumberOfLanes() / 2);
 
 
 }
