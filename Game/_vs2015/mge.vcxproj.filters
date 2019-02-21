@@ -86,6 +86,7 @@
     <ClCompile Include="LoadingScreen.cpp">
       <Filter>NewFolder</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="LoadingScreen.h">
       <Filter>NewFolder</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="NewFolder">

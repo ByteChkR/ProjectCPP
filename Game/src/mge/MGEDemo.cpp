@@ -245,13 +245,13 @@ void MGEDemo::_initializeResources()
 
 	LightParams* params = new LightParams();
 
-	Light* light = new Light("light", glm::vec3(0, 2, 0));
+	Light* light = new Light("light", glm::vec3(0, 1, 0));
 	light->SetParams(*params);
 	light->scale(glm::vec3(0.1f, 0.1f, 0.1f));
 	light->setMesh(cubeMeshF);
 	light->setMaterial(lightMaterial);
 	light->addBehaviour(new KeysBehaviour(25));
-	sphere->add(light);
+	_world->add(light);
 
 
 

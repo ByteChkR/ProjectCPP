@@ -230,6 +230,7 @@
     <ClInclude Include="StoryPanel.h" />
     <ClInclude Include="StoryPanelHandler.h" />
     <ClInclude Include="TextureMovingMaterial.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="WinScreen.h" />
   </ItemGroup>
   <ItemGroup>
@@ -297,6 +298,7 @@
     <ClCompile Include="StoryPanel.cpp" />
     <ClCompile Include="StoryPanelHandler.cpp" />
     <ClCompile Include="TextureMovingMaterial.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WinScreen.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

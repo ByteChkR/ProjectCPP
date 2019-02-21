@@ -3,6 +3,7 @@
 #include "mge/behaviours/AbstractBehaviour.hpp"
 #include "mge/core/GameObject.hpp"
 #include "DynamicBoxCollider.hpp"
+#include "Timer.h"
 #include <iostream>
 
 class PlayerController : public AbstractBehaviour
@@ -17,6 +18,7 @@ public:
 	int GetCoinCount();
 	void SetCurrentLane(int lane);
 private:
+	Timer* _endOfGameTimer;
 	int _currentLane;
 	int _nextLane;
 	float _switchTime;
@@ -36,6 +38,8 @@ private:
 	bool _isWPRessed;
 	bool _isBackSwitching;
 	
+	void OnGameEnd();
+	void OnGameEndTick(float time);
 
 	void jump();
 	void switchLeft();

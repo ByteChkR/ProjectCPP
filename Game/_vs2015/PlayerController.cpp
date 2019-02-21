@@ -4,12 +4,16 @@
 #include "GameStateManager.h"
 #include "MapBuilder.h"
 #include "LevelManager.h"
+#include "mge/core/Camera.hpp"
+#include "mge/core/AbstractGame.hpp"
 
 PlayerController* PlayerController::instance = nullptr;
 
 PlayerController::PlayerController()
 {
-	
+	std::function<void()> oE = std::bind(&PlayerController::OnGameEnd, std::ref(*this));
+	std::function<void(float)> oT = std::bind(&PlayerController::OnGameEndTick, std::ref(*this),std::placeholders::_1);
+	_endOfGameTimer = new Timer(oT, oE, 5, false);
 	_currentLane = 1;
 	_gravity = -1;
 	_gravityWhenGoingDown = -5;
@@ -40,6 +44,11 @@ PlayerController::~PlayerController()
 
 }
 
+void PlayerController::OnGameEndTick(float pTime)
+{
+	_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 0, -1)*pTime);
+}
+
 void PlayerController::SetCurrentLane(int lane)
 {
 	_currentLane = lane;
@@ -51,16 +60,33 @@ int PlayerController::GetCoinCount()
 	return _coins;
 }
 
+void PlayerController::OnGameEnd()
+{
+	_endOfGameTimer->Reset();
+	_owner->setLocalPosition(_owner->getLocalPosition() - glm::vec3(0,0, _owner->getLocalPosition().z));
+	_owner->add(AbstractGame::instance->_world->getMainCamera());
+	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 4.5));
+	MapBuilder::instance->Unload();
+	//LevelManager::instance->NextLevel();
+	GameStateManager::instance->_state = GameStateManager::StateNextStage;
+	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
+}
+
+
+
 void PlayerController::OnCollision(GameObject* other)
 {
+	if (_endOfGameTimer->IsStarted())return;
 	//Player dies if not a coin
 	std::cout << "COLLISION\n";
 	if (!other->getName().find("endoflevel"))
 	{
-		MapBuilder::instance->Unload();
-		//LevelManager::instance->NextLevel();
-		GameStateManager::instance->_state = GameStateManager::StateNextStage;
-		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
+		glm::vec3 camPos = AbstractGame::instance->_world->getMainCamera()->getWorldPosition();
+		AbstractGame::instance->_world->add(AbstractGame::instance->_world->getMainCamera());
+		AbstractGame::instance->_world->getMainCamera()->setLocalPosition(camPos);
+		_owner->addBehaviour((AbstractBehaviour*)_endOfGameTimer);
+		_endOfGameTimer->Start();
+
 	}
 	else if (!other->getName().find("coin"))
 	{

@@ -44,6 +44,7 @@ void main( void ){
 		heightUV /= heightMapTiling;
 
 		float t = pow(clamp(-vertexWorldPosition.z/xMoveTiling, 0 , 1), xOffsetSmoothness);
+		float pT = pow(clamp(-playerPosition.z/xMoveTiling, 0, 1), xOffsetSmoothness);
 
 		float texoffx = t*maxXOffset;
 
@@ -53,6 +54,6 @@ void main( void ){
     	gl_Position = projectionMatrix * vertexWorldPosition;
     	texCoord = uv + vec2(0, time*movingspeed/3);
     	worldNormal = vec3(viewMatrix * modelMatrix * vec4(normal, 0));
-		fPlayerPosition = playerPosition;
+		fPlayerPosition = playerPosition + vec3(pT*maxXOffset, 0,0);
     	fragmentWorldPosition = vec3(vertexWorldPosition);
 }

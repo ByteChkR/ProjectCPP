@@ -48,7 +48,7 @@ vec3 GetToonColor(float intens)
 vec4 Calculate(int index, vec3 wNormal)
 {
 	vec3 dir = lights[index].position-fragmentWorldPosition;
-	vec3 viewDir = normalize(cameraPosition-fragmentWorldPosition);
+	vec3 viewDir = normalize(cameraPosition - fragmentWorldPosition);
 	vec3 dirN = normalize(dir);
 	float distance = length(dir);
 	
@@ -84,6 +84,7 @@ void main( void ) {
 
 	vec4 ret = vec4(0);
 	vec3 wn = texture(normalTexture, texCoord).rgb;
+
 	wn=normalize(wn*2.0-1.0);
 	wn=normalize(TBN*wn);
 	for(int i = 0; i < lightCount; i++)

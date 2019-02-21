@@ -28,9 +28,9 @@ out mat3 TBN;
 
 void main( void ){
 
-		vec3 T = normalize(vec3(modelMatrix*vec4(tangent,0.0)));
-		vec3 B = normalize(vec3(modelMatrix*vec4(bitangent,0.0)));
-		vec3 N = normalize(vec3(modelMatrix*vec4(normal, 0.0)));
+		vec3 T = normalize(vec3(viewMatrix * modelMatrix*vec4(tangent,0.0)));
+		vec3 B = normalize(vec3(viewMatrix * modelMatrix*vec4(bitangent,0.0)));
+		vec3 N = normalize(vec3(viewMatrix * modelMatrix*vec4(normal, 0.0)));
 		TBN = mat3(T,B,N);
 
 		vec4 vertexWorldPosition = viewMatrix * modelMatrix * vec4(vertex, 1);
