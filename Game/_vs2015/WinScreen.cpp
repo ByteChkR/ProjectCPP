@@ -6,7 +6,7 @@ WinScreen::WinScreen(sf::RenderWindow *aWindow) {
 	_window = aWindow;
 
 	_background = new HudSprite("tempMenu.png");
-	_menuButtonBox = new HudSprite("HudBox.png");
+	_menuButtonBox = new HudSprite("HudBox.png",0.8f);
 	_menuText = new HudText();
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 	_winText = new HudText();
@@ -34,7 +34,8 @@ void WinScreen::draw() {
 	_window->pushGLStates();
 
 	_window->draw(_background->sprite);
-	_window->draw(_menuButtonBox->sprite);
+	if (_menuButton->scaled) _window->draw(_menuButtonBox->scaledSprite);
+	else _window->draw(_menuButtonBox->sprite);
 	_window->draw(_menuText->_text);
 
 	_window->draw(_winText->_text);

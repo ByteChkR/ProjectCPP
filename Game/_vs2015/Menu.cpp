@@ -16,11 +16,11 @@ Menu::Menu(sf::RenderWindow *aWindow) : _window(aWindow)
 	_background = new HudSprite("tempMenu.png");
 
 	_playText = new HudText();
-	_playBox = new HudSprite("HudBox.png",0.5);
+	_playBox = new HudSprite("HudBox.png",0.8f);
 	_button = new PlayButton(_window,_playBox->sprite);
 
 	_exitText = new HudText();
-	_exitBox = new HudSprite("HudBox.png",0.5);
+	_exitBox = new HudSprite("HudBox.png",0.8f);
 	_exitButton = new ExitButton(_window, _exitBox->sprite);
 
 	_organizeMenu();

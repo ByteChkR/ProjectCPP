@@ -17,13 +17,21 @@ class DebugHud
 		virtual ~DebugHud();
 		void draw();
 
+		void setScore(int score);
 		void setDebugInfo (std::string pInfo);
 
+		void Update();
 	private:
 		sf::RenderWindow * _window;
 
+		int _score = 0;
+
+		HudText *_scoreText;
         HudText *_debugText;
 		HudSprite *_debugBox;
+
+		HudSprite *_progressBackground;
+		HudSprite *_progress;
 
 		//Menu *_menu;
 

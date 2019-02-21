@@ -338,7 +338,7 @@ void MGEDemo::_updateHud() {
 	debugInfo += std::string("Active Instances: ") + std::to_string(BiomeHandler::instance->GetTotalActiveInstances()) + '\n' + std::string("Instances:") + std::to_string(BiomeHandler::instance->GetTotalInstances()) + "\n" + std::string("FPS:") + std::to_string((int)_fps) + "\n";
 
 	_hud->setDebugInfo(debugInfo);
-	_hud->draw();
+	_hud->Update();
 }
 
 MGEDemo::~MGEDemo()

@@ -11,11 +11,11 @@ StageClear::StageClear(sf::RenderWindow *aWindow) {
 	_window = aWindow;
 	_background = new HudSprite("tmpPanel0.png");
 
-	_nextStageButtonBox = new HudSprite("HudBox.png");
+	_nextStageButtonBox = new HudSprite("HudBox.png", 0.8f);
 	_nextStageText = new HudText();
 	_nextStageButton = new NextStageButton(_window, _nextStageButtonBox->sprite);
 
-	_menuButtonBox = new HudSprite("HudBox.png");
+	_menuButtonBox = new HudSprite("HudBox.png", 0.8f);
 	_menuText = new HudText();
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 
@@ -45,10 +45,12 @@ void StageClear::draw() {
 	_window->pushGLStates();
 
 	_window->draw(_background->sprite);
-	_window->draw(_nextStageButtonBox->sprite);
+	if (_nextStageButton->scaled) _window->draw(_nextStageButtonBox->scaledSprite);
+	else _window->draw(_nextStageButtonBox->sprite);
 	_window->draw(_nextStageText->_text);
 
-	_window->draw(_menuButtonBox->sprite);
+	if (_menuButton->scaled) _window->draw(_menuButtonBox->scaledSprite);
+	else _window->draw(_menuButtonBox->sprite);
 	_window->draw(_menuText->_text);
 
 	_window->popGLStates();
