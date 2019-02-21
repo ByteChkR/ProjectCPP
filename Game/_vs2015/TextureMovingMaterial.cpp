@@ -26,10 +26,13 @@ GLint TextureMovingMaterial::_uPMatrix = 0;
 GLint TextureMovingMaterial::_uDiffuseTexture = 0;
 GLint TextureMovingMaterial::_uEmmissiveTexture = 0;
 GLint TextureMovingMaterial::_uSpecularTexture = 0;
+GLint TextureMovingMaterial::_uNormalTexture = 0;
 
 GLint TextureMovingMaterial::_aVertex = 0;
 GLint TextureMovingMaterial::_aNormal = 0;
 GLint TextureMovingMaterial::_aUV = 0;
+GLint TextureMovingMaterial::_aBitangents = 0;
+GLint TextureMovingMaterial::_aTangents = 0;
 GLLight TextureMovingMaterial::_lightLocations[8];
 GLint TextureMovingMaterial::_lightCount = 0;
 GLint TextureMovingMaterial::_shininess = 0;
@@ -55,10 +58,11 @@ GLint TextureMovingMaterial::_shadowLength = 0;
 GLint TextureMovingMaterial::_shadowSize = 0;
 
 
-TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
+TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, Texture* normalTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
 	_diffuseTexture = pDiffuseTexture;
 	_emmissiveTexture = emmissiveTexture;
 	_specularTexture = specularTexture;
+	_normalTexture = normalTexture;
 	this->shininess = shininess;
 	blend = colorTextureBlending;
 	blendingSoftness = blendSmoothing;
@@ -93,6 +97,7 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_movingspeed = _shader->getUniformLocation("movingspeed");
 
 		_uDiffuseTexture = _shader->getUniformLocation("diffuseTexture");
+		_uNormalTexture = _shader->getUniformLocation("normalTexture");
 
 		_uSpecularTexture = _shader->getUniformLocation("specularTexture");
 		_uEmmissiveTexture = _shader->getUniformLocation("emissiveTexture");
@@ -101,6 +106,9 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_maxXOff = _shader->getUniformLocation("maxXOffset");
 		_xOffsetSmootness = _shader->getUniformLocation("xOffsetSmoothness");
 		_xMoveTiling = _shader->getUniformLocation("xMoveTiling");
+
+		_aTangents = _shader->getAttribLocation("tangents");
+		_aBitangents = _shader->getAttribLocation("bitangent");
 		//Light Locations
 		for (size_t i = 0; i < 8; i++)
 		{
@@ -208,6 +216,12 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 		glBindTexture(GL_TEXTURE_2D, _specularTexture->getId());
 		glUniform1i(_uSpecularTexture, 3);
 	}
+	if (_normalTexture != nullptr)
+	{
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_2D, _normalTexture->getId());
+		glUniform1i(_uNormalTexture, 4);
+	}
 
 	glUniform1f(_xOffsetSmootness, TextureMaterial::xOffsetSmootness);
 	glUniform1f(_maxXOff, TextureMaterial::maxXOff);
@@ -242,5 +256,5 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 	glUniformMatrix4fv(_uMMatrix, 1, GL_FALSE, glm::value_ptr(pModelMatrix));
 
 	//now inform mesh of where to stream its data
-	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV);
+	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV, _aTangents, _aBitangents);
 }

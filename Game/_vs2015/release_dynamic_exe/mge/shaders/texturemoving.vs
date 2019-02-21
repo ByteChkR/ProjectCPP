@@ -4,6 +4,8 @@
 in vec3 vertex;
 in vec3 normal;
 in vec2 uv;
+in vec3 tangent;
+in vec3 bitangent;
 
 uniform	mat4 	projectionMatrix;
 uniform	mat4 	viewMatrix;
@@ -25,8 +27,16 @@ out vec2 texCoord;
 out vec3 worldNormal;
 out vec3 fragmentWorldPosition;
 out vec3 fPlayerPosition;
+out mat3 TBN;
 
 void main( void ){
+
+		vec3 T = normalize(vec3(modelMatrix*vec4(tangent,0.0)));
+		vec3 B = normalize(vec3(modelMatrix*vec4(bitangent,0.0)));
+		vec3 N = normalize(vec3(modelMatrix*vec4(normal, 0.0)));
+		TBN = mat3(T,B,N);
+
+		
 		vec4 vertexWorldPosition = viewMatrix * modelMatrix * vec4(vertex, 1);
 
 		vec2 heightUV = vec2((-vertexWorldPosition.z) / genOffset,(vec4(vertex,1)*modelMatrix).x/hwm) + vec2(time*heightMapSpeed, 0);

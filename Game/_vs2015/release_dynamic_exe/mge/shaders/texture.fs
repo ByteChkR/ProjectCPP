@@ -27,9 +27,11 @@ uniform int lightCount;
 uniform sampler2D emissiveTexture;
 uniform sampler2D specularTexture;
 uniform sampler2D diffuseTexture;
+uniform sampler2D normalTexture;
 uniform float shininess;
 in vec2 texCoord;
 in vec3 worldNormal;
+in mat3 TBN;
 in vec3 fragmentWorldPosition;
 out vec4 fragment_color;
 
@@ -78,7 +80,9 @@ vec4 Calculate(int index, vec3 wNormal)
 void main( void ) {
 
 	vec4 ret = vec4(0);
-	vec3 wn = normalize(worldNormal);
+	vec3 wn = texture(normalTexture, texCoord).rgb;
+	wn=normalize(wn*2.0-1.0);
+	wn=normalize(TBN*wn);
 	for(int i = 0; i < lightCount; i++)
 	{
 		ret += Calculate(i, wn);

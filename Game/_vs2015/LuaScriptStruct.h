@@ -22,12 +22,14 @@ public:
 	std::string GetEmmissiveMap();
 
 	std::string GetSpecular();
+	std::string GetNormal();
 
 private:
 	Mesh* _mesh;
 	std::string _texturePath;
 	std::string _emmissiveTexture;
 	std::string _specularTexture;
+	std::string _normalTexture;
 	std::string _objPath;
 	std::string _name;
 	glm::vec3 _position;

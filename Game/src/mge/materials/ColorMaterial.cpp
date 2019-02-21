@@ -49,7 +49,7 @@ void ColorMaterial::render( int pass, World* pWorld, Mesh* pMesh, const glm::mat
     pMesh->streamToOpenGL(
         _shader->getAttribLocation("vertex"),
         _shader->getAttribLocation("normal"),
-        _shader->getAttribLocation("uv")
+        _shader->getAttribLocation("uv"),-1,-1
     );
 
 }

@@ -36,7 +36,7 @@ void MapBuilder::Reload()
 {
 	ReloadGen(Level::instance->GetMap(), &_mapPropList);
 	float test = Level::instance->GetMap()->GetNumberOfLanes() / 2.0f;
-	_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(test, 0, 0));
+	//_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(test, 0, 0));
 	ReloadGen(Level::instance->GetDeco(), &_decoPropList);
 }
 

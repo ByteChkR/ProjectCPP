@@ -127,7 +127,7 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 			glUniform3f(_offset, _activeParticles[i]->position.x, _activeParticles[i]->position.y, _activeParticles[i]->position.z);
 			//Render to opengl via mesh.streamtoopengl
 
-			pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV);
+			pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV,-1,-1);
 		}
 	}
 

@@ -94,6 +94,18 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 		return;
 	}
 	l = lua_gettop(L);
+	if (!LuaOperations::TryGetStringFromTable(L, "normal", &_normalTexture))
+	{
+		std::cout << "Object with key: " << _name << " has no normal map\n";
+	}
+	l = lua_gettop(L);
+	lua_pop(L, 1);
+	lua_getglobal(L, "GetMeta");
+	if (LuaOperations::SaveLuaCall(L, 0, 1))
+	{
+		return;
+	}
+	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posX", &_position.x))
 	{
 		std::cout << "Object with key: " << _name << " has no x coord. assuming 0\n";
@@ -201,4 +213,8 @@ std::string LuaScriptStruct::GetEmmissiveMap()
 std::string LuaScriptStruct::GetSpecular()
 {
 	return _specularTexture;
+}
+
+std::string LuaScriptStruct::GetNormal() {
+	return _normalTexture;
 }

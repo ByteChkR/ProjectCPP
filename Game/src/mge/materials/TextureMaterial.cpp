@@ -40,6 +40,8 @@ GLint TextureMaterial::_uSpecularTexture = 0;
 GLint TextureMaterial::_aVertex = 0;
 GLint TextureMaterial::_aNormal = 0;
 GLint TextureMaterial::_aUV = 0;
+GLint TextureMaterial::_aBitangents = 0;
+GLint TextureMaterial::_aTangents = 0;
 GLLight TextureMaterial::_lightLocations[8];
 GLint TextureMaterial::_lightCount = 0;
 GLint TextureMaterial::_shininess = 0;
@@ -57,11 +59,13 @@ GLint TextureMaterial::_blend = 0;
 GLint TextureMaterial::_blendingSoftness = 0;
 GLint TextureMaterial::_colorCount = 0;
 GLint TextureMaterial::_colorTiling = 0;
+GLint TextureMaterial::_uNormalTexture = 0;
 
 
-TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
+TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, Texture* normalTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
 	_emmissiveTexture = emmissiveTexture;
 	_specularTexture = specularTexture;
+	_normalTexture = normalTexture;
 	if (heightMap != nullptr)_heightMap = heightMap;
 	this->shininess = shininess;
 	blend = colorTextureBlending;
@@ -130,10 +134,13 @@ void TextureMaterial::_lazyInitializeShader() {
 		_genOffset = _shader->getUniformLocation("genOffset");
 		_movingspeed = _shader->getUniformLocation("movingspeed");
 		_heightMapTiling = _shader->getUniformLocation("heightMapTiling");
+		_uNormalTexture = _shader->getUniformLocation("normalTexture");
 
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
 		_aUV = _shader->getAttribLocation("uv");
+		_aTangents = _shader->getAttribLocation("tangents");
+		_aBitangents = _shader->getAttribLocation("bitangent");
 	}
 }
 
@@ -203,6 +210,13 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 		glUniform1i(_uSpecularTexture, 3);
 	}
 
+	if (_normalTexture != nullptr)
+	{
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_2D, _normalTexture->getId());
+		glUniform1i(_uNormalTexture, 4);
+	}
+
 	//glUniform1f(_movingspeed, TextureMovingMaterial::Movingspeed);
 
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
@@ -241,5 +255,5 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	glUniformMatrix4fv(_uMMatrix, 1, GL_FALSE, glm::value_ptr(pModelMatrix));
 
 	//now inform mesh of where to stream its data
-	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV);
+	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV,_aTangents, _aBitangents);
 }
