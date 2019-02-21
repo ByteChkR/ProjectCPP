@@ -25,13 +25,15 @@ StageClear::StageClear(sf::RenderWindow *aWindow) {
 void StageClear::OrganizeScreen() {
 	_nextStageText->_text.setString("Next Stage");
 	_nextStageButtonBox->sprite.setPosition(200, 200);
-	_nextStageButton->SetPosition(200, 200);
-	_nextStageText->_text.setPosition(200, 200);
+	_nextStageButtonBox->scaledSprite.setPosition(_nextStageButtonBox->sprite.getPosition());
+	_nextStageButton->SetPosition(_nextStageButtonBox->sprite.getPosition());
+	_nextStageText->_text.setPosition(_nextStageButtonBox->sprite.getPosition());
 
 	_menuText->_text.setString("Menu");
-	_menuButtonBox->sprite.setPosition(0, 200);
-	_menuText->_text.setPosition(0, 200);
-	_menuButton->SetPosition(0, 200);
+	_menuButtonBox->sprite.setPosition(50, 200);
+	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
+	_menuText->_text.setPosition(_menuButtonBox->sprite.getPosition());
+	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }
 
 void StageClear::Update() {

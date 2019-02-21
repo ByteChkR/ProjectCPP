@@ -16,9 +16,11 @@ WinScreen::WinScreen(sf::RenderWindow *aWindow) {
 
 void WinScreen::OrganizePanel() {
 	_menuText->_text.setString("Menu");
-	_menuButton->SetPosition(300,0);
-	_menuButtonBox->sprite.setPosition(300, 0);
-	_menuText->_text.setPosition(300, 0);
+
+	_menuButtonBox->sprite.setPosition(300, 100);
+	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
+	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
+	_menuText->_text.setPosition(_menuButtonBox->sprite.getPosition());
 
 	_winText->_text.setString("YOU WIN");
 	_winText->_text.setPosition(300,300);
