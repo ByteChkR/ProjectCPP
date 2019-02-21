@@ -15,6 +15,8 @@ WinScreen::WinScreen(sf::RenderWindow *aWindow) {
 }
 
 void WinScreen::OrganizePanel() {
+	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
+
 	_menuText->_text.setString("Menu");
 
 	_menuButtonBox->sprite.setPosition(300, 100);

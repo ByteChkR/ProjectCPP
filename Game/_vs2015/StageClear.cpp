@@ -23,6 +23,8 @@ StageClear::StageClear(sf::RenderWindow *aWindow) {
 }
 
 void StageClear::OrganizeScreen() {
+	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
+
 	_nextStageText->_text.setString("Next Stage");
 	_nextStageButtonBox->sprite.setPosition(200, 200);
 	_nextStageButtonBox->scaledSprite.setPosition(_nextStageButtonBox->sprite.getPosition());

@@ -20,8 +20,8 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText
 	_scoreText = new HudText();
 	_debugBox =  new HudSprite("HudBox.png");
 
-	_progressBackground = new HudSprite("HudBox.png");
-	_progress = new HudSprite("HudBox.png");
+	_progressBackground = new HudSprite("ProgressBackground.png");
+	_progress = new HudSprite("Progress.png");
 	_progressBackground->sprite.setOrigin(_progress->sprite.getTexture()->getSize().x / 2, _progress->sprite.getTexture()->getSize().y);
 	_progress->sprite.setOrigin(_progress->sprite.getTexture()->getSize().x / 2, _progress->sprite.getTexture()->getSize().y);
 
@@ -43,7 +43,7 @@ void DebugHud::_organizeHud()
 	_debugBox->sprite.setPosition(100, 100);
 	_debugText->_text.setPosition(25, 75);
 
-	_progressBackground->sprite.setPosition(800, 576);
+	_progressBackground->sprite.setPosition(865, 585);
 	_progress->sprite.setPosition(_progressBackground->sprite.getPosition());
 
 }
