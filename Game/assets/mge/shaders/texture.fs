@@ -28,12 +28,12 @@ uniform sampler2D emissiveTexture;
 uniform sampler2D specularTexture;
 uniform sampler2D diffuseTexture;
 uniform sampler2D normalTexture;
-uniform vec3 cameraPosition;
 uniform float shininess;
 in vec2 texCoord;
 in vec3 worldNormal;
 in mat3 TBN;
 in vec3 fragmentWorldPosition;
+in vec3 fragmentCameraPosition;
 out vec4 fragment_color;
 
 vec3 GetToonColor(float intens)
@@ -48,7 +48,6 @@ vec3 GetToonColor(float intens)
 vec4 Calculate(int index, vec3 wNormal)
 {
 	vec3 dir = lights[index].position-fragmentWorldPosition;
-	vec3 viewDir = normalize(cameraPosition - fragmentWorldPosition);
 	vec3 dirN = normalize(dir);
 	float distance = length(dir);
 	
@@ -58,8 +57,7 @@ vec4 Calculate(int index, vec3 wNormal)
 
 
 	vec3 refDir = reflect(-dirN, wNormal);
-	vec3 hwDir = normalize(dirN+viewDir);
-	float spec = pow(max(dot(wNormal, hwDir),0.0),shininess)/falloff;
+	float spec = pow(max(dot(wNormal, refDir),0.0),shininess)/falloff;
 
 	diffIntensity/=falloff;
 	vec3 ambient  = lights[index].ambientColor*lights[index].intensity;
