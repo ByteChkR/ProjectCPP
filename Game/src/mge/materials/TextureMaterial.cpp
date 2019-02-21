@@ -6,6 +6,7 @@
 #include "mge/core/Light.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/AbstractGame.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/config.hpp"
@@ -14,6 +15,7 @@
 #include "../_vs2015/Level.h"
 #include "../_vs2015/TextureMovingMaterial.h"
 #include "../_vs2015/PlayerController.hpp"
+#include "mge/core/Camera.hpp"
 ShaderProgram* TextureMaterial::_shader = NULL;
 
 float TextureMaterial::heightmapTiling = 1;
@@ -60,6 +62,7 @@ GLint TextureMaterial::_blendingSoftness = 0;
 GLint TextureMaterial::_colorCount = 0;
 GLint TextureMaterial::_colorTiling = 0;
 GLint TextureMaterial::_uNormalTexture = 0;
+GLint TextureMaterial::_camPos = 0;
 
 
 TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, Texture* normalTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
@@ -141,6 +144,7 @@ void TextureMaterial::_lazyInitializeShader() {
 		_aUV = _shader->getAttribLocation("uv");
 		_aTangents = _shader->getAttribLocation("tangents");
 		_aBitangents = _shader->getAttribLocation("bitangent");
+		_camPos = _shader->getUniformLocation("cameraPosition");
 	}
 }
 
@@ -173,6 +177,11 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	//if (pWorld->getLightCount() > 0) {
 	//    std::cout << "TextureMaterial has discovered light is at position:" << pWorld->getLightAt(0)->getLocalPosition() << std::endl;
 	//}
+
+	glm::vec3 camPos = (AbstractGame::instance->_world->getMainCamera())->getWorldPosition();
+	glUniform3f(_camPos, camPos.x, camPos.y, camPos.z);
+
+
 
 	//setup texture slot 0
 	glActiveTexture(GL_TEXTURE0);

@@ -70,6 +70,7 @@ private:
 	static GLint _uEmmissiveTexture;
 	static GLint _xMoveTiling;
 	static GLint _uNormalTexture;
+	static GLint _camPos;
 	
 
 	Texture* _emmissiveTexture;

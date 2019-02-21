@@ -1,6 +1,7 @@
+heightTexture = "height.png"
 map = "temp.txt"
 ground = "backg.png"
-mapGround = "testTex.png"
+mapGround = "ground2.png"
 genOffset = "75"
 xCurvature = "50"
 xCurvatureSmoothness = "2"

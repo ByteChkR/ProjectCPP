@@ -1,11 +1,26 @@
 //DIFFUSE TEXTURE VERTEX SHADER
 #version 330 // for glsl version (12 is for older versions , say opengl 2.1
 
+struct Light
+{
+	int type;
+	float intensity;
+	vec2 attenuation;
+	vec3 position;
+	vec3 color;
+	vec3 ambientColor;
+};
+
+
 in vec3 vertex;
 in vec3 normal;
 in vec2 uv;
 in vec3 tangent;
 in vec3 bitangent;
+
+
+uniform Light lights[8];
+uniform vec3 cameraPosition;
 uniform	mat4 	projectionMatrix;
 uniform	mat4 	viewMatrix;
 uniform	mat4 	modelMatrix;
@@ -18,13 +33,15 @@ uniform float maxXOffset;
 uniform float xOffsetSmoothness;
 uniform float heightMapTiling;
 uniform float heightMapSpeed;
-uniform vec3 cameraPosition;
 
 uniform sampler2D yOffTexture;
 
 out vec2 texCoord;
 out vec3 worldNormal;
 out vec3 fragmentWorldPosition;
+out vec3 tangentFragmentWorldPosition;
+out vec3 tangentLightPositions[8];
+out vec3 tangentCameraPosition;
 out mat3 TBN;
 
 void main( void ){
@@ -52,4 +69,10 @@ void main( void ){
     	texCoord = uv;
     	worldNormal = vec3(viewMatrix * modelMatrix * vec4(normal, 0));
     	fragmentWorldPosition = vec3(vertexWorldPosition);
+    	tangentFragmentWorldPosition = TBN * fragmentWorldPosition;
+    	tangentCameraPosition = TBN * cameraPosition;
+    	for(int i = 0; i < 8; i++)
+    	{
+    		tangentLightPositions[i] = TBN * lights[i].position;
+    	}
 }

@@ -21,24 +21,23 @@ uniform float colorTiling;
 uniform float textureBlend;
 uniform float blendSmoothing;
 
-
 uniform Light lights[8];
 uniform int lightCount;
 
-uniform sampler2D diffuseTexture;
-uniform sampler2D emissionMap;
+uniform sampler2D emissiveTexture;
 uniform sampler2D specularTexture;
+uniform sampler2D diffuseTexture;
 uniform sampler2D normalTexture;
-uniform vec3 cameraPosition;
+uniform sampler2D parallaxTexture;
+uniform float parallaxHeight;
 uniform float shininess;
-uniform float movingspeed;
-uniform float ShadowSize;
-uniform float ShadowLength;
 in vec2 texCoord;
 in vec3 worldNormal;
 in mat3 TBN;
 in vec3 fragmentWorldPosition;
-in vec3 fPlayerPosition;
+in vec3 tangentFragmentWorldPosition;
+in vec3 tangentLightPositions[8];
+in vec3 tangentCameraPosition;
 out vec4 fragment_color;
 
 vec3 GetToonColor(float intens)
@@ -50,10 +49,17 @@ vec3 GetToonColor(float intens)
 	return colors[col%colorCount]*(1-rem) + colors[(col+1)%colorCount] * (rem);
 }
 
-vec4 Calculate(int index, vec3 wNormal)
+vec2 ParallaxMapping(vec2 uvCoord, vec3 viewDir)
 {
-	vec3 dir = lights[index].position-fragmentWorldPosition;
-	vec3 viewDir = normalize(cameraPosition-fragmentWorldPosition);
+	float h = texture(parallaxTexture, uvCoord).r;
+	return uvCoord - viewDir.xy * (h * parallaxHeight);
+}
+
+vec4 Calculate(int index, vec3 wNormal, vec2 tCoord)
+{
+
+	vec3 dir = tangentLightPositions[index] - tangentFragmentWorldPosition;
+	//vec3 dir = lights[index].position-fragmentWorldPosition;
 	vec3 dirN = normalize(dir);
 	float distance = length(dir);
 	
@@ -63,19 +69,19 @@ vec4 Calculate(int index, vec3 wNormal)
 
 
 	vec3 refDir = reflect(-dirN, wNormal);
-	vec3 hwDir = normalize(dirN+viewDir);
-	float spec = pow(max(dot(wNormal, hwDir),0.0),shininess)/falloff;
-
+	float spec = pow(max(dot(dirN, refDir),0.0),shininess)/falloff;
 
 	diffIntensity/=falloff;
 	vec3 ambient  = lights[index].ambientColor*lights[index].intensity;
-	vec3 specular = lights[index].intensity*spec * diffIntensity * texture(specularTexture, texCoord).rgb;
-	vec4 difftexcolor = texture(diffuseTexture, texCoord);
+	vec3 specular = lights[index].intensity*spec * diffIntensity * texture(specularTexture, tCoord).rgb;
+	vec4 difftexcolor = texture(diffuseTexture, tCoord);
 	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(difftexcolor)*textureBlend;
 	
-	vec3 emmissive = texture(emissionMap, texCoord).rgb;
-
 	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;
+
+
+	vec3 emmissive = texture(emissiveTexture, tCoord).rgb;
+	//emmissive/=falloff;
 	vec4 result = vec4(0);
 	result.rgb = specular + diffuse + ambient + emmissive;
 	result.a = difftexcolor.a;
@@ -86,16 +92,20 @@ vec4 Calculate(int index, vec3 wNormal)
 
 void main( void ) {
 
-	float d = distance(fPlayerPosition.xz , fragmentWorldPosition.xz);
-	float yd = fPlayerPosition.y-fragmentWorldPosition.y;
 	vec4 ret = vec4(0);
-	vec3 wn = texture(normalTexture, texCoord).rgb;
+	vec3 camViewDir = normalize(tangentCameraPosition-tangentFragmentWorldPosition);
+	vec2 txcoord = ParallaxMapping(texCoord, camViewDir);
+
+	if(txcoord.x > 1 || txcoord.y > 1 || txcoord.x < 0 || txcoord.y < 0)discard;
+
+	vec3 wn = texture(normalTexture, txcoord).rgb;
 	wn=normalize(wn*2.0-1.0);
 	wn=normalize(TBN*wn);
+	
 	for(int i = 0; i < lightCount; i++)
 	{
-		ret += Calculate(i, wn);
+		ret += Calculate(i, wn, txcoord);
 	}
 
-	fragment_color = d > ShadowSize * clamp( 1-( yd / ShadowLength) ,0,1) ? ret : vec4(0,0,0,1);
+	fragment_color = ret;
 }

@@ -56,6 +56,7 @@ float TextureMovingMaterial::ShadowSize = 1;
 float TextureMovingMaterial::ShadowLength = 2;
 GLint TextureMovingMaterial::_shadowLength = 0;
 GLint TextureMovingMaterial::_shadowSize = 0;
+GLint TextureMovingMaterial::_camPos = 0;
 
 
 TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, Texture* normalTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
@@ -109,6 +110,7 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 
 		_aTangents = _shader->getAttribLocation("tangents");
 		_aBitangents = _shader->getAttribLocation("bitangent");
+		_camPos = _shader->getUniformLocation("cameraPosition");
 		//Light Locations
 		for (size_t i = 0; i < 8; i++)
 		{
@@ -164,6 +166,8 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 
 	_shader->use();
 
+	glm::vec3 camPos = (AbstractGame::instance->_world->getMainCamera())->getWorldPosition();
+	glUniform3f(_camPos, camPos.x, camPos.y, camPos.z);
 	//Print the number of lights in the scene and the position of the first light.
 	//It is not used, but this demo is just meant to show you THAT materials can access the lights in a world
 	//if (pWorld->getLightCount() > 0) {

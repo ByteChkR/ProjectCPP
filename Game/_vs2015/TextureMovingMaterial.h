@@ -47,6 +47,7 @@ private:
 	static GLint _heightMapTiling;
 	static GLint _xMoveTiling;
 	static GLint _heightMapSpeed;
+	static GLint _camPos;
 
 	static GLint _colorCount;
 	static GLint _blendingSoftness;
