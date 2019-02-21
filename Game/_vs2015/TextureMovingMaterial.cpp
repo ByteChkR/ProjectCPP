@@ -76,6 +76,11 @@ TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* 
 
 TextureMovingMaterial::~TextureMovingMaterial() {}
 
+void TextureMovingMaterial::setNormalTexture(Texture* tex)
+{
+	_normalTexture = tex;
+}
+
 void TextureMovingMaterial::_lazyInitializeShader() {
 	if (!_shader) {
 		_shader = new ShaderProgram();

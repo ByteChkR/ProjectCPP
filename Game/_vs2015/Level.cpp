@@ -113,6 +113,22 @@ Level::Level(std::string levelLuaFile)
 		mapGround = Texture::load(config::MGE_TEXTURE_PATH + mbg);
 	}
 
+	lua_getglobal(L, "mapGroundNormal");
+	std::string mbgn;
+	/*
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	if (!LuaOperations::TryGetString(L, &mbgn))
+	{
+		std::cout << "Error parsing path to Map Ground Normal Texure image\n";
+		mapGroundNormal = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
+
+	}
+	else
+	{
+
+		mapGroundNormal = Texture::load(config::MGE_TEXTURE_PATH + mbgn);
+	}
+
 	lua_getglobal(L, "genOffset");
 	double go;
 	/*
@@ -254,6 +270,7 @@ Level::Level(std::string levelLuaFile)
 	{
 		dynamic_cast<AnimationMaterial*>(DataManager::instance->GetBackground()->getMaterial())->setDiffuseTexture(background);
 		dynamic_cast<TextureMovingMaterial*>(DataManager::instance->GetGround()->getMaterial())->setDiffuseTexture(mapGround);
+		dynamic_cast<TextureMovingMaterial*>(DataManager::instance->GetGround()->getMaterial())->setNormalTexture(mapGroundNormal);
 	}
 	
 	
@@ -269,6 +286,12 @@ Texture* Level::GetMapGround()
 {
 	return mapGround;
 }
+Texture* Level::GetMapGroundNormal()
+{
+	return mapGroundNormal;
+}
+
+
 
 Level::~Level()
 {

@@ -21,6 +21,7 @@ public:
 	virtual void render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
+	void setNormalTexture(Texture* pNormalTexture);
 
 	static float Movingspeed;
 
