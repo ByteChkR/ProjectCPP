@@ -31,29 +31,34 @@ out mat3 TBN;
 
 void main( void ){
 
-		vec3 T = normalize(vec3(modelMatrix*vec4(tangent,0.0)));
-		vec3 B = normalize(vec3(modelMatrix*vec4(bitangent,0.0)));
-		vec3 N = normalize(vec3(modelMatrix*vec4(normal, 0.0)));
+		vec3 T = normalize(vec3(viewMatrix * modelMatrix * vec4(tangent, 0.0)));
+		vec3 B = normalize(vec3(viewMatrix * modelMatrix * vec4(bitangent, 0.0)));
+		vec3 N = normalize(vec3(viewMatrix * modelMatrix * vec4(normal, 0.0)));
 		TBN = mat3(T,B,N);
 
-		
-		vec4 vertexWorldPosition = viewMatrix * modelMatrix * vec4(vertex, 1);
+		vec4 vertexWorldPosition = modelMatrix * vec4(vertex, 1);
+		vec4 vertexCameraPosition = viewMatrix * vertexWorldPosition;
 
-		vec2 heightUV = vec2((-vertexWorldPosition.z) / genOffset,(vec4(vertex,1)*modelMatrix).x/hwm) + vec2(time*heightMapSpeed, 0);
+		float heightX = max((-vertexWorldPosition.z) / genOffset, 0.0);
+		float heightY = vertexWorldPosition.x / hwm;
+
+		vec2 heightUV = vec2(heightX, heightY) + vec2(time * heightMapSpeed, 0);
 
 		heightUV /= heightMapTiling;
 
-		float t = pow(clamp(-vertexWorldPosition.z/xMoveTiling, 0 , 1), xOffsetSmoothness);
-		float pT = pow(clamp(-playerPosition.z/xMoveTiling, 0, 1), xOffsetSmoothness);
+		float t = pow(clamp(-vertexCameraPosition.z / xMoveTiling, 0 , 1), xOffsetSmoothness);
 
-		float texoffx = t*maxXOffset;
+		float texoffx = t * maxXOffset; //X offset based on min and max offset
 
-		float texoff = texture(yOffTexture, clamp(heightUV,0,1)).y*maxHeight;
-		//float offset = max(sin(-(vertexWorldPosition.z/15))*maxHeight,0.0);
-		vertexWorldPosition = (vertexWorldPosition + vec4(texoffx,texoff,0,0));
-    	gl_Position = projectionMatrix * vertexWorldPosition;
-    	texCoord = uv + vec2(0, time*movingspeed/3);
+		float texoff = texture(yOffTexture, clamp(heightUV, 0, 1)).y * maxHeight; //Y Offset based on heightmap
+
+		vec2 offset = vec2(texoffx, texoff);
+
+		vertexWorldPosition = (vertexWorldPosition + vec4(offset, 0, 0)); //Applying the offset
+		vertexCameraPosition = viewMatrix * vertexWorldPosition; //Updating the Camera position(now with offset)
+
+    	texCoord = uv+ vec2(0, time*movingspeed/3);
     	worldNormal = vec3(viewMatrix * modelMatrix * vec4(normal, 0));
-		fPlayerPosition = playerPosition + vec3(pT*maxXOffset, 0,0);
     	fragmentWorldPosition = vec3(vertexWorldPosition);
+    	gl_Position = projectionMatrix * vertexCameraPosition;
 }
