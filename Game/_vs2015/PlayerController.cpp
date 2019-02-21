@@ -13,7 +13,7 @@ PlayerController::PlayerController()
 {
 	std::function<void()> oE = std::bind(&PlayerController::OnGameEnd, std::ref(*this));
 	std::function<void(float)> oT = std::bind(&PlayerController::OnGameEndTick, std::ref(*this),std::placeholders::_1);
-	_endOfGameTimer = new Timer(oT, oE, 5, false);
+	_endOfGameTimer = new Timer(oT, oE, 2, false);
 	_currentLane = 1;
 	_gravity = -1;
 	_gravityWhenGoingDown = -5;
@@ -46,7 +46,7 @@ PlayerController::~PlayerController()
 
 void PlayerController::OnGameEndTick(float pTime)
 {
-	_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 0, -1)*pTime);
+	_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 0, -0.5f)*pTime);
 }
 
 void PlayerController::SetCurrentLane(int lane)
@@ -107,6 +107,7 @@ void PlayerController::OnCollision(GameObject* other)
 	{
 
 		GameStateManager::instance->_state = GameStateManager::StateGameOver;
+		_owner->DisableBehaviours();
 		MapBuilder::instance->Unload();
 		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
 	}
