@@ -2,10 +2,10 @@
 <editorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <EnginePath>..\..\Game\_vs2015\release_dynamic_exe\mge.exe</EnginePath>
   <DefaultPartsFolder>.\parts\</DefaultPartsFolder>
-  <HeightMap>15</HeightMap>
-  <GroundMap>35</GroundMap>
+  <HeightMap>0</HeightMap>
+  <GroundMap>14</GroundMap>
   <HorizonMap>6</HorizonMap>
-  <GroundNormalMap>20</GroundNormalMap>
+  <GroundNormalMap>0</GroundNormalMap>
   <biomeCount>3</biomeCount>
   <isRaw>false</isRaw>
 </editorConfig>
