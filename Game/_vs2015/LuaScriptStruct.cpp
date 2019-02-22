@@ -153,7 +153,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 		else
 		{
 			lua_getglobal(L, "collider");
-			if (!LuaOperations::TryGetFloatFromTable(L, "width", &_collider.z))
+			if (!LuaOperations::TryGetFloatFromTable(L, "depth", &_collider.z))
 			{
 				std::cout << "Object with key: " << _name << " has no collider.\n";
 			}

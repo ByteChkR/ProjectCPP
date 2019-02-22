@@ -1,6 +1,6 @@
 local scripts = {}
-local meta = {["name"] = "0Bobstacle3", ["objPath"] = "mge/models/23_CityB_TrafficLight_v1.obj", ["texture"] = "red.png", ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0 }
-collider = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
+local meta = {["name"] = "0Bobstacle3", ["objPath"] = "mge/models/FarmForestBiome/soil.obj", ["texture"] = "red.png", ["posX"] = -1, ["posY"] = 2, ["posZ"] = 0 }
+collider = { ["width"] = 3, ["height"] = 1, ["depth"] = 6}
 function AttachedScripts()
 	return scripts
 end
