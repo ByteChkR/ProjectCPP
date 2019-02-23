@@ -108,7 +108,7 @@ void MGEDemo::_initializeResources()
 	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(BackGroundImage);
 
-	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "placeholder.obj");
 
 
 	AbstractMaterial* runicStoneMaterial = new TextureMaterial(testTex, nullptr, nullptr, testNormal, 2, 1, 5, 2);
