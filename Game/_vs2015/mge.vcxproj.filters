@@ -86,8 +86,23 @@
     <ClCompile Include="LoadingScreen.cpp">
       <Filter>NewFolder</Filter>
     </ClCompile>
+	
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="..\src\mge\util\ScoreManager.cpp" />
+	  
+    <ClCompile Include="Credits.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoardButton.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsButton.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
+>>>>>>> a1414b51da6515a4e2c2a8d1fb16f573c9105a30
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -172,7 +187,22 @@
       <Filter>NewFolder</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h" />
+<<<<<<< HEAD
     <ClInclude Include="..\src\mge\util\ScoreManager.h" />
+=======
+    <ClInclude Include="Credits.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoard.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoardButton.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsButton.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+>>>>>>> a1414b51da6515a4e2c2a8d1fb16f573c9105a30
   </ItemGroup>
   <ItemGroup>
     <Filter Include="NewFolder">

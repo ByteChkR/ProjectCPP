@@ -1,2 +1,4 @@
-objects = {"none", "0Bhouse0","0Bhouse1","0Bhouse2","0Bhouse3","0Bhouse4","0Bhouse5","0Bhouse6","0Bhouse7"
-, "0Bobstacle0", "0Bobstacle1", "0Bobstacle2", "0Bobstacle3", "0Bobstacle4", "coin", "endoflevel"}
+objects = {"none", "0BHouse1","0BHouse2","0BHouse3","0BHouse4","0BHouse5","0BHouse6","0BHouse7","0BHouse8",
+"0BLowObstacle1", "0BLowObstacle2", "0BLowObstacle3", "0BLowObstacle4", "0BLowObstacle5",
+"0BHighObstacle1", "0BHighObstacle2", "0BHighObstacle3", "0BHighObstacle4", "0BHighObstacle5",
+ "coin", "endoflevel"}

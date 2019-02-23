@@ -26,13 +26,13 @@ void GameOverScreen::OrganizeScreen(){
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
 
 	_retryText->_text.setString("Retry");
-	_retryButtonBox->sprite.setPosition(300, 200);
+	_retryButtonBox->sprite.setPosition(500, 200);
 	_retryButtonBox->scaledSprite.setPosition(_retryButtonBox->sprite.getPosition());
 	_retryButton->SetPosition(_retryButtonBox->sprite.getPosition());
 	_retryText->_text.setPosition(_retryButtonBox->sprite.getPosition());
 
 	_menuText->_text.setString("Menu");
-	_menuButtonBox->sprite.setPosition(100, 200);
+	_menuButtonBox->sprite.setPosition(300, 200);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuText->_text.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());

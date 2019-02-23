@@ -18,7 +18,9 @@ class GameStateManager
 			StateGameOver,
 			StateNextStage,
 			StateWin,
-			StateLoad
+			StateLoad,
+			StateCredits,
+			StateScore
 		};
 
 
