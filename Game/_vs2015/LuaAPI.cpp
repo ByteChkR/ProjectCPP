@@ -128,7 +128,7 @@ int LuaAPI::Lua_GetCurrentAnimationFrame(lua_State* L)
 	}
 	else
 	{
-		GameObject** obj = (GameObject**)lua_touserdata(L, 1); 
+		GameObject** obj = (GameObject**)lua_touserdata(L, 1);
 		AnimationMaterial* am;
 		if ((am = dynamic_cast<AnimationMaterial*>((*obj)->getMaterial())) != nullptr)
 		{
@@ -148,7 +148,7 @@ int LuaAPI::Lua_StopParticleEffect(lua_State* L)
 {
 	if (!lua_isuserdata(L, 1))
 	{
-		lua_pushstring(L, "StopParticleEffec can only be called with a valid object reference");
+		lua_pushstring(L, "StopParticleEffect can only be called with a valid object reference");
 		lua_error(L);
 		return 1;
 	}
@@ -159,11 +159,11 @@ int LuaAPI::Lua_StopParticleEffect(lua_State* L)
 		if ((am = dynamic_cast<ParticleEmitter*>((*obj)->getMaterial())) != nullptr)
 		{
 			am->Stop();
-			return 1;
+			return 0;
 		}
 		else
 		{
-			lua_pushstring(L, "StopParticleEffec can only be called with a valid object reference that contains an ParticleEmitter");
+			lua_pushstring(L, "StopParticleEffect can only be called with a valid object reference that contains an ParticleEmitter");
 			lua_error(L);
 			return 1;
 		}
@@ -211,7 +211,7 @@ int LuaAPI::Lua_PlayParticleEffect(lua_State* L)
 		if ((am = dynamic_cast<ParticleEmitter*>((*obj)->getMaterial())) != nullptr)
 		{
 			am->Start();
-			return 1;
+			return 0;
 		}
 		else
 		{
@@ -226,7 +226,7 @@ int LuaAPI::Lua_ChangeAnimationFrame(lua_State* L)
 {
 	if (!lua_isuserdata(L, 1))
 	{
-		lua_pushstring(L, "NextAnimationFrame can only be called with a valid object reference");
+		lua_pushstring(L, "ChangeAnimationFrame can only be called with a valid object reference");
 		lua_error(L);
 		return 1;
 	}
@@ -281,7 +281,7 @@ int LuaAPI::Lua_GameObjectEquals(lua_State* L)
 int LuaAPI::Lua_GetParent(lua_State* L)
 {
 	if (!lua_isuserdata(L, 1)) {
-		lua_pushstring(L, "Set Position can only be called with a valid object reference");
+		lua_pushstring(L, "GetParent can only be called with a valid object reference");
 		lua_error(L);
 		return 1;
 	}
@@ -355,7 +355,8 @@ int LuaAPI::Lua_CreateGameObjectFromKey(lua_State* L) {
 	std::string key;
 	if (!LuaOperations::TryGetString(L, &key))
 	{
-		//Error
+		lua_pushstring(L, "Could not read argument 1. it should be a string");
+		lua_error(L);
 	}
 	GameObject* obj = ScriptableLuaObject::Instantiate(key);
 	GameObject** g = (GameObject**)lua_newuserdata(L, sizeof(GameObject*));
@@ -372,7 +373,9 @@ int LuaAPI::Lua_WriteToConsole(lua_State* L)
 		lua_pushstring(L, "Could not read argument 1. it should be a string");
 		lua_error(L);
 		//Error
+		return 1;
 	}
+	std::cout << "Lua Script Console: " << txt << '\n';
 	l = lua_gettop(L);
 	return 0;
 }
