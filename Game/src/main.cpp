@@ -12,6 +12,7 @@
 #include "../_vs2015/GameStateManager.h"
 #include "../_vs2015/StoryPanelHandler.h"
 #include "mge/util/DataManager.h"
+
 /**
  * Main entry point for the Micro Engine.
 

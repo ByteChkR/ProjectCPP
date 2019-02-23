@@ -44,6 +44,7 @@
 #include "../_vs2015/ParticleSystem.h"
 #include "../_vs2015/ParticleEmitter.h"
 
+#include "mge/util/ScoreManager.h"
 #include "mge/util/DataManager.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
@@ -72,6 +73,8 @@ void MGEDemo::_initializeResources()
 
 #pragma region GameSetup
 
+	ScoreManager * scoreManager = new ScoreManager();
+	scoreManager->GetScores();
 	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 
 

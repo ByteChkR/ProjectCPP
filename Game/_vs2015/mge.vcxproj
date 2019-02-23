@@ -191,6 +191,7 @@
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="..\src\mge\util\Lane.h" />
     <ClInclude Include="..\src\mge\util\MapGenerator.h" />
+    <ClInclude Include="..\src\mge\util\ScoreManager.h" />
     <ClInclude Include="AbstractStaticCollider.hpp" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CollisionManager.hpp" />
@@ -259,6 +260,7 @@
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\mge\util\Lane.cpp" />
     <ClCompile Include="..\src\mge\util\MapGenerator.cpp" />
+    <ClCompile Include="..\src\mge\util\ScoreManager.cpp" />
     <ClCompile Include="AbstractStaticCollider.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
