@@ -27,7 +27,7 @@
 ## Game Scripts Explained
 ### What are Game Scripts
 Gamescripts are like Behaviours in Unity. They are attached to a Gameobject and are able to update themselfes(and other scripts) every frame.
-###How do I create a Game Script
+### How do I create a Game Script
 1. Create a new file in your gameScripts folder(you will find it mge/gameScripts)
 	+ Make sure that the file has the ".lua" extension.
 
