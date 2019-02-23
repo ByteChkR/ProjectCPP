@@ -78,6 +78,7 @@ class GameObject
 		void EnableBehaviours();
 		void DisableBehaviours();
 		bool IsEnabled();
+		std::vector<glm::vec3> GetColliderBounds();
 
 	protected:
 		bool _enabled;

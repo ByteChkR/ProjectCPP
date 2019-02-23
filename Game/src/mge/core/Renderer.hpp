@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include "glm.hpp"
+#include <vector>
 
 class World;
 class GameObject;
@@ -16,7 +17,7 @@ class Camera;
 class Renderer
 {
 public:
-	Renderer();
+	Renderer(bool debug);
 	virtual ~Renderer();
 
 	bool debug;
@@ -74,7 +75,7 @@ public:
 	/**
 	 * Helper method to render debug info for a mesh
 	 */
-	void renderMeshDebugInfo(int pass, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
+	void renderMeshDebugInfo(int pass, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::vector<glm::vec3> collider);
 
 protected:
 

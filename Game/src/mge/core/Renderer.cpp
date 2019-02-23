@@ -4,9 +4,11 @@
 #include "Mesh.hpp"
 #include "World.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
+#include <vector>
 
-Renderer::Renderer():debug(false)
+Renderer::Renderer(bool dbg)
 {
+	this->debug = dbg;
     //make sure we test the depthbuffer
 	glEnable(GL_DEPTH_TEST);
 
@@ -51,7 +53,7 @@ void Renderer::render(int pass, World* pWorld, GameObject* pGameObject, Abstract
 
 void Renderer::renderSelf(int pass, World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
 	render(pass, pWorld, pGameObject->getMesh(), pMaterial, pModelMatrix, pViewMatrix, pProjectionMatrix);
-	if (debug) renderMeshDebugInfo(pass, pGameObject->getMesh(), pModelMatrix, pViewMatrix, pProjectionMatrix);
+	if (debug) renderMeshDebugInfo(pass, pGameObject->getMesh(), pModelMatrix, pViewMatrix, pProjectionMatrix, pGameObject->GetColliderBounds());
 }
 
 void Renderer::renderChildren(int pass, World* pWorld, GameObject* pGameObject, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, bool pRecursive) {
@@ -71,7 +73,7 @@ void Renderer::render(int pass, World* pWorld, Mesh* pMesh, AbstractMaterial* pM
 	if (pMesh != nullptr && pMaterial != nullptr) pMaterial->render(pass, pWorld, pMesh, pModelMatrix, pViewMatrix, pProjectionMatrix);
 }
 
-void Renderer::renderMeshDebugInfo(int pass, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
-	if (pMesh != nullptr) pMesh->drawDebugInfo(pModelMatrix, pViewMatrix, pProjectionMatrix);
+void Renderer::renderMeshDebugInfo(int pass, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::vector<glm::vec3> collider) {
+	if (pMesh != nullptr) pMesh->drawDebugInfo(pModelMatrix, pViewMatrix, pProjectionMatrix, collider);
 }
 

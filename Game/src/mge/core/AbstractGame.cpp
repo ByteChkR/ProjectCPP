@@ -86,7 +86,7 @@ void AbstractGame::_initializeGlew() {
 void AbstractGame::_initializeRenderer() {
     //setup our own renderer
 	std::cout << "Initializing renderer..." << std::endl;
-	_renderer = new Renderer();
+	_renderer = new Renderer(true);
     _renderer->setClearColor(0,0,0);
     std::cout << "Renderer done." << std::endl << std::endl;
 }

@@ -1,6 +1,9 @@
 #include <iostream>
 #include "GameObject.hpp"
 #include "mge/behaviours/AbstractBehaviour.hpp"
+#include <vector>
+#include "..\_vs2015\StaticBoxCollider.hpp"
+#include "..\_vs2015\DynamicBoxCollider.hpp"
 
 GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	: _name(pName), _transform(glm::translate(pPosition)), _parent(nullptr), _children(),
@@ -181,14 +184,14 @@ void GameObject::FireCollision(GameObject* other)
 
 GameObject* GameObject::Clone()
 {
-	GameObject* gobj = new GameObject(_name+ "(CLONE)");
+	GameObject* gobj = new GameObject(_name + "(CLONE)");
 	gobj->setTransform(glm::mat4(_transform));
 	gobj->setLocalPosition(getLocalPosition());
 	gobj->setParent(_parent);
 	gobj->setMesh(_mesh);
 	gobj->setMaterial(_material);
 	if (!_enabled)gobj->DisableBehaviours();
-	
+
 	for each (GameObject* child in _children)
 	{
 		gobj->add(child->Clone());
@@ -304,7 +307,7 @@ GameObject* GameObject::FindInChildren(std::string name, bool recursive)
 		{
 			ch = child->FindInChildren(name);
 		}
-		else if(child->_name == name)
+		else if (child->_name == name)
 		{
 			return child;
 		}
@@ -313,5 +316,21 @@ GameObject* GameObject::FindInChildren(std::string name, bool recursive)
 	//If every child in the tree was visited
 	return nullptr;
 
+}
+
+
+std::vector<glm::vec3> GameObject::GetColliderBounds()
+{
+	if (ContainsBehaviour("BOXCOLLIDER"))
+	{
+		return ((StaticBoxCollider*)getBehaviour("BOXCOLLIDER"))->GetBounds();
+	}
+	else if (ContainsBehaviour(("DYNBOXCOLLIDER")))
+	{
+		std::vector<glm::vec3> cols = ((DynamicBoxCollider*)getBehaviour("DYNBOXCOLLIDER"))->GetBounds();
+
+		return cols;
+	}
+	return std::vector<glm::vec3>();
 }
 

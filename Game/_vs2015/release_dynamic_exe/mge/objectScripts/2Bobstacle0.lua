@@ -1,6 +1,8 @@
 local scripts = {}
-local meta = {["name"] = "2Bobstacle0", ["objPath"] = "mge/models/CityBiome/9_CityB_Umbrella_v1.obj" , ["specular"]  = "green.png", ["emissive"] = "black.png", ["texture"] = "red.png", ["posX"] = 2, ["posY"] = -0.8, ["posZ"] = 0 }
-collider = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
+local meta = {["name"] = "2Bobstacle0", ["objPath"] = "mge/models/CityBiome/9_CityB_Umbrella_v1.obj" , ["specular"]  = "green.png", ["emissive"] = "black.png", ["texture"] = "red.png", ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0 }
+colliderMin = { ["width"] = -0.5, ["height"] = -0.5, ["depth"] = -0.5}
+colliderMax = { ["width"] = 0.5, ["height"] = 0.5, ["depth"] = 0.5}
+
 function AttachedScripts()
 	return scripts
 end

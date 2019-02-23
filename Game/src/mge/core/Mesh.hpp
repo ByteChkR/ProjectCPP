@@ -29,7 +29,7 @@ class Mesh
         /**
          * Draws debug info (normals) for the mesh using the given matrices)
          */
-        void drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
+        void drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::vector<glm::vec3> collider);
 
 	protected:
 		Mesh();

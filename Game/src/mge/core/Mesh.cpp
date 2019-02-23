@@ -337,7 +337,7 @@ void Mesh::streamToOpenGL(GLint pVerticesAttrib, GLint pNormalsAttrib, GLint pUV
 	if (biTanAttrib != -1) glDisableVertexAttribArray(biTanAttrib);
 }
 
-void Mesh::drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
+void Mesh::drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::vector<glm::vec3> collider) {
 	//demo of how to render some debug info using the good ol' direct rendering mode...
 	glUseProgram(0);
 	glMatrixMode(GL_PROJECTION);
@@ -346,21 +346,33 @@ void Mesh::drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMa
 	glLoadMatrixf(glm::value_ptr(pViewMatrix * pModelMatrix));
 
 	glBegin(GL_LINES);
-	//for each index draw the normal starting at the corresponding vertex
-	for (size_t i = 0; i < _indices.size(); i++) {
-		//draw normal for vertex
-		if (true) {
-			//now get normal end
-			glm::vec3 normal = _normals[_indices[i]];
-			glColor3fv(glm::value_ptr(normal));
 
-			glm::vec3 normalStart = _vertices[_indices[i]];
-			glVertex3fv(glm::value_ptr(normalStart));
-			glm::vec3 normalEnd = normalStart + normal * 0.2f;
-			glVertex3fv(glm::value_ptr(normalEnd));
-		}
-
+	for (size_t i = 0; i < collider.size(); i++)
+	{
+		glm::vec3 start, end;
+		start = glm::vec3(collider[i]);
+		end = glm::vec3(collider[(i + 1) % collider.size()]);
+		glColor3fv(glm::value_ptr(glm::vec3(0, 1, 0)));
+		glVertex3fv(glm::value_ptr(start));
+		glVertex3fv(glm::value_ptr(end));
 	}
+
+	//for each index draw the normal starting at the corresponding vertex
+	//for (size_t i = 0; i < _indices.size(); i++) {
+	//	//draw normal for vertex
+	//	if (true) {
+
+	//		//now get normal end
+	//		glm::vec3 normal = _normals[_indices[i]];
+	//		glColor3fv(glm::value_ptr(normal));
+
+	//		glm::vec3 normalStart = _vertices[_indices[i]];
+	//		glVertex3fv(glm::value_ptr(normalStart));
+	//		glm::vec3 normalEnd = normalStart + normal * 0.2f;
+	//		glVertex3fv(glm::value_ptr(normalEnd));
+	//	}
+
+	//}
 	glEnd();
 }
 

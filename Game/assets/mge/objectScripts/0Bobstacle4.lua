@@ -1,6 +1,8 @@
 local scripts = {}
-local meta = {["name"] = "0Bobstacle4", ["objPath"] = "mge/models/FarmForestBiome/toilet.obj", ["texture"] = "red.png", ["posX"] = -2, ["posY"] = 0, ["posZ"] = 0 }
-collider = { ["width"] = 1, ["height"] = 3, ["depth"] = 1}
+local meta = {["name"] = "0Bobstacle4", ["objPath"] = "mge/models/FarmForestBiome/toilet.obj", ["texture"] = "red.png",["posX"] = 0, ["posY"] = 0, ["posZ"] = 0 }
+colliderMin = { ["width"] = -0.5, ["height"] = -0.5, ["depth"] = -0.5}
+colliderMax = { ["width"] = 0.5, ["height"] = 0.5, ["depth"] = 0.5}
+
 function AttachedScripts()
 	return scripts
 end

@@ -69,6 +69,7 @@ void MGEDemo::_initializeResources()
 {
 
 
+
 #pragma region GameSetup
 
 	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
@@ -119,7 +120,7 @@ void MGEDemo::_initializeResources()
 	sphere->addBehaviour(new PlayerController());
 	_world->add(sphere);
 	sphere->add(_world->getMainCamera());
-	_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 4.5));
+	_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
 
 
 	DataManager::instance->SetPlayer(sphere);
@@ -213,7 +214,7 @@ void MGEDemo::_initializeResources()
 
 	testParticle->scale(glm::vec3(0.5, 0.5, 0.5));
 	_world->add(testParticle);
-	particleEm->Start();
+	//particleEm->Start();
 
 
 	//add a spinning sphere
@@ -259,7 +260,7 @@ void MGEDemo::_initializeResources()
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
 	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
-	particleEm->Start();
+	//particleEm->Start();
 
 #pragma endregion
 

@@ -136,25 +136,55 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	}
 	l = lua_gettop(L);
 
-	_collider = glm::vec3(-1);
+	_colliderMin = glm::vec3(-1);
+	_colliderMax = glm::vec3(-1);
+	hasCollider = true;
 
-	lua_getglobal(L, "collider");
-	if (!LuaOperations::TryGetFloatFromTable(L, "width", &_collider.x))
+	lua_getglobal(L, "colliderMin");
+	if (!LuaOperations::TryGetFloatFromTable(L, "width", &_colliderMin.x))
 	{
+		hasCollider = false;
 		std::cout << "Object with key: " << _name << " has no collider.\n";
 	}
 	else
 	{
-		lua_getglobal(L, "collider");
-		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_collider.y))
+		lua_getglobal(L, "colliderMin");
+		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_colliderMin.y))
 		{
+			hasCollider = false;
 			std::cout << "Object with key: " << _name << " has no collider.\n";
 		}
 		else
 		{
-			lua_getglobal(L, "collider");
-			if (!LuaOperations::TryGetFloatFromTable(L, "depth", &_collider.z))
+			lua_getglobal(L, "colliderMin");
+			if (!LuaOperations::TryGetFloatFromTable(L, "depth", &_colliderMin.z))
 			{
+				hasCollider = false;
+				std::cout << "Object with key: " << _name << " has no collider.\n";
+			}
+		}
+	}
+
+	lua_getglobal(L, "colliderMax");
+	if (!LuaOperations::TryGetFloatFromTable(L, "width", &_colliderMax.x))
+	{
+		hasCollider = false;
+		std::cout << "Object with key: " << _name << " has no collider.\n";
+	}
+	else
+	{
+		lua_getglobal(L, "colliderMax");
+		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_colliderMax.y))
+		{
+			hasCollider = false;
+			std::cout << "Object with key: " << _name << " has no collider.\n";
+		}
+		else
+		{
+			lua_getglobal(L, "colliderMax");
+			if (!LuaOperations::TryGetFloatFromTable(L, "depth", &_colliderMax.z))
+			{
+				hasCollider = false;
 				std::cout << "Object with key: " << _name << " has no collider.\n";
 			}
 		}
@@ -166,12 +196,17 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 
 bool LuaScriptStruct::HasCollider()
 {
-	return _collider.x != 0;
+	return hasCollider;
 }
 
-glm::vec3 LuaScriptStruct::GetColliderDimensions()
+glm::vec3 LuaScriptStruct::GetColliderMin()
 {
-	return _collider;
+	return _colliderMin;
+}
+
+glm::vec3 LuaScriptStruct::GetColliderMax()
+{
+	return _colliderMax;
 }
 
 
