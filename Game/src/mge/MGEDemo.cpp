@@ -293,7 +293,7 @@ void MGEDemo::_initializeScene()
 	StoryPanelHandler * storyPanelHandler = new StoryPanelHandler();
 
 	//setup the custom part so we can display some text
-	std::cout << "Initializing HUD" << std::endl;
+	std::cout << "Initializing GUI" << std::endl;
 	_hud = new DebugHud(_window);
 	_menu = new Menu(_window);
 	_storyPanel = new StoryPanel(_window);
@@ -301,8 +301,10 @@ void MGEDemo::_initializeScene()
 	_stageClear = new StageClear(_window);
 	_winScreen = new WinScreen(_window);
 	_loadingScreen = new LoadingScreen(_window);
+	_scoreBoard = new ScoreBoard(_window);
+	_credits = new Credits(_window);
 
-	std::cout << "HUD initialized." << std::endl << std::endl;
+	std::cout << "GUI initialized." << std::endl << std::endl;
 
 
 	GameStateManager::instance->_state = GameStateManager::StateLoad;
@@ -322,6 +324,8 @@ void MGEDemo::_render(int pass) {
 	else if (GameStateManager::instance->_state == GameStateManager::StateNextStage)_stageClear->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateWin)_winScreen->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateLoad)_loadingScreen->Update();
+	else if (GameStateManager::instance->_state == GameStateManager::StateCredits) _credits->Update();
+	else if (GameStateManager::instance->_state == GameStateManager::StateScore) _scoreBoard->Update();
 	if (_initFrame == 3)
 	{
 		_initFrame = -1;

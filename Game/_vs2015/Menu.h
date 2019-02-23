@@ -22,6 +22,16 @@ class Menu
 		HudSprite *_playBox;
 		Button *_button;
 
+
+		HudText * _creditsText;
+		HudSprite *_creditsBox;
+		Button *_creditsButton;
+
+
+		HudText * _scoreBoardText;
+		HudSprite *_scoreBoardBox;
+		Button *_scoreBoardButton;
+
 		HudText * _exitText;
 		HudSprite *_exitBox;
 		Button *_exitButton;

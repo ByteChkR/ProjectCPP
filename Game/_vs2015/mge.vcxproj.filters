@@ -87,6 +87,18 @@
       <Filter>NewFolder</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Credits.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoardButton.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsButton.cpp">
+      <Filter>NewFolder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -171,6 +183,18 @@
       <Filter>NewFolder</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Credits.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoard.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoardButton.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsButton.h">
+      <Filter>NewFolder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="NewFolder">

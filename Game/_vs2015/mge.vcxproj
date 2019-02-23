@@ -194,6 +194,8 @@
     <ClInclude Include="AbstractStaticCollider.hpp" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CollisionManager.hpp" />
+    <ClInclude Include="Credits.h" />
+    <ClInclude Include="CreditsButton.h" />
     <ClInclude Include="DynamicBoxCollider.hpp" />
     <ClInclude Include="EngineSettings.h" />
     <ClInclude Include="ExitButton.h" />
@@ -224,6 +226,8 @@
     <ClInclude Include="PlayerController.hpp" />
     <ClInclude Include="PresetHandler.hpp" />
     <ClInclude Include="RetryButton.h" />
+    <ClInclude Include="ScoreBoard.h" />
+    <ClInclude Include="ScoreBoardButton.h" />
     <ClInclude Include="ScriptableLuaObject.h" />
     <ClInclude Include="StageClear.h" />
     <ClInclude Include="StaticBoxCollider.hpp" />
@@ -262,6 +266,8 @@
     <ClCompile Include="AbstractStaticCollider.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="Credits.cpp" />
+    <ClCompile Include="CreditsButton.cpp" />
     <ClCompile Include="DynamicBoxCollider.cpp" />
     <ClCompile Include="EngineSettings.cpp" />
     <ClCompile Include="ExitButton.cpp" />
@@ -292,6 +298,8 @@
     <ClCompile Include="PresetHandler.cpp" />
     <ClCompile Include="HudText.cpp" />
     <ClCompile Include="RetryButton.cpp" />
+    <ClCompile Include="ScoreBoard.cpp" />
+    <ClCompile Include="ScoreBoardButton.cpp" />
     <ClCompile Include="ScriptableLuaObject.cpp" />
     <ClCompile Include="StageClear.cpp" />
     <ClCompile Include="StaticBoxCollider.cpp" />

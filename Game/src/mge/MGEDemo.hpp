@@ -9,6 +9,8 @@
 #include "../_vs2015/StageClear.h"
 #include "../_vs2015/WinScreen.h"
 #include "../_vs2015/LoadingScreen.h"
+#include "../_vs2015/ScoreBoard.h"
+#include "../_vs2015/Credits.h"
 
 class DebugHud;
 
@@ -44,6 +46,8 @@ class MGEDemo: public AbstractGame
 		StageClear* _stageClear;
 		WinScreen* _winScreen;
 		LoadingScreen* _loadingScreen;
+		ScoreBoard* _scoreBoard;
+		Credits* _credits;
 
 		int _initFrame = 0;
 
