@@ -17,7 +17,7 @@ ScoreBoard::ScoreBoard(sf::RenderWindow *aWindow) {
 	
 	_size = ScoreManager::instance->GetScores().size();
 
-	for (int i = 0; i < _size; i++) {
+	for (int i = 0; i < 10; i++) {
 		_scoreDisplays.push_back(new HudText("arial.ttf",22,sf::Color::Black));
 		_nameDisplays.push_back(new HudText("arial.ttf",22,sf::Color::Black));
 	}
@@ -38,9 +38,12 @@ void ScoreBoard::UpdateScores() {
 void ScoreBoard::OrganizeScreen() {
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
 	
+	float wholeBlockOffset = 380;
+	float lineOffset = 47.5f;
+
 	for (int i = 0; i < _size; i++) {
-		_nameDisplays[i]->_text.setPosition( 200 , 380 + 48 * (i + 1));
-		_scoreDisplays[i]->_text.setPosition(500 , 380 + 48 * (i + 1));
+		_nameDisplays[i]->_text.setPosition( 200 , wholeBlockOffset +lineOffset * (i + 1));
+		_scoreDisplays[i]->_text.setPosition(500 , wholeBlockOffset + lineOffset * (i + 1));
 	}
 	
 

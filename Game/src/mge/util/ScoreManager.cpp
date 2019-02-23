@@ -39,6 +39,7 @@ std::vector<ScoreManager::Score> ScoreManager::GetScores()
 	}
 
 	file.close();
+	scores.pop_back();
 
 	return scores;
 
