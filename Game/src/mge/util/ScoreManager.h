@@ -37,13 +37,6 @@ public:
 
 
 private:
-	struct LessThenValue
-	{
-		inline bool operator() (const Score& pStruct1, const Score & pStruct2)
-		{
-			return(pStruct1.value < pStruct2.value);
-		}
-	};
 
 };
 

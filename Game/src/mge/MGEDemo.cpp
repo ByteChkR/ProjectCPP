@@ -74,7 +74,6 @@ void MGEDemo::_initializeResources()
 #pragma region GameSetup
 
 	ScoreManager * scoreManager = new ScoreManager();
-	scoreManager->GetScores();
 	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 
 
