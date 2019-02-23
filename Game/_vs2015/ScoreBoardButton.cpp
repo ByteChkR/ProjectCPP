@@ -12,6 +12,5 @@ ScoreBoardButton::ScoreBoardButton(sf::RenderWindow *aWindow, sf::Sprite _button
 void ScoreBoardButton::OnClick()
 {
 	std::cout << "ScoreBoard" << std::endl;
-	MapBuilder::instance->Reload();
 	GameStateManager::instance->_state = GameStateManager::StateScore;
 }

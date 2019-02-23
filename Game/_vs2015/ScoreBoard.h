@@ -5,6 +5,7 @@
 #include "../_vs2015/HudSprite.h"
 #include "../_vs2015/HudText.h"
 #include "Button.h"
+#include "mge\util\ScoreManager.h"
 
 class ScoreBoard {
 public:
@@ -13,8 +14,16 @@ public:
 	void Update();
 
 private:
+	void UpdateScores();
 	void OrganizeScreen();
 	void draw();
+
+	int _size;
+	
+	std::vector<ScoreManager::Score> _scores;
+
+	std::vector<HudText*> _nameDisplays;
+	std::vector<HudText*> _scoreDisplays;
 
 	HudText *_menuText;
 	HudSprite *_menuButtonBox;

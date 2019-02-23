@@ -12,6 +12,5 @@ CreditsButton::CreditsButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite
 void CreditsButton::OnClick()
 {
 	std::cout << "Credits" << std::endl;
-	MapBuilder::instance->Reload();
 	GameStateManager::instance->_state = GameStateManager::StateCredits;
 }
