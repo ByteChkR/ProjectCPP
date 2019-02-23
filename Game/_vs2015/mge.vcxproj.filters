@@ -22,87 +22,56 @@
     <ClCompile Include="..\src\mge\util\AudioManager.cpp" />
     <ClCompile Include="..\src\mge\util\Biome.cpp" />
     <ClCompile Include="..\src\mge\util\BiomeHandler.cpp" />
+    <ClCompile Include="..\src\mge\util\DataManager.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\mge\util\Lane.cpp" />
     <ClCompile Include="..\src\mge\util\MapGenerator.cpp" />
+    <ClCompile Include="..\src\mge\util\ScoreManager.cpp" />
     <ClCompile Include="AbstractStaticCollider.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="Credits.cpp" />
+    <ClCompile Include="CreditsButton.cpp" />
     <ClCompile Include="DynamicBoxCollider.cpp" />
     <ClCompile Include="EngineSettings.cpp" />
     <ClCompile Include="ExitButton.cpp" />
     <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GLLight.cpp" />
     <ClCompile Include="HudSprite.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LightParams.cpp" />
+    <ClCompile Include="LoadingScreen.cpp" />
     <ClCompile Include="LuaAPI.cpp" />
     <ClCompile Include="LuaOperations.cpp" />
     <ClCompile Include="LuaScriptStruct.cpp" />
     <ClCompile Include="MapBuilder.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuButton.cpp" />
+    <ClCompile Include="NextButton.cpp" />
+    <ClCompile Include="NextStageButtoncpp.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PlayButton.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PresetHandler.cpp" />
     <ClCompile Include="HudText.cpp" />
+    <ClCompile Include="RetryButton.cpp" />
+    <ClCompile Include="ScoreBoard.cpp" />
+    <ClCompile Include="ScoreBoardButton.cpp" />
     <ClCompile Include="ScriptableLuaObject.cpp" />
+    <ClCompile Include="StageClear.cpp" />
     <ClCompile Include="StaticBoxCollider.cpp" />
+    <ClCompile Include="StoryPanel.cpp" />
+    <ClCompile Include="StoryPanelHandler.cpp" />
     <ClCompile Include="TextureMovingMaterial.cpp" />
-    <ClCompile Include="StoryPanelHandler.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="StoryPanel.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="NextButton.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="ParticleEmitter.cpp" />
-    <ClCompile Include="ParticleSystem.cpp" />
-    <ClCompile Include="..\src\mge\util\DataManager.cpp" />
-    <ClCompile Include="GameOverScreen.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="RetryButton.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuButton.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="StageClear.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="NextStageButtoncpp.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="WinScreen.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadingScreen.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-	
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="..\src\mge\util\ScoreManager.cpp" />
-	  
-    <ClCompile Include="Credits.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreBoard.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreBoardButton.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
-    <ClCompile Include="CreditsButton.cpp">
-      <Filter>NewFolder</Filter>
-    </ClCompile>
->>>>>>> a1414b51da6515a4e2c2a8d1fb16f573c9105a30
+    <ClCompile Include="WinScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -126,16 +95,21 @@
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\AudioManager.h" />
     <ClInclude Include="..\src\mge\util\BiomeHandler.h" />
+    <ClInclude Include="..\src\mge\util\DataManager.h" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="..\src\mge\util\Lane.h" />
     <ClInclude Include="..\src\mge\util\MapGenerator.h" />
+    <ClInclude Include="..\src\mge\util\ScoreManager.h" />
     <ClInclude Include="AbstractStaticCollider.hpp" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CollisionManager.hpp" />
+    <ClInclude Include="Credits.h" />
+    <ClInclude Include="CreditsButton.h" />
     <ClInclude Include="DynamicBoxCollider.hpp" />
     <ClInclude Include="EngineSettings.h" />
     <ClInclude Include="ExitButton.h" />
     <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="GLLight.hpp" />
     <ClInclude Include="HudSprite.h" />
@@ -143,74 +117,33 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LightParams.hpp" />
+    <ClInclude Include="LoadingScreen.h" />
     <ClInclude Include="LuaAPI.h" />
     <ClInclude Include="LuaOperations.h" />
     <ClInclude Include="LuaScriptStruct.h" />
     <ClInclude Include="MapBuilder.h" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuButton.h" />
+    <ClInclude Include="NextButton.h" />
+    <ClInclude Include="NextStageButton.h" />
     <ClInclude Include="ObjectPool.hpp" />
-    <ClInclude Include="PlayButton.h" />
-    <ClInclude Include="PlayerController.hpp" />
-    <ClInclude Include="PresetHandler.hpp" />
-    <ClInclude Include="ScriptableLuaObject.h" />
-    <ClInclude Include="StaticBoxCollider.hpp" />
-    <ClInclude Include="TextureMovingMaterial.h" />
-    <ClInclude Include="StoryPanelHandler.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="StoryPanel.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="NextButton.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="GameOverScreen.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="RetryButton.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuButton.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="StageClear.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="NextStageButton.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="WinScreen.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadingScreen.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h" />
-<<<<<<< HEAD
-    <ClInclude Include="..\src\mge\util\ScoreManager.h" />
-=======
-    <ClInclude Include="Credits.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreBoard.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreBoardButton.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
-    <ClInclude Include="CreditsButton.h">
-      <Filter>NewFolder</Filter>
-    </ClInclude>
->>>>>>> a1414b51da6515a4e2c2a8d1fb16f573c9105a30
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="NewFolder">
-      <UniqueIdentifier>{35404faa-f81d-4ba8-a099-db1b207e481c}</UniqueIdentifier>
-    </Filter>
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleSystem.h" />
-    <ClInclude Include="..\src\mge\util\DataManager.h" />
+    <ClInclude Include="PlayButton.h" />
+    <ClInclude Include="PlayerController.hpp" />
+    <ClInclude Include="PresetHandler.hpp" />
+    <ClInclude Include="RetryButton.h" />
+    <ClInclude Include="ScoreBoard.h" />
+    <ClInclude Include="ScoreBoardButton.h" />
+    <ClInclude Include="ScriptableLuaObject.h" />
+    <ClInclude Include="StageClear.h" />
+    <ClInclude Include="StaticBoxCollider.hpp" />
+    <ClInclude Include="StoryPanel.h" />
+    <ClInclude Include="StoryPanelHandler.h" />
+    <ClInclude Include="TextureMovingMaterial.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="WinScreen.h" />
   </ItemGroup>
 </Project>

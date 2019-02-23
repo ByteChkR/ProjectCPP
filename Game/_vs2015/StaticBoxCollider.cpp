@@ -82,12 +82,12 @@ bool StaticBoxCollider::IsCollision(DynamicBoxCollider* ball)
 	max = ball->GetMax();
 	glm::vec3 ballPos = ball->GetPosition();
 
-	if (pos.x + min.x > ballPos.x + max.x)return false;
-	if (pos.x + max.x < ballPos.x + min.x)return false;
-	if (pos.y + min.y > ballPos.y + max.y)return false;
-	if (pos.y + max.y < ballPos.y + min.y)return false;
-	if (pos.z + min.z > ballPos.z + max.z)return false;
-	if (pos.z + max.z < ballPos.z + min.z)return false;
+	if (pos.x + this->min.x >= ballPos.x + max.x)return false;
+	if (pos.x + this->max.x <= ballPos.x + min.x)return false;
+	if (pos.y + this->min.y >= ballPos.y + max.y)return false;
+	if (pos.y + this->max.y <= ballPos.y + min.y)return false;
+	if (pos.z + this->min.z >= ballPos.z + max.z)return false;
+	if (pos.z + this->max.z <= ballPos.z + min.z)return false;
 
 	return true;
 }
