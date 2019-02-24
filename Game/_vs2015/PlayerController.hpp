@@ -3,13 +3,17 @@
 #include "mge/behaviours/AbstractBehaviour.hpp"
 #include "mge/core/GameObject.hpp"
 #include "DynamicBoxCollider.hpp"
+#include "mge/util/AudioManager.h"
 #include "Timer.h"
 #include <iostream>
+
+
+
 
 class PlayerController : public AbstractBehaviour
 {
 public:
-	PlayerController();
+	PlayerController(GameObject * pOwner);
 	virtual ~PlayerController();
 	virtual void update(float pTime) override;
 	virtual void OnCollision(GameObject* other) override;
@@ -46,6 +50,21 @@ private:
 	void switchRight();
 	void handleJump(float pTime);
 	void handleSwitch(float pTime);
+
+	void createModels();
+	
+	//empty game objects that serve as pivots
+
+	GameObject * gTBody;
+	GameObject * gTNeck;
+	GameObject * gTLeftLeg;
+	GameObject * gTRightLeg;
+	GameObject * gTLeftWing;
+	GameObject * gTRightWing;
+	GameObject * gTHead;
+	GameObject * gTTail;
+
+
 
 };
 

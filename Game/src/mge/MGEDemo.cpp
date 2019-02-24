@@ -114,18 +114,18 @@ void MGEDemo::_initializeResources()
 
 
 	AbstractMaterial* runicStoneMaterial = new TextureMaterial(testTex, nullptr, nullptr, testNormal, 2, 1, 5, 2);
-	GameObject* sphere = new GameObject("sphere", glm::vec3(0, 0, 0));
-	sphere->addBehaviour(new DynamicBoxCollider(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1)));
-	sphere->setMesh(sphereMeshS);
-	sphere->setMaterial(runicStoneMaterial);
+	GameObject* playerObject = new GameObject("sphere", glm::vec3(0, 0, 0));
+	playerObject->addBehaviour(new DynamicBoxCollider(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1)));
+	//playerObject->setMesh(sphereMeshS);
+	//playerObject->setMaterial(runicStoneMaterial);
 
-	sphere->addBehaviour(new PlayerController());
-	_world->add(sphere);
-	sphere->add(_world->getMainCamera());
+	_world->add(playerObject);
+	playerObject->addBehaviour(new PlayerController(playerObject));
+	playerObject->add(_world->getMainCamera());
 	_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
 
 
-	DataManager::instance->SetPlayer(sphere);
+	DataManager::instance->SetPlayer(playerObject);
 	DataManager::instance->SetBackground(BackGroundImage);
 	DataManager::instance->SetGround(plane);
 

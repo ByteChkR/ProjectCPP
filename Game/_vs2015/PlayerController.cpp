@@ -6,11 +6,16 @@
 #include "LevelManager.h"
 #include "mge/core/Camera.hpp"
 #include "mge/core/AbstractGame.hpp"
+#include "mge/config.hpp"
+#include "mge/core/Mesh.hpp"
+#include "mge/core/World.hpp"
+#include "mge/core/Texture.hpp"
 
 PlayerController* PlayerController::instance = nullptr;
 
-PlayerController::PlayerController()
+PlayerController::PlayerController(GameObject * pOwner)
 {
+	setOwner(pOwner);
 	std::function<void()> oE = std::bind(&PlayerController::OnGameEnd, std::ref(*this));
 	std::function<void(float)> oT = std::bind(&PlayerController::OnGameEndTick, std::ref(*this),std::placeholders::_1);
 	_endOfGameTimer = new Timer(oT, oE, 2, false);
@@ -32,11 +37,13 @@ PlayerController::PlayerController()
 	_isDPressed = false;
 	_isWPRessed = false;
 	instance = this;
+
+	createModels();
 }
 
 AbstractBehaviour* PlayerController::Clone()
 {
-	return new PlayerController();
+	return new PlayerController(_owner);
 }
 
 PlayerController::~PlayerController()
@@ -287,4 +294,81 @@ void PlayerController::handleJump(float pTime)
 		//Add the Velocity
 		if (_isJumping)_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 1, 0) * _velocity);
 	}
+}
+
+void PlayerController::createModels()
+{
+	//player models and fake pivots
+	Texture* turkeyAlb = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeyalbedo.png");
+	Texture* turkeyMetal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeymetal.png");
+	Texture* turkeyNormal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeynormal.png");
+
+	AbstractMaterial* playerTexture = new TextureMaterial(turkeyAlb, turkeyMetal, turkeyMetal, turkeyNormal, 2, 1, 5, 2);
+
+	Mesh * tBody = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TBody.obj");
+	Mesh * tHead = Mesh::load(config::MGE_MODEL_PATH + "Turkey/THead.obj");
+	Mesh * tNeck = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TNeck.obj");
+	Mesh * tTail = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TTail.obj");
+
+	Mesh * tLeftLeg = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TLeftLeg.obj");
+	Mesh * tRightLeg = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TRightLeg.obj");
+	Mesh * tLeftWing = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TLeftWing.obj");
+	Mesh * tRightWing = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TRightWind.obj");
+
+	gTBody = new GameObject("bodyPivot");
+	getOwner()->add(gTBody);
+	GameObject * mBody = new GameObject("bodyModel");
+	mBody->setMesh(tBody);
+	mBody->setMaterial(playerTexture);
+	gTBody->add(mBody);
+
+	gTLeftLeg = new GameObject("leftLegPivot");
+	getOwner()->add(gTLeftLeg);
+	GameObject * mLeftLeg = new GameObject("leftLegModel");
+	mLeftLeg->setMesh(tLeftLeg);
+	mLeftLeg->setMaterial(playerTexture);
+	gTLeftLeg->add(mLeftLeg);
+
+	gTRightLeg = new GameObject("RightLegPivot");
+	getOwner()->add(gTRightLeg);
+	GameObject * mRightLeg = new GameObject("RightLegModel");
+	mRightLeg->setMesh(tRightLeg);
+	mRightLeg->setMaterial(playerTexture);
+	gTRightLeg->add(mRightLeg);
+
+	gTNeck = new GameObject("NeckPivot");
+	getOwner()->add(gTNeck);
+	GameObject * mNeck = new GameObject("NeckModel");
+	mNeck->setMesh(tNeck);
+	mNeck->setMaterial(playerTexture);
+	gTNeck->add(mNeck);
+
+	gTTail = new GameObject("tailPivot");
+	gTBody->add(gTTail);
+	GameObject *mTail = new GameObject("TailModel");
+	mTail->setMesh(tTail);
+	mTail->setMaterial(playerTexture);
+	gTTail->add(mTail);
+
+	gTHead = new GameObject("headPivot");
+	gTNeck->add(gTHead);
+	GameObject * mHead = new GameObject("HeadModel");
+	mHead->setMesh(tHead);
+	mHead->setMaterial(playerTexture);
+	gTHead->add(mHead);
+
+	gTLeftWing = new GameObject("leftWingPivot");
+	gTBody->add(gTLeftWing);
+	GameObject * mLeftWing = new GameObject("leftWingModel");
+	mLeftWing->setMesh(tLeftWing);
+	mLeftWing->setMaterial(playerTexture);
+	gTLeftWing->add(mLeftWing);
+
+	gTRightWing = new GameObject("RightWingPivot");
+	gTBody->add(gTRightWing);
+	GameObject * mRightWing = new GameObject("RightWingModel");
+	mRightWing->setMesh(tRightWing);
+	mRightWing->setMaterial(playerTexture);
+	gTRightWing->add(mRightWing);
+
 }
