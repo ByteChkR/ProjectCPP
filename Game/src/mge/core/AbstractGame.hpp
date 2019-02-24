@@ -30,6 +30,7 @@ class AbstractGame
 		CollisionManager* _manager;
 		World* _world;              //the root game object that represents our scene
 		static AbstractGame* instance;
+		float GetDeltaTime();
 		float GetTimeSinceStartup();
     protected:
 
@@ -67,6 +68,8 @@ class AbstractGame
         AbstractGame(const AbstractGame&);
         AbstractGame& operator=(const AbstractGame&);
 		ParticleSystem* _particleSystem;
+
+		float lastDT;
 
 
 };

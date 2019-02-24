@@ -18,7 +18,7 @@
 #include "mge/core/Camera.hpp"
 ShaderProgram* TextureMovingMaterial::_shader = NULL;
 
-float TextureMovingMaterial::Movingspeed = 0.13f;
+//float TextureMovingMaterial::Movingspeed = 0.13f;
 GLint TextureMovingMaterial::_heightMapTiling = 0;
 GLint TextureMovingMaterial::_uMMatrix = 0;
 GLint TextureMovingMaterial::_uVMatrix = 0;
@@ -52,8 +52,8 @@ GLint TextureMovingMaterial::_movingspeed = 0;
 GLint TextureMovingMaterial::_xMoveTiling = 0;
 GLint TextureMovingMaterial::_heightMapSpeed = 0;
 GLint TextureMovingMaterial::_playerPos = 0;
-float TextureMovingMaterial::ShadowSize = 1;
-float TextureMovingMaterial::ShadowLength = 2;
+float TextureMovingMaterial::ShadowSize = 2;
+float TextureMovingMaterial::ShadowLength = 4;
 GLint TextureMovingMaterial::_shadowLength = 0;
 GLint TextureMovingMaterial::_shadowSize = 0;
 GLint TextureMovingMaterial::_camPos = 0;
@@ -186,15 +186,15 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 	//tell the shader the texture slot for the diffuse texture is slot 0
 	glUniform1i(_uDiffuseTexture, 0);
 
-	glm::vec3 ppos = PlayerController::instance->getOwner()->getLocalPosition()*glm::vec3(0, 0, 1);
-	ppos -= AbstractGame::instance->_world->getMainCamera()->getLocalPosition()*glm::vec3(0, 0, 1);//Camera has different y and x component. so we are discarding that
+	glm::vec3 ppos = PlayerController::instance->getOwner()->getWorldPosition();
+	//ppos -= AbstractGame::instance->_world->getMainCamera()->getLocalPosition()*glm::vec3(1, 0, 1);//Camera has different y and x component. so we are discarding that
 
 
 	glUniform3f(_playerPos, ppos.x, ppos.y, ppos.z);
 
 	glUniform1f(_genOffset, TextureMaterial::genOffset);
 	glUniform1f(_width, TextureMaterial::width);
-	glUniform1f(_movingspeed, Movingspeed);
+	glUniform1f(_movingspeed, MapBuilder::instance->GetMovingSpeed());
 	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
 	glUniform1f(_xMoveTiling, TextureMaterial::xMoveTiling);

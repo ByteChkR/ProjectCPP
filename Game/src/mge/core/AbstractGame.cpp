@@ -106,6 +106,11 @@ void AbstractGame::_initializeCollisionManager()
 
 }
 
+float AbstractGame::GetDeltaTime()
+{
+	return lastDT;
+}
+
 ///MAIN GAME LOOP
 
 void AbstractGame::run()
@@ -131,6 +136,7 @@ void AbstractGame::run()
 		    while (timeSinceLastUpdate > timePerFrame) {
                 timeSinceLastUpdate -= timePerFrame;
                 _update(timePerFrame.asSeconds());
+				lastDT = timePerFrame.asSeconds();
 				_manager->Update(timePerFrame.asSeconds());
 		    }
 

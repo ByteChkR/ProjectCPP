@@ -13,6 +13,7 @@ MapBuilder* MapBuilder::instance = nullptr;
 
 MapBuilder::MapBuilder(float generationOffset, float removalOffset)
 {
+	_movingSpeed = 0.05;
 	instance = this;
 	lastRemove = 0;
 	_container = new GameObject("CONTAINER");
@@ -43,7 +44,9 @@ void MapBuilder::Reload()
 void MapBuilder::Unload()
 {
 	if (&_mapPropList != nullptr && _mapPropList.size() > 0)
+	{
 		UnloadGen(Level::instance->GetMap(), &_mapPropList);
+	}
 	if (&_decoPropList != nullptr && _decoPropList.size() > 0)
 		UnloadGen(Level::instance->GetDeco(), &_decoPropList);
 
@@ -93,6 +96,10 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 	}
 }
 
+float MapBuilder::GetMovingSpeed()
+{
+	return _movingSpeed;
+}
 
 float MapBuilder::GetProgress()
 {
@@ -197,10 +204,10 @@ void MapBuilder::Update(float pTime)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 
-		_container->setLocalPosition(_container->getLocalPosition() - glm::vec3(0, 0, 20) * pTime);
+		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + _movingSpeed*3));
 	}
 	else
-		_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(0, 0, 20)* pTime);
+		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + _movingSpeed*3));
 	UpdateGen(Level::instance->GetMap(), &_mapPropList);
 	UpdateGen(Level::instance->GetDeco(), &_decoPropList);
 

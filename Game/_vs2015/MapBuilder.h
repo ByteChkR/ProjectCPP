@@ -19,7 +19,7 @@ public:
 	void Reload();
 	void Unload();
 	float GetProgress();
-
+	float GetMovingSpeed();
 	float genOffset;
 private:
 	GameObject* _container;
@@ -32,6 +32,7 @@ private:
 	std::vector<std::pair<int, GameObject*>> _decoPropList;
 	float remOffset;
 	int lastRemove;
+	float _movingSpeed;
 };
 
 #endif // !MAPBUILDER_HPP
