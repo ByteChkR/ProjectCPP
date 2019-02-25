@@ -11,7 +11,7 @@ Credits::Credits(sf::RenderWindow *aWindow) {
 	_background = new HudSprite("tmpLoading.png");
 
 	_menuText = new HudText();
-	_menuButtonBox = new HudSprite("HudBox.png",0.8f);
+	_menuButtonBox = new HudSprite("HudBox.png",1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 
 	OrganizeScreen();

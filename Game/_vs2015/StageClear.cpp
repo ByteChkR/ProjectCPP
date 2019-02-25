@@ -11,11 +11,11 @@ StageClear::StageClear(sf::RenderWindow *aWindow) {
 	_window = aWindow;
 	_background = new HudSprite("tmpPanel0.png");
 
-	_nextStageButtonBox = new HudSprite("HudBox.png", 0.8f);
+	_nextStageButtonBox = new HudSprite("HudBox.png", 1.05f);
 	_nextStageText = new HudText();
 	_nextStageButton = new NextStageButton(_window, _nextStageButtonBox->sprite);
 
-	_menuButtonBox = new HudSprite("HudBox.png", 0.8f);
+	_menuButtonBox = new HudSprite("HudBox.png", 1.05f);
 	_menuText = new HudText();
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 

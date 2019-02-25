@@ -12,7 +12,7 @@ ScoreBoard::ScoreBoard(sf::RenderWindow *aWindow) {
 	_background = new HudSprite("scoreboard.png");
 
 	_menuText = new HudText();
-	_menuButtonBox = new HudSprite("HudBox.png", 0.8f);
+	_menuButtonBox = new HudSprite("HudBox.png", 1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 	
 	_size = ScoreManager::instance->GetScores().size();

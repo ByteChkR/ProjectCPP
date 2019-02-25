@@ -11,11 +11,11 @@ GameOverScreen::GameOverScreen(sf::RenderWindow *aWindow){
 	_window = aWindow;
 	_background = new HudSprite("tmpPanel0.png");
 
-	_retryButtonBox = new HudSprite("HudBox.png",0.8f);
+	_retryButtonBox = new HudSprite("HudBox.png",1.05f);
 	_retryText = new HudText();
 	_retryButton = new RetryButton(_window, _retryButtonBox->sprite);
 
-	_menuButtonBox = new HudSprite("HudBox.png",0.8f);
+	_menuButtonBox = new HudSprite("HudBox.png",1.05f);
 	_menuText = new HudText();
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 

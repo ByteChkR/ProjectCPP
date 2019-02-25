@@ -18,19 +18,19 @@ Menu::Menu(sf::RenderWindow *aWindow) : _window(aWindow)
 	_background = new HudSprite("tempMenu.png");
 
 	_playText = new HudText();
-	_playBox = new HudSprite("HudBox.png",0.8f);
+	_playBox = new HudSprite("HudBox.png",1.05f);
 	_button = new PlayButton(_window,_playBox->sprite);
 
 	_creditsText = new HudText();
-	_creditsBox = new HudSprite("HudBox.png", 0.8f);
+	_creditsBox = new HudSprite("HudBox.png", 1.05f);
 	_creditsButton = new CreditsButton(_window, _creditsBox->sprite);
 
 	_scoreBoardText = new HudText();
-	_scoreBoardBox = new HudSprite("HudBox.png", 0.8f);
+	_scoreBoardBox = new HudSprite("HudBox.png", 1.05f);
 	_scoreBoardButton = new ScoreBoardButton(_window, _scoreBoardBox->sprite);
 
 	_exitText = new HudText();
-	_exitBox = new HudSprite("HudBox.png",0.8f);
+	_exitBox = new HudSprite("HudBox.png",1.05f);
 	_exitButton = new ExitButton(_window, _exitBox->sprite);
 
 	_organizeMenu();
