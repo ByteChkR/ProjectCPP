@@ -10,6 +10,7 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Texture.hpp"
+#include "mge\materials\AnimationMaterial.hpp"
 
 PlayerController* PlayerController::instance = nullptr;
 
@@ -196,6 +197,7 @@ void PlayerController::update(float pTime)
 
 	handleJump(pTime);
 	handleSwitch(pTime);
+	Animate(pTime);
 
 
 }
@@ -303,7 +305,7 @@ void PlayerController::createModels()
 	Texture* turkeyMetal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeymetal.png");
 	Texture* turkeyNormal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeynormal.png");
 
-	AbstractMaterial* playerTexture = new TextureMaterial(turkeyAlb, turkeyMetal, turkeyMetal, turkeyNormal, 2, 1, 5, 2);
+	AbstractMaterial* playerTexture = new AnimationMaterial(turkeyAlb,1);
 
 	Mesh * tBody = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TBody.obj");
 	Mesh * tHead = Mesh::load(config::MGE_MODEL_PATH + "Turkey/THead.obj");
@@ -313,31 +315,53 @@ void PlayerController::createModels()
 	Mesh * tLeftLeg = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TLeftLeg.obj");
 	Mesh * tRightLeg = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TRightLeg.obj");
 	Mesh * tLeftWing = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TLeftWing.obj");
-	Mesh * tRightWing = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TRightWind.obj");
+	Mesh * tRightWing = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TRightWing.obj");
+
+	//Finn test
+
+	/*
+	Mesh * finnHouse = Mesh::load(config::MGE_MODEL_PATH + "chickenroom.obj");
+	Texture* houseAlb = Texture::load(config::MGE_TEXTURE_PATH + "chickenroom_diffuse.png");
+	AbstractMaterial* houseTexture = new AnimationMaterial(houseAlb, 1);
+	GameObject * finnHouseObject = new GameObject("FinnTest");
+	finnHouseObject->setMesh(finnHouse);
+	finnHouseObject->setMaterial(houseTexture);
+	finnHouseObject->scale(glm::vec3(0.2f, 0.2f, 0.2f));
+	finnHouseObject->setLocalPosition(glm::vec3(5, 0,-10));
+	getOwner()->add(finnHouseObject);
+	*/
+	
+
+
+
+	modelsContainer = new GameObject("PlayerModelsContainer");
+	modelsContainer->setLocalPosition(glm::vec3(0, -1, 0));
+	getOwner()->add(modelsContainer);
+
 
 	gTBody = new GameObject("bodyPivot");
-	getOwner()->add(gTBody);
+	modelsContainer->add(gTBody);
 	GameObject * mBody = new GameObject("bodyModel");
 	mBody->setMesh(tBody);
 	mBody->setMaterial(playerTexture);
 	gTBody->add(mBody);
 
 	gTLeftLeg = new GameObject("leftLegPivot");
-	getOwner()->add(gTLeftLeg);
+	modelsContainer->add(gTLeftLeg);
 	GameObject * mLeftLeg = new GameObject("leftLegModel");
 	mLeftLeg->setMesh(tLeftLeg);
 	mLeftLeg->setMaterial(playerTexture);
 	gTLeftLeg->add(mLeftLeg);
 
 	gTRightLeg = new GameObject("RightLegPivot");
-	getOwner()->add(gTRightLeg);
+	modelsContainer->add(gTRightLeg);
 	GameObject * mRightLeg = new GameObject("RightLegModel");
 	mRightLeg->setMesh(tRightLeg);
 	mRightLeg->setMaterial(playerTexture);
 	gTRightLeg->add(mRightLeg);
 
 	gTNeck = new GameObject("NeckPivot");
-	getOwner()->add(gTNeck);
+	modelsContainer->add(gTNeck);
 	GameObject * mNeck = new GameObject("NeckModel");
 	mNeck->setMesh(tNeck);
 	mNeck->setMaterial(playerTexture);
@@ -370,5 +394,39 @@ void PlayerController::createModels()
 	mRightWing->setMesh(tRightWing);
 	mRightWing->setMaterial(playerTexture);
 	gTRightWing->add(mRightWing);
+
+}
+
+void PlayerController::Animate(float pDeltaTime)
+{
+	animationTool += pDeltaTime * animationSpeed;
+
+	if (_grounded == false)
+	{
+	
+		glm::vec3 yPosInAir(0, 0, 0);
+
+		yPosInAir.y = glm::clamp(getOwner()->getLocalPosition().y / maxYToJump, 0.0f, 1.0f);
+		gTNeck->setLocalPosition(glm::vec3(0, -(yPosInAir.y * 0.3f), 0));
+		gTLeftWing->setLocalPosition(glm::vec3(0, yPosInAir.y *0.2f, 0));
+		gTRightWing->setLocalPosition(glm::vec3(0, yPosInAir.y *0.2f, 0));
+		//gTTail->setLocalPosition(glm::vec3(0, -(yPosInAir.y * 0.1f), 0));
+		yPosInAir.y *= 0.5f;
+		gTLeftLeg->setLocalPosition(yPosInAir);
+		gTRightLeg->setLocalPosition(yPosInAir);
+		gTBody->setLocalPosition(glm::vec3(0, 0, 0));
+
+		return;
+	}
+	
+	double sinTool = (glm::sin(animationTool)+1)/2;
+
+	gTTail->setLocalPosition(glm::vec3(0, 0, 0));
+	gTLeftWing->setLocalPosition(glm::vec3(0,0, 0));
+	gTRightWing->setLocalPosition(glm::vec3(0,0, 0));
+	gTNeck->setLocalPosition(glm::vec3(0, 0, -sinTool * 0.1f));
+	gTBody->setLocalPosition(glm::vec3(sinTool*0.1f - 0.05f, 0, 0));
+	gTLeftLeg->setLocalPosition(glm::vec3(0 , sinTool * 0.1f , 0));
+	gTRightLeg->setLocalPosition(glm::vec3(0 , 0.1f - sinTool * 0.1f , 0));
 
 }

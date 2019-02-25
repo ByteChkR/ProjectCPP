@@ -52,8 +52,16 @@ private:
 	void handleSwitch(float pTime);
 
 	void createModels();
+	void Animate(float pDeltaTime);
+
+	//animation
+	float animationTool = 0; // delta time addition
+	float animationSpeed =4.0f;
+	float maxYToJump = 40;
 	
 	//empty game objects that serve as pivots
+
+	GameObject * modelsContainer;
 
 	GameObject * gTBody;
 	GameObject * gTNeck;
