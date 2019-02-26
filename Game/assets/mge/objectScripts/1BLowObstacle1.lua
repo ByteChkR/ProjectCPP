@@ -1,10 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "1BLowObstacle1", 
 ["objPath"] = "mge/models/VillageForestBiome/17_Village_B_Trunk_V1.obj", 
-["specular"] = "Game/Maps/VillageForestBiome/Trunk_initialShadingGroup_Specular.png", 
-["texture"] = "Game/Maps/VillageForestBiome/Trunk_initialShadingGroup_Diffuse.png", 
-["emissive"] = "Game/Maps/VillageForestBiome/Trunk_initialShadingGroup_Emissive.png",
-["normal"] = "Game/Maps/VillageForestBiome/Trunk_initialShadingGroup_Normal.png",
+["specular"] = "Game/Maps/VillageForestBiome/trunk/17_Village_B_Trunk_V1_pCylinder27SG_MetallicSmoothness.png", 
+["texture"] = "Game/Maps/VillageForestBiome/trunk/17_Village_B_Trunk_V1_Geom_AlbedoTransparency.png", 
+["normal"] = "Game/Maps/VillageForestBiome/trunk/17_Village_B_Trunk_V1_pCylinder27SG_Normal.png",
 ["posX"] = 0, 
 ["posY"] = 0,
 ["posZ"] = 0 }
