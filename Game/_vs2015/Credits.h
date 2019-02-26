@@ -16,7 +16,6 @@ private:
 	void OrganizeScreen();
 	void draw();
 
-	HudText *_menuText;
 	HudSprite *_menuButtonBox;
 	Button *_menuButton;
 

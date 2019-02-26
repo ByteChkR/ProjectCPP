@@ -20,10 +20,9 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText
 	_scoreText = new HudText();
 	_debugBox =  new HudSprite("HudBox.png");
 
-	_progressBackground = new HudSprite("ProgressBackground.png");
-	_progress = new HudSprite("Progress.png");
-	_progressBackground->sprite.setOrigin(_progress->sprite.getTexture()->getSize().x / 2, _progress->sprite.getTexture()->getSize().y);
-	_progress->sprite.setOrigin(_progress->sprite.getTexture()->getSize().x / 2, _progress->sprite.getTexture()->getSize().y);
+	_progressBackground = new HudSprite("run_meter.png");
+	_progress = new HudSprite("run_meter_turkey.png");
+	//_progressBackground->sprite.setOrigin(_progressBackground->sprite.getTexture()->getSize().x / 2, _progressBackground->sprite.getTexture()->getSize().y);
 
 	_organizeHud();
 }
@@ -51,7 +50,8 @@ void DebugHud::_organizeHud()
 void DebugHud::Update() {
 	draw();
 	setScore(PlayerController::instance->GetCoinCount());
-	_progress->sprite.setScale(1, MapBuilder::instance->GetProgress());
+	float progressPosX = (_progressBackground->sprite.getPosition().x - _progressBackground->sprite.getTexture()->getSize().x / 2) + _progressBackground->sprite.getTexture()->getSize().x * MapBuilder::instance->GetProgress();
+	_progress->sprite.setPosition(progressPosX, _progressBackground->sprite.getPosition().y);
 }
 
 void DebugHud::setDebugInfo(std::string pInfo) {

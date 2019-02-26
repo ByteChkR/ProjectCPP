@@ -8,10 +8,9 @@
 Credits::Credits(sf::RenderWindow *aWindow) {
 
 	_window = aWindow;
-	_background = new HudSprite("tmpLoading.png");
+	_background = new HudSprite("credits.png");
 
-	_menuText = new HudText();
-	_menuButtonBox = new HudSprite("HudBox.png",1.05f);
+	_menuButtonBox = new HudSprite("cancel_button.png",1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 
 	OrganizeScreen();
@@ -20,9 +19,7 @@ Credits::Credits(sf::RenderWindow *aWindow) {
 void Credits::OrganizeScreen() {
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
 
-	_menuText->_text.setString("Menu");
-	_menuButtonBox->sprite.setPosition(500, 500);
-	_menuText->_text.setPosition(_menuButtonBox->sprite.getPosition());
+	_menuButtonBox->sprite.setPosition(_background->sprite.getPosition().x + 255, _background->sprite.getPosition().y - 375);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }
@@ -38,7 +35,6 @@ void Credits::draw() {
 
 	_window->draw(_background->sprite);
 
-	_window->draw(_menuText->_text);
 	if (_menuButton->scaled) _window->draw(_menuButtonBox->scaledSprite);
 	else _window->draw(_menuButtonBox->sprite);
 

@@ -9,10 +9,9 @@
 ScoreBoard::ScoreBoard(sf::RenderWindow *aWindow) {
 
 	_window = aWindow;
-	_background = new HudSprite("scoreboard.png");
+	_background = new HudSprite("scoreboard_nobutton.png");
 
-	_menuText = new HudText();
-	_menuButtonBox = new HudSprite("HudBox.png", 1.05f);
+	_menuButtonBox = new HudSprite("cancel_button.png", 1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 	
 	_size = ScoreManager::instance->GetScores().size();
@@ -46,10 +45,8 @@ void ScoreBoard::OrganizeScreen() {
 		_scoreDisplays[i]->_text.setPosition(500 , wholeBlockOffset + lineOffset * (i + 1));
 	}
 	
-
-	_menuText->_text.setString("Menu");
-	_menuButtonBox->sprite.setPosition(300, 100);
-	_menuText->_text.setPosition(_menuButtonBox->sprite.getPosition());
+	_menuButtonBox->sprite.setPosition(_background->sprite.getPosition().x+ 302, _background->sprite.getPosition().y - 365);
+	//_menuButtonBox->sprite.setPosition(650, 120);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }
@@ -70,7 +67,6 @@ void ScoreBoard::draw() {
 		_window->draw(_scoreDisplays[i]->_text);
 	}
 	
-	_window->draw(_menuText->_text);
 	if (_menuButton->scaled) _window->draw(_menuButtonBox->scaledSprite);
 	else _window->draw(_menuButtonBox->sprite);
 

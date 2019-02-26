@@ -9,14 +9,12 @@
 StageClear::StageClear(sf::RenderWindow *aWindow) {
 
 	_window = aWindow;
-	_background = new HudSprite("tmpPanel0.png");
+	_background = new HudSprite("level_complete_nobuttons.png");
 
-	_nextStageButtonBox = new HudSprite("HudBox.png", 1.05f);
-	_nextStageText = new HudText();
+	_nextStageButtonBox = new HudSprite("next_level_button.png", 1.05f);
 	_nextStageButton = new NextStageButton(_window, _nextStageButtonBox->sprite);
 
-	_menuButtonBox = new HudSprite("HudBox.png", 1.05f);
-	_menuText = new HudText();
+	_menuButtonBox = new HudSprite("menu_button.png", 1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 
 	OrganizeScreen();
@@ -25,16 +23,12 @@ StageClear::StageClear(sf::RenderWindow *aWindow) {
 void StageClear::OrganizeScreen() {
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
 
-	_nextStageText->_text.setString("Next Stage");
-	_nextStageButtonBox->sprite.setPosition(200, 200);
+	_nextStageButtonBox->sprite.setPosition(_background->sprite.getPosition().x, _background->sprite.getPosition().y + 20);
 	_nextStageButtonBox->scaledSprite.setPosition(_nextStageButtonBox->sprite.getPosition());
 	_nextStageButton->SetPosition(_nextStageButtonBox->sprite.getPosition());
-	_nextStageText->_text.setPosition(_nextStageButtonBox->sprite.getPosition());
 
-	_menuText->_text.setString("Menu");
-	_menuButtonBox->sprite.setPosition(50, 200);
+	_menuButtonBox->sprite.setPosition(_background->sprite.getPosition().x, _background->sprite.getPosition().y + 120);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
-	_menuText->_text.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }
 
@@ -51,11 +45,9 @@ void StageClear::draw() {
 	_window->draw(_background->sprite);
 	if (_nextStageButton->scaled) _window->draw(_nextStageButtonBox->scaledSprite);
 	else _window->draw(_nextStageButtonBox->sprite);
-	_window->draw(_nextStageText->_text);
 
 	if (_menuButton->scaled) _window->draw(_menuButtonBox->scaledSprite);
 	else _window->draw(_menuButtonBox->sprite);
-	_window->draw(_menuText->_text);
 
 	_window->popGLStates();
 }

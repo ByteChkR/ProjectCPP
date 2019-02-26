@@ -20,11 +20,9 @@ private:
 	HudSprite *_background;
 	HudSprite *_nextStageButtonBox;
 	Button *_nextStageButton;
-	HudText *_nextStageText;
 
 	HudSprite *_menuButtonBox;
 	Button *_menuButton;
-	HudText *_menuText;
 
 };
 

@@ -25,7 +25,6 @@ private:
 	std::vector<HudText*> _nameDisplays;
 	std::vector<HudText*> _scoreDisplays;
 
-	HudText *_menuText;
 	HudSprite *_menuButtonBox;
 	Button *_menuButton;
 
