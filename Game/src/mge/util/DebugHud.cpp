@@ -17,7 +17,7 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText
 	assert ( _window != NULL );
 
 	_debugText = new HudText();
-	_scoreText = new HudText();
+	_scoreText = new HudText("Candy Beans.otf",26);
 	_debugBox =  new HudSprite("HudBox.png");
 
 	_progressBackground = new HudSprite("run_meter.png");

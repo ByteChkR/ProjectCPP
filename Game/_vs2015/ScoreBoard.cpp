@@ -17,8 +17,8 @@ ScoreBoard::ScoreBoard(sf::RenderWindow *aWindow) {
 	_size = ScoreManager::instance->GetScores().size();
 
 	for (int i = 0; i < 10; i++) {
-		_scoreDisplays.push_back(new HudText("arial.ttf",22,sf::Color::Black));
-		_nameDisplays.push_back(new HudText("arial.ttf",22,sf::Color::Black));
+		_scoreDisplays.push_back(new HudText("Scoreboard_font.ttf",30,sf::Color::Black));
+		_nameDisplays.push_back(new HudText("Scoreboard_font.ttf",30,sf::Color::Black));
 	}
 	
 	OrganizeScreen();
@@ -46,7 +46,6 @@ void ScoreBoard::OrganizeScreen() {
 	}
 	
 	_menuButtonBox->sprite.setPosition(_background->sprite.getPosition().x+ 302, _background->sprite.getPosition().y - 365);
-	//_menuButtonBox->sprite.setPosition(650, 120);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }
