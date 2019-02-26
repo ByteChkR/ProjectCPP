@@ -183,7 +183,7 @@ Mesh* Mesh::load(std::string pFilename)
 
 		file.close();
 
-		mesh->ComputeTangents();
+	//	mesh->ComputeTangents();
 
 		mesh->_buffer();
 

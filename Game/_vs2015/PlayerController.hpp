@@ -56,7 +56,7 @@ private:
 
 	//animation
 	float animationTool = 0; // delta time addition
-	float animationSpeed =4.0f;
+	float animationSpeed =10.0f;
 	float maxYToJump = 40;
 	
 	//empty game objects that serve as pivots

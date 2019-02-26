@@ -18,7 +18,7 @@ PlayerController::PlayerController(GameObject * pOwner)
 {
 	setOwner(pOwner);
 	std::function<void()> oE = std::bind(&PlayerController::OnGameEnd, std::ref(*this));
-	std::function<void(float)> oT = std::bind(&PlayerController::OnGameEndTick, std::ref(*this),std::placeholders::_1);
+	std::function<void(float)> oT = std::bind(&PlayerController::OnGameEndTick, std::ref(*this), std::placeholders::_1);
 	_endOfGameTimer = new Timer(oT, oE, 2, false);
 	_currentLane = 1;
 	_gravity = -1;
@@ -71,7 +71,7 @@ int PlayerController::GetCoinCount()
 void PlayerController::OnGameEnd()
 {
 	_endOfGameTimer->Reset();
-	_owner->setLocalPosition(_owner->getLocalPosition() - glm::vec3(0,0, _owner->getLocalPosition().z));
+	_owner->setLocalPosition(_owner->getLocalPosition() - glm::vec3(0, 0, _owner->getLocalPosition().z));
 	_owner->add(AbstractGame::instance->_world->getMainCamera());
 	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 4.5));
 	MapBuilder::instance->Unload();
@@ -102,7 +102,7 @@ void PlayerController::OnCollision(GameObject* other)
 		// particles
 		_coins++;
 	}
-	else if(!_isBackSwitching && _isSwitching) //When In the middle of switching
+	else if (!_isBackSwitching && _isSwitching) //When In the middle of switching
 	{
 		int lane = _nextLane;
 		_nextLane = _currentLane;
@@ -305,7 +305,7 @@ void PlayerController::createModels()
 	Texture* turkeyMetal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeymetal.png");
 	Texture* turkeyNormal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeynormal.png");
 
-	AbstractMaterial* playerTexture = new AnimationMaterial(turkeyAlb,1);
+	AbstractMaterial* playerTexture = new AnimationMaterial(turkeyAlb, 1);
 
 	Mesh * tBody = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TBody.obj");
 	Mesh * tHead = Mesh::load(config::MGE_MODEL_PATH + "Turkey/THead.obj");
@@ -330,7 +330,7 @@ void PlayerController::createModels()
 	finnHouseObject->setLocalPosition(glm::vec3(5, 0,-10));
 	getOwner()->add(finnHouseObject);
 	*/
-	
+
 
 
 
@@ -400,10 +400,12 @@ void PlayerController::createModels()
 void PlayerController::Animate(float pDeltaTime)
 {
 	animationTool += pDeltaTime * animationSpeed;
-
+	modelsContainer->setTransform(glm::translate(glm::mat4x4(1), glm::vec3(0, -1, 0)));
 	if (_grounded == false)
 	{
-	
+		glm::mat4 m = glm::rotate(_velocity, glm::vec3(1, 0, 0));
+		modelsContainer->setTransform(modelsContainer->getTransform() * m);
+
 		glm::vec3 yPosInAir(0, 0, 0);
 
 		yPosInAir.y = glm::clamp(getOwner()->getLocalPosition().y / maxYToJump, 0.0f, 1.0f);
@@ -418,15 +420,15 @@ void PlayerController::Animate(float pDeltaTime)
 
 		return;
 	}
-	
-	double sinTool = (glm::sin(animationTool)+1)/2;
+
+	double sinTool = (glm::sin(animationTool) + 1) / 2;
 
 	gTTail->setLocalPosition(glm::vec3(0, 0, 0));
-	gTLeftWing->setLocalPosition(glm::vec3(0,0, 0));
-	gTRightWing->setLocalPosition(glm::vec3(0,0, 0));
+	gTLeftWing->setLocalPosition(glm::vec3(0, 0, 0));
+	gTRightWing->setLocalPosition(glm::vec3(0, 0, 0));
 	gTNeck->setLocalPosition(glm::vec3(0, 0, -sinTool * 0.1f));
 	gTBody->setLocalPosition(glm::vec3(sinTool*0.1f - 0.05f, 0, 0));
-	gTLeftLeg->setLocalPosition(glm::vec3(0 , sinTool * 0.1f , 0));
-	gTRightLeg->setLocalPosition(glm::vec3(0 , 0.1f - sinTool * 0.1f , 0));
+	gTLeftLeg->setLocalPosition(glm::vec3(0, sinTool * 0.1f, 0));
+	gTRightLeg->setLocalPosition(glm::vec3(0, 0.1f - sinTool * 0.1f, 0));
 
 }

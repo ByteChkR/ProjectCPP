@@ -89,9 +89,9 @@ void main( void ) {
 	float d = distance(fPlayerPosition.xz , fragmentWorldPosition.xz);
 	float yd = fPlayerPosition.y-fragmentWorldPosition.y;
 	vec4 ret = vec4(0);
-	vec3 wn = texture(normalTexture, texCoord).rgb;
-	wn=normalize(wn*2.0-1.0);
-	wn=normalize(TBN*wn);
+	vec3 wn = normalize(worldNormal);//texture(normalTexture, texCoord).rgb;
+	//wn=normalize(wn*2.0-1.0);
+	//wn=normalize(TBN*wn);
 	for(int i = 0; i < lightCount; i++)
 	{
 		ret += Calculate(i, wn);

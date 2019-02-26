@@ -81,10 +81,9 @@ vec4 Calculate(int index, vec3 wNormal)
 void main( void ) {
 
 	vec4 ret = vec4(0);
-	vec3 wn = texture(normalTexture, texCoord).rgb;
-
-	wn=normalize(wn*2.0-1.0);
-	wn=normalize(TBN*wn);
+	vec3 wn = normalize(worldNormal);//texture(normalTexture, texCoord).rgb;
+	//wn=normalize(wn*2.0-1.0);
+	//wn=normalize(TBN*wn);
 	for(int i = 0; i < lightCount; i++)
 	{
 		ret += Calculate(i, wn);

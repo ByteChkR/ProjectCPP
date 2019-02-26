@@ -6,10 +6,10 @@ local meta = {["name"] = "0BSideProp1",
 ["emissive"] = "Game/Maps/FarmForestBiome/toilet_initialShadingGroup_Emissive.png", 
 ["normal"] = "Game/Maps/FarmForestBiome/toilet_initialShadingGroup_Normal.png",
 ["posX"] = 0, 
-["posY"] = 0, 
+["posY"] = -1.5, 
 ["posZ"] = 0 }
-colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -1}
-colliderMax = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
+colliderMin = { ["width"] = 1.5, ["height"] = 0, ["depth"] = -0.5}
+colliderMax = { ["width"] = 3.5, ["height"] = 4, ["depth"] = 1.5}
 
 function AttachedScripts()
 	return scripts

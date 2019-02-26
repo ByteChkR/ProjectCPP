@@ -6,10 +6,10 @@ local meta = {["name"] = "2BHouse1",
 ["emissive"] = "black.png",
 ["normal"] = "Game/Maps/CityBiome/NewHouse/NewHouse_Normal_OpenGL.png",
 ["posX"] = 0, 
-["posY"] = 0, 
+["posY"] = -1.5, 
 ["posZ"] = 0 }
-colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -1}
-colliderMax = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
+colliderMin = { ["width"] = -2, ["height"] = 0, ["depth"] = -2}
+colliderMax = { ["width"] = 2, ["height"] = 6, ["depth"] = 2}
 
 function AttachedScripts()
 	return scripts

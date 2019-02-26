@@ -246,9 +246,9 @@ void MGEDemo::_initializeResources()
 	//Note how the texture material is able to detect the number of lights in the scene
 	//even though it doesn't implement any lighting yet!
 
-	LightParams* params = new LightParams();
+	LightParams* params = new LightParams(0, 1, glm::vec2(0), glm::vec3(1, 231.0f/255.0f, 206.0f/255.0f), glm::vec3(1, 231.0f / 255.0f, 206.0f / 255.0f)*0.2f);
 
-	Light* light = new Light("light", glm::vec3(0, 1, 0));
+	Light* light = new Light("light", glm::vec3(-100, 100, 100));
 	light->SetParams(*params);
 	light->scale(glm::vec3(0.1f, 0.1f, 0.1f));
 	light->setMesh(cubeMeshF);

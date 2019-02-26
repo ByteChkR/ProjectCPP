@@ -1,10 +1,10 @@
 local scripts = {}
 local meta = {["name"] = "0BLowObstacle2", 
-["objPath"] = "mge/models/FarmForestBiome/trashcan.obj", 
-["specular"] = "Game/Maps/FarmForestBiome/trashcan_initialShadingGroup_Specular.png", 
-["texture"] = "Game/Maps/FarmForestBiome/trashcan_initialShadingGroup_Diffuse.png", 
-["emissive"] = "Game/Maps/FarmForestBiome/trashcan_initialShadingGroup_Emissive.png", 
-["normal"] = "Game/Maps/FarmForestBiome/trashcan_initialShadingGroup_Normal.png",
+["objPath"] = "mge/models/FarmForestBiome/trashcan2.obj", 
+["specular"] = "Game/Maps/FarmForestBiome/trashcan2_initialShadingGroup_Specular.png", 
+["texture"] = "Game/Maps/FarmForestBiome/trashcan2_initialShadingGroup_Diffuse.png", 
+["emissive"] = "Game/Maps/FarmForestBiome/trashcan2_initialShadingGroup_Emissive.png", 
+["normal"] = "Game/Maps/FarmForestBiome/trashcan2_initialShadingGroup_Normal.png",
 ["posX"] = 0, 
 ["posY"] = 0, 
 ["posZ"] = 0 }
