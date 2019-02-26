@@ -54,18 +54,6 @@
       <int>0</int>
     </ArrayOfInt>
     <ArrayOfInt>
-      <int>18</int>
-      <int>18</int>
-      <int>18</int>
-      <int>18</int>
-      <int>18</int>
-      <int>18</int>
-      <int>18</int>
-      <int>18</int>
-      <int>18</int>
-      <int>18</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
       <int>0</int>
       <int>0</int>
       <int>0</int>
@@ -121,6 +109,18 @@
       <int>0</int>
       <int>0</int>
       <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>3</int>
+      <int>0</int>
+      <int>0</int>
+      <int>3</int>
+      <int>0</int>
+      <int>0</int>
+      <int>3</int>
       <int>0</int>
       <int>0</int>
       <int>0</int>
