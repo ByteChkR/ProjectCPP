@@ -17,26 +17,33 @@
   </LaneSteps>
   <PartSequence>
     <string>0B10x10House0.pxml</string>
+    <string>0B10x10House1.pxml</string>
+    <string>0B10x10House2.pxml</string>
+    <string>0B10x10House3.pxml</string>
+    <string>0B10x10House4.pxml</string>
+    <string>0B10x10House5.pxml</string>
+    <string>0B10x10House6.pxml</string>
+    <string>0B10x10House7.pxml</string>
     <string>1B10x10House0.pxml</string>
+    <string>1B10x10House1.pxml</string>
+    <string>1B10x10House2.pxml</string>
+    <string>1B10x10House3.pxml</string>
+    <string>1B10x10House4.pxml</string>
+    <string>1B10x10House5.pxml</string>
+    <string>1B10x10House6.pxml</string>
+    <string>1B10x10House7.pxml</string>
     <string>2B10x10House0.pxml</string>
-    <string>0B10x10House0.pxml</string>
-    <string>1B10x10House0.pxml</string>
-    <string>2B10x10House0.pxml</string>
-    <string>0B10x10House0.pxml</string>
-    <string>1B10x10House0.pxml</string>
-    <string>2B10x10House0.pxml</string>
-    <string>0B10x10House0.pxml</string>
-    <string>1B10x10House0.pxml</string>
-    <string>2B10x10House0.pxml</string>
-    <string>0B10x10House0.pxml</string>
-    <string>1B10x10House0.pxml</string>
-    <string>2B10x10House0.pxml</string>
-    <string>0B10x10House0.pxml</string>
-    <string>1B10x10House0.pxml</string>
-    <string>2B10x10House0.pxml</string>
+    <string>2B10x10House1.pxml</string>
+    <string>2B10x10House2.pxml</string>
+    <string>2B10x10House3.pxml</string>
+    <string>2B10x10House4.pxml</string>
+    <string>2B10x10House5.pxml</string>
+    <string>2B10x10House6.pxml</string>
+    <string>2B10x10House7.pxml</string>
+    <string>2Bendoflevel.pxml</string>
   </PartSequence>
   <genOffset>75</genOffset>
-  <xCurvature>50</xCurvature>
+  <xCurvature>0</xCurvature>
   <xCurvatureSmoothness>2</xCurvatureSmoothness>
   <heightMapTiling>1</heightMapTiling>
   <heightMapSpeed>0</heightMapSpeed>
