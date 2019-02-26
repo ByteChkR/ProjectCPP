@@ -8,8 +8,8 @@ local meta = {["name"] = "0BHouse5",
 ["posX"] = 0, 
 ["posY"] = 0, 
 ["posZ"] = 0  }
-colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -1}
-colliderMax = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
+colliderMin = { ["width"] = -3, ["height"] = 1, ["depth"] = -3}
+colliderMax = { ["width"] = 3, ["height"] = 12, ["depth"] = 3}
 
 function AttachedScripts()
 	return scripts

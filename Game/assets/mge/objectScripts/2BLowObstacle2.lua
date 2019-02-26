@@ -6,7 +6,7 @@ local meta = {["name"] = "2BLowObstacle2",
 ["emissive"] = "black.png",
 ["normal"] = "Game/Maps/CityBiome/Trash_Can/Trash_Can_Normal_OpenGL.png",
 ["posX"] = 0, 
-["posY"] = 0, 
+["posY"] = -1, 
 ["posZ"] = 0 }
 colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -1}
 colliderMax = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
