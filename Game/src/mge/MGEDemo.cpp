@@ -119,8 +119,19 @@ void MGEDemo::_initializeResources()
 	//playerObject->setMesh(sphereMeshS);
 	//playerObject->setMaterial(runicStoneMaterial);
 
+	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 1);;
+
+
+	GameObject * playerAnimation = new GameObject("playerAnimation", glm::vec3(0, 5, 0));
+	playerAnimation->setMesh(testQuad);
+	playerAnimation->setMaterial(runicMihai);
+	playerAnimation->scale(glm::vec3(10, 10, 10));
+	playerAnimation->setLocalPosition(glm::vec3(10, 30, -150));
+	playerAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
+	_world->add(playerAnimation);
+
 	_world->add(playerObject);
-	playerObject->addBehaviour(new PlayerController(playerObject));
+	playerObject->addBehaviour(new PlayerController(playerObject,playerAnimation));
 	playerObject->add(_world->getMainCamera());
 	_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
 
@@ -192,7 +203,7 @@ void MGEDemo::_initializeResources()
 	//create some materials to display the cube, the plane and the light
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
 
-	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 4);;
+	
 	//SCENE SETUP
 
 	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
@@ -222,13 +233,7 @@ void MGEDemo::_initializeResources()
 	//add a spinning sphere
 	
 
-	GameObject * playerAnimation = new GameObject("playerAnimation", glm::vec3(0, 5, 0));
 
-	playerAnimation->setMesh(testQuad);
-	playerAnimation->setMaterial(runicMihai);
-	playerAnimation->scale(glm::vec3(1, 1, 1));
-	playerAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
-	_world->add(playerAnimation);
 
 	AnimationMaterial* caster = dynamic_cast<AnimationMaterial*>(runicMihai);
 	caster->NextFrame();

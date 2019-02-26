@@ -275,13 +275,19 @@ void Mesh::_buffer()
 	glBindBuffer(GL_ARRAY_BUFFER, _normalBufferId);
 	glBufferData(GL_ARRAY_BUFFER, _normals.size() * sizeof(glm::vec3), &_normals[0], GL_STATIC_DRAW);
 
-	glGenBuffers(1, &_tanBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, _tanBufferID);
-	glBufferData(GL_ARRAY_BUFFER, _tangents.size() * sizeof(glm::vec3), &_tangents[0], GL_STATIC_DRAW);
+	if ((int)_tangents.size() > 0)
+	{
+		glGenBuffers(1, &_tanBufferID);
+		glBindBuffer(GL_ARRAY_BUFFER, _tanBufferID);
+		glBufferData(GL_ARRAY_BUFFER, _tangents.size() * sizeof(glm::vec3), &_tangents[0], GL_STATIC_DRAW);
+	}
 
-	glGenBuffers(1, &_bitanBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, _bitanBufferID);
-	glBufferData(GL_ARRAY_BUFFER, _biTangents.size() * sizeof(glm::vec3), &_biTangents[0], GL_STATIC_DRAW);
+	if ((int)_biTangents.size() > 0)
+	{
+		glGenBuffers(1, &_bitanBufferID);
+		glBindBuffer(GL_ARRAY_BUFFER, _bitanBufferID);
+		glBufferData(GL_ARRAY_BUFFER, _biTangents.size() * sizeof(glm::vec3), &_biTangents[0], GL_STATIC_DRAW);
+	}
 
 	glGenBuffers(1, &_uvBufferId);
 	glBindBuffer(GL_ARRAY_BUFFER, _uvBufferId);

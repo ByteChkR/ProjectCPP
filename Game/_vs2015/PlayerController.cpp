@@ -14,9 +14,11 @@
 
 PlayerController* PlayerController::instance = nullptr;
 
-PlayerController::PlayerController(GameObject * pOwner)
+PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 {
 	setOwner(pOwner);
+	heli = pHeli;
+	heliInitialPosition = heli->getLocalPosition();
 	std::function<void()> oE = std::bind(&PlayerController::OnGameEnd, std::ref(*this));
 	std::function<void(float)> oT = std::bind(&PlayerController::OnGameEndTick, std::ref(*this), std::placeholders::_1);
 	_endOfGameTimer = new Timer(oT, oE, 2, false);
@@ -44,7 +46,7 @@ PlayerController::PlayerController(GameObject * pOwner)
 
 AbstractBehaviour* PlayerController::Clone()
 {
-	return new PlayerController(_owner);
+	return new PlayerController(_owner,_owner);
 }
 
 PlayerController::~PlayerController()
@@ -400,6 +402,13 @@ void PlayerController::createModels()
 void PlayerController::Animate(float pDeltaTime)
 {
 	animationTool += pDeltaTime * animationSpeed;
+	heliTool += pDeltaTime * heliAnimationSpeed;
+	double sinTool = (glm::sin(animationTool) + 1) / 2;
+	double sinForHeli = (glm::sin(heliTool) + 1) / 2;
+
+	heli->setLocalPosition(heliInitialPosition + glm::vec3(sinForHeli * 4 - 2,( (glm::cos(heliTool) + 1) / 2 )*10-5,0 ));
+
+
 	modelsContainer->setTransform(glm::translate(glm::mat4x4(1), glm::vec3(0, -1, 0)));
 	if (_grounded == false)
 	{
@@ -421,7 +430,6 @@ void PlayerController::Animate(float pDeltaTime)
 		return;
 	}
 
-	double sinTool = (glm::sin(animationTool) + 1) / 2;
 
 	gTTail->setLocalPosition(glm::vec3(0, 0, 0));
 	gTLeftWing->setLocalPosition(glm::vec3(0, 0, 0));
@@ -430,5 +438,6 @@ void PlayerController::Animate(float pDeltaTime)
 	gTBody->setLocalPosition(glm::vec3(sinTool*0.1f - 0.05f, 0, 0));
 	gTLeftLeg->setLocalPosition(glm::vec3(0, sinTool * 0.1f, 0));
 	gTRightLeg->setLocalPosition(glm::vec3(0, 0.1f - sinTool * 0.1f, 0));
+
 
 }

@@ -13,7 +13,7 @@
 class PlayerController : public AbstractBehaviour
 {
 public:
-	PlayerController(GameObject * pOwner);
+	PlayerController(GameObject * pOwner, GameObject * pHeli);
 	virtual ~PlayerController();
 	virtual void update(float pTime) override;
 	virtual void OnCollision(GameObject* other) override;
@@ -72,6 +72,12 @@ private:
 	GameObject * gTHead;
 	GameObject * gTTail;
 
+	// helicoper
+
+	glm::vec3 heliInitialPosition;
+	GameObject* heli;
+	float heliTool=0;
+	float heliAnimationSpeed = 1.0f;
 
 
 };
