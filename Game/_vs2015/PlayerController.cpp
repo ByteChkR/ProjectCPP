@@ -82,9 +82,10 @@ void PlayerController::OnGameEndTick(float pTime)
 void PlayerController::SetCurrentLane(int lane)
 {
 	_currentLane = lane;
-	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition());
+	_nextLane = lane;
+	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition()+glm::vec3(0,0,0));//<---
 	heliInitialPosition.x = _owner->getLocalPosition().x;
-	
+	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); // therealchanger
 }
 
 
@@ -97,13 +98,14 @@ void PlayerController::OnGameEnd()
 {
 	_lockControls = false;
 	_endOfGameTimer->Reset();
-	_owner->setLocalPosition(_owner->getLocalPosition() - glm::vec3(0, 0, _owner->getLocalPosition().z));
+	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition() + glm::vec3(0, 0, 0));
 	_owner->add(AbstractGame::instance->_world->getMainCamera());
-	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 4.5));
+	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
 	MapBuilder::instance->Unload();
 	//LevelManager::instance->NextLevel();
 	GameStateManager::instance->_state = GameStateManager::StateNextStage;
-	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -120));//<---
+	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); // therealchanger
+
 }
 
 
@@ -112,7 +114,7 @@ void PlayerController::OnCollision(GameObject* other)
 {
 	if (_endOfGameTimer->IsStarted())return;
 	//Player dies if not a coin
-	std::cout << "COLLISION\n";
+	std::cout << "COLLISION" << other->getName()<< "\n";
 	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
 	if (!other->getName().find("endoflevel"))
 	{
@@ -141,7 +143,7 @@ void PlayerController::OnCollision(GameObject* other)
 		_isBackSwitching = true;
 	}
 	else if (_isBackSwitching)return;
-	else if (sbc->GetDimensions().y < 1) //<--- This right here
+	else if (sbc->GetDimensions().y < 1.1f) //<--- This right here
 	{
 		//other->DisableBehaviours();
 		_isStruggling = true;
@@ -157,7 +159,7 @@ void PlayerController::OnCollision(GameObject* other)
 		GameStateManager::instance->_state = GameStateManager::StateGameOver;
 		_owner->DisableBehaviours();
 		MapBuilder::instance->Unload();
-		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -30)); //<---
+		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); //<--- therealchanger
 	}
 }
 

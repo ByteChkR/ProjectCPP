@@ -77,7 +77,7 @@ void MGEDemo::_initializeResources()
 	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 
 
-	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png"), 4);
+	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png"), 1);
 	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
 	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
 	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
@@ -102,7 +102,7 @@ void MGEDemo::_initializeResources()
 	plane->setMaterial(runicPlaneMaterial);
 	_world->add(plane);
 
-	GameObject * BackGroundImage = new GameObject("background image", glm::vec3(0, 0, -1000));
+	GameObject * BackGroundImage = new GameObject("background image", glm::vec3(0, 100, -1000));
 
 	BackGroundImage->setMesh(testQuad);
 	BackGroundImage->setMaterial(backGroundMaterial);
@@ -122,16 +122,16 @@ void MGEDemo::_initializeResources()
 	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 1);;
 
 
-	GameObject * playerAnimation = new GameObject("playerAnimation", glm::vec3(0, 5, 0));
-	playerAnimation->setMesh(testQuad);
-	playerAnimation->setMaterial(runicMihai);
-	playerAnimation->scale(glm::vec3(10, 10, 10));
-	playerAnimation->setLocalPosition(glm::vec3(10, 30, -150));
-	playerAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
-	_world->add(playerAnimation);
+	GameObject * heliAnimation = new GameObject("HeliAnimation", glm::vec3(0, 5, 0));
+	heliAnimation->setMesh(testQuad);
+	heliAnimation->setMaterial(runicMihai);
+	heliAnimation->scale(glm::vec3(10, 10, 10));
+	heliAnimation->setLocalPosition(glm::vec3(10, 30, -150));
+	heliAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
+	_world->add(heliAnimation);
 
 	_world->add(playerObject);
-	playerObject->addBehaviour(new PlayerController(playerObject,playerAnimation));
+	playerObject->addBehaviour(new PlayerController(playerObject,heliAnimation));
 	playerObject->add(_world->getMainCamera());
 	_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
 

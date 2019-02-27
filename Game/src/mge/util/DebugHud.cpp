@@ -42,7 +42,7 @@ void DebugHud::_organizeHud()
 	_debugBox->sprite.setPosition(100, 100);
 	_debugText->_text.setPosition(25, 75);
 
-	_progressBackground->sprite.setPosition(865, 585);
+	_progressBackground->sprite.setPosition(700, 60);
 	_progress->sprite.setPosition(_progressBackground->sprite.getPosition());
 
 }
