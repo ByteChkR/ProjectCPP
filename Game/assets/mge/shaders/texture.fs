@@ -63,6 +63,7 @@ vec4 Calculate(int index, vec3 wNormal)
 	vec3 ambient  = lights[index].ambientColor*lights[index].intensity;
 	vec3 specular = lights[index].intensity*spec * diffIntensity * texture(specularTexture, texCoord).rgb;
 	vec4 difftexcolor = texture(diffuseTexture, texCoord);
+	if(difftexcolor.a < 0.1)discard;
 	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(difftexcolor)*textureBlend;
 	
 	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;

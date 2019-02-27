@@ -1,9 +1,10 @@
 local scripts = {}
 local meta = {["name"] = "1BHouse5", 
-["objPath"] = "mge/models/placeholder.obj", 
-["specular"] = "black.png", 
-["texture"] = "red.png", 
-["emissive"] = "black.png", 
+["objPath"] = "mge/models/VillageForestBiome/5_Village_B_HouseSquare_V1.obj", 
+["specular"] = "Game/Maps/VillageForestBiome/HouseSquare_initialShadingGroup_Specular.png", 
+["texture"] = "Game/Maps/VillageForestBiome/HouseSquare_initialShadingGroup_Diffuse.png", 
+["emissive"] = "Game/Maps/VillageForestBiome/HouseSquare_initialShadingGroup_Emissive.png",
+["normal"] = "Game/Maps/VillageForestBiome/HouseSquare_initialShadingGroup_Normal.png",
 ["posX"] = 0, 
 ["posY"] = 0, 
 ["posZ"] = 0  }

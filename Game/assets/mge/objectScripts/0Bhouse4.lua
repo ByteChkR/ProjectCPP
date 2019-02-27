@@ -5,7 +5,7 @@ local meta = {["name"] = "0BHouse4",
 ["texture"] = "Game/Maps/FarmForestBiome/Farm_initialShadingGroup_Diffuse.png", 
 ["emissive"] = "Game/Maps/FarmForestBiome/Farm_initialShadingGroup_Emissive.png", 
 ["normal"] = "Game/Maps/FarmForestBiome/Farm_initialShadingGroup_Normal.png",
-["posX"] = 0,
+["posX"] = -25,
 ["posY"] = 0, 
 ["posZ"] = 0  }
 colliderMin = { ["width"] = -4, ["height"] = 0, ["depth"] = -3}

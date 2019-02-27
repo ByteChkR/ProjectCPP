@@ -6,7 +6,7 @@ local meta = {["name"] = "0BSideProp5",
 ["emissive"] = "Game/Maps/FarmForestBiome/fence_fence0Shadow1_initialShadingGroup_Emissive.png", 
 ["normal"] = "Game/Maps/FarmForestBiome/fence_fence0Shadow1_initialShadingGroup_Normal.png",
 ["posX"] = 0, 
-["posY"] = 0,
+["posY"] = 0.1,
 ["posZ"] = 0  }
 colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -1}
 colliderMax = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
