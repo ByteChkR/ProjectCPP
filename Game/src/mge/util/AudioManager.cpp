@@ -12,14 +12,11 @@ AudioManager::AudioManager()
 
 	_musics = std::vector < sf::Music*>();
 
-	LoadMusic("Dark _Atmosphere13_Looped_24bit.wav", "nosound.wav");
+	LoadMusic("menumusic.wav", "nosound.wav");
 	AddMusic("GameOver.wav", "nosound.wav");
-	AddMusic("Background.wav", "nosound.wav");
+	AddMusic("menumusic.wav", "nosound.wav");
 
-	for (int i = 0; i <5; i++)
-	{
-		AddMusic("Background.wav", "metal-clash.wav");
-	}
+
 
 	//GameOver();
 
