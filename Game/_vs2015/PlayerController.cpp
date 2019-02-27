@@ -103,7 +103,7 @@ void PlayerController::OnGameEnd()
 	MapBuilder::instance->Unload();
 	//LevelManager::instance->NextLevel();
 	GameStateManager::instance->_state = GameStateManager::StateNextStage;
-	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
+	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -120));//<---
 }
 
 
@@ -141,7 +141,7 @@ void PlayerController::OnCollision(GameObject* other)
 		_isBackSwitching = true;
 	}
 	else if (_isBackSwitching)return;
-	else if (sbc->GetDimensions().y < 1)
+	else if (sbc->GetDimensions().y < 1) //<--- This right here
 	{
 		//other->DisableBehaviours();
 		_isStruggling = true;
@@ -151,12 +151,13 @@ void PlayerController::OnCollision(GameObject* other)
 	}
 	else
 	{
-
+		_isStruggling = false;
+		_struggleTime = 0;
 		gStruggleAnimation->DisableBehaviours();
 		GameStateManager::instance->_state = GameStateManager::StateGameOver;
 		_owner->DisableBehaviours();
 		MapBuilder::instance->Unload();
-		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
+		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -30)); //<---
 	}
 }
 
