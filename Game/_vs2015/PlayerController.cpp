@@ -81,6 +81,7 @@ void PlayerController::OnGameEndTick(float pTime)
 void PlayerController::SetCurrentLane(int lane)
 {
 	_currentLane = lane;
+	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition());
 }
 
 
