@@ -10,14 +10,16 @@
     <G>255</G>
     <B>255</B>
   </FontColor>
-  <FontSize>13</FontSize>
-  <FrameTime>50</FrameTime>
+  <FontSize>8</FontSize>
+  <FrameTime>45</FrameTime>
   <ColorCoding>
     <Keys>
       <int>8</int>
       <int>4</int>
       <int>2</int>
       <int>16</int>
+      <int>1024</int>
+      <int>2048</int>
     </Keys>
     <Values>
       <SerializableColor>
@@ -38,6 +40,16 @@
       <SerializableColor>
         <R>0</R>
         <G>128</G>
+        <B>0</B>
+      </SerializableColor>
+      <SerializableColor>
+        <R>0</R>
+        <G>255</G>
+        <B>0</B>
+      </SerializableColor>
+      <SerializableColor>
+        <R>255</R>
+        <G>0</G>
         <B>0</B>
       </SerializableColor>
     </Values>

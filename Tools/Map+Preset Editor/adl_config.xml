@@ -17,6 +17,7 @@
       <int>128</int>
       <int>256</int>
       <int>512</int>
+      <int>1024</int>
       <int>-1</int>
     </Keys>
     <Values>
@@ -30,6 +31,7 @@
       <string>[LANESTEP_EDITOR]</string>
       <string>[PARTCREATOR_EDITOR]</string>
       <string>[NEWMAPDIALOG_EDITOR]</string>
+      <string>[MGE_ENGINE_CONSOLE_OUT]</string>
       <string>[GLOBAL]</string>
     </Values>
   </Prefixes>
