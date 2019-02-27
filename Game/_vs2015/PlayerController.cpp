@@ -103,7 +103,7 @@ void PlayerController::OnGameEnd()
 	MapBuilder::instance->Unload();
 	//LevelManager::instance->NextLevel();
 	GameStateManager::instance->_state = GameStateManager::StateNextStage;
-	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
+	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -30));
 }
 
 
@@ -157,7 +157,7 @@ void PlayerController::OnCollision(GameObject* other)
 		GameStateManager::instance->_state = GameStateManager::StateGameOver;
 		_owner->DisableBehaviours();
 		MapBuilder::instance->Unload();
-		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -60));
+		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, -30));
 	}
 }
 
