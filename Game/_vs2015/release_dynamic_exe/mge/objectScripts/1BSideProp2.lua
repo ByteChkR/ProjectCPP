@@ -1,9 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "1BSideProp2", 
 ["objPath"] = "mge/models/VillageForestBiome/9_Village_B_Fance1_V1.obj", 
-["specular"] = "Game/Maps/VillageForestBiome/fance2/10_Village_B_Fance1Stackable_V1_initialShadingGroup_MetallicSmoothness.png", 
-["texture"] = "Game/Maps/VillageForestBiome/fance2/10_Village_B_Fance1Stackable_V1_initialShadingGroup_AlbedoTransparency.png", 
-["normal"] = "Game/Maps/VillageForestBiome/fance2/10_Village_B_Fance1Stackable_V1_initialShadingGroup_Normal.png",
+["specular"] = "Game/Maps/VillageForestBiome/Fance1/9_Village_B_Fance1_V1_initialShadingGroup_MetallicSmoothness.png", 
+["texture"] = "Game/Maps/VillageForestBiome/Fance1/9_Village_B_Fance1_V1_initialShadingGroup_AlbedoTransparency.png", 
+["normal"] = "Game/Maps/VillageForestBiome/Fance1/9_Village_B_Fance1_V1_initialShadingGroup_Normal.png",
 ["posX"] = 0, 
 ["posY"] = 0, 
 ["posZ"] = 0 }
