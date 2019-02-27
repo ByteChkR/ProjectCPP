@@ -49,6 +49,11 @@ std::vector<glm::vec3> StaticBoxCollider::GetBounds()
 	return ret;
 }
 
+glm::vec3 StaticBoxCollider::GetDimensions()
+{
+	return max - min;
+}
+
 AbstractBehaviour* StaticBoxCollider::Clone()
 {
 	return new StaticBoxCollider(min, max);

@@ -13,6 +13,7 @@
 #include "mge\materials\AnimationMaterial.hpp"
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "StaticBoxCollider.hpp"
 
 PlayerController* PlayerController::instance = nullptr;
 
@@ -65,7 +66,7 @@ void PlayerController::ResetScore() {
 
 AbstractBehaviour* PlayerController::Clone()
 {
-	return new PlayerController(_owner,_owner);
+	return new PlayerController(_owner, _owner);
 }
 
 PlayerController::~PlayerController()
@@ -110,6 +111,7 @@ void PlayerController::OnCollision(GameObject* other)
 	if (_endOfGameTimer->IsStarted())return;
 	//Player dies if not a coin
 	std::cout << "COLLISION\n";
+	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
 	if (!other->getName().find("endoflevel"))
 	{
 		_lockControls = true;
@@ -124,7 +126,7 @@ void PlayerController::OnCollision(GameObject* other)
 	{
 		other->DisableBehaviours(); //Also turns it invisible
 		// particles
-		_coins++;
+		_coins += 10;
 	}
 	else if (!_isBackSwitching && _isSwitching && !_isStruggling) //When In the middle of switching
 	{
@@ -137,9 +139,18 @@ void PlayerController::OnCollision(GameObject* other)
 		_isBackSwitching = true;
 	}
 	else if (_isBackSwitching)return;
+	else if (sbc->GetDimensions().y < 1)
+	{
+		//other->DisableBehaviours();
+		_isStruggling = true;
+		_struggleTime = 0;
+
+		return;
+	}
 	else
 	{
 
+		gStruggleAnimation->DisableBehaviours();
 		GameStateManager::instance->_state = GameStateManager::StateGameOver;
 		_owner->DisableBehaviours();
 		MapBuilder::instance->Unload();
@@ -440,7 +451,7 @@ void PlayerController::Animate(float pDeltaTime)
 	double sinTool = (glm::sin(animationTool) + 1) / 2;
 	double sinForHeli = (glm::sin(heliTool) + 1) / 2;
 
-	heli->setLocalPosition(heliInitialPosition + glm::vec3(sinForHeli * 4 - 2,( (glm::cos(heliTool) + 1) / 2 )*10-5,0 ));
+	heli->setLocalPosition(heliInitialPosition + glm::vec3(sinForHeli * 4 - 2, ((glm::cos(heliTool) + 1) / 2) * 10 - 5, 0));
 
 
 	modelsContainer->setTransform(glm::translate(glm::mat4x4(1), glm::vec3(0, -1, 0)));

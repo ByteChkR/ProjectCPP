@@ -14,6 +14,7 @@ public:
 	virtual void OwnerChanged(GameObject* owner) override;
 	virtual bool IsCollision(DynamicBoxCollider* ball) override;
 	std::vector<glm::vec3> GetBounds();
+	glm::vec3 GetDimensions();
 private:
 	bool _init;
 	glm::vec3 min;
