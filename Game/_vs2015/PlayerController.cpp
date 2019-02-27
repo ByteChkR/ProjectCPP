@@ -149,7 +149,8 @@ void PlayerController::OnCollision(GameObject* other)
 	}
 	else
 	{
-
+		_isStruggling = false;
+		_struggleTime = 0;
 		gStruggleAnimation->DisableBehaviours();
 		GameStateManager::instance->_state = GameStateManager::StateGameOver;
 		_owner->DisableBehaviours();
