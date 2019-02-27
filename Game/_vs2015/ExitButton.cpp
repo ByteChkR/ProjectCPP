@@ -5,11 +5,11 @@
 
 ExitButton::ExitButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite) : Button(aWindow, _buttonSprite)
 {
-
+	_window = aWindow;
 }
 
 void ExitButton::OnClick()
 {
 	std::cout << "Exit" << std::endl;
-	//system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0");
+	_window->close();
 }

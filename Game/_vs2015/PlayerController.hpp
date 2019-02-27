@@ -21,6 +21,7 @@ public:
 	static PlayerController* instance;
 	int GetCoinCount();
 	void SetCurrentLane(int lane);
+	void ResetScore();
 private:
 	Timer* _endOfGameTimer;
 	int _currentLane;

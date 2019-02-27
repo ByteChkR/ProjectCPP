@@ -2,6 +2,8 @@
 #include "StoryPanelHandler.h"
 #include "NextButton.h"
 #include "GameStateManager.h"
+#include "PlayerController.hpp"
+#include "mge/util/ScoreManager.h"
 
 StoryPanel::StoryPanel(sf::RenderWindow *aWindow)
 {
@@ -37,6 +39,7 @@ void StoryPanel::NextPanel()
 		_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x / 2, _currentPanel->sprite.getTexture()->getSize().y / 2);
 	}
 	else if(_storyPart == _storyParts){
+		ScoreManager::instance->AddScore(PlayerController::instance->GetCoinCount(),"Test Name");
 		GameStateManager::instance->_state = GameStateManager::StateWin;
 	}
 	else {

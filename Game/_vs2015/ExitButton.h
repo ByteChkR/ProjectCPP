@@ -10,6 +10,7 @@ public:
 	ExitButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite);
 
 private:
+	sf::RenderWindow* _window;
 	void OnClick();
 };
 

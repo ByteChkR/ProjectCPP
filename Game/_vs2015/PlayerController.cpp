@@ -59,6 +59,10 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	createModels();
 }
 
+void PlayerController::ResetScore() {
+	_coins = 0;
+}
+
 AbstractBehaviour* PlayerController::Clone()
 {
 	return new PlayerController(_owner,_owner);
@@ -72,6 +76,7 @@ PlayerController::~PlayerController()
 void PlayerController::OnGameEndTick(float pTime)
 {
 	_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 0, -0.5f)*pTime);
+	_lockControls = false;
 }
 
 void PlayerController::SetCurrentLane(int lane)
