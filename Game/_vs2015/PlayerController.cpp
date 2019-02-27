@@ -11,6 +11,8 @@
 #include "mge/core/World.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge\materials\AnimationMaterial.hpp"
+#include "mge/behaviours/RotatingBehaviour.hpp"
+#include "mge/materials/TextureMaterial.hpp"
 
 PlayerController* PlayerController::instance = nullptr;
 
@@ -39,6 +41,19 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_isAPressed = false;
 	_isDPressed = false;
 	_isWPRessed = false;
+	_isStruggling = false;
+	_struggleTime = 0;
+	_struggleMaxTime = 2;
+	gStruggleAnimation = new GameObject("StruggleAnim");
+	gStruggleAnimation->addBehaviour(new RotatingBehaviour());
+	gStruggleAnimation->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "red.png"), nullptr, nullptr, nullptr, 2, 1, 5, 2));
+	gStruggleAnimation->setMesh(Mesh::load(config::MGE_MODEL_PATH + "placeholder.obj"));
+	_owner->add(gStruggleAnimation);
+	gStruggleAnimation->setLocalPosition(glm::vec3(0, 3, 0));
+	gStruggleAnimation->DisableBehaviours();
+
+	_lockControls = false;
+
 	instance = this;
 
 	createModels();
@@ -91,6 +106,7 @@ void PlayerController::OnCollision(GameObject* other)
 	std::cout << "COLLISION\n";
 	if (!other->getName().find("endoflevel"))
 	{
+		_lockControls = true;
 		glm::vec3 camPos = AbstractGame::instance->_world->getMainCamera()->getWorldPosition();
 		AbstractGame::instance->_world->add(AbstractGame::instance->_world->getMainCamera());
 		AbstractGame::instance->_world->getMainCamera()->setLocalPosition(camPos);
@@ -104,8 +120,10 @@ void PlayerController::OnCollision(GameObject* other)
 		// particles
 		_coins++;
 	}
-	else if (!_isBackSwitching && _isSwitching) //When In the middle of switching
+	else if (!_isBackSwitching && _isSwitching && !_isStruggling) //When In the middle of switching
 	{
+		_struggleTime = 0;
+		_isStruggling = true;
 		int lane = _nextLane;
 		_nextLane = _currentLane;
 		_currentLane = lane;
@@ -126,7 +144,17 @@ void PlayerController::OnCollision(GameObject* other)
 
 void PlayerController::update(float pTime)
 {
+	if (_isStruggling)
+	{
+		if (!gStruggleAnimation->IsEnabled())gStruggleAnimation->EnableBehaviours();
+		_struggleTime += pTime;
 
+		if (_struggleTime > _struggleMaxTime)
+		{
+			gStruggleAnimation->DisableBehaviours();
+			_isStruggling = false;
+		}
+	}
 	glm::vec3 curr = MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition();
 	glm::vec3 nextL;
 	if (_nextLane == -1)
@@ -140,7 +168,7 @@ void PlayerController::update(float pTime)
 
 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (!_lockControls && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		if (_isWPRessed == false)
 		{
@@ -154,7 +182,7 @@ void PlayerController::update(float pTime)
 	}
 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (!_lockControls && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		if (_isAPressed == false)
 		{
@@ -167,7 +195,7 @@ void PlayerController::update(float pTime)
 		_isAPressed = false;
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (!_lockControls && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		if (_isDPressed == false)
 		{
@@ -180,7 +208,7 @@ void PlayerController::update(float pTime)
 		_isDPressed = false;
 	}
 
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (_lockControls || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		if (_grounded == false)
 		{

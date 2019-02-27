@@ -41,6 +41,10 @@ private:
 	bool _isDPressed;
 	bool _isWPRessed;
 	bool _isBackSwitching;
+	bool _isStruggling;
+	float _struggleTime;
+	float _struggleMaxTime;
+	bool _lockControls;
 	
 	void OnGameEnd();
 	void OnGameEndTick(float time);
@@ -71,6 +75,8 @@ private:
 	GameObject * gTRightWing;
 	GameObject * gTHead;
 	GameObject * gTTail;
+
+	GameObject* gStruggleAnimation;
 
 	// helicoper
 
