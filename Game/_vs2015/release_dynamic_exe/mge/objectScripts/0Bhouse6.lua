@@ -1,7 +1,6 @@
 local scripts = {}
 local meta = {["name"] = "0BHouse6", 
 ["objPath"] = "mge/models/FarmForestBiome/chickenhouse.obj", 
-["specular"] = "Game/Maps/FarmForestBiome/chickenhouse_initialShadingGroup_Specular.png", 
 ["texture"] = "Game/Maps/FarmForestBiome/chickenhouse_initialShadingGroup_Diffuse.png", 
 ["emissive"] = "Game/Maps/FarmForestBiome/chickenhouse_initialShadingGroup_Emissive.png", 
 ["normal"] = "Game/Maps/FarmForestBiome/chickenhouse_initialShadingGroup_Normal.png",

@@ -76,7 +76,6 @@ PlayerController::~PlayerController()
 void PlayerController::OnGameEndTick(float pTime)
 {
 	_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 0, -0.5f)*pTime);
-	_lockControls = false;
 }
 
 void PlayerController::SetCurrentLane(int lane)
@@ -92,6 +91,7 @@ int PlayerController::GetCoinCount()
 
 void PlayerController::OnGameEnd()
 {
+	_lockControls = false;
 	_endOfGameTimer->Reset();
 	_owner->setLocalPosition(_owner->getLocalPosition() - glm::vec3(0, 0, _owner->getLocalPosition().z));
 	_owner->add(AbstractGame::instance->_world->getMainCamera());

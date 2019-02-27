@@ -1,10 +1,8 @@
 local scripts = {}
 local meta = {["name"] = "1BSideProp5", 
 ["objPath"] = "mge/models/VillageForestBiome/13_Village_B_Fance2_V1.obj", 
-["specular"] = "Game/Maps/VillageForestBiome/Fence2_initialShadingGroup_Specular.png", 
-["texture"] = "Game/Maps/VillageForestBiome/Fence2_initialShadingGroup_Diffuse.png", 
-["emissive"] = "Game/Maps/VillageForestBiome/Fence2_initialShadingGroup_Emissive.png",
-["normal"] = "Game/Maps/VillageForestBiome/Fence2_initialShadingGroup_Normal.png",
+["specular"] = "Game/Maps/VillageForestBiome/fance2/10_Village_B_Fance2_V1_initialShadingGroup_MetallicSmoothness.png", 
+["texture"] = "Game/Maps/VillageForestBiome/fance2/10_Village_B_Fance2_V1_initialShadingGroup_AlbedoTransparency.png", 
 ["posX"] = 0, 
 ["posY"] = 0, 
 ["posZ"] = 0  }
