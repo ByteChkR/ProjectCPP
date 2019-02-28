@@ -1,6 +1,6 @@
 heightTexture = "height.png"
 map = "map1.txt"
-ground = "backg.png"
+ground = "backg3.png"
 mapGround = "ground2.png"
 mapGroundNormal = ""
 genOffset = "75"
