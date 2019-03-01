@@ -24,7 +24,8 @@ public:
 
 	std::string GetSpecular();
 	std::string GetNormal();
-
+	bool HasAutoCollider();
+	
 private:
 	Mesh* _mesh;
 	std::string _texturePath;
@@ -38,7 +39,7 @@ private:
 	glm::vec3 _colliderMin;
 	glm::vec3 _colliderMax;
 	bool hasCollider;
-
+	bool autoCollider;
 };
 
 #endif // !LUASCRIPTSTRUCT_HPP

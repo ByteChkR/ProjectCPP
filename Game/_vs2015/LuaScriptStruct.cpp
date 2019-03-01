@@ -36,7 +36,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TableToVector(L, &_attachedScripts))
 	{
-		std::cout << "Object with key: "<< _name <<" has no scripts attached\n";
+		std::cout << "Object with key: " << _name << " has no scripts attached\n";
 		_attachedScripts = std::vector<std::string>();
 	}
 	l = lua_gettop(L);
@@ -189,10 +189,37 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 			}
 		}
 	}
+	std::string test;
+	lua_getglobal(L, "colliderMode");
+	if (LuaOperations::TryGetString(L, &test))
+	{
+		if (test == "auto")
+		{
+			std::cout << "Auto Colliding Activated on script " << _name << '\n';
+			hasCollider = true;
+			autoCollider = true;
+		}
+		else
+		{
+			std::cout << "Auto Colliding Deactivated on script " << _name << '\n';
+			autoCollider = false;
+		}
+	}
+	else
+	{
+		std::cout << "Auto Colliding Deactivated on script " << _name << '\n';
+		autoCollider = false;
+	}
 
 	lua_close(L);
 
 }
+
+bool LuaScriptStruct::HasAutoCollider()
+{
+	return autoCollider;
+}
+
 
 bool LuaScriptStruct::HasCollider()
 {
@@ -201,6 +228,7 @@ bool LuaScriptStruct::HasCollider()
 
 glm::vec3 LuaScriptStruct::GetColliderMin()
 {
+
 	return _colliderMin;
 }
 

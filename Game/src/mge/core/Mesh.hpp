@@ -31,6 +31,9 @@ class Mesh
          */
         void drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::vector<glm::vec3> collider);
 
+		glm::vec3 GetMaxLocalBounds();
+		glm::vec3 GetMinLocalBounds();
+
 	protected:
 		Mesh();
 		virtual ~Mesh();

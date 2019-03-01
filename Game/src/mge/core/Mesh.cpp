@@ -343,6 +343,38 @@ void Mesh::streamToOpenGL(GLint pVerticesAttrib, GLint pNormalsAttrib, GLint pUV
 	if (biTanAttrib != -1) glDisableVertexAttribArray(biTanAttrib);
 }
 
+glm::vec3 Mesh::GetMaxLocalBounds()
+{
+	glm::vec3 ret = glm::vec3(-1000000);
+	if(_indices.size() == 0)return glm::vec3(0);
+	for (int i = 0; i < _indices.size();i++)
+	{
+		if (_vertices[_indices[i]].x > ret.x)
+			ret.x = _vertices[_indices[i]].x;
+		if (_vertices[_indices[i]].y > ret.y)
+			ret.y = _vertices[_indices[i]].y;
+		if (_vertices[_indices[i]].z > ret.z)
+			ret.z = _vertices[_indices[i]].z;
+	}
+	return ret;
+}
+
+glm::vec3 Mesh::GetMinLocalBounds()
+{
+	glm::vec3 ret = glm::vec3(100000000);
+	if (_indices.size() == 0)return glm::vec3(0);
+	for (int i = 0; i < _indices.size(); i++)
+	{
+		if (_vertices[_indices[i]].x < ret.x)
+			ret.x = _vertices[_indices[i]].x;
+		if (_vertices[_indices[i]].y < ret.y)
+			ret.y = _vertices[_indices[i]].y;
+		if (_vertices[_indices[i]].z < ret.z)
+			ret.z = _vertices[_indices[i]].z;
+	}
+	return ret;
+}
+
 void Mesh::drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::vector<glm::vec3> collider) {
 	//demo of how to render some debug info using the good ol' direct rendering mode...
 	glUseProgram(0);
