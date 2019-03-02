@@ -39,7 +39,7 @@ void StoryPanel::NextPanel()
 		_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x / 2.0f, _currentPanel->sprite.getTexture()->getSize().y / 2.0f);
 	}
 	else if(_storyPart == _storyParts){
-		ScoreManager::instance->AddScore((float)PlayerController::instance->GetCoinCount(),"Test Name");
+		ScoreManager::instance->AddScore((float)PlayerController::instance->GetCoinCount(),"TestName");
 		GameStateManager::instance->_state = GameStateManager::StateWin;
 	}
 	else {
