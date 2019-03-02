@@ -97,5 +97,10 @@ void main( void ) {
 		ret += Calculate(i, wn);
 	}
 
-	fragment_color = d > ShadowSize * clamp( 1-( yd / ShadowLength) ,0,1) ? ret : vec4(0,0,0,1);
+	float sSize = ShadowSize * clamp(1 - yd / ShadowLength, 0, 1);
+	float shadowAlpha = clamp(pow(d / sSize, 5), 0, 1);
+
+	ret = vec4(ret.rgb * (shadowAlpha), ret.a);
+
+	fragment_color = ret;//d > ShadowSize * clamp( 1-( yd / ShadowLength) ,0,1) ? ret : vec4(0,0,0,1);
 }

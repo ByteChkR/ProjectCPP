@@ -131,6 +131,11 @@ void PlayerController::OnCollision(GameObject* other)
 		// particles
 		_coins += 10;
 	}
+	else if (!other->getName().find("turkeycage"))
+	{
+		other->DisableBehaviours();
+		_coins += 100;
+	}
 	else if (!_isBackSwitching && _isSwitching && !_isStruggling) //When In the middle of switching
 	{
 		_struggleTime = 0;
