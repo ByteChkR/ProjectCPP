@@ -90,5 +90,14 @@ void main( void ) {
 		ret += Calculate(i, wn);
 	}
 
-	fragment_color = ret;
+	vec3 fogColor = vec3(0.5);
+
+	float distance = distance(fragmentWorldPosition, fragmentCameraPosition);
+	float max = 40;
+	float min = 20;
+	float t = clamp((max - distance)/(max-min),0,1);
+
+
+
+	fragment_color = vec4(vec3(ret) * (t) + fogColor * (1-t), ret.a);
 }

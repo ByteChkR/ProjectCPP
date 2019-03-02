@@ -38,6 +38,7 @@ in vec2 texCoord;
 in vec3 worldNormal;
 in mat3 TBN;
 in vec3 fragmentWorldPosition;
+in vec3 fragmentCameraPosition;
 in vec3 fPlayerPosition;
 out vec4 fragment_color;
 
@@ -101,6 +102,15 @@ void main( void ) {
 	float shadowAlpha = clamp(pow(d / sSize, 5), 0, 1);
 
 	ret = vec4(ret.rgb * (shadowAlpha), ret.a);
+	
+	vec3 fogColor = vec3(0.5);
 
-	fragment_color = ret;//d > ShadowSize * clamp( 1-( yd / ShadowLength) ,0,1) ? ret : vec4(0,0,0,1);
+	float distance = distance(fragmentWorldPosition, fragmentCameraPosition);
+	float max = 40;
+	float min = 20;
+	float t = clamp((max - distance)/(max-min),0,1);
+
+
+
+	fragment_color = vec4(vec3(ret) * (t) + fogColor * (1-t), ret.a);
 }
