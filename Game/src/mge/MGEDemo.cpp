@@ -301,6 +301,7 @@ void MGEDemo::_initializeScene()
 
 	//setup the custom part so we can display some text
 	Debug::Log("Initializing GUI");
+
 	_hud = new DebugHud(_window);
 	_menu = new Menu(_window);
 	_storyPanel = new StoryPanel(_window);
@@ -313,8 +314,8 @@ void MGEDemo::_initializeScene()
 
 	Debug::Log("GUI initialized.");
 
-
-	GameStateManager::instance->_state = GameStateManager::StateLoad;
+	/*
+		GameStateManager::instance->_state = GameStateManager::StateLoad;*/
 
 }
 

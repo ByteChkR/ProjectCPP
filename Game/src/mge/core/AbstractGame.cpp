@@ -44,7 +44,7 @@ void AbstractGame::initialize() {
 void AbstractGame::_initializeWindow() {
 	Debug::Log("Initializing window...");
 	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
-	_window = new sf::RenderWindow( sf::VideoMode(900,600), "My Game!", sf::Style::Default, cs);
+	_window = new sf::RenderWindow( sf::VideoMode(900, 600), "My Game!", sf::Style::Default, cs);
 	glEnable(GL_MULTISAMPLE);
 	//_window->setVerticalSyncEnabled(true);
 	Debug::Log("Window initialized.");
