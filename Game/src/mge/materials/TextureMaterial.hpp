@@ -32,10 +32,19 @@ public:
 	static float genOffset;
 	static float width;
 	static float xMoveTiling;
+	static glm::vec3 fogColor;
+	static float fogEnd;
+	static float fogBegin;
+	static float fogBlendSmoothness;
 protected:
 private:
 	static ShaderProgram* _shader;
 	static void _lazyInitializeShader();
+
+	static GLint _fogColor;
+	static GLint _fogBegin;
+	static GLint _fogEnd;
+	static GLint _fogBlendSmoothness;
 
 	//in this example we cache all identifiers for uniforms & attributes
 	static GLint _uMMatrix;

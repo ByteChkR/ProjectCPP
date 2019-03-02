@@ -25,9 +25,19 @@ float TextureMaterial::xOffsetSmootness = 3;
 float TextureMaterial::maxHeight = 10;
 float TextureMaterial::genOffset = 100;
 float TextureMaterial::width = 8;
+
 float TextureMaterial::xMoveTiling = 100;
 Texture* TextureMaterial::_heightMap = nullptr;
 
+glm::vec3 TextureMaterial::fogColor = glm::vec3(0.5);
+float TextureMaterial::fogBegin = 50;
+float TextureMaterial::fogEnd = 75;
+float TextureMaterial::fogBlendSmoothness = 2;
+
+GLint TextureMaterial::_fogColor = 0;
+GLint TextureMaterial::_fogBegin = 0;
+GLint TextureMaterial::_fogEnd = 0;
+GLint TextureMaterial::_fogBlendSmoothness = 0;
 
 GLint TextureMaterial::_xMoveTiling = 0;
 GLint TextureMaterial::_heightMapTiling = 0;
@@ -103,6 +113,12 @@ void TextureMaterial::_lazyInitializeShader() {
 		_uEmmissiveTexture = _shader->getUniformLocation("emissiveTexture");
 		_heightTexID = _shader->getUniformLocation("yOffTexture");
 		_maxHeight = _shader->getUniformLocation("maxHeight");
+
+		_fogColor = _shader->getUniformLocation("fogColor");
+		_fogBegin = _shader->getUniformLocation("fogBegin");
+		_fogEnd = _shader->getUniformLocation("fogEnd");
+		_fogBlendSmoothness = _shader->getUniformLocation("fogBlendSmoothness");
+
 
 
 
@@ -233,6 +249,11 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 
 	glUniform1f(_xOffsetSmootness, TextureMaterial::xOffsetSmootness);
 	glUniform1f(_maxXOff, TextureMaterial::maxXOff);
+
+	glUniform3f(_fogColor, fogColor.x, fogColor.y, fogColor.z);
+	glUniform1f(_fogBegin, fogBegin);
+	glUniform1f(_fogEnd, fogEnd);
+	glUniform1f(_fogBlendSmoothness, fogBlendSmoothness);
 
 
 	glUniform1f(_shininess, shininess);

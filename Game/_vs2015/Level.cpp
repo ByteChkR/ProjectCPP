@@ -264,6 +264,33 @@ Level::Level(std::string levelLuaFile)
 		TextureMaterial::xMoveTiling = (float)xMT;
 	}
 
+	lua_getglobal(L, "fogColor");
+	glm::vec3 fogColor = glm::vec3(0.5);
+	if (!LuaOperations::TryGetFloatFromTable(L, "Red", &fogColor.r))
+	{
+
+		Debug::Log("Fog Color could not be found in file. Default (0.5, 0.5, 0.5)(Grey)");
+	}
+	else
+	{
+		lua_getglobal(L, "fogColor");
+		if (!LuaOperations::TryGetFloatFromTable(L, "Green", &fogColor.g))
+		{
+			Debug::Log("Fog Color could not be found in file. Default (0.5, 0.5, 0.5)(Grey)");
+		}
+		else
+		{
+			lua_getglobal(L, "fogColor");
+			if (!LuaOperations::TryGetFloatFromTable(L, "Blue", &fogColor.b))
+			{
+				Debug::Log("Fog Color could not be found in file. Default (0.5, 0.5, 0.5)(Grey)");
+			}
+		}
+	}
+
+	TextureMaterial::fogColor = fogColor;
+
+
 	//Insert logic for data manager here.
 	//I Am Supplying with Textures, you have gameobjects.
 	if (DataManager::instance->GetBackground()->getMaterial() != nullptr && DataManager::instance->GetGround()->getMaterial() != nullptr)

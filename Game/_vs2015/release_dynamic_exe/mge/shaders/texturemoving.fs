@@ -25,6 +25,11 @@ uniform float blendSmoothing;
 uniform Light lights[8];
 uniform int lightCount;
 
+uniform vec3 fogColor;
+uniform float fogBlendSmoothness;
+uniform float fogBegin;
+uniform float fogEnd;
+
 uniform sampler2D diffuseTexture;
 uniform sampler2D emissionMap;
 uniform sampler2D specularTexture;
@@ -103,12 +108,11 @@ void main( void ) {
 
 	ret = vec4(ret.rgb * (shadowAlpha), ret.a);
 	
-	vec3 fogColor = vec3(0.5);
-
 	float distance = distance(fragmentWorldPosition, fragmentCameraPosition);
-	float max = 40;
-	float min = 20;
-	float t = clamp((max - distance)/(max-min),0,1);
+	float t = clamp((fogEnd - distance)/(fogEnd-fogBegin),0,1);
+
+	t = pow(t, fogBlendSmoothness);
+
 
 
 

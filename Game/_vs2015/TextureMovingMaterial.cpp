@@ -18,6 +18,13 @@
 #include "mge/core/Camera.hpp"
 ShaderProgram* TextureMovingMaterial::_shader = NULL;
 
+
+
+GLint TextureMovingMaterial::_fogColor = 0;
+GLint TextureMovingMaterial::_fogBegin = 0;
+GLint TextureMovingMaterial::_fogEnd = 0;
+GLint TextureMovingMaterial::_fogBlendSmoothness = 0;
+
 //float TextureMovingMaterial::Movingspeed = 0.13f;
 GLint TextureMovingMaterial::_heightMapTiling = 0;
 GLint TextureMovingMaterial::_uMMatrix = 0;
@@ -104,6 +111,11 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 
 		_uDiffuseTexture = _shader->getUniformLocation("diffuseTexture");
 		_uNormalTexture = _shader->getUniformLocation("normalTexture");
+
+		_fogColor = _shader->getUniformLocation("fogColor");
+		_fogBegin = _shader->getUniformLocation("fogBegin");
+		_fogEnd = _shader->getUniformLocation("fogEnd");
+		_fogBlendSmoothness = _shader->getUniformLocation("fogBlendSmoothness");
 
 		_uSpecularTexture = _shader->getUniformLocation("specularTexture");
 		_uEmmissiveTexture = _shader->getUniformLocation("emissiveTexture");
@@ -246,6 +258,11 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 
 		_lightLocations[i].SetLight(&pWorld->getLightAt(i)->GetParams());
 	}
+
+	glUniform3f(_fogColor, TextureMaterial::fogColor.x, TextureMaterial::fogColor.y, TextureMaterial::fogColor.z);
+	glUniform1f(_fogBegin, TextureMaterial::fogBegin);
+	glUniform1f(_fogEnd, TextureMaterial::fogEnd);
+	glUniform1f(_fogBlendSmoothness, TextureMaterial::fogBlendSmoothness);
 
 	glUniform1i(_colorCount, 3);
 	glUniform1f(_colorTiling, colorTiling);

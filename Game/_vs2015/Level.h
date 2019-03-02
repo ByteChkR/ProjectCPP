@@ -23,6 +23,7 @@ private:
 	Texture* background;
 	Texture* mapGround;
 	Texture* mapGroundNormal;
+
 };
 
 #endif // !LEVEL_HPP

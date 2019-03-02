@@ -30,6 +30,11 @@ private:
 	static ShaderProgram* _shader;
 	static void _lazyInitializeShader();
 
+	static GLint _fogColor;
+	static GLint _fogBegin;
+	static GLint _fogEnd;
+	static GLint _fogBlendSmoothness;
+
 	//in this example we cache all identifiers for uniforms & attributes
 	static GLint _uMMatrix;
 	static GLint _uVMatrix;
