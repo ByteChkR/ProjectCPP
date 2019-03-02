@@ -32,6 +32,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_jumpForce = 0.45f;
 	_velocity = 0;
 	_switchTime = 0.1f;
+	lastLevelFinalScore = 0;
 	_curSwitchTime = 0;
 	_nextLane = -1;
 	_coins = 0;
@@ -60,8 +61,9 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	createModels();
 }
 
-void PlayerController::ResetScore() {
-	_coins = 0;
+void PlayerController::ResetScore(int newScore) {
+	_coins = newScore;
+	lastLevelFinalScore = newScore;
 }
 
 AbstractBehaviour* PlayerController::Clone()
@@ -83,7 +85,7 @@ void PlayerController::SetCurrentLane(int lane)
 {
 	_currentLane = lane;
 	_nextLane = lane;
-	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition()+glm::vec3(0,0,0));//<---
+	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition() + glm::vec3(0, 0, 0));//<---
 	heliInitialPosition.x = _owner->getLocalPosition().x;
 	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); // therealchanger
 }
@@ -118,6 +120,7 @@ void PlayerController::OnCollision(GameObject* other)
 	if (!other->getName().find("endoflevel"))
 	{
 		_lockControls = true;
+		lastLevelFinalScore = _coins;
 		glm::vec3 camPos = AbstractGame::instance->_world->getMainCamera()->getWorldPosition();
 		AbstractGame::instance->_world->add(AbstractGame::instance->_world->getMainCamera());
 		AbstractGame::instance->_world->getMainCamera()->setLocalPosition(camPos);
@@ -163,12 +166,15 @@ void PlayerController::OnCollision(GameObject* other)
 		_isStruggling = false;
 		_struggleTime = 0;
 		gStruggleAnimation->DisableBehaviours();
+		_coins = lastLevelFinalScore;
 		GameStateManager::instance->_state = GameStateManager::StateGameOver;
 		_owner->DisableBehaviours();
 		MapBuilder::instance->Unload();
 		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); //<--- therealchanger
 	}
 }
+
+
 
 
 void PlayerController::update(float pTime)

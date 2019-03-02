@@ -21,7 +21,8 @@ public:
 	static PlayerController* instance;
 	int GetCoinCount();
 	void SetCurrentLane(int lane);
-	void ResetScore();
+
+	void ResetScore(int newScore = 0);
 private:
 	Timer* _endOfGameTimer;
 	int _currentLane;
@@ -59,6 +60,7 @@ private:
 	void createModels();
 	void Animate(float pDeltaTime);
 
+
 	//animation
 	float animationTool = 0; // delta time addition
 	float animationSpeed =10.0f;
@@ -85,6 +87,8 @@ private:
 	GameObject* heli;
 	float heliTool=0;
 	float heliAnimationSpeed = 1.0f;
+
+	int lastLevelFinalScore;
 
 	std::string lastStruggleCollider;
 

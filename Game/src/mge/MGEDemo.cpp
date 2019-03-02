@@ -325,7 +325,7 @@ void MGEDemo::_render(int pass) {
 	else if (GameStateManager::instance->_state == GameStateManager::StateMenu) {
 		_menu->Update();
 		_storyPanel->Reset();     //could be solved more optimized
-		PlayerController::instance->ResetScore();
+		//PlayerController::instance->ResetScore();
 	}
 	else if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)_gameOverScreen->Update();
