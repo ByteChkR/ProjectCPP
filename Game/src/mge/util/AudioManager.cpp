@@ -1,7 +1,7 @@
 #include "AudioManager.h"
 #include <iostream>
-
-AudioManager * AudioManager:: instance;
+#include "../_vs2015/Debug.h"
+AudioManager * AudioManager::instance;
 
 AudioManager::AudioManager()
 {
@@ -45,7 +45,7 @@ AudioManager::~AudioManager()
 
 void AudioManager::LoadMusic(std::string pFileLocation, std::string pAmbientLocation)
 {
-	AddMusic(pFileLocation,pAmbientLocation);
+	AddMusic(pFileLocation, pAmbientLocation);
 	_currentMusic = 0;
 	_nextMusic = 0;
 
@@ -57,16 +57,16 @@ void AudioManager::LoadMusic(std::string pFileLocation, std::string pAmbientLoca
 
 
 
-	
+
 }
 
 
 void AudioManager::PlaySound(int pNumber)
 {
-	if (pNumber > (int)_sounds.size() -1)
+	if (pNumber > (int)_sounds.size() - 1)
 	{
-		std::cout << "Number higher then number of sounds. The number is " << pNumber<<
-			" and the size is: " << _sounds.size()<< '\n';
+		Debug::LogError("Number higher then number of sounds. The number is " + std::to_string(pNumber) +
+			" and the size is: " + std::to_string(_sounds.size()));
 		return;
 	}
 	_sounds[pNumber]->play();
@@ -75,11 +75,11 @@ void AudioManager::PlaySound(int pNumber)
 
 void AudioManager::AddSound(std::string pFileLocation)
 {
-	
+
 	sf::SoundBuffer * buffer = new sf::SoundBuffer();
-	if (!buffer->loadFromFile(_soundsPath+pFileLocation))
+	if (!buffer->loadFromFile(_soundsPath + pFileLocation))
 	{
-		std::cout << "/////////////////   Sound path not found. /////////////////// \n" << pFileLocation<<"\n";
+		Debug::LogError("/////////////////   Sound path not found. /////////////////// \n" + pFileLocation);
 	}
 
 	sf::Sound * sound = new sf::Sound(*buffer);
@@ -96,7 +96,7 @@ void AudioManager::AddMusic(std::string pFileLocation, std::string pAmbientPath)
 
 	if (!musicTrack->openFromFile(_soundsPath + pFileLocation))
 	{
-		std::cout << "/////////////////   Sound path not found. /////////////////// \n" << pFileLocation << "\n";
+		Debug::LogError("/////////////////   Sound path not found. /////////////////// \n" + pFileLocation);
 		return;
 	}
 
@@ -112,7 +112,7 @@ void AudioManager::AddMusic(std::string pFileLocation, std::string pAmbientPath)
 
 	if (!ambient->openFromFile(_soundsPath + pAmbientPath))
 	{
-		std::cout << "/////////////////   Sound path not found. /////////////////// \n" << pFileLocation << "\n";
+		Debug::LogError("/////////////////   Sound path not found. /////////////////// \n" + pFileLocation);
 		return;
 	}
 
@@ -131,7 +131,7 @@ void AudioManager::Restart(int pNumber)
 
 	if (pNumber > (int)_musics.size() - 1)
 	{
-		std::cout << "can't restart index out of range\n";
+		Debug::LogError("can't restart index out of range");
 		return;
 	}
 
@@ -144,7 +144,7 @@ void AudioManager::Restart(int pNumber)
 	StopAll();
 
 	// Restart the track if needed.
-	
+
 	_musics[pNumber]->setVolume(100);
 	_ambients[pNumber]->setVolume(100);
 	_musics[pNumber]->play();
@@ -180,14 +180,14 @@ void AudioManager::ControlBackgroundMusic(float pDeltaTime)
 	{
 		if (_crossFader > _secondsForCrossFader / 2)
 		{
-			_musics[_currentMusic]->setVolume( ((_crossFader - ( _secondsForCrossFader / 2)) / (_secondsForCrossFader / 2)) * 100);
+			_musics[_currentMusic]->setVolume(((_crossFader - (_secondsForCrossFader / 2)) / (_secondsForCrossFader / 2)) * 100);
 			_ambients[_currentMusic]->setVolume(_musics[_currentMusic]->getVolume());
 		}
 		else
 			if (_crossFader <= _secondsForCrossFader / 2 && _crossFader > 0)
 			{
 				ChangeClips();
-				_musics[_nextMusic]->setVolume( (1 - (_crossFader / (_secondsForCrossFader / 2))) * 100);
+				_musics[_nextMusic]->setVolume((1 - (_crossFader / (_secondsForCrossFader / 2))) * 100);
 				_ambients[_nextMusic]->setVolume(_musics[_nextMusic]->getVolume());
 			}
 			else
@@ -213,7 +213,7 @@ void AudioManager::ChangeBackgroundMusic(int pNumber)
 {
 	if (pNumber > (int)_musics.size() - 1)
 	{
-		std::cout << "can't change music index out of range" << pNumber<<'\n';
+		Debug::LogError("can't change music index out of range" + std::to_string(pNumber));
 		return;
 	}
 
@@ -225,7 +225,7 @@ void AudioManager::ChangeBackgroundMusic(int pNumber)
 	_isClipChanged = false;
 	_crossFader = _secondsForCrossFader;
 	_nextMusic = pNumber;
-		
+
 }
 
 void AudioManager::ChangeClips()

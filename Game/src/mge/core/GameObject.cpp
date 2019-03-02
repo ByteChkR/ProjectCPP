@@ -4,7 +4,7 @@
 #include <vector>
 #include "..\_vs2015\StaticBoxCollider.hpp"
 #include "..\_vs2015\DynamicBoxCollider.hpp"
-
+#include "../_vs2015/Debug.h"
 GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	: _name(pName), _transform(glm::translate(pPosition)), _parent(nullptr), _children(),
 	_mesh(nullptr), _behaviours(), _material(nullptr), _world(nullptr)
@@ -22,7 +22,7 @@ GameObject::~GameObject()
 {
 
 	//detach all children
-	std::cout << "GC running on:" << _name << std::endl;
+	Debug::Log("GC running on:" + _name);
 
 	for (size_t i = 0; i < _behaviours.size(); i++)
 	{

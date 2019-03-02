@@ -2,7 +2,7 @@
 #include <string>
 
 #include "glm.hpp"
-
+#include "../_vs2015/Debug.h"
 #include "mge/core/Renderer.hpp"
 
 #include "mge/core/Mesh.hpp"
@@ -52,7 +52,7 @@ MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
 {
 	this->argc = argc;
 	this->argv = std::vector<std::string>();
-	for (size_t i = 0; i < argc; i++)
+	for (int i = 0; i < argc; i++)
 	{
 		this->argv.push_back(argv[i]);
 	}
@@ -300,7 +300,7 @@ void MGEDemo::_initializeScene()
 	StoryPanelHandler * storyPanelHandler = new StoryPanelHandler();
 
 	//setup the custom part so we can display some text
-	std::cout << "Initializing GUI" << std::endl;
+	Debug::Log("Initializing GUI");
 	_hud = new DebugHud(_window);
 	_menu = new Menu(_window);
 	_storyPanel = new StoryPanel(_window);
@@ -311,7 +311,7 @@ void MGEDemo::_initializeScene()
 	_scoreBoard = new ScoreBoard(_window);
 	_credits = new Credits(_window);
 
-	std::cout << "GUI initialized." << std::endl << std::endl;
+	Debug::Log("GUI initialized.");
 
 
 	GameStateManager::instance->_state = GameStateManager::StateLoad;

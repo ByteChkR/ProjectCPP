@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "mge/config.hpp"
+#include "../_vs2015/Debug.h"
 
 MapGenerator * MapGenerator::instance = nullptr;
 std::default_random_engine MapGenerator::e;
@@ -31,7 +32,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	int rows = 0;
 	int numberOfParts = 0;
 
-	std::cout << "The path of the file: " << fullPath << '\n';
+	Debug::Log("The path of the file: " + fullPath);
 
 	std::string s;
 	file.seekg(0, std::ios::end);
@@ -74,22 +75,20 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		_biomes.push_back(a);
 	}
 
-	std::cout << "columns: " << columns << " rows: " << rows << " number of parts: " << numberOfParts << '\n';
+	Debug::Log("columns: " + std::to_string(columns) + " rows: " + std::to_string(rows) + " number of parts: " + std::to_string(numberOfParts));
 
 	for (int i = 0; i < numberOfParts; i++)
 	{
-		if (numberOfParts < 100)std::cout << "reading part " << i << '\n';
-		else if(numberOfParts >= 1000 && i % 250 == 0)std::cout << "reading part " << i << " to " << (i + 250) << '\n'; 
-		else if (numberOfParts < 1000 && i % 25 == 0)std::cout << "reading part " << i << " to " << (i + 25) << '\n';
+		if (numberOfParts < 100)Debug::Log("reading part " + std::to_string(i));
+		else if (numberOfParts >= 1000 && i % 250 == 0)Debug::Log("reading part " + std::to_string(i) + " to " + std::to_string(i + 250));
+		else if (numberOfParts < 1000 && i % 25 == 0)Debug::Log("reading part " + std::to_string(i) + " to " + std::to_string(i + 25));
 
 		Part part;
 		for (int j = 0; j < rows; j++)
 		{
-			//std::cout << "reading lane " << j <<" of part "<< i << '\n';
 			Lane  lane(glm::vec3(0, 0, 0), 0, 0, 0, 0, std::vector<int>(), 0);
 			for (int k = 0; k < columns; k++)
 			{
-				//std::cout << "reading segment " << k << '\n';
 				int segment;
 				//file >> segment;
 				segment = NextInt(s, index, &index);
@@ -102,7 +101,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		parts.push_back(part);
 
 	}
-	std::cout << "reading finished" << '\n';
+	Debug::Log("reading finished");
 
 
 	//file.close();
@@ -157,15 +156,6 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 
 	}
 
-	//for (int i = 0; i < (int)_lanes.size(); i++)
-	//{
-	//	//std::cout << "Step of line " << i << " is: " << _lanes[i]->GetStep() << " " << '\n';
-	//	for (int j = 0; j < columns; j++)
-	//	{
-	//		std::cout << _lanes[i]->GetSegments()[j] << " ";
-	//	}
-	//	//std::cout << '\n';
-	//}
 
 }
 
@@ -173,7 +163,6 @@ int MapGenerator::NextInt(std::string file, int index, int* newIndex)
 {
 	int startWord = -1;
 	int endWord = -1;
-	//std::cout << index << '\n';
 	for (size_t i = index; i < file.size(); i++)
 	{
 		if (startWord == -1)
@@ -243,13 +232,14 @@ int MapGenerator::GetBiomeAt(int pNumber)
 {
 	if (pNumber > (int)_biomes.size() - 1 || pNumber < 0)
 	{
-		std::cout << "\n Trying to get a wrong biome \n ";
+		Debug::LogError("Trying to get a wrong biome");
+
 		return -1;
 	}
 	return _biomes[pNumber];
 }
 
-int MapGenerator::GetPartCount()
+size_t MapGenerator::GetPartCount()
 {
-	return (int)_biomes.size();
+	return _biomes.size();
 }

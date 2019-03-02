@@ -6,7 +6,7 @@
 #include "mge/config.hpp"
 #include "PlayerController.hpp"
 #include "GameStateManager.h"
-
+#include "../_vs2015/Debug.h"
 LevelManager* LevelManager::instance = nullptr;
 
 LevelManager::LevelManager(std::string luaMapList)
@@ -23,7 +23,7 @@ LevelManager::LevelManager(std::string luaMapList)
 
 	if (!LuaOperations::TableToVector(L, &_maps))
 	{
-		std::cout << "could not read levels from map list\n";
+		Debug::LogError("could not read levels from map list");
 		return;
 	}
 

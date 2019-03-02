@@ -86,6 +86,7 @@ private:
 	float heliTool=0;
 	float heliAnimationSpeed = 1.0f;
 
+	std::string lastStruggleCollider;
 
 };
 

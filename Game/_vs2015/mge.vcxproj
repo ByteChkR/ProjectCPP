@@ -197,6 +197,7 @@
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="CreditsButton.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="DynamicBoxCollider.hpp" />
     <ClInclude Include="EngineSettings.h" />
     <ClInclude Include="ExitButton.h" />
@@ -270,6 +271,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="CreditsButton.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DynamicBoxCollider.cpp" />
     <ClCompile Include="EngineSettings.cpp" />
     <ClCompile Include="ExitButton.cpp" />

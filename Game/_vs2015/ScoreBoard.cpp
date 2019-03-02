@@ -35,7 +35,7 @@ void ScoreBoard::UpdateScores() {
 }
 
 void ScoreBoard::OrganizeScreen() {
-	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
+	_background->sprite.setPosition((float)_background->sprite.getTexture()->getSize().x / 2.0f, _background->sprite.getTexture()->getSize().y / 2.0f);
 	
 	float wholeBlockOffset = 380;
 	float lineOffset = 47.5f;

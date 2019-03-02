@@ -3,7 +3,7 @@
 #include "ScoreBoardButton.h"
 #include <iostream>
 #include "../_vs2015/GameStateManager.h"
-
+#include "../_vs2015/Debug.h"
 ScoreBoardButton::ScoreBoardButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite) : Button(aWindow, _buttonSprite)
 {
 
@@ -11,6 +11,6 @@ ScoreBoardButton::ScoreBoardButton(sf::RenderWindow *aWindow, sf::Sprite _button
 
 void ScoreBoardButton::OnClick()
 {
-	std::cout << "ScoreBoard" << std::endl;
+	Debug::Log("ScoreBoard");
 	GameStateManager::instance->_state = GameStateManager::StateScore;
 }

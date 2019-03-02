@@ -3,7 +3,7 @@
 #include "CreditsButton.h"
 #include <iostream>
 #include "../_vs2015/GameStateManager.h"
-
+#include "../_vs2015/Debug.h"
 CreditsButton::CreditsButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite) : Button(aWindow, _buttonSprite)
 {
 
@@ -11,6 +11,6 @@ CreditsButton::CreditsButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite
 
 void CreditsButton::OnClick()
 {
-	std::cout << "Credits" << std::endl;
+	Debug::Log("Credits");
 	GameStateManager::instance->_state = GameStateManager::StateCredits;
 }

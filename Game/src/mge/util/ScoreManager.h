@@ -12,7 +12,7 @@ class ScoreManager
 {
 public:
 
-	static struct Score
+	struct Score
 	{
 		float value;
 		std::string name;

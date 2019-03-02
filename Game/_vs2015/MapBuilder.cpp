@@ -14,7 +14,7 @@ MapBuilder* MapBuilder::instance = nullptr;
 
 MapBuilder::MapBuilder(float generationOffset, float removalOffset)
 {
-	_movingSpeed = 0.05;
+	_movingSpeed = 0.05f;
 	instance = this;
 	lastRemove = 0;
 	_container = new GameObject("CONTAINER");
@@ -81,15 +81,12 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 	float dist = ((float)biomeID * gen->GetLaneAt(lane)->GetStep()); //Distance from container origin with step size
 	float reldist = dist - _container->getLocalPosition().z; //Global distance to origin
 
-	//std::cout << "Reldist: " << std::to_string(reldist) << '\n';
 	if (reldist > -remOffset && reldist < genOffset)
 	{
 		biomeID = (int)((biomeID / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount());
 
-		//std::cout << "Created\n";
 		GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[index].first);
 		glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist + ((ScriptableLuaObject*)obj->getBehaviour("SCLO"))->GetLuaOffset();
-		//std::cout << "Offset On Lane: " << dist << '\n';
 		(*list)[index].second = obj;
 		(*list)[index].second->EnableBehaviours();
 		if (obj->getParent() != _container)
@@ -108,7 +105,6 @@ float MapBuilder::GetProgress()
 	MapGenerator* map;
 	if (_mapPropList.size() < 1 || Level::instance == nullptr || (map = Level::instance->GetMap()) == nullptr || map->GetNumberOfLanes() == 0 || _mapPropList.size() == 0)return 0;
 	float test = (_container->getLocalPosition().z / map->GetLaneAt(0)->GetStep()) / (_mapPropList.size() / map->GetNumberOfLanes());
-	//std::cout << "Progress: " << std::to_string(test) << '\n';
 	return glm::clamp(test, 0.0f, 1.0f);;
 }
 
@@ -161,16 +157,10 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 	if (gen == nullptr || gen->GetNumberOfLanes() == 0 || gen->GetPartCount() == 0) return;
 	int lastAdd = -1;
 
-	//float delta = _container->getLocalPosition().z - lastContainerPos;
-
 
 	int end = (int)(lastRemove + gen->GetNumberOfLanes()*genOffset);
 	end = glm::min(end, (int)list->size() - 1);
 
-	//float fstart = ((int)_container->getLocalPosition().z - remOffset)*gen->GetNumberOfLanes();
-	//int start = (int)(glm::max(fstart, 0.0f));
-
-	//std::cout << "I size: " << std::to_string(end-lastRemove) << '\n';
 
 	for (int i = lastRemove; i < end; ++i)
 	{

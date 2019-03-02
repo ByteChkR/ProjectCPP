@@ -12,7 +12,7 @@
 #include "../_vs2015/GameStateManager.h"
 #include "../_vs2015/StoryPanelHandler.h"
 #include "mge/util/DataManager.h"
-
+#include "../_vs2015/Debug.h"
 /**
  * Main entry point for the Micro Engine.
 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	//int t;
 	//std::cin >> t;
 
-	std::cout << "Starting Game" << std::endl;
+	Debug::Log("Starting Game");
 
 	AbstractGame* game = new MGEDemo(argc, argv);
 

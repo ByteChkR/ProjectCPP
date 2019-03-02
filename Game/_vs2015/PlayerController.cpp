@@ -14,7 +14,7 @@
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/materials/TextureMaterial.hpp"
 #include "StaticBoxCollider.hpp"
-
+#include "Debug.h"
 PlayerController* PlayerController::instance = nullptr;
 
 PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
@@ -52,7 +52,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_owner->add(gStruggleAnimation);
 	gStruggleAnimation->setLocalPosition(glm::vec3(0, 3, 0));
 	gStruggleAnimation->DisableBehaviours();
-
+	lastStruggleCollider = "";
 	_lockControls = false;
 
 	instance = this;
@@ -114,7 +114,6 @@ void PlayerController::OnCollision(GameObject* other)
 {
 	if (_endOfGameTimer->IsStarted())return;
 	//Player dies if not a coin
-	std::cout << "COLLISION" << other->getName()<< "\n";
 	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
 	if (!other->getName().find("endoflevel"))
 	{
@@ -142,15 +141,18 @@ void PlayerController::OnCollision(GameObject* other)
 		_curSwitchTime = _switchTime - _curSwitchTime;
 		_isBackSwitching = true;
 	}
-	else if (_isBackSwitching)return;
-	else if (sbc->GetDimensions().y < 1.1f) //<--- This right here
+	else if (_isBackSwitching) return;
+	else if (sbc->GetDimensions().y < 1.1f && !_isStruggling && lastStruggleCollider != other->getName()) //<--- This right here
 	{
+		lastStruggleCollider = other->getName();
+		Debug::Log("StartStruggle");
 		//other->DisableBehaviours();
 		_isStruggling = true;
 		_struggleTime = 0;
 
 		return;
 	}
+	else if (lastStruggleCollider == other->getName())return; //Dont trip twice over the same container
 	else
 	{
 		_isStruggling = false;
@@ -174,6 +176,7 @@ void PlayerController::update(float pTime)
 		if (_struggleTime > _struggleMaxTime)
 		{
 			gStruggleAnimation->DisableBehaviours();
+			
 			_isStruggling = false;
 		}
 	}
@@ -357,7 +360,7 @@ void PlayerController::createModels()
 	Texture* turkeyMetal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeymetal.png");
 	Texture* turkeyNormal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeynormal.png");
 
-	AbstractMaterial* playerTexture = new AnimationMaterial(turkeyAlb, 1);
+	AbstractMaterial* playerTexture = new TextureMaterial(turkeyAlb,nullptr, turkeyMetal, turkeyNormal, 2, 1, 5, 2);
 
 	Mesh * tBody = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TBody.obj");
 	Mesh * tHead = Mesh::load(config::MGE_MODEL_PATH + "Turkey/THead.obj");

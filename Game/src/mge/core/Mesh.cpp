@@ -2,7 +2,7 @@
 #include <map>
 #include <string>
 #include <fstream>
-
+#include "../_vs2015/Debug.h"
 #include "mge/core/Mesh.hpp"
 
 Mesh::Mesh() : _indexBufferId(0), _vertexBufferId(0), _normalBufferId(0), _uvBufferId(0), _vertices(), _normals(), _uvs(), _indices()
@@ -66,7 +66,7 @@ Mesh::~Mesh()
 Mesh* Mesh::load(std::string pFilename)
 {
 	if (pFilename == " ")return NULL;
-	std::cout << "Loading " << pFilename << "...\n";
+	Debug::Log("Loading " + pFilename + "...");
 
 	Mesh* mesh = new Mesh();
 
@@ -173,7 +173,7 @@ Mesh* Mesh::load(std::string pFilename)
 				}
 				else {
 					//If we read a different amount, something is wrong
-					std::cout << "Error reading obj, needing v,vn,vt" << std::endl;
+					Debug::LogError("Error reading obj, needing v, vn, vt");
 					delete mesh;
 					return NULL;
 				}
@@ -187,11 +187,11 @@ Mesh* Mesh::load(std::string pFilename)
 
 		mesh->_buffer();
 
-		std::cout << "Mesh loaded and buffered:" << (mesh->_indices.size() / 3.0f) << " triangles." << std::endl;
+		Debug::Log("Mesh loaded and buffered:" + std::to_string(mesh->_indices.size() / 3.0f) + " triangles.");
 		return mesh;
 	}
 	else {
-		std::cout << "Could not read " << pFilename << std::endl;
+		Debug::LogError("Could not read " + pFilename );
 		delete mesh;
 		return NULL;
 	}
@@ -199,7 +199,7 @@ Mesh* Mesh::load(std::string pFilename)
 
 void Mesh::ComputeTangents() {
 
-	std::cout << "Computing Tangents and Bitangents..";
+	Debug::Log("Computing Tangents and Bitangents..");
 	_tangents.clear();
 	_biTangents.clear();
 	_tangents = std::vector<glm::vec3>(_indices.size());
@@ -256,7 +256,7 @@ void Mesh::ComputeTangents() {
 	}
 
 
-	std::cout << "Done\n";
+	Debug::Log("Done");
 
 
 }
@@ -347,7 +347,7 @@ glm::vec3 Mesh::GetMaxLocalBounds()
 {
 	glm::vec3 ret = glm::vec3(-1000000);
 	if(_indices.size() == 0)return glm::vec3(0);
-	for (int i = 0; i < _indices.size();i++)
+	for (size_t i = 0; i < _indices.size();i++)
 	{
 		if (_vertices[_indices[i]].x > ret.x)
 			ret.x = _vertices[_indices[i]].x;
@@ -363,7 +363,7 @@ glm::vec3 Mesh::GetMinLocalBounds()
 {
 	glm::vec3 ret = glm::vec3(100000000);
 	if (_indices.size() == 0)return glm::vec3(0);
-	for (int i = 0; i < _indices.size(); i++)
+	for (size_t i = 0; i < _indices.size(); i++)
 	{
 		if (_vertices[_indices[i]].x < ret.x)
 			ret.x = _vertices[_indices[i]].x;

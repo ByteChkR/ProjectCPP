@@ -72,6 +72,7 @@
     <ClCompile Include="TextureMovingMaterial.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WinScreen.cpp" />
+    <ClCompile Include="Debug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -145,5 +146,6 @@
     <ClInclude Include="TextureMovingMaterial.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WinScreen.h" />
+    <ClInclude Include="Debug.h" />
   </ItemGroup>
 </Project>

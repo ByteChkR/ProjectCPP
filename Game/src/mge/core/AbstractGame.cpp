@@ -7,6 +7,7 @@
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
 #include "mge/util/AudioManager.h"
+#include "../_vs2015/Debug.h"
 
 AbstractGame* AbstractGame::instance = nullptr;
 
@@ -26,7 +27,7 @@ AbstractGame::~AbstractGame()
 }
 
 void AbstractGame::initialize() {
-    std::cout << "Initializing engine..." << std::endl << std::endl;
+   Debug::Log("Initializing engine...");
     _initializeWindow();
     _printVersionInfo();
     _initializeGlew();
@@ -35,18 +36,18 @@ void AbstractGame::initialize() {
     _initializeWorld();
     _initializeScene();
 	
-    std::cout << std::endl << "Engine initialized." << std::endl << std::endl;
+	Debug::Log("Engine initialized.");
 }
 
 ///SETUP
 
 void AbstractGame::_initializeWindow() {
-	std::cout << "Initializing window..." << std::endl;
+	Debug::Log("Initializing window...");
 	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
 	_window = new sf::RenderWindow( sf::VideoMode(900,600), "My Game!", sf::Style::Default, cs);
 	glEnable(GL_MULTISAMPLE);
 	//_window->setVerticalSyncEnabled(true);
-    std::cout << "Window initialized." << std::endl << std::endl;
+	Debug::Log("Window initialized.");
 }
 
 float AbstractGame::GetTimeSinceStartup()
@@ -55,8 +56,8 @@ float AbstractGame::GetTimeSinceStartup()
 }
 
 void AbstractGame::_printVersionInfo() {
-	std::cout << "Context info:" << std::endl;
-    std::cout << "----------------------------------" << std::endl;
+	Debug::Log("Context info:");
+	Debug::Log("----------------------------------");
     //print some debug stats for whoever cares
     const GLubyte *vendor = glGetString( GL_VENDOR );
     const GLubyte *renderer = glGetString( GL_RENDERER );
@@ -73,36 +74,36 @@ void AbstractGame::_printVersionInfo() {
     printf("GL Version (integer) : %d.%d\n", major, minor);
     printf("GLSL Version : %s\n", glslVersion);
 
-    std::cout << "----------------------------------" << std::endl << std::endl;
+	Debug::Log("----------------------------------");
 }
 
 void AbstractGame::_initializeGlew() {
-	std::cout << "Initializing GLEW..." << std::endl;
+	Debug::Log("Initializing GLEW...");
     //initialize the opengl extension wrangler
     GLint glewStatus = glewInit();
-	std::cout << "Initialized GLEW, status (1 == OK, 0 == FAILED):" << (glewStatus == GLEW_OK) << std::endl << std::endl;
+	Debug::Log("Initialized GLEW, status (1 == OK, 0 == FAILED):" + std::to_string(glewStatus == GLEW_OK));
 }
 
 void AbstractGame::_initializeRenderer() {
     //setup our own renderer
-	std::cout << "Initializing renderer..." << std::endl;
+	Debug::Log("Initializing renderer...");
 	_renderer = new Renderer(true);
     _renderer->setClearColor(0,0,0);
-    std::cout << "Renderer done." << std::endl << std::endl;
+	Debug::Log("Renderer done.");
 }
 
 void AbstractGame::_initializeWorld() {
     //setup the world
-	std::cout << "Initializing world..." << std::endl;
+	Debug::Log("Initializing world...");
 	_world = new World();
-    std::cout << "World initialized." << std::endl << std::endl;
+	Debug::Log("World initialized.");
 }
 
 void AbstractGame::_initializeCollisionManager()
 {
-	std::cout << "Initializing Collision Manager..."<<std::endl;
+	Debug::Log("Initializing Collision Manager...");
 	_manager = new CollisionManager();
-	std::cout << "Collision Manager initialized." << std::endl;
+	Debug::Log("Collision Manager initialized.");
 
 }
 

@@ -13,7 +13,7 @@ StoryPanel::StoryPanel(sf::RenderWindow *aWindow)
 	_window = aWindow;
 	_maxPart = StoryPanelHandler::instance->GetSize(_storyPart);
 	_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart,_part);
-	_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x/2, _currentPanel->sprite.getTexture()->getSize().y/2);
+	_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x/2.0f, _currentPanel->sprite.getTexture()->getSize().y/2.0f);
 	_nextButtonBox = new HudSprite("HudBox.png",1.05f);
 	_nextText = new HudText();
 	_nextButton = new NextButton(_window, _nextButtonBox->sprite, this);
@@ -36,10 +36,10 @@ void StoryPanel::NextPanel()
 	if (_part < _maxPart - 1) { 
 		++_part; 
 		_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart, _part);
-		_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x / 2, _currentPanel->sprite.getTexture()->getSize().y / 2);
+		_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x / 2.0f, _currentPanel->sprite.getTexture()->getSize().y / 2.0f);
 	}
 	else if(_storyPart == _storyParts){
-		ScoreManager::instance->AddScore(PlayerController::instance->GetCoinCount(),"Test Name");
+		ScoreManager::instance->AddScore((float)PlayerController::instance->GetCoinCount(),"Test Name");
 		GameStateManager::instance->_state = GameStateManager::StateWin;
 	}
 	else {
@@ -54,7 +54,7 @@ void StoryPanel::NextStoryPart()
 		++_storyPart;
 		_maxPart = StoryPanelHandler::instance->GetSize(_storyPart);
 		_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart, _part);
-		_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x / 2, _currentPanel->sprite.getTexture()->getSize().y / 2);
+		_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x / 2.0f, _currentPanel->sprite.getTexture()->getSize().y / 2.0f);
 	}
 }
 

@@ -8,7 +8,7 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/config.hpp"
-
+#include "../_vs2015/Debug.h"
 ShaderProgram* AnimationMaterial::_shader = NULL;
 
 GLint AnimationMaterial::_uMVPMatrix = 0;
@@ -87,13 +87,13 @@ void AnimationMaterial::SetFrame(int pFrame)
 {
 	if (pFrame < 0)
 	{
-		std::cout << "ERROR: Tried to set frame smaller than 0\n";
+		Debug::LogError("ERROR: Tried to set frame smaller than 0");
 		return;
 	}
 
 	if (pFrame > _framesCount - 1)
 	{
-		std::cout << "ERROR: Tried to set frame bigger than the frame count\n";
+		Debug::LogError("ERROR: Tried to set frame bigger than the frame count");
 		return;
 	}
 

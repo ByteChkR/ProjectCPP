@@ -63,6 +63,7 @@ GameObject* ObjectPool<GameObject*>::Take()
 	if (bufferSize == 0)
 	{
 		GameObject* _ret = _original->Clone();
+		_ret->setName(_original->getName() + std::to_string(_activeBuffer.size()));
 		_activeBuffer.push_back(_ret);
 		return _ret;
 	}

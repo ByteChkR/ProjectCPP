@@ -21,7 +21,7 @@ public:
 	Lane* GetLaneAt(size_t pIndex);
 	std::vector <int> GetBiomes();
 	int GetBiomeAt(int pNumber);
-	int GetPartCount();
+	size_t GetPartCount();
 	int NextInt(std::string file, int index, int* charsRead);
 
 private:

@@ -3,6 +3,7 @@
 #include <string>
 #include "lua.hpp"
 #include <iostream>
+#include "../_vs2015/Debug.h"
 EngineSettings::EngineSettings(const char* file)
 {
 	lua_State* L = luaL_newstate();
@@ -16,7 +17,7 @@ EngineSettings::EngineSettings(const char* file)
 	if (!LuaOperations::TryGetIntFromTable(L, "width", &_width))
 	{
 		_width = 900;
-		std::cout << "Engine Settings File " << file << " has no field for width. Default = 900\n";
+		Debug::Log("Engine Settings File " + std::string(file) + " has no field for width. Default = 900");
 		//Error
 	}
 
@@ -26,7 +27,7 @@ EngineSettings::EngineSettings(const char* file)
 	if (!LuaOperations::TryGetIntFromTable(L, "height", &_height))
 	{
 		_height = 600;
-		std::cout << "Engine Settings File " << file << " has no field for height. Default = 600\n";
+		Debug::Log("Engine Settings File " + std::string(file) + " has no field for height. Default = 600");
 		//Error
 	}
 
@@ -36,7 +37,7 @@ EngineSettings::EngineSettings(const char* file)
 	if (!LuaOperations::TryGetStringFromTable(L, "windowName", &_windowName))
 	{
 		_windowName = "NO NAME";
-		std::cout << "Engine Settings File " << file << " has no field for windowName. Default = NO NAME\n";
+		Debug::Log("Engine Settings File " + std::string(file) + " has no field for windowName. Default = NO NAME");
 		//Error
 	}
 	lua_close(L);

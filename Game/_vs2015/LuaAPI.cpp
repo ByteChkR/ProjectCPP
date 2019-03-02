@@ -11,6 +11,7 @@
 #include "mge/util/AudioManager.h"
 #include "LevelManager.h"
 #include "mge/materials/AnimationMaterial.hpp"
+#include "../_vs2015/Debug.h"
 int LuaAPI::Lua_PlayMusic(lua_State* L)
 {
 	double nr = 0;
@@ -375,7 +376,7 @@ int LuaAPI::Lua_WriteToConsole(lua_State* L)
 		//Error
 		return 1;
 	}
-	std::cout << "Lua Script Console: " << txt << '\n';
+	Debug::Log("Lua Script Console: " + txt );
 	l = lua_gettop(L);
 	return 0;
 }
@@ -385,6 +386,7 @@ int LuaAPI::Lua_GetPosition(lua_State* L)
 	int l = lua_type(L, -1);
 	if (!lua_isuserdata(L, -1)) {
 		lua_pushstring(L, "Get Position can only be called with a valid object reference");
+		Debug::LogError("Lua ERROR: Get Position can only be called with a valid object reference");
 		lua_error(L);
 		return 1;
 	}
@@ -404,6 +406,7 @@ int LuaAPI::Lua_SetPosition(lua_State* L)
 	int l = lua_gettop(L);
 	if (!lua_isuserdata(L, 1)) {
 		lua_pushstring(L, "Set Position can only be called with a valid object reference");
+		Debug::LogError("Lua ERROR: Set Position can only be called with a valid object reference");
 		lua_error(L);
 		return 1;
 	}
@@ -413,7 +416,8 @@ int LuaAPI::Lua_SetPosition(lua_State* L)
 	glm::vec3 pos = glm::vec3();
 	if (!LuaOperations::TryGetFloat(L, &pos.z))
 	{
-		lua_pushstring(L, "Z Value not specified");
+		lua_pushstring(L, "Z Value not specified"); 
+		Debug::LogError("Lua ERROR: Z Value not specified");
 		lua_error(L);
 	}
 
@@ -421,12 +425,14 @@ int LuaAPI::Lua_SetPosition(lua_State* L)
 	if (!LuaOperations::TryGetFloat(L, &pos.y))
 	{
 		lua_pushstring(L, "Y Value not specified");
+		Debug::LogError("Lua ERROR: Y Value not specified");
 		lua_error(L);
 	}
 
 	if (!LuaOperations::TryGetFloat(L, &pos.x))
 	{
-		lua_pushstring(L, "X Value not specified");
+		lua_pushstring(L, "X Value not specified"); 
+		Debug::LogError("Lua ERROR: X Value not specified");
 		lua_error(L);
 	}
 	//lua_pop(L, -1);
@@ -442,7 +448,8 @@ int LuaAPI::Lua_GetDistance(lua_State* L)
 {
 	if (!lua_isuserdata(L, -1) || !lua_isuserdata(L, -2))
 	{
-		lua_pushstring(L, "Error, one of the object references is not valid");
+		lua_pushstring(L, "Error, one of the object references is not valid"); 
+		Debug::LogError("Lua ERROR: Error, one of the object references is not valid");
 		lua_error(L);
 	}
 	GameObject** pptr1 = (GameObject**)lua_touserdata(L, -1);
