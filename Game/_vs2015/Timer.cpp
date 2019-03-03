@@ -54,12 +54,22 @@ void Timer::update(float pTime)
 			Reset(true);
 			
 		}
-		_onEnd();
+		OnEnd();
 	}
 	else
 	{
-		if(_onTick != nullptr) _onTick(t);
+		OnTick(t);
 	}
+}
+
+void Timer::OnTick(float time)
+{
+	if (_onTick != nullptr) _onTick(time);
+}
+
+void Timer::OnEnd()
+{
+	_onEnd();
 }
 
 float Timer::GetProgress()

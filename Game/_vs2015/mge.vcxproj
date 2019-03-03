@@ -207,6 +207,7 @@
     <ClInclude Include="GLLight.hpp" />
     <ClInclude Include="HudSprite.h" />
     <ClInclude Include="HudText.h" />
+    <ClInclude Include="Lerper.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LightParams.hpp" />
@@ -280,6 +281,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GLLight.cpp" />
     <ClCompile Include="HudSprite.cpp" />
+    <ClCompile Include="Lerper.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LightParams.cpp" />

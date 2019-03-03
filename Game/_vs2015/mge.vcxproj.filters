@@ -73,6 +73,7 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WinScreen.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="Lerper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -147,5 +148,6 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WinScreen.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Lerper.h" />
   </ItemGroup>
 </Project>

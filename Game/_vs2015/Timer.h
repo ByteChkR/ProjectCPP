@@ -12,13 +12,15 @@ public:
 	virtual ~Timer() override;
 	virtual void update(float pTime) override;
 	virtual AbstractBehaviour* Clone() override;
-	void Start();
-	void Pause();
-	void Reset(bool immediateStart = false);
-	float GetCurrentTime();
-	float GetProgress();
-	bool IsStarted();
-private:
+	virtual void Start();
+	virtual void Pause();
+	virtual void Reset(bool immediateStart = false);
+	virtual float GetCurrentTime();
+	virtual float GetProgress();
+	virtual bool IsStarted();
+protected:
+	virtual void OnTick(float time);
+	virtual void OnEnd();
 	std::function<void(float)> _onTick;
 	std::function<void()> _onEnd;
 	float _time;
