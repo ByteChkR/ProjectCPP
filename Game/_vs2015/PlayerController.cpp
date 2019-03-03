@@ -32,7 +32,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	std::function<void()> onDeathEnd = std::bind(&PlayerController::OnDeathEnd, std::ref(*this));
 	std::function<void(float)> onDeathTick = std::bind(&PlayerController::OnDeathTick, std::ref(*this), std::placeholders::_1);
 
-	_deathTimer = new Timer(onDeathTick, onDeathEnd, 1.5, false);
+	_deathTimer = new Timer(onDeathTick, onDeathEnd, 0.5, false);
 	_endOfGameTimer = new Timer(oT, oE, 2, false);
 
 	Particle* particle = new Particle();
