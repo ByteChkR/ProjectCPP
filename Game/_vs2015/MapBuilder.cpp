@@ -10,6 +10,7 @@
 #include "LuaScriptStruct.h"
 #include "ScriptableLuaObject.h"
 #include "PlayerController.hpp"
+#include "GameStateManager.h"
 MapBuilder* MapBuilder::instance = nullptr;
 
 MapBuilder::MapBuilder(float generationOffset, float removalOffset)
@@ -97,7 +98,7 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 
 float MapBuilder::GetMovingSpeed()
 {
-	return _movingSpeed;
+	return GameStateManager::instance->_state != GameStateManager::StateGame ? 0 : _movingSpeed;
 }
 
 float MapBuilder::GetProgress()
@@ -191,7 +192,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 void MapBuilder::Update(float pTime)
 {
-	if (Level::instance == nullptr) return;
+	if (Level::instance == nullptr || GameStateManager::instance->_state != GameStateManager::StateGame) return;
 
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
