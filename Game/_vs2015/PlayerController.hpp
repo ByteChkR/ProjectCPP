@@ -50,6 +50,7 @@ private:
 	float _struggleTime;
 	float _struggleMaxTime;
 	bool _lockControls;
+
 	
 
 	void OnGameEnd();
@@ -66,9 +67,12 @@ private:
 
 	void createModels();
 	void Animate(float pDeltaTime);
-
+	void UpdateCamera(float pDeltaTime);
+	void ShakeCamera(float pTime, float pIntensity);
 
 	//animation
+	float cameraShakeIntensity = 1;
+	float timeLeftToShakeCamera = 0;
 	float animationTool = 0; // delta time addition
 	float animationSpeed =10.0f;
 	float maxYToJump = 40;
