@@ -98,7 +98,7 @@ PlayerController::~PlayerController()
 
 void PlayerController::OnDeathEnd()
 {
-	AbstractGame::instance->SetTimeScale(1);
+	//AbstractGame::instance->SetTimeScale(1);
 	_deathParticle->Stop();
 	_lockControls = false;
 	_deathTimer->Reset();
@@ -218,7 +218,7 @@ void PlayerController::OnCollision(GameObject* other)
 		glm::vec3 camPos = AbstractGame::instance->_world->getMainCamera()->getWorldPosition();
 		AbstractGame::instance->_world->add(AbstractGame::instance->_world->getMainCamera());
 		AbstractGame::instance->_world->getMainCamera()->setLocalPosition(camPos);
-		AbstractGame::instance->SetTimeScale(5);
+		//AbstractGame::instance->SetTimeScale(5);
 		_lockControls = true;
 		_deathParticle->Stop(true);
 		_owner->addBehaviour((AbstractBehaviour*)_deathTimer);
