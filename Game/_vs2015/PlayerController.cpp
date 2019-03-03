@@ -16,10 +16,13 @@
 #include "StaticBoxCollider.hpp"
 #include "mge/core/AbstractGame.hpp"
 #include "Debug.h"
+#include <stdlib.h> 
+#include <time.h>
 PlayerController* PlayerController::instance = nullptr;
 
 PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 {
+	srand(time(NULL));
 	setOwner(pOwner);
 	heli = pHeli;
 	heliInitialPosition = heli->getLocalPosition();
@@ -195,6 +198,7 @@ void PlayerController::OnCollision(GameObject* other)
 	{
 		_struggleTime = 0;
 		_isStruggling = true;
+		ShakeCamera(0.2f, 0.2f);
 		int lane = _nextLane;
 		_nextLane = _currentLane;
 		_currentLane = lane;
@@ -207,6 +211,7 @@ void PlayerController::OnCollision(GameObject* other)
 		lastStruggleCollider = other->getName();
 		Debug::Log("StartStruggle");
 		//other->DisableBehaviours();
+		ShakeCamera(0.2f, 0.2f);
 		_isStruggling = true;
 		_struggleTime = 0;
 
@@ -317,6 +322,7 @@ void PlayerController::update(float pTime)
 	handleJump(pTime);
 	handleSwitch(pTime);
 	Animate(pTime);
+	UpdateCamera(pTime);
 
 
 }
@@ -557,4 +563,36 @@ void PlayerController::Animate(float pDeltaTime)
 	gTRightLeg->setLocalPosition(glm::vec3(0, 0.1f - sinTool * 0.1f, 0));
 
 
+}
+
+void PlayerController::UpdateCamera(float pDeltaTime)
+{
+
+	if (timeLeftToShakeCamera > 0)
+	{
+		timeLeftToShakeCamera -= pDeltaTime;
+	}
+
+	if (_lockControls == true)
+	{
+		return;
+	}
+
+	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
+
+	if (timeLeftToShakeCamera > 0)
+	{
+
+		int fakeFloat = (int)(cameraShakeIntensity * 1000);
+
+		float randomNumber = (float)(rand() % fakeFloat - fakeFloat / 2) / 1000.0f;
+		AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0 + randomNumber, 5 + randomNumber, 8));
+
+	}
+}
+
+void PlayerController::ShakeCamera(float pTime, float pIntensity)
+{
+	timeLeftToShakeCamera = pTime;
+	cameraShakeIntensity = pIntensity;
 }
