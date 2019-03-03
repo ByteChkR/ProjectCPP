@@ -62,6 +62,11 @@ void Timer::update(float pTime)
 	}
 }
 
+float Timer::GetProgress()
+{
+	return t / _time;
+}
+
 AbstractBehaviour* Timer::Clone()
 {
 	return (AbstractBehaviour*)new Timer(_onTick, _onEnd, _time, _reoc);

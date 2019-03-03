@@ -14,6 +14,7 @@
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/materials/TextureMaterial.hpp"
 #include "StaticBoxCollider.hpp"
+#include "mge/core/AbstractGame.hpp"
 #include "Debug.h"
 PlayerController* PlayerController::instance = nullptr;
 
@@ -24,7 +25,26 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	heliInitialPosition = heli->getLocalPosition();
 	std::function<void()> oE = std::bind(&PlayerController::OnGameEnd, std::ref(*this));
 	std::function<void(float)> oT = std::bind(&PlayerController::OnGameEndTick, std::ref(*this), std::placeholders::_1);
+
+	std::function<void()> onDeathEnd = std::bind(&PlayerController::OnDeathEnd, std::ref(*this));
+	std::function<void(float)> onDeathTick = std::bind(&PlayerController::OnDeathTick, std::ref(*this), std::placeholders::_1);
+
+	_deathTimer = new Timer(onDeathTick, onDeathEnd, 1.5, false);
 	_endOfGameTimer = new Timer(oT, oE, 2, false);
+
+	Particle* particle = new Particle();
+	particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
+	particle->acceleration = glm::vec3(0, 0.6, 0);
+	particle->gravity = 1.5;
+	particle->life = 1.5;
+	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 50,50);
+	
+	_deathContainer = new GameObject("deathContainer", glm::vec3(0,0,0));
+
+	_deathContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH+ "plane.obj"));
+	_deathContainer->setMaterial((AbstractMaterial*)_deathParticle);
+	_owner->add(_deathContainer);
+	//_deathParticle->Start();
 	_currentLane = 1;
 	_gravity = -1;
 	_gravityWhenGoingDown = -5;
@@ -76,6 +96,37 @@ PlayerController::~PlayerController()
 
 }
 
+void PlayerController::OnDeathEnd()
+{
+	_deathParticle->Stop();
+	_lockControls = false;
+	_deathTimer->Reset();
+	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition() + glm::vec3(0, 0, 0));
+	_owner->add(AbstractGame::instance->_world->getMainCamera());
+	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
+	_isStruggling = false;
+	_struggleTime = 0;
+	gStruggleAnimation->DisableBehaviours();
+	_coins = lastLevelFinalScore;
+	GameStateManager::instance->_state = GameStateManager::StateGameOver;
+	_owner->DisableBehaviours();
+	MapBuilder::instance->Unload();
+	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); //<--- therealchanger
+
+
+}
+
+bool PlayerController::IsMoving()
+{
+	return (GameStateManager::instance->_state == GameStateManager::StateGame && !_endOfGameTimer->IsStarted() && !_deathTimer->IsStarted());
+}
+
+void PlayerController::OnDeathTick(float pTime)
+{
+
+	//_deathContainer->setLocalPosition(glm::vec3(0,1,0));
+}
+
 void PlayerController::OnGameEndTick(float pTime)
 {
 	_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 0, -0.5f)*pTime);
@@ -114,7 +165,7 @@ void PlayerController::OnGameEnd()
 
 void PlayerController::OnCollision(GameObject* other)
 {
-	if (_endOfGameTimer->IsStarted())return;
+	if (_endOfGameTimer->IsStarted() || _deathTimer->IsStarted())return;
 	//Player dies if not a coin
 	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
 	if (!other->getName().find("endoflevel"))
@@ -163,14 +214,15 @@ void PlayerController::OnCollision(GameObject* other)
 	else if (lastStruggleCollider == other->getName())return; //Dont trip twice over the same container
 	else
 	{
-		_isStruggling = false;
-		_struggleTime = 0;
-		gStruggleAnimation->DisableBehaviours();
-		_coins = lastLevelFinalScore;
-		GameStateManager::instance->_state = GameStateManager::StateGameOver;
-		_owner->DisableBehaviours();
-		MapBuilder::instance->Unload();
-		MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); //<--- therealchanger
+		glm::vec3 camPos = AbstractGame::instance->_world->getMainCamera()->getWorldPosition();
+		AbstractGame::instance->_world->add(AbstractGame::instance->_world->getMainCamera());
+		AbstractGame::instance->_world->getMainCamera()->setLocalPosition(camPos);
+
+		_lockControls = true;
+		_deathParticle->Stop(true);
+		_owner->addBehaviour((AbstractBehaviour*)_deathTimer);
+		_deathParticle->Start();
+		_deathTimer->Start();
 	}
 }
 

@@ -226,7 +226,7 @@ void MGEDemo::_initializeResources()
 	testParticle->setMaterial((AbstractMaterial*)particleEm);
 
 	testParticle->scale(glm::vec3(0.5, 0.5, 0.5));
-	_world->add(testParticle);
+	//playerObject->add(testParticle);
 	//particleEm->Start();
 
 

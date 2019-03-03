@@ -39,7 +39,7 @@ void MapBuilder::Reload()
 {
 	ReloadGen(Level::instance->GetMap(), &_mapPropList);
 	int test = (int)(Level::instance->GetMap()->GetNumberOfLanes() / 2.0f);
-	if(PlayerController::instance != nullptr)PlayerController::instance->SetCurrentLane(test);
+	if (PlayerController::instance != nullptr)PlayerController::instance->SetCurrentLane(test);
 	//_container->setLocalPosition(_container->getLocalPosition() + glm::vec3(test, 0, 0));
 	ReloadGen(Level::instance->GetDeco(), &_decoPropList);
 }
@@ -98,7 +98,7 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 
 float MapBuilder::GetMovingSpeed()
 {
-	return GameStateManager::instance->_state != GameStateManager::StateGame ? 0 : _movingSpeed;
+	return !PlayerController::instance->IsMoving() ? 0 : _movingSpeed;
 }
 
 float MapBuilder::GetProgress()
@@ -192,15 +192,15 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 void MapBuilder::Update(float pTime)
 {
-	if (Level::instance == nullptr || GameStateManager::instance->_state != GameStateManager::StateGame) return;
+	if (Level::instance == nullptr) return;
 
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 
-		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + _movingSpeed*3));
+		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 3));
 	}
 	else
-		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + _movingSpeed*3));
+		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 3));
 	UpdateGen(Level::instance->GetMap(), &_mapPropList);
 	UpdateGen(Level::instance->GetDeco(), &_decoPropList);
 

@@ -16,6 +16,7 @@ public:
 	void Pause();
 	void Reset(bool immediateStart = false);
 	float GetCurrentTime();
+	float GetProgress();
 	bool IsStarted();
 private:
 	std::function<void(float)> _onTick;

@@ -6,6 +6,8 @@
 #include "mge/util/AudioManager.h"
 #include "Timer.h"
 #include <iostream>
+#include "ParticleEmitter.h"
+#include "Particle.h"
 
 
 
@@ -21,10 +23,11 @@ public:
 	static PlayerController* instance;
 	int GetCoinCount();
 	void SetCurrentLane(int lane);
-
+	bool IsMoving();
 	void ResetScore(int newScore = 0);
 private:
 	Timer* _endOfGameTimer;
+	Timer* _deathTimer;
 	int _currentLane;
 	int _nextLane;
 	float _switchTime;
@@ -48,8 +51,12 @@ private:
 	float _struggleMaxTime;
 	bool _lockControls;
 	
+
 	void OnGameEnd();
 	void OnGameEndTick(float time);
+
+	void OnDeathEnd();
+	void OnDeathTick(float time);
 
 	void jump();
 	void switchLeft();
@@ -67,6 +74,10 @@ private:
 	float maxYToJump = 40;
 	
 	//empty game objects that serve as pivots
+
+
+	ParticleEmitter* _deathParticle;
+	GameObject* _deathContainer;
 
 	GameObject * modelsContainer;
 

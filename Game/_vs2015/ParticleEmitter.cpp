@@ -11,6 +11,7 @@
 #include <chrono>
 #include "mge/core/AbstractGame.hpp"
 #include <iostream>
+#include "PlayerController.hpp"
 
 ShaderProgram* ParticleEmitter::_shader = nullptr;
 GLint ParticleEmitter::_uMMatrix = 0;
@@ -33,8 +34,9 @@ GLint ParticleEmitter::_heightMapSpeed = 0;
 
 std::default_random_engine ParticleEmitter::e;
 
-ParticleEmitter::ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles)
+ParticleEmitter::ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles, int maxParticlesPerStep)
 {
+	this->maxParticlesPerStep = maxParticlesPerStep;
 	_particleTexture = particleTexture;
 	e = std::default_random_engine(seed);
 	ParticleSystem::instance->RegisterParticleEmitter(this);
@@ -89,8 +91,10 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 
 	glm::mat4 test = glm::mat4(1);
 	test[3] = glm::vec4(pViewMatrix[3]);
-	test = glm::rotate(test, glm::radians(90.0f), glm::vec3(1, 0, 0));
-
+	test *= pModelMatrix;
+	test *= glm::rotate(test, glm::radians(90.0f), glm::vec3(1, 0, 0));
+	
+	
 
 	glUniformMatrix4fv(_uPMatrix, 1, GL_FALSE, glm::value_ptr(pPerspectiveMatrix));
 	glUniformMatrix4fv(_uVMatrix, 1, GL_FALSE, glm::value_ptr(pViewMatrix));
@@ -118,6 +122,7 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	glUniform1f(_time, AbstractGame::instance->GetTimeSinceStartup());
 	glUniform1f(_genOffset, TextureMaterial::genOffset);
 	glUniform1f(_hwm, TextureMaterial::width);
+	
 	for (size_t i = 0; i < _activeParticles.size(); i++)
 	{
 		if (_activeParticles[i]->life > 0.0f)
@@ -141,7 +146,6 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 
 void ParticleEmitter::UpdateParticles(float pTime)
 {
-	int maxParticlesPerStep = 1;
 	int totalActive = _activeParticles.size();
 	if (_stopProduce && totalActive == 0)
 	{
