@@ -90,7 +90,7 @@ void MGEDemo::_initializeResources()
 	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
 	Texture* testTex = Texture::load(config::MGE_TEXTURE_PATH + "testTex.png");
 	Texture* testNormal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png");
-	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(testTex, black, black, testNormal, 2, 1, 5, 2);
+	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(testTex, black, black, 2, 1, 5, 2);
 
 
 	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
@@ -113,7 +113,7 @@ void MGEDemo::_initializeResources()
 	Mesh* sphereMeshS = Mesh::load(config::MGE_MODEL_PATH + "placeholder.obj");
 
 
-	AbstractMaterial* runicStoneMaterial = new TextureMaterial(testTex, nullptr, nullptr, testNormal, 2, 1, 5, 2);
+	AbstractMaterial* runicStoneMaterial = new TextureMaterial(testTex, nullptr, nullptr, 2, 1, 5, 2);
 	GameObject* playerObject = new GameObject("sphere", glm::vec3(0, 0, 0));
 	playerObject->addBehaviour(new DynamicBoxCollider(glm::vec3(-1, -1, -1), glm::vec3(1, 1, 1)));
 	//playerObject->setMesh(sphereMeshS);

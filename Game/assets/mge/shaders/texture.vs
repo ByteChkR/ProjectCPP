@@ -53,7 +53,7 @@ void main( void ){
 
 		vec2 offset = vec2(texoffx, texoff);
 
-    	fragmentCameraPosition = vec3(vertexCameraPosition);
+    	fragmentCameraPosition = vec3(cameraPosition);
 		vertexWorldPosition = (vertexWorldPosition + vec4(offset, 0, 0)); //Applying the offset
 		vertexCameraPosition = viewMatrix * vertexWorldPosition; //Updating the Camera position(now with offset)
 

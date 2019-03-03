@@ -15,14 +15,14 @@ struct Light
 
 uniform float time;
 
-uniform vec3 colors[COLORCOUNT];
-uniform int colorCount;
-uniform float colorTiling;
-uniform float textureBlend;
-uniform float blendSmoothing;
 
 uniform Light lights[8];
 uniform int lightCount;
+
+uniform vec3 fogColor;
+uniform float fogBlendSmoothness;
+uniform float fogBegin;
+uniform float fogEnd;
 
 uniform sampler2D emissiveTexture;
 uniform sampler2D specularTexture;
@@ -35,15 +35,6 @@ in mat3 TBN;
 in vec3 fragmentWorldPosition;
 in vec3 fragmentCameraPosition;
 out vec4 fragment_color;
-
-vec3 GetToonColor(float intens)
-{
-	float sint = time + colorCount*intens * colorTiling;
-	float rem = mod(sint,1);
-	int col = int(sint);
-	rem = pow(rem, blendSmoothing);
-	return colors[col%colorCount]*(1-rem) + colors[(col+1)%colorCount] * (rem);
-}
 
 vec4 Calculate(int index, vec3 wNormal)
 {
@@ -64,7 +55,7 @@ vec4 Calculate(int index, vec3 wNormal)
 	vec3 specular = lights[index].intensity*spec * diffIntensity * texture(specularTexture, texCoord).rgb;
 	vec4 difftexcolor = texture(diffuseTexture, texCoord);
 	if(difftexcolor.a < 0.1)discard;
-	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(difftexcolor)*textureBlend;
+	vec3 finalDiffuse = vec3(difftexcolor);
 	
 	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;
 
@@ -90,5 +81,11 @@ void main( void ) {
 		ret += Calculate(i, wn);
 	}
 
-	fragment_color = ret;
+	float distance = distance(fragmentWorldPosition, fragmentCameraPosition);
+	float t = clamp((fogEnd - distance)/(fogEnd-fogBegin),0,1);
+
+	t = pow(t, fogBlendSmoothness);
+
+
+	fragment_color = vec4(vec3(ret) * (t) + fogColor * (1-t), ret.a);
 }

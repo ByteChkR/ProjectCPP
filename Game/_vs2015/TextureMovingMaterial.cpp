@@ -19,6 +19,8 @@
 ShaderProgram* TextureMovingMaterial::_shader = NULL;
 
 
+float TextureMovingMaterial::ShadowSize = 2;
+float TextureMovingMaterial::ShadowLength = 4;
 
 GLint TextureMovingMaterial::_fogColor = 0;
 GLint TextureMovingMaterial::_fogBegin = 0;
@@ -33,7 +35,6 @@ GLint TextureMovingMaterial::_uPMatrix = 0;
 GLint TextureMovingMaterial::_uDiffuseTexture = 0;
 GLint TextureMovingMaterial::_uEmmissiveTexture = 0;
 GLint TextureMovingMaterial::_uSpecularTexture = 0;
-GLint TextureMovingMaterial::_uNormalTexture = 0;
 
 GLint TextureMovingMaterial::_aVertex = 0;
 GLint TextureMovingMaterial::_aNormal = 0;
@@ -51,26 +52,19 @@ GLint TextureMovingMaterial::_genOffset = 0;
 GLint TextureMovingMaterial::_maxXOff = 0;
 GLint TextureMovingMaterial::_xOffsetSmootness = 0;
 
-GLint TextureMovingMaterial::_blend = 0;
-GLint TextureMovingMaterial::_blendingSoftness = 0;
-GLint TextureMovingMaterial::_colorCount = 0;
-GLint TextureMovingMaterial::_colorTiling = 0;
 GLint TextureMovingMaterial::_movingspeed = 0;
 GLint TextureMovingMaterial::_xMoveTiling = 0;
 GLint TextureMovingMaterial::_heightMapSpeed = 0;
 GLint TextureMovingMaterial::_playerPos = 0;
-float TextureMovingMaterial::ShadowSize = 2;
-float TextureMovingMaterial::ShadowLength = 4;
 GLint TextureMovingMaterial::_shadowLength = 0;
 GLint TextureMovingMaterial::_shadowSize = 0;
 GLint TextureMovingMaterial::_camPos = 0;
 
 
-TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, Texture* normalTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
+TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
 	_diffuseTexture = pDiffuseTexture;
 	_emmissiveTexture = emmissiveTexture;
 	_specularTexture = specularTexture;
-	_normalTexture = normalTexture;
 	this->shininess = shininess;
 	blend = colorTextureBlending;
 	blendingSoftness = blendSmoothing;
@@ -83,10 +77,6 @@ TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* 
 
 TextureMovingMaterial::~TextureMovingMaterial() {}
 
-void TextureMovingMaterial::setNormalTexture(Texture* tex)
-{
-	_normalTexture = tex;
-}
 
 void TextureMovingMaterial::_lazyInitializeShader() {
 	if (!_shader) {
@@ -110,7 +100,6 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_movingspeed = _shader->getUniformLocation("movingspeed");
 
 		_uDiffuseTexture = _shader->getUniformLocation("diffuseTexture");
-		_uNormalTexture = _shader->getUniformLocation("normalTexture");
 
 		_fogColor = _shader->getUniformLocation("fogColor");
 		_fogBegin = _shader->getUniformLocation("fogBegin");
@@ -118,7 +107,7 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_fogBlendSmoothness = _shader->getUniformLocation("fogBlendSmoothness");
 
 		_uSpecularTexture = _shader->getUniformLocation("specularTexture");
-		_uEmmissiveTexture = _shader->getUniformLocation("emissiveTexture");
+		_uEmmissiveTexture = _shader->getUniformLocation("emissionMap");
 		_lightCount = _shader->getUniformLocation("lightCount");
 		_shininess = _shader->getUniformLocation("shininess");
 		_maxXOff = _shader->getUniformLocation("maxXOffset");
@@ -141,11 +130,6 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 			);
 		}
 
-		//Color;
-		_colorCount = _shader->getUniformLocation("colorCount");
-		_colorTiling = _shader->getUniformLocation("colorTiling");
-		_blend = _shader->getUniformLocation("textureBlend");
-		_blendingSoftness = _shader->getUniformLocation("blendSmoothing");
 		_time = _shader->getUniformLocation("time");
 
 		_width = _shader->getUniformLocation("hwm");
@@ -211,7 +195,7 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
 	glUniform1f(_xMoveTiling, TextureMaterial::xMoveTiling);
 	glUniform1f(_shadowSize, ShadowSize);
-	glUniform1f(_shadowLength, 2);
+	glUniform1f(_shadowLength, ShadowLength);
 
 	if (TextureMaterial::_heightMap != nullptr)
 	{
@@ -237,12 +221,7 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 		glBindTexture(GL_TEXTURE_2D, _specularTexture->getId());
 		glUniform1i(_uSpecularTexture, 3);
 	}
-	if (_normalTexture != nullptr)
-	{
-		glActiveTexture(GL_TEXTURE4);
-		glBindTexture(GL_TEXTURE_2D, _normalTexture->getId());
-		glUniform1i(_uNormalTexture, 4);
-	}
+
 
 	glUniform1f(_xOffsetSmootness, TextureMaterial::xOffsetSmootness);
 	glUniform1f(_maxXOff, TextureMaterial::maxXOff);
@@ -264,10 +243,7 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 	glUniform1f(_fogEnd, TextureMaterial::fogEnd);
 	glUniform1f(_fogBlendSmoothness, TextureMaterial::fogBlendSmoothness);
 
-	glUniform1i(_colorCount, 3);
-	glUniform1f(_colorTiling, colorTiling);
-	glUniform1f(_blend, blend);
-	glUniform1f(_blendingSoftness, blendingSoftness);
+
 
 	for (int i = 0; i < colors->length(); i++)
 	{

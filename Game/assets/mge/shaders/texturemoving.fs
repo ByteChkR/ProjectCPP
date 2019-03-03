@@ -15,15 +15,15 @@ struct Light
 
 uniform float time;
 
-uniform vec3 colors[COLORCOUNT];
-uniform int colorCount;
-uniform float colorTiling;
-uniform float textureBlend;
-uniform float blendSmoothing;
 
 
 uniform Light lights[8];
 uniform int lightCount;
+
+uniform vec3 fogColor;
+uniform float fogBlendSmoothness;
+uniform float fogBegin;
+uniform float fogEnd;
 
 uniform sampler2D diffuseTexture;
 uniform sampler2D emissionMap;
@@ -38,17 +38,9 @@ in vec2 texCoord;
 in vec3 worldNormal;
 in mat3 TBN;
 in vec3 fragmentWorldPosition;
+in vec3 fragmentCameraPosition;
 in vec3 fPlayerPosition;
 out vec4 fragment_color;
-
-vec3 GetToonColor(float intens)
-{
-	float sint = time + colorCount*intens * colorTiling;
-	float rem = mod(sint,1);
-	int col = int(sint);
-	rem = pow(rem, blendSmoothing);
-	return colors[col%colorCount]*(1-rem) + colors[(col+1)%colorCount] * (rem);
-}
 
 vec4 Calculate(int index, vec3 wNormal)
 {
@@ -71,7 +63,7 @@ vec4 Calculate(int index, vec3 wNormal)
 	vec3 ambient  = lights[index].ambientColor*lights[index].intensity;
 	vec3 specular = lights[index].intensity*spec * diffIntensity * texture(specularTexture, texCoord).rgb;
 	vec4 difftexcolor = texture(diffuseTexture, texCoord);
-	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(difftexcolor)*textureBlend;
+	vec3 finalDiffuse = vec3(difftexcolor);
 	
 	vec3 emmissive = texture(emissionMap, texCoord).rgb;
 
@@ -101,6 +93,14 @@ void main( void ) {
 	float shadowAlpha = clamp(pow(d / sSize, 5), 0, 1);
 
 	ret = vec4(ret.rgb * (shadowAlpha), ret.a);
+	
+	float distance = distance(fragmentWorldPosition, fragmentCameraPosition);
+	float t = clamp((fogEnd - distance)/(fogEnd-fogBegin),0,1);
 
-	fragment_color = ret;//d > ShadowSize * clamp( 1-( yd / ShadowLength) ,0,1) ? ret : vec4(0,0,0,1);
+	t = pow(t, fogBlendSmoothness);
+
+
+
+
+	fragment_color = vec4(vec3(ret) * (t) + fogColor * (1-t), ret.a);
 }

@@ -64,21 +64,13 @@ GLint TextureMaterial::_width = 0;
 GLint TextureMaterial::_genOffset = 0;
 GLint TextureMaterial::_maxXOff = 0;
 GLint TextureMaterial::_xOffsetSmootness = 0;
-GLint TextureMaterial::_movingspeed = 0;
 GLint TextureMaterial::_heightMapSpeed = 0;
-
-GLint TextureMaterial::_blend = 0;
-GLint TextureMaterial::_blendingSoftness = 0;
-GLint TextureMaterial::_colorCount = 0;
-GLint TextureMaterial::_colorTiling = 0;
-GLint TextureMaterial::_uNormalTexture = 0;
 GLint TextureMaterial::_camPos = 0;
 
 
-TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, Texture* normalTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
+TextureMaterial::TextureMaterial(Texture * pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap) :_diffuseTexture(pDiffuseTexture) {
 	_emmissiveTexture = emmissiveTexture;
 	_specularTexture = specularTexture;
-	_normalTexture = normalTexture;
 	if (heightMap != nullptr)_heightMap = heightMap;
 	this->shininess = shininess;
 	blend = colorTextureBlending;
@@ -142,18 +134,13 @@ void TextureMaterial::_lazyInitializeShader() {
 
 		_xMoveTiling = _shader->getUniformLocation("xMoveTiling");
 
-		//Color;
-		_colorCount = _shader->getUniformLocation("colorCount");
-		_colorTiling = _shader->getUniformLocation("colorTiling");
-		_blend = _shader->getUniformLocation("textureBlend");
-		_blendingSoftness = _shader->getUniformLocation("blendSmoothing");
+		
 		_time = _shader->getUniformLocation("time");
 		
 		_width = _shader->getUniformLocation("hwm");
 		_genOffset = _shader->getUniformLocation("genOffset");
-		_movingspeed = _shader->getUniformLocation("movingspeed");
+		
 		_heightMapTiling = _shader->getUniformLocation("heightMapTiling");
-		_uNormalTexture = _shader->getUniformLocation("normalTexture");
 
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
@@ -235,14 +222,6 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 		glUniform1i(_uSpecularTexture, 3);
 	}
 
-	if (_normalTexture != nullptr)
-	{
-		glActiveTexture(GL_TEXTURE4);
-		glBindTexture(GL_TEXTURE_2D, _normalTexture->getId());
-		glUniform1i(_uNormalTexture, 4);
-	}
-
-	//glUniform1f(_movingspeed, TextureMovingMaterial::Movingspeed);
 
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
 	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
@@ -267,10 +246,6 @@ void TextureMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 		_lightLocations[i].SetLight(&pWorld->getLightAt(i)->GetParams());
 	}
 
-	glUniform1i(_colorCount, 3);
-	glUniform1f(_colorTiling, colorTiling);
-	glUniform1f(_blend, blend);
-	glUniform1f(_blendingSoftness, blendingSoftness);
 
 	for (int i = 0; i < colors->length(); i++)
 	{

@@ -48,7 +48,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_struggleMaxTime = 2;
 	gStruggleAnimation = new GameObject("StruggleAnim");
 	gStruggleAnimation->addBehaviour(new RotatingBehaviour());
-	gStruggleAnimation->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "red.png"), nullptr, nullptr, nullptr, 2, 1, 5, 2));
+	gStruggleAnimation->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "red.png"), nullptr, nullptr, 2, 1, 5, 2));
 	gStruggleAnimation->setMesh(Mesh::load(config::MGE_MODEL_PATH + "placeholder.obj"));
 	_owner->add(gStruggleAnimation);
 	gStruggleAnimation->setLocalPosition(glm::vec3(0, 3, 0));
@@ -371,7 +371,7 @@ void PlayerController::createModels()
 	Texture* turkeyMetal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeymetal.png");
 	Texture* turkeyNormal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeynormal.png");
 
-	AbstractMaterial* playerTexture = new TextureMaterial(turkeyAlb,nullptr, turkeyMetal, turkeyNormal, 2, 1, 5, 2);
+	AbstractMaterial* playerTexture = new TextureMaterial(turkeyAlb,nullptr, turkeyMetal, 2, 1, 5, 2);
 
 	Mesh * tBody = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TBody.obj");
 	Mesh * tHead = Mesh::load(config::MGE_MODEL_PATH + "Turkey/THead.obj");
