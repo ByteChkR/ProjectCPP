@@ -31,6 +31,8 @@ class AbstractGame
 		World* _world;              //the root game object that represents our scene
 		static AbstractGame* instance;
 		float GetDeltaTime();
+		void SetTimeScale(float scale);
+		float GetTimeScale();
 		float GetTimeSinceStartup();
     protected:
 
@@ -69,6 +71,7 @@ class AbstractGame
         AbstractGame& operator=(const AbstractGame&);
 		ParticleSystem* _particleSystem;
 
+		float timeScale;
 		float lastDT;
 
 

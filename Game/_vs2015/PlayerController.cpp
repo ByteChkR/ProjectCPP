@@ -37,7 +37,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	particle->acceleration = glm::vec3(0, 0.6, 0);
 	particle->gravity = 1.5;
 	particle->life = 1.5;
-	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 50,50);
+	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 50,50, false);
 	
 	_deathContainer = new GameObject("deathContainer", glm::vec3(0,0,0));
 
@@ -98,6 +98,7 @@ PlayerController::~PlayerController()
 
 void PlayerController::OnDeathEnd()
 {
+	AbstractGame::instance->SetTimeScale(1);
 	_deathParticle->Stop();
 	_lockControls = false;
 	_deathTimer->Reset();
@@ -158,7 +159,7 @@ void PlayerController::OnGameEnd()
 	//LevelManager::instance->NextLevel();
 	GameStateManager::instance->_state = GameStateManager::StateNextStage;
 	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); // therealchanger
-
+	
 }
 
 
@@ -217,7 +218,7 @@ void PlayerController::OnCollision(GameObject* other)
 		glm::vec3 camPos = AbstractGame::instance->_world->getMainCamera()->getWorldPosition();
 		AbstractGame::instance->_world->add(AbstractGame::instance->_world->getMainCamera());
 		AbstractGame::instance->_world->getMainCamera()->setLocalPosition(camPos);
-
+		AbstractGame::instance->SetTimeScale(5);
 		_lockControls = true;
 		_deathParticle->Stop(true);
 		_owner->addBehaviour((AbstractBehaviour*)_deathTimer);

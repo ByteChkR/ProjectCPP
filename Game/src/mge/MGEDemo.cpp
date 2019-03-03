@@ -219,7 +219,7 @@ void MGEDemo::_initializeResources()
 	}
 	new BiomeHandler(biomes);
 
-	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150);
+	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150, true);
 
 	GameObject* testParticle = new GameObject("particle", glm::vec3(0, 10, 0));
 	testParticle->setMesh(testQuad);

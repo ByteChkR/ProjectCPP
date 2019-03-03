@@ -14,7 +14,7 @@
 class ParticleEmitter : AbstractMaterial
 {
 public:
-	ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles = 500, int maxParticlesPerStep = 1);
+	ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles = 500, int maxParticlesPerStep = 1, bool useTimeScale = true);
 	//void SetParticleLifetime(float maxTime);
 	//void SetParticleStartPosition(glm::vec3 startPosition);
 	//void SetParticleStartColor(glm::vec4 startColor);
@@ -57,6 +57,7 @@ private:
 	static GLint _heightMapTiling;
 
 	int maxParticlesPerStep;
+	bool useTimeScale;
 
 	Texture* _particleTexture;
 	std::vector<Particle*> _activeParticles;

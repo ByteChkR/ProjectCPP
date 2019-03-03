@@ -34,8 +34,9 @@ GLint ParticleEmitter::_heightMapSpeed = 0;
 
 std::default_random_engine ParticleEmitter::e;
 
-ParticleEmitter::ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles, int maxParticlesPerStep)
+ParticleEmitter::ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles, int maxParticlesPerStep, bool useTimeScale)
 {
+	this->useTimeScale = useTimeScale;
 	this->maxParticlesPerStep = maxParticlesPerStep;
 	_particleTexture = particleTexture;
 	e = std::default_random_engine(seed);
@@ -93,8 +94,8 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	test[3] = glm::vec4(pViewMatrix[3]);
 	test *= pModelMatrix;
 	test *= glm::rotate(test, glm::radians(90.0f), glm::vec3(1, 0, 0));
-	
-	
+
+
 
 	glUniformMatrix4fv(_uPMatrix, 1, GL_FALSE, glm::value_ptr(pPerspectiveMatrix));
 	glUniformMatrix4fv(_uVMatrix, 1, GL_FALSE, glm::value_ptr(pViewMatrix));
@@ -122,7 +123,7 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	glUniform1f(_time, AbstractGame::instance->GetTimeSinceStartup());
 	glUniform1f(_genOffset, TextureMaterial::genOffset);
 	glUniform1f(_hwm, TextureMaterial::width);
-	
+
 	for (size_t i = 0; i < _activeParticles.size(); i++)
 	{
 		if (_activeParticles[i]->life > 0.0f)
@@ -132,7 +133,7 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 			glUniform3f(_offset, _activeParticles[i]->position.x, _activeParticles[i]->position.y, _activeParticles[i]->position.z);
 			//Render to opengl via mesh.streamtoopengl
 
-			pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV,-1,-1);
+			pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV, -1, -1);
 		}
 	}
 
@@ -146,6 +147,7 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 
 void ParticleEmitter::UpdateParticles(float pTime)
 {
+	float realTime = useTimeScale ? pTime : pTime * AbstractGame::instance->GetTimeScale();
 	int totalActive = _activeParticles.size();
 	if (_stopProduce && totalActive == 0)
 	{
@@ -161,13 +163,13 @@ void ParticleEmitter::UpdateParticles(float pTime)
 		for (size_t i = _activeParticles.size() - 1; i > 0; i--)
 		{
 			Particle* p = _activeParticles[i];
-			p->life -= pTime;
+			p->life -= realTime;
 			if (p->life > 0.0f)
 			{
-				p->acceleration += glm::vec3(0, -1, 0)*p->gravity * pTime;
+				p->acceleration += glm::vec3(0, -1, 0)*p->gravity * realTime;
 				p->acceleration *= 0.99f;
 				p->velocity += p->acceleration;
-				p->position += p->velocity*pTime;
+				p->position += p->velocity*realTime;
 				//p->color.a -= p->transparencyPerSecond*pTime;
 			}
 			else

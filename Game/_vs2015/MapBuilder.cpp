@@ -15,7 +15,7 @@ MapBuilder* MapBuilder::instance = nullptr;
 
 MapBuilder::MapBuilder(float generationOffset, float removalOffset)
 {
-	_movingSpeed = 0.05f;
+	_movingSpeed = 5;
 	instance = this;
 	lastRemove = 0;
 	_container = new GameObject("CONTAINER");
@@ -197,10 +197,10 @@ void MapBuilder::Update(float pTime)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 
-		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 3));
+		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 3 * pTime));
 	}
 	else
-		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 3));
+		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 3 * pTime));
 	UpdateGen(Level::instance->GetMap(), &_mapPropList);
 	UpdateGen(Level::instance->GetDeco(), &_decoPropList);
 

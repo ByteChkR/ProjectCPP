@@ -13,6 +13,7 @@ AbstractGame* AbstractGame::instance = nullptr;
 
 AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0), startupTime(0)
 {
+	timeScale = 1;
 	instance = this;
 	_particleSystem = new ParticleSystem();
     //ctor
@@ -133,12 +134,13 @@ void AbstractGame::run()
 		if (timeSinceLastUpdate > timePerFrame)
 		{
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-			startupTime += timeSinceLastUpdate.asSeconds();
+			startupTime += timeSinceLastUpdate.asSeconds()/timeScale;
 		    while (timeSinceLastUpdate > timePerFrame) {
                 timeSinceLastUpdate -= timePerFrame;
-                _update(timePerFrame.asSeconds());
-				lastDT = timePerFrame.asSeconds();
-				_manager->Update(timePerFrame.asSeconds());
+				float tpf = timePerFrame.asSeconds() / timeScale;
+                _update(tpf);
+				lastDT = tpf;
+				_manager->Update(tpf);
 		    }
 
 
@@ -188,6 +190,16 @@ void AbstractGame::run()
 		//empty the event queue
 		_processEvents();
     }
+}
+
+void AbstractGame::SetTimeScale(float scale)
+{
+	timeScale = scale;
+}
+
+float AbstractGame::GetTimeScale()
+{
+	return timeScale;
 }
 
 void AbstractGame::_update(float pStep) {
