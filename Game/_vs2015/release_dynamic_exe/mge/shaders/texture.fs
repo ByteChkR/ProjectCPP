@@ -15,11 +15,6 @@ struct Light
 
 uniform float time;
 
-uniform vec3 colors[COLORCOUNT];
-uniform int colorCount;
-uniform float colorTiling;
-uniform float textureBlend;
-uniform float blendSmoothing;
 
 uniform Light lights[8];
 uniform int lightCount;
@@ -41,15 +36,6 @@ in vec3 fragmentWorldPosition;
 in vec3 fragmentCameraPosition;
 out vec4 fragment_color;
 
-vec3 GetToonColor(float intens)
-{
-	float sint = time + colorCount*intens * colorTiling;
-	float rem = mod(sint,1);
-	int col = int(sint);
-	rem = pow(rem, blendSmoothing);
-	return colors[col%colorCount]*(1-rem) + colors[(col+1)%colorCount] * (rem);
-}
-
 vec4 Calculate(int index, vec3 wNormal)
 {
 	vec3 dir = lights[index].position-fragmentWorldPosition;
@@ -69,7 +55,7 @@ vec4 Calculate(int index, vec3 wNormal)
 	vec3 specular = lights[index].intensity*spec * diffIntensity * texture(specularTexture, texCoord).rgb;
 	vec4 difftexcolor = texture(diffuseTexture, texCoord);
 	if(difftexcolor.a < 0.1)discard;
-	vec3 finalDiffuse = GetToonColor(diffIntensity)*(1-textureBlend) + vec3(difftexcolor)*textureBlend;
+	vec3 finalDiffuse = vec3(difftexcolor);
 	
 	vec3 diffuse = (finalDiffuse * lights[index].intensity) * diffIntensity;
 
