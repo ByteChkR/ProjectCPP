@@ -50,6 +50,7 @@ void AudioManager::LoadMusic(std::string pFileLocation, std::string pAmbientLoca
 	_nextMusic = 0;
 
 
+
 	_musics[_currentMusic]->setVolume(100);
 	_ambients[_currentMusic]->setVolume(100);
 	_musics[_currentMusic]->play();
