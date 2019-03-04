@@ -11,7 +11,7 @@
     <B>255</B>
   </FontColor>
   <FontSize>8</FontSize>
-  <FrameTime>10</FrameTime>
+  <FrameTime>50</FrameTime>
   <ColorCoding>
     <Keys>
       <int>8</int>

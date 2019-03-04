@@ -9,10 +9,10 @@ Debug::Debug()
 
 void Debug::Log(std::string message)
 {
-	std::cout << message << '\n';
+	std::cout << message << std::endl;
 }
 
 void Debug::LogError(std::string errorMessage)
 {
-	std::cerr << errorMessage << '\n';
+	std::cerr << errorMessage << std::endl;
 }
