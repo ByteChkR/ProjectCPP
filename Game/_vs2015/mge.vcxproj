@@ -22,7 +22,7 @@
     <ProjectGuid>{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>mge</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>mge</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -238,6 +238,7 @@
     <ClInclude Include="StoryPanelHandler.h" />
     <ClInclude Include="TextureMovingMaterial.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Tutorial0.h" />
     <ClInclude Include="WinScreen.h" />
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +314,10 @@
     <ClCompile Include="StoryPanelHandler.cpp" />
     <ClCompile Include="TextureMovingMaterial.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Tutorial0.cpp" />
+    <ClCompile Include="Tutorial1.cpp" />
+    <ClCompile Include="Tutorial2.cpp" />
+    <ClCompile Include="Tutorial3.cpp" />
     <ClCompile Include="WinScreen.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
