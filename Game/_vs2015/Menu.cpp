@@ -15,7 +15,7 @@ Menu::Menu(sf::RenderWindow *aWindow) : _window(aWindow)
 {
 	assert(_window != NULL);
 
-	_background = new HudSprite("tempMenu.png");
+	_background = new HudSprite("turkey_mainmenu.png");
 
 	_playBox = new HudSprite("play_button.png",1.05f);
 	_button = new PlayButton(_window,_playBox->sprite);

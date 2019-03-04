@@ -12,6 +12,8 @@
 #include "../_vs2015/PlayerController.hpp"
 #include "../_vs2015/MapBuilder.h"
 
+
+
 DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText(), _debugBox()
 {
 	assert ( _window != NULL );

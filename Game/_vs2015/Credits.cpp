@@ -8,7 +8,8 @@
 Credits::Credits(sf::RenderWindow *aWindow) {
 
 	_window = aWindow;
-	_background = new HudSprite("credits.png");
+	_background = new HudSprite("turkey_mainmenu.png");
+	_credits = new HudSprite("credits.png");
 
 	_menuButtonBox = new HudSprite("cancel_button.png",1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
@@ -18,8 +19,9 @@ Credits::Credits(sf::RenderWindow *aWindow) {
 
 void Credits::OrganizeScreen() {
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
+	_credits->sprite.setPosition(_credits->sprite.getTexture()->getSize().x / 2, _credits->sprite.getTexture()->getSize().y / 2);
 
-	_menuButtonBox->sprite.setPosition(_background->sprite.getPosition().x + 255, _background->sprite.getPosition().y - 375);
+	_menuButtonBox->sprite.setPosition(_credits->sprite.getPosition().x + 255, _credits->sprite.getPosition().y - 375);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }
@@ -34,6 +36,7 @@ void Credits::draw() {
 	_window->pushGLStates();
 
 	_window->draw(_background->sprite);
+	_window->draw(_credits->sprite);
 
 	if (_menuButton->scaled) _window->draw(_menuButtonBox->scaledSprite);
 	else _window->draw(_menuButtonBox->sprite);

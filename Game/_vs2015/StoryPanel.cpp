@@ -43,7 +43,7 @@ void StoryPanel::NextPanel()
 		GameStateManager::instance->_state = GameStateManager::StateWin;
 	}
 	else {
-		GameStateManager::instance->_state = GameStateManager::StateGame;
+		GameStateManager::instance->_state = GameStateManager::Tutorial1;
 		NextStoryPart();
 	}
 }

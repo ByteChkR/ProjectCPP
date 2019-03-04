@@ -314,6 +314,10 @@ void MGEDemo::_initializeScene()
 	_loadingScreen = new LoadingScreen(_window);
 	_scoreBoard = new ScoreBoard(_window);
 	_credits = new Credits(_window);
+	_tutorial0 = new Tutorial0(_window);
+	_tutorial1 = new Tutorial1(_window);
+	_tutorial2 = new Tutorial2(_window);
+	_tutorial3 = new Tutorial3(_window);
 
 	Debug::Log("GUI initialized.");
 
@@ -334,6 +338,10 @@ void MGEDemo::_render(int pass) {
 	else if (GameStateManager::instance->_state >= GameStateManager::Tutorial1)
 	{
 		int num = GameStateManager::Tutorial1 - GameStateManager::instance->_state;
+		if (num == 0)_tutorial0->Update();
+		else if (num == -1)_tutorial1->Update();
+		else if (num == -2)_tutorial2->Update();
+		else if (num == -3)_tutorial3->Update();
 		//tutorialArray[num].Update();
 		//_updateHud();
 	}

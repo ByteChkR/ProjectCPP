@@ -30,6 +30,7 @@ private:
 
 	sf::RenderWindow *_window;
 	HudSprite *_background;
+	HudSprite *_scoreBoard;
 };
 
 #endif

@@ -9,7 +9,8 @@
 ScoreBoard::ScoreBoard(sf::RenderWindow *aWindow) {
 
 	_window = aWindow;
-	_background = new HudSprite("scoreboard_nobutton.png");
+	_background = new HudSprite("turkey_mainmenu.png");
+	_scoreBoard = new HudSprite("scoreboard_nobutton.png");
 
 	_menuButtonBox = new HudSprite("cancel_button.png", 1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
@@ -36,6 +37,7 @@ void ScoreBoard::UpdateScores() {
 
 void ScoreBoard::OrganizeScreen() {
 	_background->sprite.setPosition((float)_background->sprite.getTexture()->getSize().x / 2.0f, _background->sprite.getTexture()->getSize().y / 2.0f);
+	_scoreBoard->sprite.setPosition((float)_scoreBoard->sprite.getTexture()->getSize().x / 2.0f, _scoreBoard->sprite.getTexture()->getSize().y / 2.0f);
 	
 	float wholeBlockOffset = 380;
 	float lineOffset = 47.5f;
@@ -45,7 +47,7 @@ void ScoreBoard::OrganizeScreen() {
 		_scoreDisplays[i]->_text.setPosition(500 , wholeBlockOffset + lineOffset * (i + 1));
 	}
 	
-	_menuButtonBox->sprite.setPosition(_background->sprite.getPosition().x+ 302, _background->sprite.getPosition().y - 365);
+	_menuButtonBox->sprite.setPosition(_scoreBoard->sprite.getPosition().x+ 302, _scoreBoard->sprite.getPosition().y - 365);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }
@@ -60,6 +62,7 @@ void ScoreBoard::draw() {
 	_window->pushGLStates();
 
 	_window->draw(_background->sprite);
+	_window->draw(_scoreBoard->sprite);
 	
 	for (int i = 0; i < _size; i++) {
 		_window->draw(_nameDisplays[i]->_text);
