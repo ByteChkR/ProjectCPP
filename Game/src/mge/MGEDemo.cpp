@@ -331,6 +331,12 @@ void MGEDemo::_render(int pass) {
 		_storyPanel->Reset();     //could be solved more optimized
 		//PlayerController::instance->ResetScore();
 	}
+	else if (GameStateManager::instance->_state >= GameStateManager::Tutorial1)
+	{
+		int num = GameStateManager::Tutorial1 - GameStateManager::instance->_state;
+		//tutorialArray[num].Update();
+		//_updateHud();
+	}
 	else if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)_gameOverScreen->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateNextStage)_stageClear->Update();

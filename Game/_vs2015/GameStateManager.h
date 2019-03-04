@@ -20,7 +20,11 @@ class GameStateManager
 			StateWin,
 			StateLoad,
 			StateCredits,
-			StateScore
+			StateScore,
+			Tutorial1,
+			Tutorial2,
+			Tutorial3,
+			Tutorial4
 		};
 
 

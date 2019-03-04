@@ -26,7 +26,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	setOwner(pOwner);
 
 
-	
+
 	heli = pHeli;
 	heliInitialPosition = heli->getLocalPosition();
 	std::function<void()> oE = std::bind(&PlayerController::OnGameEnd, std::ref(*this));
@@ -176,7 +176,12 @@ void PlayerController::OnCollision(GameObject* other)
 	if (_endOfGameTimer->IsStarted() || _deathTimer->IsStarted())return;
 	//Player dies if not a coin
 	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
-	if (!other->getName().find("endoflevel"))
+	if (!other->getName().find("tutorial"))
+	{
+		int num = other->getName()[other->getName().size() - 2] - '1';
+		GameStateManager::instance->_state = GameStateManager::GameState(GameStateManager::Tutorial1 + num);
+	}
+	else if (!other->getName().find("endoflevel"))
 	{
 		_lockControls = true;
 		lastLevelFinalScore = _coins;
@@ -233,7 +238,7 @@ void PlayerController::OnCollision(GameObject* other)
 		AbstractGame::instance->_world->addBehaviour((AbstractBehaviour*)_deathTimer);
 		_deathParticle->Start();
 		_deathTimer->Reset(true);
-		
+
 	}
 }
 
