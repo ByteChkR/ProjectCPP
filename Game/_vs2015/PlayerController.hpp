@@ -52,6 +52,7 @@ private:
 	bool _lockControls;
 
 	
+	int _lastTutorial;
 
 	void OnGameEnd();
 	void OnGameEndTick(float time);

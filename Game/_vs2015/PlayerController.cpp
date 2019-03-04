@@ -58,6 +58,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_jumpForce = 0.45f;
 	_velocity = 0;
 	_switchTime = 0.1f;
+	_lastTutorial = -1;
 	lastLevelFinalScore = 0;
 	_curSwitchTime = 0;
 	_nextLane = -1;
@@ -178,8 +179,13 @@ void PlayerController::OnCollision(GameObject* other)
 	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
 	if (!other->getName().find("tutorial"))
 	{
+		
 		int num = other->getName()[other->getName().size() - 2] - '1';
-		GameStateManager::instance->_state = GameStateManager::GameState(GameStateManager::Tutorial1 + num);
+		if (num > _lastTutorial)
+		{
+			_lastTutorial = num;
+			GameStateManager::instance->_state = GameStateManager::GameState(GameStateManager::Tutorial1 + num);
+		}
 	}
 	else if (!other->getName().find("endoflevel"))
 	{
