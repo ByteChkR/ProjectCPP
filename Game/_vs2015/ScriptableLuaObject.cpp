@@ -16,6 +16,7 @@
 #include "mge/core/Texture.hpp"
 #include "mge/config.hpp"
 #include "StaticBoxCollider.hpp"
+#include "mge/behaviours/RotatingBehaviour.hpp"
 
 static const luaL_reg level1API[]
 {
@@ -123,6 +124,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			if(lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap());
 			Texture* sp = nullptr;
 			if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular());
+			if (!lss->GetName().find("coin"))object->addBehaviour(new RotatingBehaviour());
 			object->setMaterial(new TextureMaterial(tex, em, sp, 2, 1, 1, 2));
 			object->addBehaviour(new ScriptableLuaObject(lss));
 			if (lss->HasAutoCollider() && lss->HasCollider() && object->getMesh() != nullptr)object->addBehaviour(new StaticBoxCollider(object->getMesh()->GetMinLocalBounds(), object->getMesh()->GetMaxLocalBounds()));

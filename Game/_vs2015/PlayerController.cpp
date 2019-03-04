@@ -32,14 +32,14 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	std::function<void()> onDeathEnd = std::bind(&PlayerController::OnDeathEnd, std::ref(*this));
 	std::function<void(float)> onDeathTick = std::bind(&PlayerController::OnDeathTick, std::ref(*this), std::placeholders::_1);
 
-	_deathTimer = new Timer(onDeathTick, onDeathEnd, 1.5, false);
+	_deathTimer = new Timer(onDeathTick, onDeathEnd, 0.5, false);
 	_endOfGameTimer = new Timer(oT, oE, 2, false);
 
 	Particle* particle = new Particle();
 	particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
 	particle->acceleration = glm::vec3(0, 0.6, 0);
 	particle->gravity = 1.5;
-	particle->life = 1.5;
+	particle->life = 0.5;
 	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 50,50, false);
 	
 	_deathContainer = new GameObject("deathContainer", glm::vec3(0,0,0));
@@ -133,6 +133,7 @@ void PlayerController::OnDeathTick(float pTime)
 
 void PlayerController::OnGameEndTick(float pTime)
 {
+	
 	_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 0, -0.5f)*pTime);
 }
 
@@ -179,7 +180,7 @@ void PlayerController::OnCollision(GameObject* other)
 		glm::vec3 camPos = AbstractGame::instance->_world->getMainCamera()->getWorldPosition();
 		AbstractGame::instance->_world->add(AbstractGame::instance->_world->getMainCamera());
 		AbstractGame::instance->_world->getMainCamera()->setLocalPosition(camPos);
-		_owner->addBehaviour((AbstractBehaviour*)_endOfGameTimer);
+		AbstractGame::instance->_world->addBehaviour((AbstractBehaviour*)_endOfGameTimer);
 		_endOfGameTimer->Start();
 
 	}
@@ -226,7 +227,7 @@ void PlayerController::OnCollision(GameObject* other)
 		//AbstractGame::instance->SetTimeScale(5);
 		_lockControls = true;
 		_deathParticle->Stop(true);
-		_owner->addBehaviour((AbstractBehaviour*)_deathTimer);
+		AbstractGame::instance->_world->addBehaviour((AbstractBehaviour*)_deathTimer);
 		_deathParticle->Start();
 		_deathTimer->Start();
 	}

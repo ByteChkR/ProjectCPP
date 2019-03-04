@@ -159,10 +159,10 @@ void ParticleEmitter::UpdateParticles(float pTime)
 		SpawnParticles(glm::min(_maxParticles - totalActive, maxParticlesPerStep));
 		//std::cout << "Adding particles: " << std::to_string(_maxParticles - totalActive) << "\n";
 	}
-	if (_activeParticles.size() > 0)
-		for (size_t i = _activeParticles.size() - 1; i > 0; i--)
+ 	if (_activeParticles.size() > 0)
+		for (size_t i = _activeParticles.size(); i > 0; --i)
 		{
-			Particle* p = _activeParticles[i];
+			Particle* p = _activeParticles[i-1];
 			p->life -= realTime;
 			if (p->life > 0.0f)
 			{
@@ -175,7 +175,7 @@ void ParticleEmitter::UpdateParticles(float pTime)
 			else
 			{
 				_pool->Give(p);
-				_activeParticles.erase(_activeParticles.begin() + i);
+				_activeParticles.erase(_activeParticles.begin() + (i-1));
 			}
 		}
 }

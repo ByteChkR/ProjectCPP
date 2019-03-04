@@ -62,7 +62,7 @@ void MapBuilder::UnloadGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 	for (size_t i = 0; i < (*list).size(); i++)
 	{
 		if ((*list)[i].second == nullptr)continue;
-		int biomeID = i / gen->GetNumberOfLanes() / gen->GetPartCount();
+		int biomeID = (int)((i / gen->GetNumberOfLanes() / (float)gen->GetLaneAt(0)->GetSegments().size())*gen->GetPartCount());
 
 		BiomeHandler::instance->GivePreset(gen->GetBiomeAt(biomeID), (*list)[i].first, (*list)[i].second);
 		(*list)[i].second = nullptr;
