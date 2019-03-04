@@ -27,6 +27,7 @@ public:
 
 	virtual void render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pPerspectiveMatrix) override;
 	
+	void SetOpacityMode(bool enable = true);
 	void UpdateParticles(float pTime);
 	void SpawnParticles(int amount);
 	bool IsEnabled();
@@ -35,6 +36,7 @@ private:
 	int _maxParticles;
 	bool _isEnabled;
 	bool _stopProduce;
+	bool _enableAlpha = true;
 
 	
 	

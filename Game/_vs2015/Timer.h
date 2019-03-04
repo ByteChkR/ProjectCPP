@@ -4,11 +4,11 @@
 
 #include "mge/behaviours/AbstractBehaviour.hpp"
 #include <functional>
-
+#include <string>
 class Timer : AbstractBehaviour
 {
 public:
-	Timer(std::function<void(float)> onTick, std::function<void()> onEnd, float time, bool reocurring = false);
+	Timer(std::function<void(float)> onTick, std::function<void()> onEnd, float time, std::string name = "Timer", bool reocurring = false);
 	virtual ~Timer() override;
 	virtual void update(float pTime) override;
 	virtual AbstractBehaviour* Clone() override;

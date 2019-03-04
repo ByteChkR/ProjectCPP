@@ -82,11 +82,16 @@ void ParticleEmitter::Stop(bool immediate)
 	}
 }
 
+void ParticleEmitter::SetOpacityMode(bool enabled)
+{
+	_enableAlpha = enabled;
+}
+
 void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pPerspectiveMatrix)
 {
 	if (pass != 1)return;
 	_shader->use();
-	glEnable(GL_BLEND);
+	if (_enableAlpha)glEnable(GL_BLEND);
 	glDepthMask(GL_FALSE);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
@@ -139,7 +144,7 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 
 
 	glDepthMask(GL_TRUE);
-	glDisable(GL_BLEND);
+	if (_enableAlpha)glDisable(GL_BLEND);
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

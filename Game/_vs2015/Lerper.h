@@ -6,7 +6,7 @@
 #include "mge/behaviours/AbstractBehaviour.hpp"
 class Lerper : Timer
 {
-	Lerper(std::function<void(float)> onTick, std::function<void()> onEnd, float time, bool reocurring = false);
+	Lerper(std::function<void(float)> onTick, std::function<void()> onEnd, float time, std::string name = "Lerper", bool reocurring = false);
 	virtual ~Lerper() override;
 
 	virtual void OnTick(float time)override;

@@ -24,6 +24,9 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 {
 	srand(time(NULL));
 	setOwner(pOwner);
+
+
+	
 	heli = pHeli;
 	heliInitialPosition = heli->getLocalPosition();
 	std::function<void()> oE = std::bind(&PlayerController::OnGameEnd, std::ref(*this));
@@ -32,19 +35,19 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	std::function<void()> onDeathEnd = std::bind(&PlayerController::OnDeathEnd, std::ref(*this));
 	std::function<void(float)> onDeathTick = std::bind(&PlayerController::OnDeathTick, std::ref(*this), std::placeholders::_1);
 
-	_deathTimer = new Timer(onDeathTick, onDeathEnd, 0.5, false);
-	_endOfGameTimer = new Timer(oT, oE, 2, false);
+	_deathTimer = new Timer(onDeathTick, onDeathEnd, 0.5, "DeathTimer", false);
+	_endOfGameTimer = new Timer(oT, oE, 2, "EndOfGameTimer", false);
 
 	Particle* particle = new Particle();
 	particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
 	particle->acceleration = glm::vec3(0, 0.6, 0);
 	particle->gravity = 1.5;
 	particle->life = 0.5;
-	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 50,50, false);
-	
-	_deathContainer = new GameObject("deathContainer", glm::vec3(0,0,0));
+	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 50, 50, false);
 
-	_deathContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH+ "plane.obj"));
+	_deathContainer = new GameObject("deathContainer", glm::vec3(0, 0, 0));
+
+	_deathContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 	_deathContainer->setMaterial((AbstractMaterial*)_deathParticle);
 	_owner->add(_deathContainer);
 	//_deathParticle->Start();
@@ -133,7 +136,7 @@ void PlayerController::OnDeathTick(float pTime)
 
 void PlayerController::OnGameEndTick(float pTime)
 {
-	
+
 	_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 0, -0.5f)*pTime);
 }
 
@@ -163,7 +166,7 @@ void PlayerController::OnGameEnd()
 	//LevelManager::instance->NextLevel();
 	GameStateManager::instance->_state = GameStateManager::StateNextStage;
 	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); // therealchanger
-	
+
 }
 
 
@@ -229,7 +232,8 @@ void PlayerController::OnCollision(GameObject* other)
 		_deathParticle->Stop(true);
 		AbstractGame::instance->_world->addBehaviour((AbstractBehaviour*)_deathTimer);
 		_deathParticle->Start();
-		_deathTimer->Start();
+		_deathTimer->Reset(true);
+		
 	}
 }
 
@@ -246,7 +250,7 @@ void PlayerController::update(float pTime)
 		if (_struggleTime > _struggleMaxTime)
 		{
 			gStruggleAnimation->DisableBehaviours();
-			
+
 			_isStruggling = false;
 		}
 	}
@@ -431,7 +435,7 @@ void PlayerController::createModels()
 	Texture* turkeyMetal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeymetal.png");
 	Texture* turkeyNormal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeynormal.png");
 
-	AbstractMaterial* playerTexture = new TextureMaterial(turkeyAlb,nullptr, turkeyMetal, 2, 1, 5, 2);
+	AbstractMaterial* playerTexture = new TextureMaterial(turkeyAlb, nullptr, turkeyMetal, 2, 1, 5, 2);
 
 	Mesh * tBody = Mesh::load(config::MGE_MODEL_PATH + "Turkey/TBody.obj");
 	Mesh * tHead = Mesh::load(config::MGE_MODEL_PATH + "Turkey/THead.obj");

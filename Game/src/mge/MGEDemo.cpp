@@ -63,7 +63,7 @@ void MGEDemo::initialize() {
 	//setup the core part
 	AbstractGame::initialize();
 
-	
+
 }
 
 void MGEDemo::_initializeResources()
@@ -83,7 +83,7 @@ void MGEDemo::_initializeResources()
 	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
 
 	//add camera first (it will be updated last)
-	
+
 
 
 	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png");
@@ -121,6 +121,7 @@ void MGEDemo::_initializeResources()
 
 	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 1);;
 
+	
 
 	GameObject * heliAnimation = new GameObject("HeliAnimation", glm::vec3(0, 5, 0));
 	heliAnimation->setMesh(testQuad);
@@ -130,8 +131,10 @@ void MGEDemo::_initializeResources()
 	heliAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(heliAnimation);
 
+	
+
 	_world->add(playerObject);
-	playerObject->addBehaviour(new PlayerController(playerObject,heliAnimation));
+	playerObject->addBehaviour(new PlayerController(playerObject, heliAnimation));
 	playerObject->add(_world->getMainCamera());
 	_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
 
@@ -203,11 +206,11 @@ void MGEDemo::_initializeResources()
 	//create some materials to display the cube, the plane and the light
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
 
-	
+
 	//SCENE SETUP
 
 	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
-		//Biome Setup
+	//Biome Setup
 	std::vector<Biome*> biomes = std::vector<Biome*>();
 	std::vector<std::string> biomeFiles = FileLoader::GetFilesFromFolder(config::MGE_BIOME_PATH);
 	_loadingScreen->Update();
@@ -231,7 +234,7 @@ void MGEDemo::_initializeResources()
 
 
 	//add a spinning sphere
-	
+
 
 
 
@@ -251,7 +254,7 @@ void MGEDemo::_initializeResources()
 	//Note how the texture material is able to detect the number of lights in the scene
 	//even though it doesn't implement any lighting yet!
 
-	LightParams* params = new LightParams(0, 1, glm::vec2(0), glm::vec3(1, 231.0f/255.0f, 206.0f/255.0f), glm::vec3(1, 231.0f / 255.0f, 206.0f / 255.0f)*0.2f);
+	LightParams* params = new LightParams(0, 1, glm::vec2(0), glm::vec3(1, 231.0f / 255.0f, 206.0f / 255.0f), glm::vec3(1, 231.0f / 255.0f, 206.0f / 255.0f)*0.2f);
 
 	Light* light = new Light("light", glm::vec3(-100, 100, 100));
 	light->SetParams(*params);
@@ -271,7 +274,7 @@ void MGEDemo::_initializeResources()
 
 #pragma endregion
 
-	
+
 }
 
 //build the game _world
@@ -288,7 +291,7 @@ void MGEDemo::_initializeScene()
 
 	DataManager * dataManager = new DataManager();
 
-	
+
 
 	GameStateManager * gameStateManager = new GameStateManager(GameStateManager::StateLoad);
 	AudioManager * audioManager = new AudioManager();
@@ -320,7 +323,7 @@ void MGEDemo::_initializeScene()
 }
 
 void MGEDemo::_render(int pass) {
-	
+
 	AbstractGame::_render(pass);
 	if (GameStateManager::instance->_state == GameStateManager::StateGame) _updateHud();
 	else if (GameStateManager::instance->_state == GameStateManager::StateMenu) {
@@ -339,11 +342,11 @@ void MGEDemo::_render(int pass) {
 	{
 		_initFrame = -1;
 		_initializeResources();
-		
+
 		GameStateManager::instance->_state = GameStateManager::StateMenu;
-		
+
 	}
-	else if(_initFrame != -1)
+	else if (_initFrame != -1)
 		_initFrame++;
 }
 

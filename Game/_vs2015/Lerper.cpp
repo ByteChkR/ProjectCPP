@@ -1,8 +1,9 @@
 #include "Lerper.h"
 #include "mge/behaviours/AbstractBehaviour.hpp"
 #include "Timer.h"
+#include <string>
 
-Lerper::Lerper(std::function<void(float)> onTick, std::function<void()> onEnd, float time, bool reocurring):Timer(onTick, onEnd,time, reocurring)
+Lerper::Lerper(std::function<void(float)> onTick, std::function<void()> onEnd, float time, std::string name, bool reocurring):Timer(onTick, onEnd,time, name, reocurring)
 {
 
 }

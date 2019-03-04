@@ -1,7 +1,7 @@
 #include "Timer.h"
 #include "mge/behaviours/AbstractBehaviour.hpp"
 
-Timer::Timer(std::function<void(float)> onTick, std::function<void()> onEnd, float time, bool reoccurring) : AbstractBehaviour("Timer")
+Timer::Timer(std::function<void(float)> onTick, std::function<void()> onEnd, float time, std::string name, bool reoccurring) : AbstractBehaviour(name)
 {
 	t = 0;
 	_onTick = onTick;
@@ -79,5 +79,5 @@ float Timer::GetProgress()
 
 AbstractBehaviour* Timer::Clone()
 {
-	return (AbstractBehaviour*)new Timer(_onTick, _onEnd, _time, _reoc);
+	return (AbstractBehaviour*)new Timer(_onTick, _onEnd, _time, _name + "(CLONE)", _reoc);
 }
