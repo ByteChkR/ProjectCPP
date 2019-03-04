@@ -39,7 +39,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
 	particle->acceleration = glm::vec3(0, 0.6, 0);
 	particle->gravity = 1.5;
-	particle->life = 1.5;
+	particle->life = 0.5;
 	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 50,50, false);
 	
 	_deathContainer = new GameObject("deathContainer", glm::vec3(0,0,0));
