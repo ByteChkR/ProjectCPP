@@ -74,6 +74,10 @@
     <ClCompile Include="WinScreen.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Lerper.cpp" />
+    <ClCompile Include="Tutorial0.cpp" />
+    <ClCompile Include="Tutorial1.cpp" />
+    <ClCompile Include="Tutorial2.cpp" />
+    <ClCompile Include="Tutorial3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -149,5 +153,6 @@
     <ClInclude Include="WinScreen.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Lerper.h" />
+    <ClInclude Include="Tutorial0.h" />
   </ItemGroup>
 </Project>
