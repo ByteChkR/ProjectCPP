@@ -79,6 +79,7 @@
     <ClCompile Include="Tutorial2.cpp" />
     <ClCompile Include="Tutorial3.cpp" />
     <ClCompile Include="KeyLogger.cpp" />
+    <ClCompile Include="SaveScoreButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -156,5 +157,6 @@
     <ClInclude Include="Lerper.h" />
     <ClInclude Include="Tutorial0.h" />
     <ClInclude Include="KeyLogger.h" />
+    <ClInclude Include="SaveScoreButton.h" />
   </ItemGroup>
 </Project>

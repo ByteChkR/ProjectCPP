@@ -339,7 +339,9 @@ void MGEDemo::_render(int pass) {
 		{
 			Debug::Log(output);
 		}
-		_storyPanel->Reset();     //could be solved more optimized
+		_storyPanel->Reset();
+		_winScreen->ResetScoreSendBool();
+		_scoreBoard->ResetScoreUpdate();
 		//PlayerController::instance->ResetScore();
 	}
 	else if (GameStateManager::instance->_state >= GameStateManager::Tutorial1)

@@ -230,6 +230,7 @@
     <ClInclude Include="PlayerController.hpp" />
     <ClInclude Include="PresetHandler.hpp" />
     <ClInclude Include="RetryButton.h" />
+    <ClInclude Include="SaveScoreButton.h" />
     <ClInclude Include="ScoreBoard.h" />
     <ClInclude Include="ScoreBoardButton.h" />
     <ClInclude Include="ScriptableLuaObject.h" />
@@ -307,6 +308,7 @@
     <ClCompile Include="PresetHandler.cpp" />
     <ClCompile Include="HudText.cpp" />
     <ClCompile Include="RetryButton.cpp" />
+    <ClCompile Include="SaveScoreButton.cpp" />
     <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="ScoreBoardButton.cpp" />
     <ClCompile Include="ScriptableLuaObject.cpp" />

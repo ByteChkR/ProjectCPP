@@ -12,11 +12,13 @@ public:
 	ScoreBoard(sf::RenderWindow *aWindow);
 
 	void Update();
-
+	void ResetScoreUpdate();
 private:
 	void UpdateScores();
 	void OrganizeScreen();
 	void draw();
+
+	bool _updatedScores;
 
 	int _size;
 	
