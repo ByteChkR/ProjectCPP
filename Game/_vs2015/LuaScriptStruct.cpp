@@ -6,12 +6,15 @@
 #include "mge/core/Mesh.hpp"
 #include <iostream>
 #include "Debug.h"
+#include "mge/core/AbstractGame.hpp"
 LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 {
+	isValid = false;
 	lua_State* L = luaL_newstate();
 	luaL_loadfile(L, filename.c_str());
 	if (LuaOperations::SaveLuaCall(L, 0, 0))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	int l = lua_gettop(L);
@@ -20,6 +23,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
@@ -32,6 +36,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "AttachedScripts");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
@@ -45,6 +50,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
@@ -57,6 +63,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
@@ -68,18 +75,20 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "emissive", &_emmissiveTexture))
 	{
-		Debug::Log( "Object with key: " + _name + " has no emmissive map");
+		Debug::Log("Object with key: " + _name + " has no emmissive map");
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
@@ -92,6 +101,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
@@ -104,6 +114,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
@@ -116,6 +127,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
@@ -128,6 +140,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
@@ -152,7 +165,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 		lua_getglobal(L, "colliderMin");
 		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_colliderMin.y))
 		{
-			hasCollider = false; 
+			hasCollider = false;
 			Debug::Log("Object with key: " + _name + " has no collider.");
 		}
 		else
@@ -214,71 +227,72 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 
 	lua_close(L);
 
+	isValid = true; //Didnt return until now? NOICE
 }
 
 bool LuaScriptStruct::HasAutoCollider()
 {
-	return autoCollider;
+	return isValid ? autoCollider : AbstractGame::instance->sloFallback->autoCollider;
 }
 
 
 bool LuaScriptStruct::HasCollider()
 {
-	return hasCollider;
+	return isValid ? hasCollider : AbstractGame::instance->sloFallback->hasCollider;
 }
 
 glm::vec3 LuaScriptStruct::GetColliderMin()
 {
 
-	return _colliderMin;
+	return isValid ? _colliderMin : AbstractGame::instance->sloFallback->_colliderMin;
 }
 
 glm::vec3 LuaScriptStruct::GetColliderMax()
 {
-	return _colliderMax;
+	return isValid ? _colliderMax : AbstractGame::instance->sloFallback->_colliderMax;
 }
 
 
 std::vector<std::string> LuaScriptStruct::GetAttachedScripts()
 {
-	return _attachedScripts;
+	return isValid ? _attachedScripts : AbstractGame::instance->sloFallback->_attachedScripts;
 }
 
 std::string LuaScriptStruct::GetName()
 {
-	return _name;
+	return isValid ? _name : AbstractGame::instance->sloFallback->_name;
 }
 std::string LuaScriptStruct::GetTexturePath()
 {
-	return _texturePath;
+	return isValid ? _texturePath : AbstractGame::instance->sloFallback->_texturePath;
 }
 std::string LuaScriptStruct::GetObjectPath()
 {
-	return _objPath;
+	return isValid ? _objPath : AbstractGame::instance->sloFallback->_objPath;
 }
 
 
 Mesh* LuaScriptStruct::GetObject()
 {
 	if (_mesh != nullptr)return _mesh;
-	return _mesh = Mesh::load(_objPath);
+	return _mesh = Mesh::load(GetObjectPath());
 }
 
 glm::vec3 LuaScriptStruct::GetPositionOffset()
 {
-	return _position;
+	return isValid ? _position : AbstractGame::instance->sloFallback->_position;
 }
 
 std::string LuaScriptStruct::GetEmmissiveMap()
 {
-	return _emmissiveTexture;
+	return isValid ? _emmissiveTexture : AbstractGame::instance->sloFallback->_emmissiveTexture;
 }
 
 std::string LuaScriptStruct::GetSpecular()
 {
-	return _specularTexture;
+	return isValid ? _specularTexture : AbstractGame::instance->sloFallback->_specularTexture;
 }
 
 std::string LuaScriptStruct::GetNormal() {
-	return _normalTexture;
+	return isValid ? _normalTexture : AbstractGame::instance->sloFallback->_normalTexture;
 }

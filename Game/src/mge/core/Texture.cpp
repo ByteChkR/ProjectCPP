@@ -51,8 +51,28 @@ Texture* Texture::load(const std::string& pFilename, bool useFallback, bool wrap
 		{
 			Debug::LogError("Returning NULLPTR because useFallback is set to false");
 		}
-		return useFallback ? AbstractGame::instance->fallbackTexture : nullptr;
+		return useFallback ? _loadFromSFImage(AbstractGame::instance->fallbackTexture, wrapMirrored) : nullptr;
 	}
+}
+
+Texture* Texture::_loadFromSFImage(sf::Image* image, bool wrapMirrored)
+{
+	//normal image 0,0 is top left, but opengl considers 0,0 to be bottom left, so we flip the image internally
+	image->flipVertically();
+	//create a wrapper for the id (texture is nothing more than that) and
+	//load corresponding data into opengl using this id
+	Texture * texture = new Texture();
+	glBindTexture(GL_TEXTURE_2D, texture->getId());
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getSize().x, image->getSize().y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->getPixelsPtr());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (wrapMirrored)
+	{
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	}
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return texture;
 }
 
 

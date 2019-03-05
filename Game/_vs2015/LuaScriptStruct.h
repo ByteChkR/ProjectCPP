@@ -40,6 +40,7 @@ private:
 	glm::vec3 _colliderMax;
 	bool hasCollider;
 	bool autoCollider;
+	bool isValid;
 };
 
 #endif // !LUASCRIPTSTRUCT_HPP

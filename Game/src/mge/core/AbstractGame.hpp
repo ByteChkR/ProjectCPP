@@ -6,6 +6,7 @@
 #include <string>
 #include "../_vs2015/CollisionManager.hpp"
 #include "../_vs2015/ParticleSystem.h"
+#include "../_vs2015/ScriptableLuaObject.h"
 class World;
 class Renderer;
 
@@ -34,7 +35,8 @@ class AbstractGame
 		void SetTimeScale(float scale);
 		float GetTimeScale();
 		float GetTimeSinceStartup();
-		Texture* fallbackTexture;
+		sf::Image* fallbackTexture;
+		LuaScriptStruct* sloFallback;
     protected:
 
         //methods above delegate behaviour to the methods below so that you can override it in a subclass

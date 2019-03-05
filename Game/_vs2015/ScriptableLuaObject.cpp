@@ -16,6 +16,7 @@
 #include "mge/core/Texture.hpp"
 #include "mge/config.hpp"
 #include "StaticBoxCollider.hpp"
+#include "Debug.h"
 #include "mge/behaviours/RotatingBehaviour.hpp"
 
 static const luaL_reg level1API[]
@@ -102,35 +103,43 @@ AbstractBehaviour* ScriptableLuaObject::Clone()
 	return new ScriptableLuaObject(_lss);
 }
 
+LuaScriptStruct* ScriptableLuaObject::GetStructWithName(std::string name)
+{
+	for each (LuaScriptStruct* lss in _scripts)
+	{
+		if (lss->GetName() == name)return lss;
+	}
+	Debug::LogError("Could not find Object Script with key:" + name + ". Using fallback object script");
+	return AbstractGame::instance->sloFallback;
+}
+
 GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent)
 {
 
+	LuaScriptStruct* lss = GetStructWithName(key);
 
-
-	for each (LuaScriptStruct* lss in _scripts)
+	if (lss != nullptr)
 	{
-		if (lss->GetName() == key)
-		{
 
-			GameObject* object = new GameObject(lss->GetName());
-			if (parent != NULL)
-				parent->add(object);
-			else
-				AbstractGame::instance->_world->add(object);
-			object->setMesh(lss->GetObject());
-			Texture* tex = nullptr;
-			if(lss->GetTexturePath() != " ")tex = Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath(), true);
-			Texture* em = nullptr;
-			if(lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap(), false);
-			Texture* sp = nullptr;
-			if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular(), false);
-			if (!lss->GetName().find("coin"))object->addBehaviour(new RotatingBehaviour());
-			object->setMaterial(new TextureMaterial(tex, em, sp, 2, 1, 1, 2));
-			object->addBehaviour(new ScriptableLuaObject(lss));
-			if (lss->HasAutoCollider() && lss->HasCollider() && object->getMesh() != nullptr)object->addBehaviour(new StaticBoxCollider(object->getMesh()->GetMinLocalBounds(), object->getMesh()->GetMaxLocalBounds()));
-			else if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderMin(), lss->GetColliderMax()));
-			return object;
-		}
+		GameObject* object = new GameObject(lss->GetName());
+		if (parent != NULL)
+			parent->add(object);
+		else
+			AbstractGame::instance->_world->add(object);
+		object->setMesh(lss->GetObject());
+		Texture* tex = nullptr;
+		if (lss->GetTexturePath() != " ")tex = Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath(), true);
+		Texture* em = nullptr;
+		if (lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap(), false);
+		Texture* sp = nullptr;
+		if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular(), false);
+		if (!lss->GetName().find("coin"))object->addBehaviour(new RotatingBehaviour());
+		object->setMaterial(new TextureMaterial(tex, em, sp, 2, 1, 1, 2));
+		object->addBehaviour(new ScriptableLuaObject(lss));
+		if (lss->HasAutoCollider() && lss->HasCollider() && object->getMesh() != nullptr)object->addBehaviour(new StaticBoxCollider(object->getMesh()->GetMinLocalBounds(), object->getMesh()->GetMaxLocalBounds()));
+		else if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderMin(), lss->GetColliderMax()));
+		return object;
+
 	}
 	return NULL;
 }
