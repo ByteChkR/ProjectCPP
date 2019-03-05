@@ -15,7 +15,7 @@
 #include "../_vs2015/Tutorial1.h"
 #include "../_vs2015/Tutorial2.h"
 #include "../_vs2015/Tutorial3.h"
-
+#include "../_vs2015/KeyLogger.h"
 class DebugHud;
 
 /**
@@ -56,6 +56,8 @@ class MGEDemo: public AbstractGame
 		Tutorial1* _tutorial1;
 		Tutorial2* _tutorial2;
 		Tutorial3* _tutorial3;
+
+		KeyLogger* klogger;
 
 		int _initFrame = 0;
 

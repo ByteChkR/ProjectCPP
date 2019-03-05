@@ -46,6 +46,7 @@
 
 #include "mge/util/ScoreManager.h"
 #include "mge/util/DataManager.h"
+#include "../_vs2015/KeyLogger.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
@@ -56,7 +57,7 @@ MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
 	{
 		this->argv.push_back(argv[i]);
 	}
-
+	klogger = new KeyLogger();
 }
 
 void MGEDemo::initialize() {
@@ -121,7 +122,7 @@ void MGEDemo::_initializeResources()
 
 	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 1);;
 
-	
+
 
 	GameObject * heliAnimation = new GameObject("HeliAnimation", glm::vec3(0, 5, 0));
 	heliAnimation->setMesh(testQuad);
@@ -131,7 +132,7 @@ void MGEDemo::_initializeResources()
 	heliAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(heliAnimation);
 
-	
+
 
 	_world->add(playerObject);
 	playerObject->addBehaviour(new PlayerController(playerObject, heliAnimation));
@@ -332,6 +333,11 @@ void MGEDemo::_render(int pass) {
 	if (GameStateManager::instance->_state == GameStateManager::StateGame) _updateHud();
 	else if (GameStateManager::instance->_state == GameStateManager::StateMenu) {
 		_menu->Update();
+		std::string output;
+		if (klogger->SFKey2String(&output))
+		{
+			Debug::Log(output);
+		}
 		_storyPanel->Reset();     //could be solved more optimized
 		//PlayerController::instance->ResetScore();
 	}
