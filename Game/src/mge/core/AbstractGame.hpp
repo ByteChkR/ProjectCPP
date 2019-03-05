@@ -34,6 +34,7 @@ class AbstractGame
 		void SetTimeScale(float scale);
 		float GetTimeScale();
 		float GetTimeSinceStartup();
+		Texture* fallbackTexture;
     protected:
 
         //methods above delegate behaviour to the methods below so that you can override it in a subclass

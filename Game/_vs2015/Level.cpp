@@ -88,13 +88,13 @@ Level::Level(std::string levelLuaFile)
 	if (!LuaOperations::TryGetString(L, &bg))
 	{
 		Debug::Log("Error parsing path to background image");
-		background = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
+		background = Texture::load(config::MGE_TEXTURE_PATH + "black.png", true);
 
 	}
 	else
 	{
 
-		background = Texture::load(config::MGE_TEXTURE_PATH + bg);
+		background = Texture::load(config::MGE_TEXTURE_PATH + bg, true);
 	}
 
 	lua_getglobal(L, "mapGround");
@@ -104,13 +104,13 @@ Level::Level(std::string levelLuaFile)
 	if (!LuaOperations::TryGetString(L, &mbg))
 	{
 		Debug::Log("Error parsing path to Map Ground Texure image");
-		mapGround = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
+		mapGround = Texture::load(config::MGE_TEXTURE_PATH + "black.png", true);
 
 	}
 	else
 	{
 
-		mapGround = Texture::load(config::MGE_TEXTURE_PATH + mbg);
+		mapGround = Texture::load(config::MGE_TEXTURE_PATH + mbg, true);
 	}
 
 	//lua_getglobal(L, "mapGroundNormal");

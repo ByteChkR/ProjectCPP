@@ -119,11 +119,11 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 				AbstractGame::instance->_world->add(object);
 			object->setMesh(lss->GetObject());
 			Texture* tex = nullptr;
-			if(lss->GetTexturePath() != " ")tex = Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath());
+			if(lss->GetTexturePath() != " ")tex = Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath(), true);
 			Texture* em = nullptr;
-			if(lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap());
+			if(lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap(), false);
 			Texture* sp = nullptr;
-			if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular());
+			if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular(), false);
 			if (!lss->GetName().find("coin"))object->addBehaviour(new RotatingBehaviour());
 			object->setMaterial(new TextureMaterial(tex, em, sp, 2, 1, 1, 2));
 			object->addBehaviour(new ScriptableLuaObject(lss));

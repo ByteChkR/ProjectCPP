@@ -43,7 +43,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	particle->acceleration = glm::vec3(0, 0.6, 0);
 	particle->gravity = 1.5;
 	particle->life = 0.5;
-	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 50, 50, false);
+	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png", true), 50, 50, false);
 
 	_deathContainer = new GameObject("deathContainer", glm::vec3(0, 0, 0));
 
@@ -75,7 +75,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_struggleMaxTime = 2;
 	gStruggleAnimation = new GameObject("StruggleAnim");
 	gStruggleAnimation->addBehaviour(new RotatingBehaviour());
-	gStruggleAnimation->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "red.png"), nullptr, nullptr, 2, 1, 5, 2));
+	gStruggleAnimation->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "red.png", true), nullptr, nullptr, 2, 1, 5, 2));
 	gStruggleAnimation->setMesh(Mesh::load(config::MGE_MODEL_PATH + "placeholder.obj"));
 	_owner->add(gStruggleAnimation);
 	gStruggleAnimation->setLocalPosition(glm::vec3(0, 3, 0));
@@ -442,9 +442,9 @@ void PlayerController::handleJump(float pTime)
 void PlayerController::createModels()
 {
 	//player models and fake pivots
-	Texture* turkeyAlb = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeyalbedo.png");
-	Texture* turkeyMetal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeymetal.png");
-	Texture* turkeyNormal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeynormal.png");
+	Texture* turkeyAlb = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeyalbedo.png", true);
+	Texture* turkeyMetal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeymetal.png", false);
+	Texture* turkeyNormal = Texture::load(config::MGE_TEXTURE_PATH + "Turkey/turkeynormal.png", false);
 
 	AbstractMaterial* playerTexture = new TextureMaterial(turkeyAlb, nullptr, turkeyMetal, 2, 1, 5, 2);
 

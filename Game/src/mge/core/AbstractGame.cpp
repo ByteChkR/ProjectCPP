@@ -8,6 +8,7 @@
 #include "mge/core/World.hpp"
 #include "mge/util/AudioManager.h"
 #include "../_vs2015/Debug.h"
+#include "mge/config.hpp"
 
 AbstractGame* AbstractGame::instance = nullptr;
 
@@ -16,6 +17,7 @@ AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0)
 	timeScale = 1;
 	instance = this;
 	_particleSystem = new ParticleSystem();
+	fallbackTexture = Texture::load(config::MGE_TEXTURE_PATH + "fallbacktexture.png", false);
     //ctor
 }
 

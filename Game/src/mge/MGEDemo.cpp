@@ -78,19 +78,19 @@ void MGEDemo::_initializeResources()
 	Mesh* testQuad = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 
 
-	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png"), 1);
-	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
-	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png");
-	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png");
+	AbstractMaterial* backGroundMaterial = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "backg.png", true), 1);
+	Texture* rstonetex = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png", true);
+	Texture* sprstonetex = Texture::load(config::MGE_TEXTURE_PATH + "sp_runicfloor.png", false);
+	Texture* emrstonetex = Texture::load(config::MGE_TEXTURE_PATH + "em_runicfloor.png", false);
 
 	//add camera first (it will be updated last)
 
 
 
-	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png");
-	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
-	Texture* testTex = Texture::load(config::MGE_TEXTURE_PATH + "testTex.png");
-	Texture* testNormal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png");
+	Texture* planetTexture = Texture::load(config::MGE_TEXTURE_PATH + "ground.png", true);
+	Texture* black = Texture::load(config::MGE_TEXTURE_PATH + "black.png", false);
+	Texture* testTex = Texture::load(config::MGE_TEXTURE_PATH + "testTex.png", true);
+	Texture* testNormal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png", false);
 	AbstractMaterial* runicPlaneMaterial = new TextureMovingMaterial(testTex, black, black, 2, 1, 5, 2);
 
 
@@ -120,7 +120,7 @@ void MGEDemo::_initializeResources()
 	//playerObject->setMesh(sphereMeshS);
 	//playerObject->setMaterial(runicStoneMaterial);
 
-	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png"), 1);;
+	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png", true), 1);;
 
 
 
@@ -196,13 +196,13 @@ void MGEDemo::_initializeResources()
 	_loadingScreen->Update();
 	//MATERIALS
 	Material* m = new Material();
-	m->diffuse = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png");
-	m->normal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png");
-	m->specular = Texture::load(config::MGE_TEXTURE_PATH + "testSpecular.png");
+	m->diffuse = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png", true);
+	m->normal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png",false);
+	m->specular = Texture::load(config::MGE_TEXTURE_PATH + "testSpecular.png", false);
 	_loadingScreen->Update();
 	m->shininess = 1;
 	m->maxHeight = 0;
-	Texture* white = Texture::load(config::MGE_TEXTURE_PATH + "white.png");
+	Texture* white = Texture::load(config::MGE_TEXTURE_PATH + "white.png", true);
 	_loadingScreen->Update();
 	//create some materials to display the cube, the plane and the light
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
@@ -223,7 +223,7 @@ void MGEDemo::_initializeResources()
 	}
 	new BiomeHandler(biomes);
 
-	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png"), 150, true);
+	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png", true), 150, true);
 
 	GameObject* testParticle = new GameObject("particle", glm::vec3(0, 10, 0));
 	testParticle->setMesh(testQuad);

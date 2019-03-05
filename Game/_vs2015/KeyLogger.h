@@ -10,7 +10,17 @@ public:
 	KeyLogger();
 	~KeyLogger();
 	sf::Keyboard::Key GetKeyDown();
+	/*char output;
+	if (klogger->SFKey2Char(&output))
+	{
+		...
+	}*/
 	bool SFKey2Char(char * outputChar);
+	/*std::string output;
+	if (klogger->SFKey2String(&output))
+	{
+		Debug::Log(output);
+	}*/
 	bool SFKey2String(std::string* outputString);
 	std::string Char2String(char character);
 

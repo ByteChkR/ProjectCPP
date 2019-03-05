@@ -8,7 +8,7 @@
 class Texture
 {
 	public:
-		static Texture* load(const std::string& pTexturePath, bool wrapMirrored = false);
+		static Texture* load(const std::string& pTexturePath, bool useFallback = true, bool wrapMirrored = false);
 		virtual ~Texture();
 		GLuint getId();
 
