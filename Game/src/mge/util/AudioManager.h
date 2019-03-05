@@ -22,11 +22,13 @@ public:
 	void Update(float pDeltaTime);
 	void PlaySound(int pNumber);
 	void ChangeBackgroundMusic(int pNumber);
+	void PlayFootStep();
 
 	AudioManager();
 	~AudioManager();
 
 private:
+	void AddFootStep(std::string pFileLocation);
 	void ControlBackgroundMusic(float pDeltaTime);
 	void ChangeClips();
 	float _crossFader = 0;
@@ -39,6 +41,7 @@ private:
 	int _currentMusic;
 	int _nextMusic;
 	std::vector<sf::Sound *> _sounds;
+	std::vector<sf::Sound *> _footSteps;
 	std::string _soundsPath= "mge/sounds/";
 	std::vector<sf::Music*> _musics;
 	std::vector<sf::Music*> _ambients;

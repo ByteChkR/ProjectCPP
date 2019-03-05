@@ -1,10 +1,13 @@
 #include "AudioManager.h"
 #include <iostream>
 #include "../_vs2015/Debug.h"
+#include <stdlib.h> 
+#include <time.h>
 AudioManager * AudioManager::instance;
 
 AudioManager::AudioManager()
 {
+	srand(time(NULL));
 	if (instance == NULL)
 	{
 		instance = this;
@@ -24,6 +27,13 @@ AudioManager::AudioManager()
 	AddSound("leather_inventory.wav");//1
 	AddSound("metal-clash.wav");//2
 
+	for (int i = 1; i < 6; i++)
+	{
+		std::string path = "footsteps/Footstep" + i;
+		path += ".wav";
+		AddFootStep(path);
+
+	}
 
 
 
@@ -86,6 +96,21 @@ void AudioManager::AddSound(std::string pFileLocation)
 	sf::Sound * sound = new sf::Sound(*buffer);
 
 	_sounds.push_back(sound);
+
+}
+
+void AudioManager::AddFootStep(std::string pFileLocation)
+{
+
+	sf::SoundBuffer * buffer = new sf::SoundBuffer();
+	if (!buffer->loadFromFile(_soundsPath + pFileLocation))
+	{
+		Debug::LogError("/////////////////   Sound path not found. /////////////////// \n" + pFileLocation);
+	}
+
+	sf::Sound * sound = new sf::Sound(*buffer);
+
+	_footSteps.push_back(sound);
 
 }
 
@@ -251,4 +276,13 @@ void AudioManager::StopAll()
 		_musics[i]->pause();
 		_ambients[i]->pause();
 	}
+}
+
+void AudioManager::PlayFootStep()
+{
+	int footstepNumber = rand() % 5;
+	float nextPitch = (rand() % 1000) / 1000 -0.5f;
+	nextPitch *= 0.5f;
+	_footSteps[footstepNumber]->setPitch(1 + nextPitch);
+	_footSteps[footstepNumber]->play();
 }
