@@ -190,7 +190,7 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 
 	glUniform1f(_genOffset, TextureMaterial::genOffset);
 	glUniform1f(_width, TextureMaterial::width);
-	glUniform1f(_movingspeed, MapBuilder::instance->GetMovingSpeed()/120);
+	glUniform1f(_movingspeed, MapBuilder::instance->GetMovingSpeed()*AbstractGame::instance->GetDeltaTime());
 	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
 	glUniform1f(_xMoveTiling, TextureMaterial::xMoveTiling);
