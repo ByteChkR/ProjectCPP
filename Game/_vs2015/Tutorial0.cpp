@@ -17,7 +17,7 @@
 Tutorial0::Tutorial0(sf::RenderWindow * aWindow) : _window(aWindow), _debugBox()
 {
 
-	_debugBox = new HudSprite("HudBox.png");
+	_debugBox = new HudSprite("Tutorials/Tutorial0.png");
 
 	_organizeHud();
 }
