@@ -77,7 +77,11 @@ private:
 	float animationTool = 0; // delta time addition
 	float animationSpeed =10.0f;
 	float maxYToJump = 40;
-	
+
+	//footsteps
+	double lastStepTime =0;
+	double currentStepTime=0;
+	bool stepCheckDown = true;
 	//empty game objects that serve as pivots
 
 
