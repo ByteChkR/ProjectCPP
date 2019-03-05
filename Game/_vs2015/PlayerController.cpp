@@ -578,10 +578,12 @@ void PlayerController::Animate(float pDeltaTime)
 	gTLeftLeg->setLocalPosition(glm::vec3(0, sinTool * 0.1f, 0));
 	gTRightLeg->setLocalPosition(glm::vec3(0, 0.1f - sinTool * 0.1f, 0));
 
+	currentStepTime = sinTool;
+
 	if (_lockControls == false)
 	{
 
-		currentStepTime = sinTool;
+		
 		if (stepCheckDown == false)
 		{
 			if (currentStepTime - lastStepTime <= 0)

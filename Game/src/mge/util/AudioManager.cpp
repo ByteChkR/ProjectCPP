@@ -3,6 +3,7 @@
 #include "../_vs2015/Debug.h"
 #include <stdlib.h> 
 #include <time.h>
+#include <string>
 AudioManager * AudioManager::instance;
 
 AudioManager::AudioManager()
@@ -27,11 +28,11 @@ AudioManager::AudioManager()
 	AddSound("leather_inventory.wav");//1
 	AddSound("metal-clash.wav");//2
 
+
+
 	for (int i = 1; i < 6; i++)
 	{
-		std::string path = "footsteps/Footstep" + i;
-		path += ".wav";
-		AddFootStep(path);
+		AddFootStep("footsteps/Footstep" + std::to_string(i) + ".wav");
 
 	}
 
@@ -281,8 +282,10 @@ void AudioManager::StopAll()
 void AudioManager::PlayFootStep()
 {
 	int footstepNumber = rand() % 5;
-	float nextPitch = (rand() % 1000) / 1000 -0.5f;
+	float nextPitch = (rand() % 1000) / 1000.0f -0.5f;
 	nextPitch *= 0.5f;
 	_footSteps[footstepNumber]->setPitch(1 + nextPitch);
 	_footSteps[footstepNumber]->play();
+
+
 }
