@@ -12,35 +12,35 @@
 #include "SFML/Graphics.hpp"
 AbstractGame* AbstractGame::instance = nullptr;
 
-AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0), startupTime(0)
+AbstractGame::AbstractGame() :_window(NULL), _renderer(NULL), _world(NULL), _fps(0), startupTime(0)
 {
 	timeScale = 1;
 	instance = this;
 	_particleSystem = new ParticleSystem();
 	fallbackTexture = new sf::Image();
 	fallbackTexture->loadFromFile(config::MGE_TEXTURE_PATH + "fallbacktexture.png");
-	
-    //ctor
+
+	//ctor
 }
 
 AbstractGame::~AbstractGame()
 {
-    //dtor
-    delete _window;
-    delete _renderer;
-    delete _world;
+	//dtor
+	delete _window;
+	delete _renderer;
+	delete _world;
 }
 
 void AbstractGame::initialize() {
-   Debug::Log("Initializing engine...");
-    _initializeWindow();
-    _printVersionInfo();
-    _initializeGlew();
-    _initializeRenderer();
+	Debug::Log("Initializing engine...");
+	_initializeWindow();
+	_printVersionInfo();
+	_initializeGlew();
+	_initializeRenderer();
 	_initializeCollisionManager();
-    _initializeWorld();
-    _initializeScene();
-	
+	_initializeWorld();
+	_initializeScene();
+
 	Debug::Log("Engine initialized.");
 }
 
@@ -49,7 +49,7 @@ void AbstractGame::initialize() {
 void AbstractGame::_initializeWindow() {
 	Debug::Log("Initializing window...");
 	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
-	_window = new sf::RenderWindow( sf::VideoMode(900, 600), "My Game!", sf::Style::Default, cs);
+	_window = new sf::RenderWindow(sf::VideoMode(900, 600), "My Game!", sf::Style::Default, cs);
 	glEnable(GL_MULTISAMPLE);
 	//_window->setVerticalSyncEnabled(true);
 	Debug::Log("Window initialized.");
@@ -63,42 +63,42 @@ float AbstractGame::GetTimeSinceStartup()
 void AbstractGame::_printVersionInfo() {
 	Debug::Log("Context info:");
 	Debug::Log("----------------------------------");
-    //print some debug stats for whoever cares
-    const GLubyte *vendor = glGetString( GL_VENDOR );
-    const GLubyte *renderer = glGetString( GL_RENDERER );
-    const GLubyte *version = glGetString( GL_VERSION );
-    const GLubyte *glslVersion = glGetString( GL_SHADING_LANGUAGE_VERSION );
-    //nice consistency here in the way OpenGl retrieves values
-    GLint major, minor;
-    glGetIntegerv(GL_MAJOR_VERSION, &major);
-    glGetIntegerv(GL_MINOR_VERSION, &minor);
+	//print some debug stats for whoever cares
+	const GLubyte *vendor = glGetString(GL_VENDOR);
+	const GLubyte *renderer = glGetString(GL_RENDERER);
+	const GLubyte *version = glGetString(GL_VERSION);
+	const GLubyte *glslVersion = glGetString(GL_SHADING_LANGUAGE_VERSION);
+	//nice consistency here in the way OpenGl retrieves values
+	GLint major, minor;
+	glGetIntegerv(GL_MAJOR_VERSION, &major);
+	glGetIntegerv(GL_MINOR_VERSION, &minor);
 
-    printf("GL Vendor : %s\n", vendor);
-    printf("GL Renderer : %s\n", renderer);
-    printf("GL Version (string) : %s\n", version);
-    printf("GL Version (integer) : %d.%d\n", major, minor);
-    printf("GLSL Version : %s\n", glslVersion);
+	printf("GL Vendor : %s\n", vendor);
+	printf("GL Renderer : %s\n", renderer);
+	printf("GL Version (string) : %s\n", version);
+	printf("GL Version (integer) : %d.%d\n", major, minor);
+	printf("GLSL Version : %s\n", glslVersion);
 
 	Debug::Log("----------------------------------");
 }
 
 void AbstractGame::_initializeGlew() {
 	Debug::Log("Initializing GLEW...");
-    //initialize the opengl extension wrangler
-    GLint glewStatus = glewInit();
+	//initialize the opengl extension wrangler
+	GLint glewStatus = glewInit();
 	Debug::Log("Initialized GLEW, status (1 == OK, 0 == FAILED):" + std::to_string(glewStatus == GLEW_OK));
 }
 
 void AbstractGame::_initializeRenderer() {
-    //setup our own renderer
+	//setup our own renderer
 	Debug::Log("Initializing renderer...");
 	_renderer = new Renderer(true);
-    _renderer->setClearColor(0,0,0);
+	_renderer->setClearColor(0, 0, 0);
 	Debug::Log("Renderer done.");
 }
 
 void AbstractGame::_initializeWorld() {
-    //setup the world
+	//setup the world
 	Debug::Log("Initializing world...");
 	_world = new World();
 	Debug::Log("World initialized.");
@@ -121,11 +121,11 @@ float AbstractGame::GetDeltaTime()
 
 void AbstractGame::run()
 {
-	
-    //setting to calculate fps
+
+	//setting to calculate fps
 	sf::Clock renderClock;
-    int frameCount = 0;
-    float timeSinceLastFPSCalculation = 0;
+	int frameCount = 0;
+	float timeSinceLastFPSCalculation = 0;
 
 	//settings to make sure the update loop runs at 60 fps
 	sf::Time timePerFrame = sf::seconds(1.0f / 120.0f);
@@ -137,15 +137,16 @@ void AbstractGame::run()
 
 		if (timeSinceLastUpdate > timePerFrame)
 		{
-            glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-			startupTime += timeSinceLastUpdate.asSeconds()/timeScale;
-		    while (timeSinceLastUpdate > timePerFrame) {
-                timeSinceLastUpdate -= timePerFrame;
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			while (timeSinceLastUpdate > timePerFrame) {
+				startupTime += timePerFrame.asSeconds() / timeScale;
+				timeSinceLastUpdate -= timePerFrame;
 				float tpf = timePerFrame.asSeconds() / timeScale;
-                _update(tpf);
+				_update(tpf);
 				lastDT = tpf;
 				_manager->Update(tpf);
-		    }
+			}
 
 
 			AudioManager::instance->Update(timePerFrame.asSeconds());
@@ -175,25 +176,25 @@ void AbstractGame::run()
 				AudioManager::instance->Restart(0);
 			}
 
-            _render(0);
+			_render(0);
 			_render(1);
-            _window->display();
+			_window->display();
 
-            //fps count is updated once every 1 second
-            frameCount++;
-			
-            timeSinceLastFPSCalculation += renderClock.restart().asSeconds();
-            if (timeSinceLastFPSCalculation > 1) {
-                _fps = frameCount/timeSinceLastFPSCalculation;
-                timeSinceLastFPSCalculation -= 1;
-                frameCount = 0;
-            }
+			//fps count is updated once every 1 second
+			frameCount++;
+
+			timeSinceLastFPSCalculation += renderClock.restart().asSeconds();
+			if (timeSinceLastFPSCalculation > 1) {
+				_fps = frameCount / timeSinceLastFPSCalculation;
+				timeSinceLastFPSCalculation -= 1;
+				frameCount = 0;
+			}
 
 		}
 
 		//empty the event queue
 		_processEvents();
-    }
+	}
 }
 
 void AbstractGame::SetTimeScale(float scale)
@@ -208,11 +209,11 @@ float AbstractGame::GetTimeScale()
 
 void AbstractGame::_update(float pStep) {
 	_particleSystem->Update(pStep);
-	GameStateManager::instance->Update(pStep,_world);
+	GameStateManager::instance->Update(pStep, _world);
 }
 
-void AbstractGame::_render (int pass) {
-    _renderer->render(pass, _world);
+void AbstractGame::_render(int pass) {
+	_renderer->render(pass, _world);
 }
 
 void AbstractGame::_processEvents()
@@ -221,35 +222,35 @@ void AbstractGame::_processEvents()
 	bool exit = false;
 
 	//we must empty the event queue
-	while( _window->pollEvent( event ) ) {
-        //give all system event listeners a chance to handle events
-        //optionally to be implemented by you for example you could implement a
-        //SystemEventDispatcher / SystemEventListener pair which allows Listeners to
-        //register with the dispatcher and then do something like:
-        //SystemEventDispatcher::dispatchEvent(event);
+	while (_window->pollEvent(event)) {
+		//give all system event listeners a chance to handle events
+		//optionally to be implemented by you for example you could implement a
+		//SystemEventDispatcher / SystemEventListener pair which allows Listeners to
+		//register with the dispatcher and then do something like:
+		//SystemEventDispatcher::dispatchEvent(event);
 
-        switch (event.type) {
-            case sf::Event::Closed:
-                exit = true;
-                break;
-            case sf::Event::KeyPressed:
-                if (event.key.code == sf::Keyboard::Escape) {
-                    exit = true;
-                }
-                break;
-            case sf::Event::Resized:
-                //would be better to move this to the renderer
-                //this version implements nonconstrained match viewport scaling
-                glViewport(0, 0, event.size.width, event.size.height);
-                break;
+		switch (event.type) {
+		case sf::Event::Closed:
+			exit = true;
+			break;
+		case sf::Event::KeyPressed:
+			if (event.key.code == sf::Keyboard::Escape) {
+				exit = true;
+			}
+			break;
+		case sf::Event::Resized:
+			//would be better to move this to the renderer
+			//this version implements nonconstrained match viewport scaling
+			glViewport(0, 0, event.size.width, event.size.height);
+			break;
 
-            default:
-                break;
-        }
+		default:
+			break;
+		}
 	}
 
 	if (exit) {
-        _window->close();
+		_window->close();
 	}
 }
 

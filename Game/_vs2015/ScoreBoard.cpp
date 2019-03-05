@@ -26,12 +26,18 @@ ScoreBoard::ScoreBoard(sf::RenderWindow *aWindow) {
 	UpdateScores();
 }
 
-void ScoreBoard::UpdateScores() {
+void ScoreBoard::ResetScoreUpdate() {
+	if (_updatedScores) _updatedScores = false;
+}
 
-	_scores = ScoreManager::instance->GetScores();
-	for (int i = 0; i < _size; i++) {
-		_nameDisplays[i]->_text.setString(_scores[i].name);
-		_scoreDisplays[i]->_text.setString(std::to_string((int)_scores[i].value));
+void ScoreBoard::UpdateScores() {
+	if (!_updatedScores) 
+	{
+		_scores = ScoreManager::instance->GetScores();
+		for (int i = 0; i < _size; i++) {
+			_nameDisplays[i]->_text.setString(_scores[i].name);
+			_scoreDisplays[i]->_text.setString(std::to_string((int)_scores[i].value));
+		}
 	}
 }
 
@@ -54,6 +60,7 @@ void ScoreBoard::OrganizeScreen() {
 
 void ScoreBoard::Update() {
 	draw();
+	UpdateScores();
 	_menuButton->Update();
 }
 
