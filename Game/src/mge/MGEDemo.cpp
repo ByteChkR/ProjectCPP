@@ -339,6 +339,7 @@ void MGEDemo::_render(int pass) {
 		{
 			Debug::Log(output, ALL);
 		}
+		PlayerController::instance->ResetTutorial();
 		_storyPanel->Reset();
 		_winScreen->ResetScoreSendBool();
 		_scoreBoard->ResetScoreUpdate();

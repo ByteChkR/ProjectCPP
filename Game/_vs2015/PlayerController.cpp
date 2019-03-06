@@ -88,6 +88,11 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	createModels();
 }
 
+void PlayerController::ResetTutorial()
+{
+	_lastTutorial = -1;
+}
+
 void PlayerController::ResetScore(int newScore) {
 	_coins = newScore;
 	lastLevelFinalScore = newScore;

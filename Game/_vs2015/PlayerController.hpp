@@ -25,6 +25,7 @@ public:
 	void SetCurrentLane(int lane);
 	bool IsMoving();
 	void ResetScore(int newScore = 0);
+	void ResetTutorial();
 private:
 	Timer* _endOfGameTimer;
 	Timer* _deathTimer;
