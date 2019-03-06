@@ -1,4 +1,3 @@
-heightTexture = "height.png"
 map = "temp.txt"
 ground = "backg3.png"
 mapGround = "ground2.png"

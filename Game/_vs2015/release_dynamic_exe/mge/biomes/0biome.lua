@@ -6,4 +6,6 @@ objects = {"none",
 "0BLowObstacle5",
 "0BHighObstacle1", "0BHighObstacle2", "0BHighObstacle3", "0BHighObstacle4", 
 "0BHighObstacle5", "0BSideProp9", "0BSideProp10", "0BInterior1",
-"0BInterior2", "0BSideProp11", "0BSideProp12", "coin", "endoflevel", "turkeycage", "coinAir", "tutorial1", "tutorial2", "tutorial3", "tutorial4"}
+"0BInterior2", "0BSideProp11", "0BSideProp12", "coin", "endoflevel", "turkeycage", "coinAir", 
+"tutorial1", "tutorial2", "tutorial3", "tutorial4", 
+"car", "van", "turkeyvan"}

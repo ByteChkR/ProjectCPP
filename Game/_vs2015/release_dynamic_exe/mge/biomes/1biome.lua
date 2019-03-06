@@ -4,6 +4,8 @@ objects = {"none",
 "1BSideProp7","1BSideProp8",
 "1BLowObstacle1", "1BLowObstacle2", "1BLowObstacle3", "1BLowObstacle4", 
 "1BLowObstacle5",
-"1BHighObstacle1", "1BHighObstacle2", "1BHighObstacle3", "1BHighObstacle4",
+"1BHighObstacle1", "1BHighObstacle2", "1BHighObstacle3", "1BHighObstacle4", 
 "1BHighObstacle5", "1BSideProp9", "1BSideProp10", "0BInterior1",
-"0BInterior2", "0BSideProp11", "0BSideProp12", "coin", "endoflevel", "turkeycage", "coinAir", "tutorial1", "tutorial2", "tutorial3", "tutorial4"}
+"0BInterior2", "0BSideProp11", "0BSideProp12", "coin", "endoflevel", "turkeycage", "coinAir", 
+"tutorial1", "tutorial2", "tutorial3", "tutorial4",
+"car", "van", "turkeyvan"}
