@@ -21,8 +21,9 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText
 	_debugText = new HudText();
 	_scoreText = new HudText("Candy Beans.otf",26);
 	_debugBox =  new HudSprite("HudBox.png");
+	_scoreBackground = new HudSprite("score_background.png");
 
-	_progressBackground = new HudSprite("run_meter.png");
+	_progressBackground = new HudSprite("run_meter2.png");
 	_progress = new HudSprite("run_meter_turkey.png");
 	//_progressBackground->sprite.setOrigin(_progressBackground->sprite.getTexture()->getSize().x / 2, _progressBackground->sprite.getTexture()->getSize().y);
 
@@ -44,7 +45,10 @@ void DebugHud::_organizeHud()
 	_debugBox->sprite.setPosition(100, 100);
 	_debugText->_text.setPosition(25, 75);
 
-	_progressBackground->sprite.setPosition(700, 60);
+	_scoreText->_text.setPosition(40, 20);
+	_scoreBackground->sprite.setPosition(_scoreText->_text.getPosition().x+ _scoreBackground->sprite.getTexture()->getSize().x / 4, _scoreText->_text.getPosition().y+20);
+
+	_progressBackground->sprite.setPosition(750, 125);
 	_progress->sprite.setPosition(_progressBackground->sprite.getPosition());
 
 }
@@ -52,8 +56,8 @@ void DebugHud::_organizeHud()
 void DebugHud::Update() {
 	draw();
 	setScore(PlayerController::instance->GetCoinCount());
-	float progressPosX = (_progressBackground->sprite.getPosition().x - _progressBackground->sprite.getTexture()->getSize().x / 2) + _progressBackground->sprite.getTexture()->getSize().x * MapBuilder::instance->GetProgress();
-	_progress->sprite.setPosition(progressPosX, _progressBackground->sprite.getPosition().y);
+	float progressPosY = (_progressBackground->sprite.getPosition().y + _progressBackground->sprite.getTexture()->getSize().y / 2) - _progressBackground->sprite.getTexture()->getSize().y * MapBuilder::instance->GetProgress();
+	_progress->sprite.setPosition(_progressBackground->sprite.getPosition().x, progressPosY);
 }
 
 void DebugHud::setDebugInfo(std::string pInfo) {
@@ -66,6 +70,7 @@ void DebugHud::draw()
 	glActiveTexture(GL_TEXTURE0);
     _window->pushGLStates();
 
+	_window->draw(_scoreBackground->sprite);
 	_window->draw(_scoreText->_text);
 
     _window->draw(_debugText->_text);
