@@ -11,6 +11,6 @@ CreditsButton::CreditsButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite
 
 void CreditsButton::OnClick()
 {
-	Debug::Log("Credits");
+	Debug::Log("Credits", ALL);
 	GameStateManager::instance->_state = GameStateManager::StateCredits;
 }

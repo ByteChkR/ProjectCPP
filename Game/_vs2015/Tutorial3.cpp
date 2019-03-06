@@ -26,7 +26,7 @@ void Tutorial3::ButtonPressCheck()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		GameStateManager::instance->_state = GameStateManager::StateGame;
-		Debug::Log("Next Tutorial");
+		Debug::Log("Next Tutorial", ALL);
 	}
 }
 

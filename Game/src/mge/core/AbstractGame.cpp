@@ -14,6 +14,7 @@ AbstractGame* AbstractGame::instance = nullptr;
 
 AbstractGame::AbstractGame() :_window(NULL), _renderer(NULL), _world(NULL), _fps(0), startupTime(0)
 {
+	
 	timeScale = 1;
 	instance = this;
 	_particleSystem = new ParticleSystem();
@@ -32,7 +33,7 @@ AbstractGame::~AbstractGame()
 }
 
 void AbstractGame::initialize() {
-	Debug::Log("Initializing engine...");
+	Debug::Log("Initializing engine...", WARNINGS_ERRORS_LOG1);
 	_initializeWindow();
 	_printVersionInfo();
 	_initializeGlew();
@@ -41,18 +42,18 @@ void AbstractGame::initialize() {
 	_initializeWorld();
 	_initializeScene();
 
-	Debug::Log("Engine initialized.");
+	Debug::Log("Engine initialized.", WARNINGS_ERRORS_LOG1);
 }
 
 ///SETUP
 
 void AbstractGame::_initializeWindow() {
-	Debug::Log("Initializing window...");
+	Debug::Log("Initializing window...", WARNINGS_ERRORS_LOG1);
 	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
 	_window = new sf::RenderWindow(sf::VideoMode(900, 600), "My Game!", sf::Style::Default, cs);
 	glEnable(GL_MULTISAMPLE);
 	//_window->setVerticalSyncEnabled(true);
-	Debug::Log("Window initialized.");
+	Debug::Log("Window initialized.", WARNINGS_ERRORS_LOG1);
 }
 
 float AbstractGame::GetTimeSinceStartup()
@@ -61,8 +62,8 @@ float AbstractGame::GetTimeSinceStartup()
 }
 
 void AbstractGame::_printVersionInfo() {
-	Debug::Log("Context info:");
-	Debug::Log("----------------------------------");
+	Debug::Log("Context info:", WARNINGS_ERRORS_LOG3);
+	Debug::Log("----------------------------------", WARNINGS_ERRORS_LOG3);
 	//print some debug stats for whoever cares
 	const GLubyte *vendor = glGetString(GL_VENDOR);
 	const GLubyte *renderer = glGetString(GL_RENDERER);
@@ -72,43 +73,46 @@ void AbstractGame::_printVersionInfo() {
 	GLint major, minor;
 	glGetIntegerv(GL_MAJOR_VERSION, &major);
 	glGetIntegerv(GL_MINOR_VERSION, &minor);
+	if (config::DEBUG_LEVEL >= WARNINGS_ERRORS_LOG3)
+	{
 
-	printf("GL Vendor : %s\n", vendor);
-	printf("GL Renderer : %s\n", renderer);
-	printf("GL Version (string) : %s\n", version);
-	printf("GL Version (integer) : %d.%d\n", major, minor);
-	printf("GLSL Version : %s\n", glslVersion);
+		printf("GL Vendor : %s\n", vendor);
+		printf("GL Renderer : %s\n", renderer);
+		printf("GL Version (string) : %s\n", version);
+		printf("GL Version (integer) : %d.%d\n", major, minor);
+		printf("GLSL Version : %s\n", glslVersion);
 
-	Debug::Log("----------------------------------");
+	}
+	Debug::Log("----------------------------------", WARNINGS_ERRORS_LOG3);
 }
 
 void AbstractGame::_initializeGlew() {
-	Debug::Log("Initializing GLEW...");
+	Debug::Log("Initializing GLEW...", WARNINGS_ERRORS_LOG1);
 	//initialize the opengl extension wrangler
 	GLint glewStatus = glewInit();
-	Debug::Log("Initialized GLEW, status (1 == OK, 0 == FAILED):" + std::to_string(glewStatus == GLEW_OK));
+	Debug::Log("Initialized GLEW, status (1 == OK, 0 == FAILED):" + std::to_string(glewStatus == GLEW_OK), WARNINGS_ERRORS_LOG2);
 }
 
 void AbstractGame::_initializeRenderer() {
 	//setup our own renderer
-	Debug::Log("Initializing renderer...");
+	Debug::Log("Initializing renderer...", WARNINGS_ERRORS_LOG1);
 	_renderer = new Renderer(true);
 	_renderer->setClearColor(0, 0, 0);
-	Debug::Log("Renderer done.");
+	Debug::Log("Renderer done.", WARNINGS_ERRORS_LOG1);
 }
 
 void AbstractGame::_initializeWorld() {
 	//setup the world
-	Debug::Log("Initializing world...");
+	Debug::Log("Initializing world...", WARNINGS_ERRORS_LOG1);
 	_world = new World();
-	Debug::Log("World initialized.");
+	Debug::Log("World initialized.", WARNINGS_ERRORS_LOG1);
 }
 
 void AbstractGame::_initializeCollisionManager()
 {
-	Debug::Log("Initializing Collision Manager...");
+	Debug::Log("Initializing Collision Manager...", WARNINGS_ERRORS_LOG1);
 	_manager = new CollisionManager();
-	Debug::Log("Collision Manager initialized.");
+	Debug::Log("Collision Manager initialized.", WARNINGS_ERRORS_LOG1);
 
 }
 

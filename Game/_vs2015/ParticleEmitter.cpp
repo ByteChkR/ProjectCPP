@@ -159,7 +159,7 @@ void ParticleEmitter::UpdateParticles(float pTime)
 		_isEnabled = false;
 		return;
 	}
-	if (_activeParticles.size() < _maxParticles && !_stopProduce)
+	if ((int)_activeParticles.size() < _maxParticles && !_stopProduce)
 	{
 		SpawnParticles(glm::min(_maxParticles - totalActive, maxParticlesPerStep));
 		//std::cout << "Adding particles: " << std::to_string(_maxParticles - totalActive) << "\n";
@@ -185,7 +185,7 @@ void ParticleEmitter::UpdateParticles(float pTime)
 		}
 }
 
-void ParticleEmitter::SpawnParticles(int amount)
+void ParticleEmitter::SpawnParticles(size_t amount)
 {
 	for (size_t i = 0; i < amount; i++)
 	{

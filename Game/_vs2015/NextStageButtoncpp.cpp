@@ -10,7 +10,7 @@ NextStageButton::NextStageButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSp
 }
 
 void NextStageButton::OnClick() {
-	Debug::Log("NextStage");
+	Debug::Log("NextStage", ALL);
 	GameStateManager::instance->_state = GameStateManager::StateLoad;
 	LevelManager::instance->NextLevel();
 	GameStateManager::instance->_state = GameStateManager::StatePanel;

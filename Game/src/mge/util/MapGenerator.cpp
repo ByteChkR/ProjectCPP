@@ -32,7 +32,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	int rows = 0;
 	int numberOfParts = 0;
 
-	Debug::Log("The path of the file: " + fullPath);
+	Debug::Log("The path of the file: " + fullPath, DebugLevel::WARNINGS_ERRORS_LOG2);
 
 	std::string s;
 	file.seekg(0, std::ios::end);
@@ -75,13 +75,13 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		_biomes.push_back(a);
 	}
 
-	Debug::Log("columns: " + std::to_string(columns) + " rows: " + std::to_string(rows) + " number of parts: " + std::to_string(numberOfParts));
+	Debug::Log("columns: " + std::to_string(columns) + " rows: " + std::to_string(rows) + " number of parts: " + std::to_string(numberOfParts), WARNINGS_ERRORS_LOG3);
 
 	for (int i = 0; i < numberOfParts; i++)
 	{
-		if (numberOfParts < 100)Debug::Log("reading part " + std::to_string(i));
-		else if (numberOfParts >= 1000 && i % 250 == 0)Debug::Log("reading part " + std::to_string(i) + " to " + std::to_string(i + 250));
-		else if (numberOfParts < 1000 && i % 25 == 0)Debug::Log("reading part " + std::to_string(i) + " to " + std::to_string(i + 25));
+		if (numberOfParts < 100)Debug::Log("reading part " + std::to_string(i), ALL);
+		else if (numberOfParts >= 1000 && i % 250 == 0)Debug::Log("reading part " + std::to_string(i) + " to " + std::to_string(i + 250), ALL);
+		else if (numberOfParts < 1000 && i % 25 == 0)Debug::Log("reading part " + std::to_string(i) + " to " + std::to_string(i + 25), ALL);
 
 		Part part;
 		for (int j = 0; j < rows; j++)
@@ -101,7 +101,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 		parts.push_back(part);
 
 	}
-	Debug::Log("reading finished");
+	Debug::Log("reading map finished", WARNINGS_ERRORS_LOG1);
 
 
 	//file.close();
@@ -206,7 +206,7 @@ Lane* MapGenerator::GetLaneAt(size_t pIndex)
 {
 	if (pIndex > _lanes.size() - 1)
 	{
-		printf("Lane is out of the range");
+		Debug::LogError("Lane is out of range");
 	}
 
 	return _lanes[pIndex];

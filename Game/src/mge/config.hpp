@@ -1,5 +1,6 @@
 namespace config {
     #include <string>
+    #include "..\_vs2015\Debug.h"
     const std::string MGE_MODEL_PATH ("mge/models/");
     const std::string MGE_TEXTURE_PATH ("mge/textures/");
     const std::string MGE_SHADER_PATH ("mge/shaders/");
@@ -7,4 +8,5 @@ namespace config {
 	const std::string LUA_OBJECT_SCRIPT_FOLDER("mge/objectScripts/");
 	const std::string MGE_MAP_PATH("mge/maps/");
 	const std::string MGE_BIOME_PATH("mge/biomes/");
+	const DebugLevel DEBUG_LEVEL = DebugLevel::ALL;
 }

@@ -29,7 +29,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "name", &_name))
 	{
-		Debug::Log("This object has no name default name: NoNameObject");
+		Debug::Log("This object has no name default name: NoNameObject", WARNINGS_ERRORS_LOG2);
 		_name = "NoNameObject";
 	}
 
@@ -42,7 +42,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TableToVector(L, &_attachedScripts))
 	{
-		Debug::Log("Object with key: " + _name + " has no scripts attached");
+		Debug::Log("Object with key: " + _name + " has no scripts attached", ALL);
 		_attachedScripts = std::vector<std::string>();
 	}
 	l = lua_gettop(L);
@@ -56,7 +56,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "objPath", &_objPath))
 	{
-		Debug::Log("Object with key: " + _name + " has no mesh");
+		Debug::Log("Object with key: " + _name + " has no mesh", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -69,7 +69,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "texture", &_texturePath))
 	{
-		Debug::Log("Object with key: " + _name + " has no texture");
+		Debug::Log("Object with key: " + _name + " has no texture", WARNINGS_ERRORS_LOG2);
 	}
 	lua_pop(L, 1);
 	lua_getglobal(L, "GetMeta");
@@ -81,7 +81,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "emissive", &_emmissiveTexture))
 	{
-		Debug::Log("Object with key: " + _name + " has no emmissive map");
+		Debug::Log("Object with key: " + _name + " has no emmissive map", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -94,7 +94,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "specular", &_specularTexture))
 	{
-		Debug::Log("Object with key: " + _name + " has no specular map");
+		Debug::Log("Object with key: " + _name + " has no specular map", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -107,7 +107,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "normal", &_normalTexture))
 	{
-		Debug::Log("Object with key: " + _name + " has no normal map");
+		Debug::Log("Object with key: " + _name + " has no normal map", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -120,7 +120,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posX", &_position.x))
 	{
-		Debug::Log("Object with key: " + _name + " has no x coord. assuming 0");
+		Debug::Log("Object with key: " + _name + " has no x coord. assuming 0", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -133,7 +133,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posY", &_position.y))
 	{
-		Debug::Log("Object with key: " + _name + " has no y coord. assuming 0");
+		Debug::Log("Object with key: " + _name + " has no y coord. assuming 0", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
@@ -146,7 +146,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posZ", &_position.z))
 	{
-		Debug::Log("Object with key: " + _name + " has no z coord. assuming 0");
+		Debug::Log("Object with key: " + _name + " has no z coord. assuming 0", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 
@@ -158,7 +158,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	if (!LuaOperations::TryGetFloatFromTable(L, "width", &_colliderMin.x))
 	{
 		hasCollider = false;
-		Debug::Log("Object with key: " + _name + " has no collider.");
+		Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
 	}
 	else
 	{
@@ -166,7 +166,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_colliderMin.y))
 		{
 			hasCollider = false;
-			Debug::Log("Object with key: " + _name + " has no collider.");
+			Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
 		}
 		else
 		{
@@ -174,7 +174,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 			if (!LuaOperations::TryGetFloatFromTable(L, "depth", &_colliderMin.z))
 			{
 				hasCollider = false;
-				Debug::Log("Object with key: " + _name + " has no collider.");
+				Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
 			}
 		}
 	}
@@ -183,7 +183,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	if (!LuaOperations::TryGetFloatFromTable(L, "width", &_colliderMax.x))
 	{
 		hasCollider = false;
-		Debug::Log("Object with key: " + _name + " has no collider.");
+		Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
 	}
 	else
 	{
@@ -191,7 +191,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_colliderMax.y))
 		{
 			hasCollider = false;
-			Debug::Log("Object with key: " + _name + " has no collider.");
+			Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
 		}
 		else
 		{
@@ -199,7 +199,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 			if (!LuaOperations::TryGetFloatFromTable(L, "depth", &_colliderMax.z))
 			{
 				hasCollider = false;
-				Debug::Log("Object with key: " + _name + " has no collider.");
+				Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
 			}
 		}
 	}
@@ -209,19 +209,19 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	{
 		if (test == "auto")
 		{
-			Debug::Log("Auto Colliding Activated on script " + _name);
+			Debug::Log("Auto Colliding Activated on script " + _name, ALL);
 			hasCollider = true;
 			autoCollider = true;
 		}
 		else
 		{
-			Debug::Log("Auto Colliding Dectivated on script " + _name);
+			Debug::Log("Auto Colliding Dectivated on script " + _name, ALL);
 			autoCollider = false;
 		}
 	}
 	else
 	{
-		Debug::Log("Auto Colliding Dectivated on script " + _name);
+		Debug::Log("Auto Colliding Dectivated on script " + _name, ALL);
 		autoCollider = false;
 	}
 

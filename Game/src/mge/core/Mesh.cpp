@@ -4,6 +4,7 @@
 #include <fstream>
 #include "../_vs2015/Debug.h"
 #include "mge/core/Mesh.hpp"
+#include "mge/config.hpp"
 
 Mesh::Mesh() : _indexBufferId(0), _vertexBufferId(0), _normalBufferId(0), _uvBufferId(0), _vertices(), _normals(), _uvs(), _indices()
 {
@@ -66,7 +67,7 @@ Mesh::~Mesh()
 Mesh* Mesh::load(std::string pFilename)
 {
 	if (pFilename == " ")return NULL;
-	Debug::Log("Loading " + pFilename + "...");
+	Debug::Log("Loading " + pFilename + "...", WARNINGS_ERRORS_LOG2);
 
 	Mesh* mesh = new Mesh();
 
@@ -187,7 +188,7 @@ Mesh* Mesh::load(std::string pFilename)
 
 		mesh->_buffer();
 
-		Debug::Log("Mesh loaded and buffered:" + std::to_string(mesh->_indices.size() / 3.0f) + " triangles.");
+		Debug::Log("Mesh loaded and buffered:" + std::to_string(mesh->_indices.size() / 3.0f) + " triangles.", WARNINGS_ERRORS_LOG2);
 		return mesh;
 	}
 	else {
@@ -199,7 +200,7 @@ Mesh* Mesh::load(std::string pFilename)
 
 void Mesh::ComputeTangents() {
 
-	Debug::Log("Computing Tangents and Bitangents..");
+	Debug::Log("Computing Tangents and Bitangents..", WARNINGS_ERRORS_LOG3);
 	_tangents.clear();
 	_biTangents.clear();
 	_tangents = std::vector<glm::vec3>(_indices.size());
@@ -256,7 +257,7 @@ void Mesh::ComputeTangents() {
 	}
 
 
-	Debug::Log("Done");
+	Debug::Log("Done", WARNINGS_ERRORS_LOG3);
 
 
 }

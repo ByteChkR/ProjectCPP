@@ -22,12 +22,12 @@ Camera* World::getMainCamera() {
 
 
 void World::registerLight(Light* pLight) {
-	Debug::Log("Registering light " + pLight->getName());
+	Debug::Log("Registering light " + pLight->getName(), ALL);
 	_lights.push_back(pLight);
 }
 
 void World::unregisterLight(Light* pLight) {
-	Debug::Log("Unregistering light " + pLight->getName());
+	Debug::Log("Unregistering light " + pLight->getName(), ALL);
 	if (_lights.size() == 0) return;
 	_lights.erase(std::remove(_lights.begin(), _lights.end(), pLight), _lights.end());
 }

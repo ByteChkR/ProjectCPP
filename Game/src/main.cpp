@@ -34,7 +34,9 @@ int main(int argc, char *argv[])
 	//int t;
 	//std::cin >> t;
 
-	Debug::Log("Starting Game");
+	Debug::Log("Starting Game...", WARNINGS_ERRORS_LOG1);
+	Debug::Log("with ArgCount: " + std::to_string(argc), WARNINGS_ERRORS_LOG2);
+
 
 	AbstractGame* game = new MGEDemo(argc, argv);
 

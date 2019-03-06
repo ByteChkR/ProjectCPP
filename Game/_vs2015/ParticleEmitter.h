@@ -29,7 +29,7 @@ public:
 	
 	void SetOpacityMode(bool enable = true);
 	void UpdateParticles(float pTime);
-	void SpawnParticles(int amount);
+	void SpawnParticles(size_t amount);
 	bool IsEnabled();
 	
 private:

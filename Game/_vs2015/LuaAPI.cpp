@@ -376,7 +376,7 @@ int LuaAPI::Lua_WriteToConsole(lua_State* L)
 		//Error
 		return 1;
 	}
-	Debug::Log("Lua Script Console: " + txt );
+	Debug::Log("Lua Script Console: " + txt , ALL);
 	l = lua_gettop(L);
 	return 0;
 }

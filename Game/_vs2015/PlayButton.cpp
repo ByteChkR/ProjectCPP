@@ -12,7 +12,7 @@ PlayButton::PlayButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite) : Bu
 
 void PlayButton::OnClick()
 {
-	Debug::Log("Play");
+	Debug::Log("Play", ALL);
 	MapBuilder::instance->Reload();
 	GameStateManager::instance->_state = GameStateManager::StatePanel;
 	PlayerController::instance->getOwner()->EnableBehaviours();

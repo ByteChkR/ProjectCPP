@@ -38,7 +38,7 @@ Level::Level(std::string levelLuaFile)
 	std::string height;
 	if (!LuaOperations::TryGetString(L, &height))
 	{
-		Debug::Log("Level has no height map");
+		Debug::Log("Level has no height map", WARNINGS_ERRORS_LOG3);
 	}
 	else {
 		TextureMaterial::_heightMap = Texture::load(config::MGE_TEXTURE_PATH + height, true);
@@ -70,7 +70,7 @@ Level::Level(std::string levelLuaFile)
 	if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetString(L, &decoFile))
 	{
-		Debug::Log("Error parsing path to deco data");
+		Debug::Log("Error parsing path to deco data", WARNINGS_ERRORS_LOG2);
 
 		_decoration = nullptr;
 	}
@@ -87,7 +87,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetString(L, &bg))
 	{
-		Debug::Log("Error parsing path to background image");
+		Debug::Log("Error parsing path to background image", WARNINGS_ERRORS_LOG2);
 		background = Texture::load(config::MGE_TEXTURE_PATH + "black.png", true);
 
 	}
@@ -103,7 +103,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetString(L, &mbg))
 	{
-		Debug::Log("Error parsing path to Map Ground Texure image");
+		Debug::Log("Error parsing path to Map Ground Texure image", WARNINGS_ERRORS_LOG2);
 		mapGround = Texture::load(config::MGE_TEXTURE_PATH + "black.png", true);
 
 	}
@@ -136,7 +136,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetDouble(L, &go))
 	{
-		Debug::Log("Error parsing Generation offset from map file. Default = 75");
+		Debug::Log("Error parsing Generation offset from map file. Default = 75", WARNINGS_ERRORS_LOG2);
 		
 
 		TextureMaterial::genOffset = 75;
@@ -155,7 +155,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetDouble(L, &xCurv))
 	{
-		Debug::Log("Error parsing xCurvature from map file. Default = 50");
+		Debug::Log("Error parsing xCurvature from map file. Default = 50", WARNINGS_ERRORS_LOG2);
 		TextureMaterial::maxXOff = 50;
 
 	}
@@ -172,7 +172,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetDouble(L, &xCurvSmooth))
 	{
-		Debug::Log("Error parsing xCurvatureSmoothness from map file. Default = 2");
+		Debug::Log("Error parsing xCurvatureSmoothness from map file. Default = 2", WARNINGS_ERRORS_LOG2);
 
 		TextureMaterial::xOffsetSmootness = 2;
 	}
@@ -189,7 +189,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetDouble(L, &hmTiling))
 	{
-		Debug::Log("Error parsing HeightMapTiling from map file. Default = 1");
+		Debug::Log("Error parsing HeightMapTiling from map file. Default = 1", WARNINGS_ERRORS_LOG2);
 
 		TextureMaterial::heightmapTiling = 1;
 
@@ -206,7 +206,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetDouble(L, &hmSpeed))
 	{
-		Debug::Log("Error parsing heightMapSpeed from map file. Default = 0");
+		Debug::Log("Error parsing heightMapSpeed from map file. Default = 0", WARNINGS_ERRORS_LOG2);
 
 		TextureMaterial::heightmapSpeed = 0;
 
@@ -223,7 +223,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetDouble(L, &hmHeight))
 	{
-		Debug::Log("Error parsing heightMapMaxHeight from map file. Default = 10");
+		Debug::Log("Error parsing heightMapMaxHeight from map file. Default = 10", WARNINGS_ERRORS_LOG2);
 
 		TextureMaterial::maxHeight = 10;
 	}
@@ -239,7 +239,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetDouble(L, &hmSW))
 	{
-		Debug::Log("Error parsing Height Sampling Width from map file. Default = 8");
+		Debug::Log("Error parsing Height Sampling Width from map file. Default = 8", WARNINGS_ERRORS_LOG2);
 		
 
 		TextureMaterial::width = 8;
@@ -256,7 +256,7 @@ Level::Level(std::string levelLuaFile)
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetDouble(L, &xMT))
 	{
-		Debug::Log("Error parsing xMoveTiling from map file. Default = 100");
+		Debug::Log("Error parsing xMoveTiling from map file. Default = 100", WARNINGS_ERRORS_LOG2);
 		TextureMaterial::xMoveTiling = 100;
 	}
 	else
@@ -269,21 +269,21 @@ Level::Level(std::string levelLuaFile)
 	if (!LuaOperations::TryGetFloatFromTable(L, "Red", &fogColor.r))
 	{
 
-		Debug::Log("Fog Color could not be found in file. Default (0.5, 0.5, 0.5)(Grey)");
+		Debug::Log("Fog Color could not be found in file. Default (0.5, 0.5, 0.5)(Grey)", WARNINGS_ERRORS_LOG2);
 	}
 	else
 	{
 		lua_getglobal(L, "fogColor");
 		if (!LuaOperations::TryGetFloatFromTable(L, "Green", &fogColor.g))
 		{
-			Debug::Log("Fog Color could not be found in file. Default (0.5, 0.5, 0.5)(Grey)");
+			Debug::Log("Fog Color could not be found in file. Default (0.5, 0.5, 0.5)(Grey)", WARNINGS_ERRORS_LOG2);
 		}
 		else
 		{
 			lua_getglobal(L, "fogColor");
 			if (!LuaOperations::TryGetFloatFromTable(L, "Blue", &fogColor.b))
 			{
-				Debug::Log("Fog Color could not be found in file. Default (0.5, 0.5, 0.5)(Grey)");
+				Debug::Log("Fog Color could not be found in file. Default (0.5, 0.5, 0.5)(Grey)", WARNINGS_ERRORS_LOG2);
 			}
 		}
 	}

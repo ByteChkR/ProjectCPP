@@ -305,7 +305,7 @@ void MGEDemo::_initializeScene()
 	StoryPanelHandler * storyPanelHandler = new StoryPanelHandler();
 
 	//setup the custom part so we can display some text
-	Debug::Log("Initializing GUI");
+	Debug::Log("Initializing GUI", WARNINGS_ERRORS_LOG1);
 
 	_hud = new DebugHud(_window);
 	_menu = new Menu(_window);
@@ -321,7 +321,7 @@ void MGEDemo::_initializeScene()
 	_tutorial2 = new Tutorial2(_window);
 	_tutorial3 = new Tutorial3(_window);
 
-	Debug::Log("GUI initialized.");
+	Debug::Log("GUI initialized.", WARNINGS_ERRORS_LOG1);
 
 	/*
 		GameStateManager::instance->_state = GameStateManager::StateLoad;*/
@@ -337,7 +337,7 @@ void MGEDemo::_render(int pass) {
 		std::string output;
 		if (klogger->SFKey2String(&output))
 		{
-			Debug::Log(output);
+			Debug::Log(output, ALL);
 		}
 		_storyPanel->Reset();
 		_winScreen->ResetScoreSendBool();

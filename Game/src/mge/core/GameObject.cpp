@@ -22,7 +22,7 @@ GameObject::~GameObject()
 {
 
 	//detach all children
-	Debug::Log("GC running on:" + _name);
+	Debug::Log("GC running on:" + _name, ALL);
 
 	for (size_t i = 0; i < _behaviours.size(); i++)
 	{

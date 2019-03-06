@@ -10,6 +10,6 @@ ExitButton::ExitButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite) : Bu
 
 void ExitButton::OnClick()
 {
-	Debug::Log("Exit");
+	Debug::Log("Exit", ALL);
 	_window->close();
 }

@@ -9,6 +9,6 @@ NextButton::NextButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite,Story
 }
 
 void NextButton::OnClick(){
-	Debug::Log("Next");
+	Debug::Log("Next", ALL);
 	_panel->NextPanel();
 }

@@ -12,7 +12,7 @@ RetryButton::RetryButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite) : 
 
 void RetryButton::OnClick()
 {
-	Debug::Log("Retry");
+	Debug::Log("Retry", ALL);
 	MapBuilder::instance->Reload();
 	GameStateManager::instance->_state = GameStateManager::StateGame;
 	PlayerController::instance->getOwner()->EnableBehaviours();

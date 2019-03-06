@@ -22,7 +22,7 @@ PlayerController* PlayerController::instance = nullptr;
 
 PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	setOwner(pOwner);
 
 
@@ -224,7 +224,7 @@ void PlayerController::OnCollision(GameObject* other)
 	else if (sbc->GetDimensions().y < 1.1f && !_isStruggling && lastStruggleCollider != other->getName()) //<--- This right here
 	{
 		lastStruggleCollider = other->getName();
-		Debug::Log("StartStruggle");
+		Debug::Log("StartStruggle", ALL);
 		//other->DisableBehaviours();
 		ShakeCamera(0.2f, 0.2f);
 		_isStruggling = true;

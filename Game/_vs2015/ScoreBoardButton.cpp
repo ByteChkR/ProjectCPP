@@ -11,6 +11,6 @@ ScoreBoardButton::ScoreBoardButton(sf::RenderWindow *aWindow, sf::Sprite _button
 
 void ScoreBoardButton::OnClick()
 {
-	Debug::Log("ScoreBoard");
+	Debug::Log("ScoreBoard", ALL);
 	GameStateManager::instance->_state = GameStateManager::StateScore;
 }

@@ -9,6 +9,6 @@ SaveScoreButton::SaveScoreButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSp
 }
 
 void SaveScoreButton::OnClick() {
-	Debug::Log("SaveScore");
+	Debug::Log("SaveScore", ALL);
 	winScreen->SendScore();
 }
