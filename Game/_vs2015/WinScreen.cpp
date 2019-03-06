@@ -4,6 +4,7 @@
 #include "PlayerController.hpp"
 #include "mge\util\ScoreManager.h"
 #include "SaveScoreButton.h"
+#include "ScoreBoardButton.h"
 
 WinScreen::WinScreen(sf::RenderWindow *aWindow) {
 	_window = aWindow;
@@ -14,7 +15,7 @@ WinScreen::WinScreen(sf::RenderWindow *aWindow) {
 	_sendScoreBox = new HudSprite("HudBox.png", 1.05f);
 	_sendScoreButton = new SaveScoreButton(_window, _sendScoreBox->sprite,this);
 	_menuText = new HudText();
-	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
+	_menuButton = new ScoreBoardButton(_window, _menuButtonBox->sprite);
 	_winText = new HudText();
 	_name = new HudText();
 	_kLogger = new KeyLogger();
@@ -64,7 +65,7 @@ void WinScreen::OrganizePanel() {
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuText->_text.setPosition(_menuButtonBox->sprite.getPosition());
 
-	_sendScoreBox->sprite.setPosition(400, 200);
+	_sendScoreBox->sprite.setPosition(600, 200);
 	_sendScoreBox->scaledSprite.setPosition(_sendScoreBox->sprite.getPosition());
 	_sendScoreButton->SetPosition(_sendScoreBox->sprite.getPosition());
 

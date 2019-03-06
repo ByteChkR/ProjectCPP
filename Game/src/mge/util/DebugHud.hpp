@@ -29,6 +29,7 @@ class DebugHud
 		HudText *_scoreText;
         HudText *_debugText;
 		HudSprite *_debugBox;
+		HudSprite* _scoreBackground;
 
 		HudSprite *_progressBackground;
 		HudSprite *_progress;

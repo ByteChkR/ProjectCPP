@@ -24,7 +24,7 @@ Tutorial2::Tutorial2(sf::RenderWindow * aWindow) : _window(aWindow), _debugBox()
 
 void Tutorial2::ButtonPressCheck()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		GameStateManager::instance->_state = GameStateManager::StateGame;
 		Debug::Log("Next Tutorial", ALL);
 	}

@@ -34,7 +34,6 @@ HudSprite* StoryPanelHandler::GetPanelAt(int _storyPart, int _part){
 void StoryPanelHandler::InitializePanels(){
 	_panelsOne.push_back(new HudSprite("Panel1,1.png"));
 	_panelsOne.push_back(new HudSprite("Panel1,2.png"));
-	_panelsOne.push_back(new HudSprite("Panel1,3.png"));
 
 	_panelsTwo.push_back(new HudSprite("Panel2,1.png"));
 	_panelsTwo.push_back(new HudSprite("Panel2,2.png"));
