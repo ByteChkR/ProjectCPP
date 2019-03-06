@@ -70,4 +70,7 @@
   <heightMapMaxHeight>5</heightMapMaxHeight>
   <heightMapSamplingWidth>8</heightMapSamplingWidth>
   <xMoveTiling>100</xMoveTiling>
+  <fogColorR>0.5</fogColorR>
+  <fogColorG>0.5</fogColorG>
+  <fogColorB>0.5</fogColorB>
 </Map>

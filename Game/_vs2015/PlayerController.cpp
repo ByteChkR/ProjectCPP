@@ -75,8 +75,8 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_struggleMaxTime = 2;
 	gStruggleAnimation = new GameObject("StruggleAnim");
 	gStruggleAnimation->addBehaviour(new RotatingBehaviour());
-	gStruggleAnimation->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "red.png", true), nullptr, nullptr, 2, 1, 5, 2));
-	gStruggleAnimation->setMesh(Mesh::load(config::MGE_MODEL_PATH + "placeholder.obj"));
+	gStruggleAnimation->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "dizzystars_initialShadingGroup_AlbedoTransparency.png", true), nullptr, nullptr, 2, 1, 5, 2));
+	gStruggleAnimation->setMesh(Mesh::load(config::MGE_MODEL_PATH + "dizzystars.obj"));
 	_owner->add(gStruggleAnimation);
 	gStruggleAnimation->setLocalPosition(glm::vec3(0, 3, 0));
 	gStruggleAnimation->DisableBehaviours();
