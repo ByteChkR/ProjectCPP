@@ -1,6 +1,7 @@
 #include "Button.h"
 #include "SFML\Graphics.hpp"
 #include "mge\core\AbstractGame.hpp"
+#include "mge/util/AudioManager.h"
 
 
 Button::Button(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite): _window(aWindow), _sprite(_buttonSprite)
@@ -35,6 +36,7 @@ void Button::Update()
 		scaled = true;
 		if (_clicked && sf::Mouse::isButtonPressed(sf::Mouse::Button(0)))
 		{
+			AudioManager::instance->PlaySound(5);
 			OnClick();
 			_clicked = false;
 		}

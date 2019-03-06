@@ -24,11 +24,12 @@ AudioManager::AudioManager()
 
 	//GameOver();
 
-	AddSound("cloth-inventory.wav");//0
-	AddSound("leather_inventory.wav");//1
-	AddSound("metal-clash.wav");//2
-
-
+	AddSound("ding.wav");//0
+	AddSound("death.wav");//1
+	AddSound("hit.wav");//2
+	AddSound("dizzy.wav");//3
+	AddSound("corn.wav");//4
+	AddSound("click.wav");//5
 
 	for (int i = 1; i < 6; i++)
 	{

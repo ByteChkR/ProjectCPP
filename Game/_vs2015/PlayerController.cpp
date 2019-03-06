@@ -120,6 +120,7 @@ void PlayerController::OnDeathEnd()
 	_owner->DisableBehaviours();
 	MapBuilder::instance->Unload();
 	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); //<--- therealchanger
+	AudioManager::instance->PlaySound(0);
 
 
 }
@@ -203,11 +204,13 @@ void PlayerController::OnCollision(GameObject* other)
 		other->DisableBehaviours(); //Also turns it invisible
 		// particles
 		_coins += 10;
+		AudioManager::instance->PlaySound(4);
 	}
 	else if (!other->getName().find("turkeycage"))
 	{
 		other->DisableBehaviours();
 		_coins += 100;
+		AudioManager::instance->PlaySound(4);
 	}
 	else if (!_isBackSwitching && _isSwitching && !_isStruggling) //When In the middle of switching
 	{
@@ -223,11 +226,13 @@ void PlayerController::OnCollision(GameObject* other)
 	else if (_isBackSwitching) return;
 	else if (sbc->GetDimensions().y < 1.1f && !_isStruggling && lastStruggleCollider != other->getName()) //<--- This right here
 	{
+		AudioManager::instance->PlaySound(2);
 		lastStruggleCollider = other->getName();
 		Debug::Log("StartStruggle", ALL);
 		//other->DisableBehaviours();
 		ShakeCamera(0.2f, 0.2f);
 		_isStruggling = true;
+		AudioManager::instance->PlaySound(3);
 		_struggleTime = 0;
 
 		return;
@@ -235,6 +240,7 @@ void PlayerController::OnCollision(GameObject* other)
 	else if (lastStruggleCollider == other->getName())return; //Dont trip twice over the same container
 	else
 	{
+		AudioManager::instance->PlaySound(2);
 		glm::vec3 camPos = AbstractGame::instance->_world->getMainCamera()->getWorldPosition();
 		AbstractGame::instance->_world->add(AbstractGame::instance->_world->getMainCamera());
 		AbstractGame::instance->_world->getMainCamera()->setLocalPosition(camPos);
@@ -244,7 +250,7 @@ void PlayerController::OnCollision(GameObject* other)
 		AbstractGame::instance->_world->addBehaviour((AbstractBehaviour*)_deathTimer);
 		_deathParticle->Start();
 		_deathTimer->Reset(true);
-
+		AudioManager::instance->PlaySound(1);
 	}
 }
 
