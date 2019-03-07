@@ -74,10 +74,13 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_struggleTime = 0;
 	_struggleMaxTime = 2;
 	gStruggleAnimation = new GameObject("StruggleAnim");
-	gStruggleAnimation->addBehaviour(new RotatingBehaviour());
-	gStruggleAnimation->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "dizzystars_initialShadingGroup_AlbedoTransparency.png", true), nullptr, nullptr, 2, 1, 5, 2));
-	gStruggleAnimation->setMesh(Mesh::load(config::MGE_MODEL_PATH + "dizzystars.obj"));
+	gStruggleAnimation->addBehaviour(new RotatingBehaviour(3));
+	GameObject * struggleObject = new GameObject("StruggleObject");
+	struggleObject->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "dizzystars_initialShadingGroup_AlbedoTransparency.png", true), nullptr, nullptr, 2, 1, 5, 2));
+	struggleObject->setMesh(Mesh::load(config::MGE_MODEL_PATH + "dizzystars.obj"));
+	struggleObject->setLocalPosition(glm::vec3(0, -2, 0));
 	_owner->add(gStruggleAnimation);
+	gStruggleAnimation->add(struggleObject);
 	gStruggleAnimation->setLocalPosition(glm::vec3(0, 3, 0));
 	gStruggleAnimation->DisableBehaviours();
 	lastStruggleCollider = "";
@@ -221,6 +224,7 @@ void PlayerController::OnCollision(GameObject* other)
 	{
 		_struggleTime = 0;
 		_isStruggling = true;
+		AudioManager::instance->PlaySound(3);
 		ShakeCamera(0.2f, 0.2f);
 		int lane = _nextLane;
 		_nextLane = _currentLane;
@@ -357,6 +361,7 @@ void PlayerController::update(float pTime)
 void PlayerController::jump()
 {
 	if (!_grounded || _isJumping)return;
+	AudioManager::instance->PlaySound(6);
 	_isJumping = true;
 	_grounded = false;
 	_velocity = _jumpForce;

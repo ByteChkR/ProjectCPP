@@ -45,10 +45,10 @@ void DebugHud::_organizeHud()
 	_debugBox->sprite.setPosition(100, 100);
 	_debugText->_text.setPosition(25, 75);
 
-	_scoreText->_text.setPosition(40, 20);
+	_scoreText->_text.setPosition(100, 20);
 	_scoreBackground->sprite.setPosition(_scoreText->_text.getPosition().x+ _scoreBackground->sprite.getTexture()->getSize().x / 4, _scoreText->_text.getPosition().y+20);
 
-	_progressBackground->sprite.setPosition(750, 125);
+	_progressBackground->sprite.setPosition(60, 250);
 	_progress->sprite.setPosition(_progressBackground->sprite.getPosition());
 
 }
@@ -73,8 +73,8 @@ void DebugHud::draw()
 	_window->draw(_scoreBackground->sprite);
 	_window->draw(_scoreText->_text);
 
-    _window->draw(_debugText->_text);
-	_window->draw(_debugBox->sprite);
+   // _window->draw(_debugText->_text);
+	//_window->draw(_debugBox->sprite);
 
 	_window->draw(_progressBackground->sprite);
 	_window->draw(_progress->sprite);

@@ -32,7 +32,7 @@ void Tutorial0::ButtonPressCheck()
 
 void Tutorial0::_organizeHud()
 {
-	_debugBox->sprite.setPosition(300, 300);
+	_debugBox->sprite.setPosition(960, 540);
 }
 
 void Tutorial0::Update() {
