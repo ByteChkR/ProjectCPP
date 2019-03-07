@@ -1,5 +1,6 @@
 local scripts = {}
-local meta = {["name"] = "1BSideProp6", ["objPath"] = "mge/models/placeholder.obj", ["specular"] = "black.png", ["texture"] = "red.png", ["emissive"] = "black.png", ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0  }
+local meta = {["name"] = "1BSideProp6", ["objPath"] = "mge/models/VillageForestBiome/14_VillageB_PineTree3_V1.obj", ["specular"] = "black.png",  ["texture"] = "Game/Maps/VillageForestBiome/pinetree/14_VillageB_PineTree3_V1_Geom_AlbedoTransparency.png",
+ ["emissive"] = "Game/Maps/VillageForestBiome/pinetree/14_VillageB_PineTree3_V1_Geom_AlbedoTransparency.png", ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0  }
 colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -1}
 colliderMax = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
 
