@@ -19,7 +19,7 @@ class AbstractGame
 {
     public:
 
-        AbstractGame();
+        AbstractGame(bool wMode);
         virtual ~AbstractGame();
 
 		sf::RenderWindow* _window;  //sfml window to render into
@@ -74,6 +74,8 @@ class AbstractGame
         AbstractGame(const AbstractGame&);
         AbstractGame& operator=(const AbstractGame&);
 		ParticleSystem* _particleSystem;
+
+		bool windowMode;
 
 		float timeScale;
 		float lastDT;

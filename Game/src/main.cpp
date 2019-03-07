@@ -37,8 +37,10 @@ int main(int argc, char *argv[])
 	Debug::Log("Starting Game...", WARNINGS_ERRORS_LOG1);
 	Debug::Log("with ArgCount: " + std::to_string(argc), WARNINGS_ERRORS_LOG2);
 
+	bool wMode = false;
+	if (argc > 1)wMode = argv[1][0] == 'w';
 
-	AbstractGame* game = new MGEDemo(argc, argv);
+	AbstractGame* game = new MGEDemo(argc, argv, wMode);
 
 	game->initialize();
 

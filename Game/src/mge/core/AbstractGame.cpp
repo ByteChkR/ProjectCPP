@@ -12,11 +12,12 @@
 #include "SFML/Graphics.hpp"
 AbstractGame* AbstractGame::instance = nullptr;
 
-AbstractGame::AbstractGame() :_window(NULL), _renderer(NULL), _world(NULL), _fps(0), startupTime(0)
+AbstractGame::AbstractGame(bool wMode) :_window(NULL), _renderer(NULL), _world(NULL), _fps(0), startupTime(0)
 {
 	
 	timeScale = 1;
 	instance = this;
+	windowMode = wMode;
 	_particleSystem = new ParticleSystem();
 	fallbackTexture = new sf::Image();
 	fallbackTexture->loadFromFile(config::MGE_TEXTURE_PATH + "fallbacktexture.png");
@@ -50,7 +51,8 @@ void AbstractGame::initialize() {
 void AbstractGame::_initializeWindow() {
 	Debug::Log("Initializing window...", WARNINGS_ERRORS_LOG1);
 	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
-	_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "My Game!", sf::Style::Fullscreen, cs);
+	_window = (windowMode ? new sf::RenderWindow(sf::VideoMode(900, 600), "My Game!", sf::Style::Default, cs) :
+		 new sf::RenderWindow(sf::VideoMode(1920, 1080), "My Game!", sf::Style::Fullscreen, cs));
 	glEnable(GL_MULTISAMPLE);
 	//_window->setVerticalSyncEnabled(true);
 	Debug::Log("Window initialized.", WARNINGS_ERRORS_LOG1);

@@ -49,7 +49,7 @@
 #include "../_vs2015/KeyLogger.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
-MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
+MGEDemo::MGEDemo(int argc, char *argv[], bool wMode) :AbstractGame(wMode), _hud(0)
 {
 	this->argc = argc;
 	this->argv = std::vector<std::string>();
@@ -155,19 +155,35 @@ void MGEDemo::_initializeResources()
 	bool isRaw;
 	std::string test = argv[0];
 	GameStateManager::GameState gs = GameStateManager::StateMenu;
-
+	windowMode = false;
 	if (argc == 2)
 	{
-		isRaw = false;
-		gs = GameStateManager::StateGame;
-		filename = argv[1];
+		windowMode = argv[1][0] == 'w';
+
+		lm = new LevelManager(filename);
 	}
-	else if (argc > 2)
+	else if (argc == 3)
 	{
-		filename = argv[1];
-		isRaw = argv[2][0] == 'r';
+		isRaw = false;
+		windowMode = argv[1][0] == 'w';
+		gs = GameStateManager::StateGame;
+		filename = argv[2];
+	}
+	else if (argc > 3)
+	{
+
+		windowMode = argv[1][0] == 'w';
+		filename = argv[2];
+		isRaw = argv[3][0] == 'r';
 
 		gs = GameStateManager::StateGame;
+	}
+	else if (argc > 4)
+	{
+		windowMode = argv[1][0] == 'w';
+		filename = argv[2];
+		isRaw = argv[3][0] == 'r';
+
 	}
 	else
 	{
