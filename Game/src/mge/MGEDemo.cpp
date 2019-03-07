@@ -212,6 +212,7 @@ void MGEDemo::_initializeResources()
 
 	ScriptableLuaObject::Initialize(config::LUA_OBJECT_SCRIPT_FOLDER);
 	sloFallback = ScriptableLuaObject::GetStructWithName("fallback");
+	sloGameObjectFallback = ScriptableLuaObject::Instantiate("fallback");
 	//Biome Setup
 	std::vector<Biome*> biomes = std::vector<Biome*>();
 	std::vector<std::string> biomeFiles = FileLoader::GetFilesFromFolder(config::MGE_BIOME_PATH);

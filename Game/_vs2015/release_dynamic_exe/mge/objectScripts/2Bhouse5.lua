@@ -1,6 +1,6 @@
 local scripts = {}
 local meta = {["name"] = "2BHouse5",
- ["objPath"] = "mge/models/CityBiome/4_CityB_House_Paris2.obj",
+ ["objPath"] = "mge/models/CityBiome/house4.obj",
  ["specular"] = "black.png",
  ["texture"] = "Game/Maps/CityBiome/house_paris2/house_paris2_diffuse.png",
  ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0  }

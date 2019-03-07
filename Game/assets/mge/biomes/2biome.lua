@@ -7,5 +7,5 @@ objects = {"none",
 "2BHighObstacle1", "2BHighObstacle2", "2BHighObstacle3", "2BHighObstacle4",
 "2BHighObstacle5", "2BSideProp9", "2BSideProp10", "0BInterior1",
 "0BInterior2", "0BSideProp11", "0BSideProp12", "coin", "endoflevel", "turkeycage", "coinAir",
-"tutorial1", "tutorial2", "tutorial3", "tutorial4",
-"car", "van", "turkeyvan", "}
+"tutorial1", "tutorial2", "tutorial3", "tutorial4","fallback",
+"van", "turkeyvan", "car" }

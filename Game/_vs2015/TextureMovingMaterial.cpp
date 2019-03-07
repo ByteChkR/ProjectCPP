@@ -19,8 +19,8 @@
 ShaderProgram* TextureMovingMaterial::_shader = NULL;
 
 
-float TextureMovingMaterial::ShadowSize = 2;
-float TextureMovingMaterial::ShadowLength = 4;
+float TextureMovingMaterial::ShadowSize = 1;
+float TextureMovingMaterial::ShadowLength = 6;
 
 GLint TextureMovingMaterial::_fogColor = 0;
 GLint TextureMovingMaterial::_fogBegin = 0;

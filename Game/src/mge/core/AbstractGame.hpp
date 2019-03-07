@@ -37,6 +37,7 @@ class AbstractGame
 		float GetTimeSinceStartup();
 		sf::Image* fallbackTexture;
 		LuaScriptStruct* sloFallback;
+		GameObject* sloGameObjectFallback;
     protected:
 
         //methods above delegate behaviour to the methods below so that you can override it in a subclass
