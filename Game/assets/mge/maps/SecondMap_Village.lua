@@ -1,3 +1,4 @@
+heightTexture = "height.png"
 map = "SecondMap_Village.txt"
 ground = "backg3.png"
 mapGround = "ground1.png"

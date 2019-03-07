@@ -1,7 +1,7 @@
 local scripts = {}
 --local scripts = {"mge/gamescripts/exampleScript.lua"}
 local meta = {["name"] = "1BSideProp8", 
-["objPath"] = "mge/models/VillageForestBiome/16_VillageB_PineTree2_V1",
+["objPath"] = "mge/models/VillageForestBiome/16_VillageB_PineTree2_V1.obj",
 ["specular"] = "black.png",
 ["texture"] = "Game/Maps/VillageForestBiome/pinetree/3/14_VillageB_PineTree3_V3_Geom_AlbedoTransparency.png",
 --["emissive"] = "Game/Maps/VillageForestBiome/pinetree/3/14_VillageB_PineTree3_V3_Geom_AlbedoTransparency.png",
