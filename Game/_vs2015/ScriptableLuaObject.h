@@ -20,14 +20,16 @@ class ScriptableLuaObject : public AbstractBehaviour
 public:
 	static void Initialize(std::string dictionary);
 	static GameObject* Instantiate(std::string key, GameObject* parent = NULL);
+	static LuaScriptStruct* GetStructWithName(std::string name);
 	virtual void update(float pTime);
 	virtual AbstractBehaviour* Clone() override;
-
+	glm::vec3 GetLuaOffset();
 protected:
 	virtual void OwnerChanged() override;
 
 private:
-	ScriptableLuaObject(std::vector<std::string> attachedScripts);
+	LuaScriptStruct* _lss;
+	ScriptableLuaObject(LuaScriptStruct* lss);
 	static std::vector<LuaScriptStruct*> _scripts;
 	std::vector<std::string> _scriptPath = std::vector<std::string>();
 	std::vector<lua_State*> _attachedScripts = std::vector<lua_State*>();

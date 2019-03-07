@@ -1,18 +1,28 @@
 #include <iostream>
 #include "GameObject.hpp"
 #include "mge/behaviours/AbstractBehaviour.hpp"
-
+#include <vector>
+#include "..\_vs2015\StaticBoxCollider.hpp"
+#include "..\_vs2015\DynamicBoxCollider.hpp"
+#include "../_vs2015/Debug.h"
 GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	: _name(pName), _transform(glm::translate(pPosition)), _parent(nullptr), _children(),
 	_mesh(nullptr), _behaviours(), _material(nullptr), _world(nullptr)
 
 {
+	_enabled = true;
+}
+
+bool GameObject::IsEnabled()
+{
+	return _enabled;
 }
 
 GameObject::~GameObject()
 {
+
 	//detach all children
-	std::cout << "GC running on:" << _name << std::endl;
+	Debug::Log("GC running on:" + _name, ALL);
 
 	for (size_t i = 0; i < _behaviours.size(); i++)
 	{
@@ -27,6 +37,28 @@ GameObject::~GameObject()
 	}
 
 	//do not forget to delete behaviour, material, mesh, collider manually if required!
+}
+
+void GameObject::EnableBehaviours()
+{
+	_enabled = true;
+	if (_behaviours.size() > 0) {
+		for each (AbstractBehaviour* b in _behaviours)
+		{
+			b->enable();
+		}
+	}
+}
+
+void GameObject::DisableBehaviours()
+{
+	_enabled = false;
+	if (_behaviours.size() > 0) {
+		for each (AbstractBehaviour* b in _behaviours)
+		{
+			b->disable();
+		}
+	}
 }
 
 void GameObject::setName(const std::string& pName)
@@ -152,13 +184,14 @@ void GameObject::FireCollision(GameObject* other)
 
 GameObject* GameObject::Clone()
 {
-	GameObject* gobj = new GameObject(_name+ "(CLONE)");
+	GameObject* gobj = new GameObject(_name + "(CLONE)");
 	gobj->setTransform(glm::mat4(_transform));
 	gobj->setLocalPosition(getLocalPosition());
 	gobj->setParent(_parent);
 	gobj->setMesh(_mesh);
 	gobj->setMaterial(_material);
-	
+	if (!_enabled)gobj->DisableBehaviours();
+
 	for each (GameObject* child in _children)
 	{
 		gobj->add(child->Clone());
@@ -235,7 +268,7 @@ void GameObject::rotate(float pAngle, glm::vec3 pAxis)
 void GameObject::update(float pStep)
 {
 	//make sure behaviour is updated after worldtransform is set
-	if (_behaviours.size() > 0) {
+	if (_behaviours.size() > 0 && _enabled) {
 		for each (AbstractBehaviour* b in _behaviours)
 		{
 			b->update(pStep);
@@ -274,7 +307,7 @@ GameObject* GameObject::FindInChildren(std::string name, bool recursive)
 		{
 			ch = child->FindInChildren(name);
 		}
-		else if(child->_name == name)
+		else if (child->_name == name)
 		{
 			return child;
 		}
@@ -283,5 +316,21 @@ GameObject* GameObject::FindInChildren(std::string name, bool recursive)
 	//If every child in the tree was visited
 	return nullptr;
 
+}
+
+
+std::vector<glm::vec3> GameObject::GetColliderBounds()
+{
+	if (ContainsBehaviour("BOXCOLLIDER"))
+	{
+		return ((StaticBoxCollider*)getBehaviour("BOXCOLLIDER"))->GetBounds();
+	}
+	else if (ContainsBehaviour(("DYNBOXCOLLIDER")))
+	{
+		std::vector<glm::vec3> cols = ((DynamicBoxCollider*)getBehaviour("DYNBOXCOLLIDER"))->GetBounds();
+
+		return cols;
+	}
+	return std::vector<glm::vec3>();
 }
 

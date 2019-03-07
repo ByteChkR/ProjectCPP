@@ -11,10 +11,17 @@ public:
 	static LevelManager* instance;
 	LevelManager(std::string maplist);
 	void ChangeLevel(int index);
+	void NextLevel();
+	int GetCurrent();
+	void AddGroundTexture(std::string pFileLocation);
+	void AddBackgroundTexture(std::string pFileLocation);
 
 private:
-	std::vector<std::string> maps;
-	Level* currentLevel;
+	std::vector<std::string> _maps;
+	Level* _currentLevel = nullptr;
+	std::vector<std::string> _groundTextures;
+	std::vector<std::string> _backgroundTextures;
+	int _curLevel;
 };
 
 

@@ -6,6 +6,8 @@
 #include "Button.h"
 #include "PlayButton.h"
 #include "ExitButton.h"
+#include "ScoreBoardButton.h"
+#include "CreditsButton.h"
 #include <iostream>
 #include <GL/glew.h>
 
@@ -13,12 +15,18 @@ Menu::Menu(sf::RenderWindow *aWindow) : _window(aWindow)
 {
 	assert(_window != NULL);
 
-	_playText = new HudText();
-	_playBox = new HudSprite("HudBox.png");
+	_background = new HudSprite("turkey_mainmenu.png");
+
+	_playBox = new HudSprite("play_button.png",1.05f);
 	_button = new PlayButton(_window,_playBox->sprite);
 
-	_exitText = new HudText();
-	_exitBox = new HudSprite("HudBox.png");
+	_creditsBox = new HudSprite("credits_button.png", 1.05f);
+	_creditsButton = new CreditsButton(_window, _creditsBox->sprite);
+
+	_scoreBoardBox = new HudSprite("scoreboard_button.png", 1.05f);
+	_scoreBoardButton = new ScoreBoardButton(_window, _scoreBoardBox->sprite);
+
+	_exitBox = new HudSprite("exit_button.png",1.05f);
 	_exitButton = new ExitButton(_window, _exitBox->sprite);
 
 	_organizeMenu();
@@ -26,33 +34,52 @@ Menu::Menu(sf::RenderWindow *aWindow) : _window(aWindow)
 
 void Menu::_organizeMenu() 
 {
-	_playText->_text.setString("PLAY");
-	_playText->_text.setPosition(70, 120);
-	_playBox->sprite.setPosition(50, 100);
-	_button->SetPosition(50, 100);
+	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
 
-	_exitText->_text.setString("Exit");
-	_exitText->_text.setPosition(70, 320);
-	_exitBox->sprite.setPosition(50, 300);
-	_exitButton->SetPosition(50, 300);
+	_playBox->sprite.setPosition(300, 100);
+	_playBox->scaledSprite.setPosition(_playBox->sprite.getPosition());
+	_button->SetPosition(_playBox->sprite.getPosition());
+
+	_scoreBoardBox->sprite.setPosition(300, 250);
+	_scoreBoardBox->scaledSprite.setPosition(_scoreBoardBox->sprite.getPosition());
+	_scoreBoardButton->SetPosition(_scoreBoardBox->sprite.getPosition());
+
+	_creditsBox->sprite.setPosition(300, 375);
+	_creditsBox->scaledSprite.setPosition(_creditsBox->sprite.getPosition());
+	_creditsButton->SetPosition(_creditsBox->sprite.getPosition());
+
+	_exitBox->sprite.setPosition(300, 500);
+	_exitBox->scaledSprite.setPosition(_exitBox->sprite.getPosition());
+	_exitButton->SetPosition(_exitBox->sprite.getPosition());
 }
 
 void Menu::Update() 
 {
 	_button->Update();
 	_exitButton->Update();
+	_creditsButton->Update();
+	_scoreBoardButton->Update();
+	draw();
 }
 
 void Menu::draw() 
 {
 	glActiveTexture(GL_TEXTURE0);
-	_window->pushGLStates()
-		;
-	_window->draw(_playText->_text);
-	_window->draw(_playBox->sprite);
+	_window->pushGLStates();
 
-	_window->draw(_exitText->_text);
-	_window->draw(_exitBox->sprite);
+	_window->draw(_background->sprite);
+
+	if (_button->scaled)_window->draw(_playBox->scaledSprite);
+	else _window->draw(_playBox->sprite);
+
+	if (_creditsButton->scaled)_window->draw(_creditsBox->scaledSprite);
+	else _window->draw(_creditsBox->sprite);
+
+	if (_scoreBoardButton->scaled)_window->draw(_scoreBoardBox->scaledSprite);
+	else _window->draw(_scoreBoardBox->sprite);
+
+	if(_exitButton->scaled)_window->draw(_exitBox->scaledSprite);
+	else _window->draw(_exitBox->sprite);
 
 	_window->popGLStates();
 }

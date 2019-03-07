@@ -1,336 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="MGE Source files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="MGE Source files\mge">
-      <UniqueIdentifier>{5808a1e3-17c6-41a4-bf66-b872468a8c7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MGE Source files\mge\behaviours">
-      <UniqueIdentifier>{62606aaf-8ae3-4195-9a83-22a2c9d20af1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MGE Source files\mge\core">
-      <UniqueIdentifier>{4394d90a-ffa0-485d-98ea-1e91842edda6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MGE Source files\mge\materials">
-      <UniqueIdentifier>{88a48024-4c44-40c0-a658-f27957d6b003}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MGE Source files\mge\util">
-      <UniqueIdentifier>{7d824c34-4bb6-43a4-a48a-0d68b7aad6e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MGE Source files\mge\util\Lua">
-      <UniqueIdentifier>{9ef30825-b8c8-4a77-9bbf-878f8035e016}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MGE Source files\mge\util\Menu">
-      <UniqueIdentifier>{2d47b4e0-2711-486a-9a22-48533a89462a}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\core\AbstractGame.cpp" />
+    <ClCompile Include="..\src\mge\core\Camera.cpp" />
+    <ClCompile Include="..\src\mge\core\GameObject.cpp" />
+    <ClCompile Include="..\src\mge\core\Light.cpp" />
+    <ClCompile Include="..\src\mge\core\Mesh.cpp" />
+    <ClCompile Include="..\src\mge\core\Renderer.cpp" />
+    <ClCompile Include="..\src\mge\core\ShaderProgram.cpp" />
+    <ClCompile Include="..\src\mge\core\Texture.cpp" />
+    <ClCompile Include="..\src\mge\core\World.cpp" />
+    <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\AnimationMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
+    <ClCompile Include="..\src\mge\MGEDemo.cpp" />
+    <ClCompile Include="..\src\mge\util\AudioManager.cpp" />
+    <ClCompile Include="..\src\mge\util\Biome.cpp" />
+    <ClCompile Include="..\src\mge\util\BiomeHandler.cpp" />
+    <ClCompile Include="..\src\mge\util\DataManager.cpp" />
+    <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
+    <ClCompile Include="..\src\mge\util\Lane.cpp" />
+    <ClCompile Include="..\src\mge\util\MapGenerator.cpp" />
+    <ClCompile Include="..\src\mge\util\ScoreManager.cpp" />
+    <ClCompile Include="AbstractStaticCollider.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="Credits.cpp" />
+    <ClCompile Include="CreditsButton.cpp" />
+    <ClCompile Include="DynamicBoxCollider.cpp" />
+    <ClCompile Include="EngineSettings.cpp" />
+    <ClCompile Include="ExitButton.cpp" />
+    <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="GLLight.cpp" />
+    <ClCompile Include="HudSprite.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="LightParams.cpp" />
+    <ClCompile Include="LoadingScreen.cpp" />
+    <ClCompile Include="LuaAPI.cpp" />
+    <ClCompile Include="LuaOperations.cpp" />
+    <ClCompile Include="LuaScriptStruct.cpp" />
+    <ClCompile Include="MapBuilder.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuButton.cpp" />
+    <ClCompile Include="NextButton.cpp" />
+    <ClCompile Include="NextStageButtoncpp.cpp" />
+    <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="PlayButton.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="PresetHandler.cpp" />
+    <ClCompile Include="HudText.cpp" />
+    <ClCompile Include="RetryButton.cpp" />
+    <ClCompile Include="ScoreBoard.cpp" />
+    <ClCompile Include="ScoreBoardButton.cpp" />
+    <ClCompile Include="ScriptableLuaObject.cpp" />
+    <ClCompile Include="StageClear.cpp" />
+    <ClCompile Include="StaticBoxCollider.cpp" />
+    <ClCompile Include="StoryPanel.cpp" />
+    <ClCompile Include="StoryPanelHandler.cpp" />
+    <ClCompile Include="TextureMovingMaterial.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="WinScreen.cpp" />
+    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="Lerper.cpp" />
+    <ClCompile Include="Tutorial0.cpp" />
+    <ClCompile Include="Tutorial1.cpp" />
+    <ClCompile Include="Tutorial2.cpp" />
+    <ClCompile Include="Tutorial3.cpp" />
+    <ClCompile Include="KeyLogger.cpp" />
+    <ClCompile Include="SaveScoreButton.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\glm.hpp">
-      <Filter>MGE Source files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp">
-      <Filter>MGE Source files\mge\behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\AbstractGame.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\Camera.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\util\DebugHud.hpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\GameObject.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp">
-      <Filter>MGE Source files\mge\behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\Mesh.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\Renderer.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\ShaderProgram.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\Texture.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\World.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp">
-      <Filter>MGE Source files\mge\behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\MGEDemo.hpp">
-      <Filter>MGE Source files\mge</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\config.hpp">
-      <Filter>MGE Source files\mge</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\Light.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="LightParams.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="GLLight.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="AbstractStaticCollider.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticBoxCollider.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicBoxCollider.hpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerController.hpp">
-      <Filter>MGE Source files\mge\behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\util\AudioManager.h">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\util\MapGenerator.h">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\util\Lane.h">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="MapBuilder.h">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="PresetHandler.hpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectPool.hpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="HudSprite.h">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\util\BiomeHandler.h">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="LuaOperations.h">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="LuaAPI.h">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptableLuaObject.h">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="FileLoader.h">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineSettings.h">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="LuaScriptStruct.h">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="HudText.h">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>MGE Source files\mge\util\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelManager.h">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>MGE Source files\mge\util\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayButton.h">
-      <Filter>MGE Source files\mge\util\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="ExitButton.h">
-      <Filter>MGE Source files\mge\util\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureMovingMaterial.h">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\src\main.cpp">
-      <Filter>MGE Source files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp">
-      <Filter>MGE Source files\mge\behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\AbstractGame.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\Camera.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\util\DebugHud.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\GameObject.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp">
-      <Filter>MGE Source files\mge\behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\Mesh.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\Renderer.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\ShaderProgram.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\Texture.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\World.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp">
-      <Filter>MGE Source files\mge\behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\MGEDemo.cpp">
-      <Filter>MGE Source files\mge</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\Light.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="LightParams.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMaterial.cpp">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="GLLight.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="AbstractStaticCollider.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticBoxCollider.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicBoxCollider.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>MGE Source files\mge\core</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>MGE Source files\mge\behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\util\AudioManager.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\util\MapGenerator.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\util\Lane.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="MapBuilder.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="PresetHandler.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectPool.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="HudSprite.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\util\BiomeHandler.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="LuaOperations.cpp">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="LuaAPI.cpp">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="ScriptableLuaObject.cpp">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="FileLoader.cpp">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineSettings.cpp">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="LuaScriptStruct.cpp">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\util\Biome.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="HudText.cpp">
-      <Filter>MGE Source files\mge\util</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>MGE Source files\mge\util\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelManager.cpp">
-      <Filter>MGE Source files\mge\util\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>MGE Source files\mge\util\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayButton.cpp">
-      <Filter>MGE Source files\mge\util\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="ExitButton.cpp">
-      <Filter>MGE Source files\mge\util\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureMovingMaterial.cpp">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="GameMaterial.hpp">
-      <Filter>MGE Source files\mge\materials</Filter>
-    </None>
+    <ClInclude Include="..\src\glm.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\config.hpp" />
+    <ClInclude Include="..\src\mge\core\AbstractGame.hpp" />
+    <ClInclude Include="..\src\mge\core\Camera.hpp" />
+    <ClInclude Include="..\src\mge\core\GameObject.hpp" />
+    <ClInclude Include="..\src\mge\core\Light.hpp" />
+    <ClInclude Include="..\src\mge\core\Mesh.hpp" />
+    <ClInclude Include="..\src\mge\core\Renderer.hpp" />
+    <ClInclude Include="..\src\mge\core\ShaderProgram.hpp" />
+    <ClInclude Include="..\src\mge\core\Texture.hpp" />
+    <ClInclude Include="..\src\mge\core\World.hpp" />
+    <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\AnimationMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
+    <ClInclude Include="..\src\mge\MGEDemo.hpp" />
+    <ClInclude Include="..\src\mge\util\AudioManager.h" />
+    <ClInclude Include="..\src\mge\util\BiomeHandler.h" />
+    <ClInclude Include="..\src\mge\util\DataManager.h" />
+    <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
+    <ClInclude Include="..\src\mge\util\Lane.h" />
+    <ClInclude Include="..\src\mge\util\MapGenerator.h" />
+    <ClInclude Include="..\src\mge\util\ScoreManager.h" />
+    <ClInclude Include="AbstractStaticCollider.hpp" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="CollisionManager.hpp" />
+    <ClInclude Include="Credits.h" />
+    <ClInclude Include="CreditsButton.h" />
+    <ClInclude Include="DynamicBoxCollider.hpp" />
+    <ClInclude Include="EngineSettings.h" />
+    <ClInclude Include="ExitButton.h" />
+    <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="GameOverScreen.h" />
+    <ClInclude Include="GameStateManager.h" />
+    <ClInclude Include="GLLight.hpp" />
+    <ClInclude Include="HudSprite.h" />
+    <ClInclude Include="HudText.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="LightParams.hpp" />
+    <ClInclude Include="LoadingScreen.h" />
+    <ClInclude Include="LuaAPI.h" />
+    <ClInclude Include="LuaOperations.h" />
+    <ClInclude Include="LuaScriptStruct.h" />
+    <ClInclude Include="MapBuilder.h" />
+    <ClInclude Include="Material.hpp" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuButton.h" />
+    <ClInclude Include="NextButton.h" />
+    <ClInclude Include="NextStageButton.h" />
+    <ClInclude Include="ObjectPool.hpp" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleEmitter.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="PlayButton.h" />
+    <ClInclude Include="PlayerController.hpp" />
+    <ClInclude Include="PresetHandler.hpp" />
+    <ClInclude Include="RetryButton.h" />
+    <ClInclude Include="ScoreBoard.h" />
+    <ClInclude Include="ScoreBoardButton.h" />
+    <ClInclude Include="ScriptableLuaObject.h" />
+    <ClInclude Include="StageClear.h" />
+    <ClInclude Include="StaticBoxCollider.hpp" />
+    <ClInclude Include="StoryPanel.h" />
+    <ClInclude Include="StoryPanelHandler.h" />
+    <ClInclude Include="TextureMovingMaterial.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="WinScreen.h" />
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="Lerper.h" />
+    <ClInclude Include="Tutorial0.h" />
+    <ClInclude Include="KeyLogger.h" />
+    <ClInclude Include="SaveScoreButton.h" />
   </ItemGroup>
 </Project>

@@ -16,11 +16,19 @@ class Menu
 	private:
 		sf::RenderWindow * _window;
 
-		HudText * _playText;
+		HudSprite *_background;
+
 		HudSprite *_playBox;
 		Button *_button;
 
-		HudText * _exitText;
+
+		HudSprite *_creditsBox;
+		Button *_creditsButton;
+
+
+		HudSprite *_scoreBoardBox;
+		Button *_scoreBoardButton;
+
 		HudSprite *_exitBox;
 		Button *_exitButton;
 

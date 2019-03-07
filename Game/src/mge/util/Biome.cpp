@@ -38,6 +38,11 @@ Biome::Biome(std::string pLuaFile)
 	_handler = new PresetHandler(objs);
 }
 
+void Biome::Unload()
+{
+	_handler->Unload();
+}
+
 Biome::~Biome()
 {
 

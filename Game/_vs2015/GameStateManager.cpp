@@ -1,20 +1,28 @@
 #include <iostream>
 #include "GameStateManager.h"
+#include "mge\core\World.hpp"
 
-GameStateManager::GameStateManager()
+GameStateManager *GameStateManager::instance;
+
+GameStateManager::GameStateManager(GameStateManager::GameState state)
 {
-	_state = GameState(Menu);
+	GameStateManager::instance = this;
+	_state = GameState(state);
 }
 
-void GameStateManager::Update() 
+void GameStateManager::Update(float pTime ,World *_world) 
 {
 	switch (_state)
 	{
-	case GameStateManager::Menu:
+	case GameStateManager::StateMenu:
+		
 		break;
-	case GameStateManager::Game:
+	case GameStateManager::StatePanel:
 		break;
-	case GameStateManager::GameOver:
+	case GameStateManager::StateGame:
+		if (_world != nullptr) _world->update(pTime); 
+		break;
+	case GameStateManager::StateGameOver:
 		break;
 	default:
 		break;

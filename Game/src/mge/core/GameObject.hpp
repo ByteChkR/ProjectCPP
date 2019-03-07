@@ -75,8 +75,13 @@ class GameObject
 
 		GameObject* FindInChildren(std::string name, bool recursive = true);
 
+		void EnableBehaviours();
+		void DisableBehaviours();
+		bool IsEnabled();
+		std::vector<glm::vec3> GetColliderBounds();
 
 	protected:
+		bool _enabled;
 		std::string _name;
 		glm::mat4 _transform;
 

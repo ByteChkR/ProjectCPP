@@ -15,21 +15,32 @@ public:
 	std::string GetObjectPath();
 	Mesh* GetObject();
 	std::string GetTexturePath();
-	glm::vec3 GetPosition();
+	glm::vec3 GetPositionOffset();
 	std::vector<std::string> GetAttachedScripts();
 	bool HasCollider();
-	glm::vec3 GetColliderDimensions();
+	glm::vec3 GetColliderMin();
+	glm::vec3 GetColliderMax();
+	std::string GetEmmissiveMap();
 
+	std::string GetSpecular();
+	std::string GetNormal();
+	bool HasAutoCollider();
+	
 private:
 	Mesh* _mesh;
 	std::string _texturePath;
+	std::string _emmissiveTexture;
+	std::string _specularTexture;
+	std::string _normalTexture;
 	std::string _objPath;
 	std::string _name;
 	glm::vec3 _position;
 	std::vector<std::string> _attachedScripts;
-	glm::vec3 _collider;
-
-
+	glm::vec3 _colliderMin;
+	glm::vec3 _colliderMax;
+	bool hasCollider;
+	bool autoCollider;
+	bool isValid;
 };
 
 #endif // !LUASCRIPTSTRUCT_HPP

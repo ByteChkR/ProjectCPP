@@ -16,6 +16,8 @@
 #include "mge/core/Texture.hpp"
 #include "mge/config.hpp"
 #include "StaticBoxCollider.hpp"
+#include "Debug.h"
+#include "mge/behaviours/RotatingBehaviour.hpp"
 
 static const luaL_reg level1API[]
 {
@@ -29,16 +31,33 @@ static const luaL_reg level1API[]
 	{"GetParent", LuaAPI::Lua_GetParent},
 	{"AddChild", LuaAPI::Lua_AddChild},
 	{"CompareRef", LuaAPI::Lua_GameObjectEquals},
+	{"PlaySound", LuaAPI::Lua_PlaySound},
+	{"PlayMusic", LuaAPI::Lua_PlayMusic},
+	{"GetLevelNum", LuaAPI::Lua_GetCurrentLevel},
+	{"GetLevelProgress", LuaAPI::Lua_GetCurrentLevelProgress},
+	{"NextAnimationFrame", LuaAPI::Lua_NextAnimationFrame},
+	{"ChangeAnimationFrame", LuaAPI::Lua_ChangeAnimationFrame},
+	{"GetAnimationFrame", LuaAPI::Lua_GetCurrentAnimationFrame},
+	{"PlayParticleEffect", LuaAPI::Lua_PlayParticleEffect},
+	{"StopParticleEffect", LuaAPI::Lua_StopParticleEffect},
+	{"StopParticleEffectImmediate", LuaAPI::Lua_StopParticleEffectImmediate},
+
+
 	//{"GameOver", LuaAPI::Lua_ResetGame},
 	{NULL, NULL}
 
 };
 
-
-
-ScriptableLuaObject::ScriptableLuaObject(std::vector<std::string> attachedScripts)
+glm::vec3 ScriptableLuaObject::GetLuaOffset()
 {
+	return _lss->GetPositionOffset();
+}
 
+ScriptableLuaObject::ScriptableLuaObject(LuaScriptStruct* lss)
+{
+	_lss = lss;
+	_name = "SCLO";
+	std::vector<std::string> attachedScripts = lss->GetAttachedScripts();
 	for each (std::string path in attachedScripts)
 	{
 		lua_State* L = luaL_newstate();
@@ -81,30 +100,46 @@ void ScriptableLuaObject::Initialize(std::string directory)
 
 AbstractBehaviour* ScriptableLuaObject::Clone()
 {
-	return new ScriptableLuaObject(_scriptPath);
+	return new ScriptableLuaObject(_lss);
+}
+
+LuaScriptStruct* ScriptableLuaObject::GetStructWithName(std::string name)
+{
+	for each (LuaScriptStruct* lss in _scripts)
+	{
+		if (lss->GetName() == name)return lss;
+	}
+	Debug::LogError("Could not find Object Script with key:" + name + ". Using fallback object script");
+	return AbstractGame::instance->sloFallback;
 }
 
 GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent)
 {
 
+	LuaScriptStruct* lss = GetStructWithName(key);
 
-
-	for each (LuaScriptStruct* lss in _scripts)
+	if (lss != nullptr)
 	{
-		if (lss->GetName() == key)
-		{
 
-			GameObject* object = new GameObject(lss->GetName(), lss->GetPosition());
-			if (parent != NULL)
-				parent->add(object);
-			else
-				AbstractGame::instance->_world->add(object);
-			object->setMesh(lss->GetObject());
-			object->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath()), 2, 10, 0, 5, 2));
-			object->addBehaviour(new ScriptableLuaObject(lss->GetAttachedScripts()));
-			if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderDimensions()));
-			return object;
-		}
+		GameObject* object = new GameObject(lss->GetName());
+		if (parent != NULL)
+			parent->add(object);
+		else
+			AbstractGame::instance->_world->add(object);
+		object->setMesh(lss->GetObject());
+		Texture* tex = nullptr;
+		if (lss->GetTexturePath() != " ")tex = Texture::load(config::MGE_TEXTURE_PATH + lss->GetTexturePath(), true);
+		Texture* em = nullptr;
+		if (lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap(), false);
+		Texture* sp = nullptr;
+		if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular(), false);
+		if (!lss->GetName().find("coin"))object->addBehaviour(new RotatingBehaviour());
+		object->setMaterial(new TextureMaterial(tex, em, sp, 2, 1, 1, 2));
+		object->addBehaviour(new ScriptableLuaObject(lss));
+		if (lss->HasAutoCollider() && lss->HasCollider() && object->getMesh() != nullptr)object->addBehaviour(new StaticBoxCollider(object->getMesh()->GetMinLocalBounds(), object->getMesh()->GetMaxLocalBounds()));
+		else if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderMin(), lss->GetColliderMax()));
+		return object;
+
 	}
 	return NULL;
 }

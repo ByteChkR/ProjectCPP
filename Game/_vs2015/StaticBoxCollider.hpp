@@ -7,18 +7,18 @@
 class StaticBoxCollider : public AbstractStaticCollider
 {
 public:
-	StaticBoxCollider(float width, float height, float depth);
-	StaticBoxCollider(glm::vec3 dims);
+	StaticBoxCollider(glm::vec3 Min, glm::vec3 Max);
 	~StaticBoxCollider();
 	virtual void update(float pTime) override;
 	virtual AbstractBehaviour* Clone() override;
 	virtual void OwnerChanged(GameObject* owner) override;
 	virtual bool IsCollision(DynamicBoxCollider* ball) override;
+	std::vector<glm::vec3> GetBounds();
+	glm::vec3 GetDimensions();
 private:
 	bool _init;
-	float _width;
-	float _height;
-	float _depth;
+	glm::vec3 min;
+	glm::vec3 max;
 };
 
 

@@ -15,11 +15,12 @@ public:
 	BiomeHandler(std::vector<Biome*> biomes);
 	~BiomeHandler();
 
+	void UnloadBiome(int id);
 	int GetTotalBiomes();
 	int GetTotalInstances();
 	int GetTotalActiveInstances();
-	void GivePreset(int biomeID, size_t index, GameObject* preset);
-	GameObject* TakePreset(int biomeID, size_t index);
+	void GivePreset(size_t biomeID, size_t index, GameObject* preset);
+	GameObject* TakePreset(size_t biomeID, size_t index);
 
 private:
 	std::vector<Biome*> _biomes;

@@ -33,7 +33,7 @@ void KeysBehaviour::update( float pStep )
 		turnSpeed = +_turnSpeed;
 	}
 	//translate the object in its own local space
-	_owner->translate( glm::vec3(0.0f, 0.0f, moveSpeed*pStep ) );
+	_owner->translate( glm::vec3(0.0f, moveSpeed*pStep, 0.0f ) );
 
 	//we can also translate directly, basically we take the z axis from the matrix
 	//which is normalized and multiply it by moveSpeed*step, then we add it to the

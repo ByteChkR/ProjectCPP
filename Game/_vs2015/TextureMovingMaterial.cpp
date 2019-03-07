@@ -5,6 +5,7 @@
 #include "glm.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/core/Light.hpp"
+
 #include "mge/core/World.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/GameObject.hpp"
@@ -13,21 +14,36 @@
 #include "../_vs2015/GLLight.hpp"
 #include "mge/core/AbstractGame.hpp"
 #include "../_vs2015/Level.h"
+#include "../_vs2015/PlayerController.hpp"
+#include "mge/core/Camera.hpp"
 ShaderProgram* TextureMovingMaterial::_shader = NULL;
 
-float TextureMovingMaterial::Movingspeed = 0.3f;
+
+float TextureMovingMaterial::ShadowSize = 1;
+float TextureMovingMaterial::ShadowLength = 6;
+
+GLint TextureMovingMaterial::_fogColor = 0;
+GLint TextureMovingMaterial::_fogBegin = 0;
+GLint TextureMovingMaterial::_fogEnd = 0;
+GLint TextureMovingMaterial::_fogBlendSmoothness = 0;
+
+//float TextureMovingMaterial::Movingspeed = 0.13f;
+GLint TextureMovingMaterial::_heightMapTiling = 0;
 GLint TextureMovingMaterial::_uMMatrix = 0;
 GLint TextureMovingMaterial::_uVMatrix = 0;
 GLint TextureMovingMaterial::_uPMatrix = 0;
 GLint TextureMovingMaterial::_uDiffuseTexture = 0;
+GLint TextureMovingMaterial::_uEmmissiveTexture = 0;
+GLint TextureMovingMaterial::_uSpecularTexture = 0;
 
 GLint TextureMovingMaterial::_aVertex = 0;
 GLint TextureMovingMaterial::_aNormal = 0;
 GLint TextureMovingMaterial::_aUV = 0;
+GLint TextureMovingMaterial::_aBitangents = 0;
+GLint TextureMovingMaterial::_aTangents = 0;
 GLLight TextureMovingMaterial::_lightLocations[8];
 GLint TextureMovingMaterial::_lightCount = 0;
 GLint TextureMovingMaterial::_shininess = 0;
-GLint TextureMovingMaterial::_steps = 0;
 GLint TextureMovingMaterial::_time = 0;
 GLint TextureMovingMaterial::_heightTexID = 0;
 GLint TextureMovingMaterial::_maxHeight = 0;
@@ -36,18 +52,20 @@ GLint TextureMovingMaterial::_genOffset = 0;
 GLint TextureMovingMaterial::_maxXOff = 0;
 GLint TextureMovingMaterial::_xOffsetSmootness = 0;
 
-GLint TextureMovingMaterial::_blend = 0;
-GLint TextureMovingMaterial::_blendingSoftness = 0;
-GLint TextureMovingMaterial::_colorCount = 0;
-GLint TextureMovingMaterial::_colorTiling = 0;
 GLint TextureMovingMaterial::_movingspeed = 0;
+GLint TextureMovingMaterial::_xMoveTiling = 0;
+GLint TextureMovingMaterial::_heightMapSpeed = 0;
+GLint TextureMovingMaterial::_playerPos = 0;
+GLint TextureMovingMaterial::_shadowLength = 0;
+GLint TextureMovingMaterial::_shadowSize = 0;
+GLint TextureMovingMaterial::_camPos = 0;
 
-TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
-	maxHeight = 8;
-	width = 8;
-	genOffset = 150;
+
+TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
+	_diffuseTexture = pDiffuseTexture;
+	_emmissiveTexture = emmissiveTexture;
+	_specularTexture = specularTexture;
 	this->shininess = shininess;
-	this->steps = steps;
 	blend = colorTextureBlending;
 	blendingSoftness = blendSmoothing;
 	colorTiling = colorTilin;
@@ -59,14 +77,17 @@ TextureMovingMaterial::TextureMovingMaterial(Texture * pDiffuseTexture, float sh
 
 TextureMovingMaterial::~TextureMovingMaterial() {}
 
+
 void TextureMovingMaterial::_lazyInitializeShader() {
 	if (!_shader) {
 		_shader = new ShaderProgram();
-		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "texture.vs");
+		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "texturemoving.vs");
 		_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "texturemoving.fs");
 		_shader->finalize();
 
 		//cache all the uniform and attribute indexes
+		_shadowSize = _shader->getUniformLocation("ShadowSize");
+		_shadowLength = _shader->getUniformLocation("ShadowLength");
 		_uMMatrix = _shader->getUniformLocation("modelMatrix");
 		_uVMatrix = _shader->getUniformLocation("viewMatrix");
 		_uPMatrix = _shader->getUniformLocation("projectionMatrix");
@@ -75,15 +96,27 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_heightTexID = _shader->getUniformLocation("yOffTexture");
 		_maxHeight = _shader->getUniformLocation("maxHeight");
 
+		_heightMapSpeed = _shader->getUniformLocation("heightMapSpeed");
 		_movingspeed = _shader->getUniformLocation("movingspeed");
 
 		_uDiffuseTexture = _shader->getUniformLocation("diffuseTexture");
+
+		_fogColor = _shader->getUniformLocation("fogColor");
+		_fogBegin = _shader->getUniformLocation("fogBegin");
+		_fogEnd = _shader->getUniformLocation("fogEnd");
+		_fogBlendSmoothness = _shader->getUniformLocation("fogBlendSmoothness");
+
+		_uSpecularTexture = _shader->getUniformLocation("specularTexture");
+		_uEmmissiveTexture = _shader->getUniformLocation("emissionMap");
 		_lightCount = _shader->getUniformLocation("lightCount");
 		_shininess = _shader->getUniformLocation("shininess");
-		_steps = _shader->getUniformLocation("steps");
 		_maxXOff = _shader->getUniformLocation("maxXOffset");
 		_xOffsetSmootness = _shader->getUniformLocation("xOffsetSmoothness");
+		_xMoveTiling = _shader->getUniformLocation("xMoveTiling");
 
+		_aTangents = _shader->getAttribLocation("tangents");
+		_aBitangents = _shader->getAttribLocation("bitangent");
+		_camPos = _shader->getUniformLocation("cameraPosition");
 		//Light Locations
 		for (size_t i = 0; i < 8; i++)
 		{
@@ -97,19 +130,16 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 			);
 		}
 
-		//Color;
-		_colorCount = _shader->getUniformLocation("colorCount");
-		_colorTiling = _shader->getUniformLocation("colorTiling");
-		_blend = _shader->getUniformLocation("textureBlend");
-		_blendingSoftness = _shader->getUniformLocation("blendSmoothing");
 		_time = _shader->getUniformLocation("time");
 
 		_width = _shader->getUniformLocation("hwm");
 		_genOffset = _shader->getUniformLocation("genOffset");
+		_heightMapTiling = _shader->getUniformLocation("heightMapTiling");
 
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
 		_aUV = _shader->getAttribLocation("uv");
+		_playerPos = _shader->getUniformLocation("playerPosition");
 	}
 }
 
@@ -132,11 +162,13 @@ static glm::vec3 colors[8] =
 
 int TextureMovingMaterial::offset = 0;
 
-void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
-	if (!_diffuseTexture) return;
+void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
+	if (pass != 0 || !_diffuseTexture) return;
 
 	_shader->use();
 
+	glm::vec3 camPos = (AbstractGame::instance->_world->getMainCamera())->getWorldPosition();
+	glUniform3f(_camPos, camPos.x, camPos.y, camPos.z);
 	//Print the number of lights in the scene and the position of the first light.
 	//It is not used, but this demo is just meant to show you THAT materials can access the lights in a world
 	//if (pWorld->getLightCount() > 0) {
@@ -150,9 +182,20 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 	//tell the shader the texture slot for the diffuse texture is slot 0
 	glUniform1i(_uDiffuseTexture, 0);
 
-	glUniform1f(_genOffset, genOffset);
-	glUniform1f(_width, width);
-	glUniform1f(_movingspeed, Movingspeed);
+	glm::vec3 ppos = PlayerController::instance->getOwner()->getLocalPosition();
+	//ppos -= AbstractGame::instance->_world->getMainCamera()->getLocalPosition()*glm::vec3(1, 0, 1);//Camera has different y and x component. so we are discarding that
+
+
+	glUniform3f(_playerPos, ppos.x, ppos.y, ppos.z);
+
+	glUniform1f(_genOffset, TextureMaterial::genOffset);
+	glUniform1f(_width, TextureMaterial::width);
+	glUniform1f(_movingspeed, MapBuilder::instance->GetMovingSpeed()*AbstractGame::instance->GetDeltaTime());
+	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
+	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
+	glUniform1f(_xMoveTiling, TextureMaterial::xMoveTiling);
+	glUniform1f(_shadowSize, ShadowSize);
+	glUniform1f(_shadowLength, ShadowLength);
 
 	if (TextureMaterial::_heightMap != nullptr)
 	{
@@ -163,14 +206,28 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 		//tell the shader the texture slot for the diffuse texture is slot 0
 		glUniform1i(_heightTexID, 1);
 
-		glUniform1f(_maxHeight, maxHeight);
+		glUniform1f(_maxHeight, TextureMaterial::maxHeight);
+
+	}
+	if (_emmissiveTexture != nullptr)
+	{
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, _emmissiveTexture->getId());
+		glUniform1i(_uEmmissiveTexture, 2);
+	}
+	if (_specularTexture != nullptr)
+	{
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, _specularTexture->getId());
+		glUniform1i(_uSpecularTexture, 3);
 	}
 
+
 	glUniform1f(_xOffsetSmootness, TextureMaterial::xOffsetSmootness);
-	glUniform1f(_maxXOff, glm::sin(AbstractGame::instance->GetTimeSinceStartup() / 5)*TextureMaterial::maxXOff);
+	glUniform1f(_maxXOff, TextureMaterial::maxXOff);
 
 	glUniform1f(_shininess, shininess);
-	glUniform1i(_steps, steps);
+
 
 	glUniform1f(_time, AbstractGame::instance->GetTimeSinceStartup());
 
@@ -181,12 +238,14 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 		_lightLocations[i].SetLight(&pWorld->getLightAt(i)->GetParams());
 	}
 
-	glUniform1i(_colorCount, 3);
-	glUniform1f(_colorTiling, colorTiling);
-	glUniform1f(_blend, blend);
-	glUniform1f(_blendingSoftness, blendingSoftness);
+	glUniform3f(_fogColor, TextureMaterial::fogColor.x, TextureMaterial::fogColor.y, TextureMaterial::fogColor.z);
+	glUniform1f(_fogBegin, TextureMaterial::fogBegin);
+	glUniform1f(_fogEnd, TextureMaterial::fogEnd);
+	glUniform1f(_fogBlendSmoothness, TextureMaterial::fogBlendSmoothness);
 
-	for (size_t i = 0; i < colors->length(); i++)
+
+
+	for (int i = 0; i < colors->length(); i++)
 	{
 		int index = (i + _offset) % colors->length();
 		glUniform3f(_shader->getUniformLocation("colors[" + std::to_string(i) + "]"), colors[index].x, colors[index].y, colors[index].z);
@@ -199,5 +258,5 @@ void TextureMovingMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& 
 	glUniformMatrix4fv(_uMMatrix, 1, GL_FALSE, glm::value_ptr(pModelMatrix));
 
 	//now inform mesh of where to stream its data
-	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV);
+	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV, _aTangents, _aBitangents);
 }

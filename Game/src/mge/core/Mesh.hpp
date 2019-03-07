@@ -24,12 +24,15 @@ class Mesh
         /**
          * Streams the mesh to opengl using the given indexes for the different attributes
          */
-        void streamToOpenGL(GLint pVerticesAttrib, GLint pNormalsAttrib, GLint pUVsAttrib);
+        void streamToOpenGL(GLint pVerticesAttrib, GLint pNormalsAttrib, GLint pUVsAttrib, GLint pTanAttrib, GLint biTanAttrib);
 
         /**
          * Draws debug info (normals) for the mesh using the given matrices)
          */
-        void drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
+        void drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::vector<glm::vec3> collider);
+
+		glm::vec3 GetMaxLocalBounds();
+		glm::vec3 GetMinLocalBounds();
 
 	protected:
 		Mesh();
@@ -40,14 +43,20 @@ class Mesh
 		GLuint _vertexBufferId;
 		GLuint _normalBufferId;
 		GLuint _uvBufferId;
+		GLuint _tanBufferID;
+		GLuint _bitanBufferID;
 
 	    //the actual data
 		std::vector<glm::vec3> _vertices;       //vec3 with 3d coords for all vertices
 		std::vector<glm::vec3> _normals;        //vec3 with 3d normal data
+		std::vector<glm::vec3> _biTangents;       //vec3 with 3d coords for all vertices
+		std::vector<glm::vec3> _tangents;        //vec3 with 3d normal data
 		std::vector<glm::vec2> _uvs;            //vec2 for uv
 
 		//references to the vertices/normals & uvs in previous vectors
 		std::vector<unsigned> _indices;
+
+		void ComputeTangents();
 
         //buffer vertices, normals, and uv's
 		void _buffer();

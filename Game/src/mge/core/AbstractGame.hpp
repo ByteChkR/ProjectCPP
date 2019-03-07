@@ -5,6 +5,8 @@
 #include <GL/glew.h>
 #include <string>
 #include "../_vs2015/CollisionManager.hpp"
+#include "../_vs2015/ParticleSystem.h"
+#include "../_vs2015/ScriptableLuaObject.h"
 class World;
 class Renderer;
 
@@ -17,7 +19,7 @@ class AbstractGame
 {
     public:
 
-        AbstractGame();
+        AbstractGame(bool wMode);
         virtual ~AbstractGame();
 
 		sf::RenderWindow* _window;  //sfml window to render into
@@ -29,7 +31,13 @@ class AbstractGame
 		CollisionManager* _manager;
 		World* _world;              //the root game object that represents our scene
 		static AbstractGame* instance;
+		float GetDeltaTime();
+		void SetTimeScale(float scale);
+		float GetTimeScale();
 		float GetTimeSinceStartup();
+		sf::Image* fallbackTexture;
+		LuaScriptStruct* sloFallback;
+		GameObject* sloGameObjectFallback;
     protected:
 
         //methods above delegate behaviour to the methods below so that you can override it in a subclass
@@ -51,7 +59,7 @@ class AbstractGame
         //call update on all game objects in the display root
         virtual void _update(float pStep);
         //render all game objects in the display root
-        virtual void _render();
+        virtual void _render(int pass);
         //process any sfml window events (see SystemEventDispatcher/Listener)
         virtual void _processEvents();
 
@@ -65,6 +73,12 @@ class AbstractGame
 		float startupTime;
         AbstractGame(const AbstractGame&);
         AbstractGame& operator=(const AbstractGame&);
+		ParticleSystem* _particleSystem;
+
+		bool windowMode;
+
+		float timeScale;
+		float lastDT;
 
 
 };

@@ -10,6 +10,7 @@ public:
 	~ObjectPool();
 	T Take();
 	void Give(T val);
+	void Unload();
 	int TotalInstances();
 	int TotalActiveInstances();
 private:

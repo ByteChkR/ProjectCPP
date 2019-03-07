@@ -5,24 +5,44 @@
 #include "LuaOperations.h"
 #include "mge/core/Mesh.hpp"
 #include <iostream>
+#include "Debug.h"
+#include "mge/core/AbstractGame.hpp"
 LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 {
+	isValid = false;
 	lua_State* L = luaL_newstate();
 	luaL_loadfile(L, filename.c_str());
 	if (LuaOperations::SaveLuaCall(L, 0, 0))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	int l = lua_gettop(L);
+
+
+	lua_getglobal(L, "GetMeta");
+	if (LuaOperations::SaveLuaCall(L, 0, 1))
+	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
+		return;
+	}
+	l = lua_gettop(L);
+	if (!LuaOperations::TryGetStringFromTable(L, "name", &_name))
+	{
+		Debug::Log("This object has no name default name: NoNameObject", WARNINGS_ERRORS_LOG2);
+		_name = "NoNameObject";
+	}
+
 	lua_getglobal(L, "AttachedScripts");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
 	if (!LuaOperations::TableToVector(L, &_attachedScripts))
 	{
-		std::cout << "This object has no scripts attached";
+		Debug::Log("Object with key: " + _name + " has no scripts attached", ALL);
 		_attachedScripts = std::vector<std::string>();
 	}
 	l = lua_gettop(L);
@@ -30,141 +50,249 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
-		return;
-	}
-	l = lua_gettop(L);
-	if (!LuaOperations::TryGetStringFromTable(L, "name", &_name))
-	{
-		std::cout << "This object has no name";
-		_name = "NoNameObject";
-	}
-	l = lua_gettop(L);
-	lua_pop(L, 1);
-	lua_getglobal(L, "GetMeta");
-	if (LuaOperations::SaveLuaCall(L, 0, 1))
-	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "objPath", &_objPath))
 	{
-		std::cout << "This object has no mesh";
+		Debug::Log("Object with key: " + _name + " has no mesh", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetStringFromTable(L, "texture", &_texturePath))
 	{
-		std::cout << "This object has no texture";
+		Debug::Log("Object with key: " + _name + " has no texture", WARNINGS_ERRORS_LOG2);
+	}
+	lua_pop(L, 1);
+	lua_getglobal(L, "GetMeta");
+	if (LuaOperations::SaveLuaCall(L, 0, 1))
+	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
+		return;
+	}
+	l = lua_gettop(L);
+	if (!LuaOperations::TryGetStringFromTable(L, "emissive", &_emmissiveTexture))
+	{
+		Debug::Log("Object with key: " + _name + " has no emmissive map", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
+		return;
+	}
+	l = lua_gettop(L);
+	if (!LuaOperations::TryGetStringFromTable(L, "specular", &_specularTexture))
+	{
+		Debug::Log("Object with key: " + _name + " has no specular map", WARNINGS_ERRORS_LOG2);
+	}
+	l = lua_gettop(L);
+	lua_pop(L, 1);
+	lua_getglobal(L, "GetMeta");
+	if (LuaOperations::SaveLuaCall(L, 0, 1))
+	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
+		return;
+	}
+	l = lua_gettop(L);
+	if (!LuaOperations::TryGetStringFromTable(L, "normal", &_normalTexture))
+	{
+		Debug::Log("Object with key: " + _name + " has no normal map", WARNINGS_ERRORS_LOG2);
+	}
+	l = lua_gettop(L);
+	lua_pop(L, 1);
+	lua_getglobal(L, "GetMeta");
+	if (LuaOperations::SaveLuaCall(L, 0, 1))
+	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posX", &_position.x))
 	{
-		std::cout << "This object has no x coord. assuming 0";
+		Debug::Log("Object with key: " + _name + " has no x coord. assuming 0", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posY", &_position.y))
 	{
-		std::cout << "This object has no y coord. assuming 0";
+		Debug::Log("Object with key: " + _name + " has no y coord. assuming 0", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 	lua_pop(L, 1);
 	lua_getglobal(L, "GetMeta");
 	if (LuaOperations::SaveLuaCall(L, 0, 1))
 	{
+		Debug::LogError("Could not Load Object Script:" + filename + ".. Using Fallback Script");
 		return;
 	}
 	l = lua_gettop(L);
 	if (!LuaOperations::TryGetFloatFromTable(L, "posZ", &_position.z))
 	{
-		std::cout << "This object has no z coord. assuming 0";
+		Debug::Log("Object with key: " + _name + " has no z coord. assuming 0", WARNINGS_ERRORS_LOG2);
 	}
 	l = lua_gettop(L);
 
-	_collider = glm::vec3(-1);
+	_colliderMin = glm::vec3(-1);
+	_colliderMax = glm::vec3(-1);
+	hasCollider = true;
 
-	lua_getglobal(L, "collider");
-	if (!LuaOperations::TryGetFloatFromTable(L, "width", &_collider.x))
+	lua_getglobal(L, "colliderMin");
+	if (!LuaOperations::TryGetFloatFromTable(L, "width", &_colliderMin.x))
 	{
-		std::cout << "This object has no collider.";
+		hasCollider = false;
+		Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
 	}
 	else
 	{
-		lua_getglobal(L, "collider");
-		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_collider.y))
+		lua_getglobal(L, "colliderMin");
+		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_colliderMin.y))
 		{
-			std::cout << "This object has no collider.";
+			hasCollider = false;
+			Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
 		}
 		else
 		{
-			lua_getglobal(L, "collider");
-			if (!LuaOperations::TryGetFloatFromTable(L, "width", &_collider.z))
+			lua_getglobal(L, "colliderMin");
+			if (!LuaOperations::TryGetFloatFromTable(L, "depth", &_colliderMin.z))
 			{
-				std::cout << "This object has no collider.";
+				hasCollider = false;
+				Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
 			}
 		}
 	}
 
+	lua_getglobal(L, "colliderMax");
+	if (!LuaOperations::TryGetFloatFromTable(L, "width", &_colliderMax.x))
+	{
+		hasCollider = false;
+		Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
+	}
+	else
+	{
+		lua_getglobal(L, "colliderMax");
+		if (!LuaOperations::TryGetFloatFromTable(L, "height", &_colliderMax.y))
+		{
+			hasCollider = false;
+			Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
+		}
+		else
+		{
+			lua_getglobal(L, "colliderMax");
+			if (!LuaOperations::TryGetFloatFromTable(L, "depth", &_colliderMax.z))
+			{
+				hasCollider = false;
+				Debug::Log("Object with key: " + _name + " has no collider.", WARNINGS_ERRORS_LOG2);
+			}
+		}
+	}
+	std::string test;
+	lua_getglobal(L, "colliderMode");
+	if (LuaOperations::TryGetString(L, &test))
+	{
+		if (test == "auto")
+		{
+			Debug::Log("Auto Colliding Activated on script " + _name, ALL);
+			hasCollider = true;
+			autoCollider = true;
+		}
+		else
+		{
+			Debug::Log("Auto Colliding Dectivated on script " + _name, ALL);
+			autoCollider = false;
+		}
+	}
+	else
+	{
+		Debug::Log("Auto Colliding Dectivated on script " + _name, ALL);
+		autoCollider = false;
+	}
+
 	lua_close(L);
 
+	isValid = true; //Didnt return until now? NOICE
 }
+
+bool LuaScriptStruct::HasAutoCollider()
+{
+	return isValid ? autoCollider : AbstractGame::instance->sloFallback->autoCollider;
+}
+
 
 bool LuaScriptStruct::HasCollider()
 {
-	return _collider.x != 0;
+	return isValid ? hasCollider : AbstractGame::instance->sloFallback->hasCollider;
 }
 
-glm::vec3 LuaScriptStruct::GetColliderDimensions()
+glm::vec3 LuaScriptStruct::GetColliderMin()
 {
-	return _collider;
+
+	return isValid ? _colliderMin : AbstractGame::instance->sloFallback->_colliderMin;
+}
+
+glm::vec3 LuaScriptStruct::GetColliderMax()
+{
+	return isValid ? _colliderMax : AbstractGame::instance->sloFallback->_colliderMax;
 }
 
 
 std::vector<std::string> LuaScriptStruct::GetAttachedScripts()
 {
-	return _attachedScripts;
+	return isValid ? _attachedScripts : AbstractGame::instance->sloFallback->_attachedScripts;
 }
 
 std::string LuaScriptStruct::GetName()
 {
-	return _name;
+	return isValid ? _name : AbstractGame::instance->sloFallback->_name;
 }
 std::string LuaScriptStruct::GetTexturePath()
 {
-	return _texturePath;
+	return isValid ? _texturePath : AbstractGame::instance->sloFallback->_texturePath;
 }
 std::string LuaScriptStruct::GetObjectPath()
 {
-	return _objPath;
+	return isValid ? _objPath : AbstractGame::instance->sloFallback->_objPath;
 }
 
 
 Mesh* LuaScriptStruct::GetObject()
 {
 	if (_mesh != nullptr)return _mesh;
-	return _mesh = Mesh::load(_objPath);
+	return _mesh = Mesh::load(GetObjectPath());
 }
 
-glm::vec3 LuaScriptStruct::GetPosition()
+glm::vec3 LuaScriptStruct::GetPositionOffset()
 {
-	return _position;
+	return isValid ? _position : AbstractGame::instance->sloFallback->_position;
+}
+
+std::string LuaScriptStruct::GetEmmissiveMap()
+{
+	return isValid ? _emmissiveTexture : AbstractGame::instance->sloFallback->_emmissiveTexture;
+}
+
+std::string LuaScriptStruct::GetSpecular()
+{
+	return isValid ? _specularTexture : AbstractGame::instance->sloFallback->_specularTexture;
+}
+
+std::string LuaScriptStruct::GetNormal() {
+	return isValid ? _normalTexture : AbstractGame::instance->sloFallback->_normalTexture;
 }

@@ -15,20 +15,36 @@ class Texture;
 class TextureMaterial : public AbstractMaterial
 {
 public:
-	TextureMaterial(Texture* pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap = nullptr);
+	TextureMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin, Texture* heightMap = nullptr);
 	virtual ~TextureMaterial();
 
-	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+	virtual void render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 
 	static Texture* _heightMap;
 	static float maxXOff;
+	static float currentXOff;
 	static float xOffsetSmootness;
+	static float heightmapTiling;
+	static float heightmapSpeed;
+	static float maxHeight;
+	static float genOffset;
+	static float width;
+	static float xMoveTiling;
+	static glm::vec3 fogColor;
+	static float fogEnd;
+	static float fogBegin;
+	static float fogBlendSmoothness;
 protected:
 private:
 	static ShaderProgram* _shader;
 	static void _lazyInitializeShader();
+
+	static GLint _fogColor;
+	static GLint _fogBegin;
+	static GLint _fogEnd;
+	static GLint _fogBlendSmoothness;
 
 	//in this example we cache all identifiers for uniforms & attributes
 	static GLint _uMMatrix;
@@ -38,17 +54,14 @@ private:
 	static GLLight _lightLocations[8];
 	static GLint _lightCount;
 	static GLint _shininess;
-	static GLint _steps;
 	static int offset;
 	int _offset;
 	static GLint _aVertex;
 	static GLint _aNormal;
-	static GLint _aUV;
+	static GLint _aUV; 
+	static GLint _aTangents;
+	static GLint _aBitangents;
 
-	static GLint _colorCount;
-	static GLint _blendingSoftness;
-	static GLint _blend;
-	static GLint _colorTiling;
 	static GLint _time;
 	static GLint _heightTexID;
 	static GLint _maxHeight;
@@ -56,19 +69,27 @@ private:
 	static GLint _width;
 	static GLint _xOffsetSmootness;
 	static GLint _maxXOff;
+	static GLint _movingspeed;
+	static GLint _heightMapTiling;
+	static GLint _heightMapSpeed;
+	static GLint _uEmmissiveTexture;
+	static GLint _xMoveTiling;
+	static GLint _camPos;
+	
+
+	Texture* _emmissiveTexture;
+	static GLint _uSpecularTexture;
+	Texture* _specularTexture;
+
 
 	Texture* _diffuseTexture;
 	float shininess;
-	int steps;
 
 
 
 	float blendingSoftness;
 	float blend;
 	float colorTiling;
-	float maxHeight;
-	float genOffset;
-	float width;
 
 
 

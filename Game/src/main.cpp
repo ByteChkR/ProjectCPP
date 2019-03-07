@@ -9,6 +9,10 @@
 #include <vector>
 #include "mge/config.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "../_vs2015/GameStateManager.h"
+#include "../_vs2015/StoryPanelHandler.h"
+#include "mge/util/DataManager.h"
+#include "../_vs2015/Debug.h"
 /**
  * Main entry point for the Micro Engine.
 
@@ -26,38 +30,20 @@
  */
 int main(int argc, char *argv[])
 {
-	std::string filename = "maplist.lua";
-	LevelManager* lm = nullptr;
-	bool isRaw;
-	std::string test = argv[0];
-	if (argc == 2)
-	{
-		isRaw = false;
-		
-		filename = argv[1];
-	}
-	else if (argc > 2)
-	{
-		filename = argv[1];
-		isRaw = argv[2][0] == 'r';
-	}
-	else
-	{
-		lm = new LevelManager(filename);
-	}
-	AudioManager * audioManager = new AudioManager();
-
+	
 	//int t;
 	//std::cin >> t;
 
-	std::cout << "Starting Game" << std::endl;
+	Debug::Log("Starting Game...", WARNINGS_ERRORS_LOG1);
+	Debug::Log("with ArgCount: " + std::to_string(argc), WARNINGS_ERRORS_LOG2);
 
-	AbstractGame* game = new MGEDemo();
+	bool wMode = false;
+	if (argc > 1)wMode = argv[1][0] == 'w';
+
+	AbstractGame* game = new MGEDemo(argc, argv, wMode);
 
 	game->initialize();
 
-	if(lm != nullptr)lm->ChangeLevel(0);
-	else Level* level = isRaw?new Level(true, filename):new Level(config::MGE_MAP_PATH+filename);
 
 	game->run();
 

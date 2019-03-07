@@ -15,10 +15,10 @@ class Texture;
 class TextureMovingMaterial : public AbstractMaterial
 {
 public:
-	TextureMovingMaterial(Texture* pDiffuseTexture, float shininess, int steps, float colorTextureBlending, float blendSmoothing, float colorTilin);
+	TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture,Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin);
 	virtual ~TextureMovingMaterial();
 
-	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+	virtual void render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 
@@ -29,6 +29,11 @@ private:
 	static ShaderProgram* _shader;
 	static void _lazyInitializeShader();
 
+	static GLint _fogColor;
+	static GLint _fogBegin;
+	static GLint _fogEnd;
+	static GLint _fogBlendSmoothness;
+
 	//in this example we cache all identifiers for uniforms & attributes
 	static GLint _uMMatrix;
 	static GLint _uVMatrix;
@@ -37,17 +42,18 @@ private:
 	static GLLight _lightLocations[8];
 	static GLint _lightCount;
 	static GLint _shininess;
-	static GLint _steps;
 	static int offset;
 	int _offset;
 	static GLint _aVertex;
 	static GLint _aNormal;
 	static GLint _aUV;
+	static GLint _aTangents;
+	static GLint _aBitangents;
+	static GLint _heightMapTiling;
+	static GLint _xMoveTiling;
+	static GLint _heightMapSpeed;
+	static GLint _camPos;
 
-	static GLint _colorCount;
-	static GLint _blendingSoftness;
-	static GLint _blend;
-	static GLint _colorTiling;
 	static GLint _time;
 	static GLint _heightTexID;
 	static GLint _maxHeight;
@@ -55,20 +61,25 @@ private:
 	static GLint _width;
 	static GLint _xOffsetSmootness;
 	static GLint _maxXOff;
-	static GLint _movingspeed;
+	static GLint _movingspeed;	
+	static GLint _uEmmissiveTexture;
+	Texture* _emmissiveTexture;
+	static GLint _uSpecularTexture;
+	Texture* _specularTexture;
+	static GLint _playerPos;
+	static float ShadowSize;
+	static float ShadowLength;
+	static GLint _shadowSize;
+	static GLint _shadowLength;
 
 	Texture* _diffuseTexture;
 	float shininess;
-	int steps;
 
 
 
 	float blendingSoftness;
 	float blend;
 	float colorTiling;
-	float maxHeight;
-	float genOffset;
-	float width;
 
 
 

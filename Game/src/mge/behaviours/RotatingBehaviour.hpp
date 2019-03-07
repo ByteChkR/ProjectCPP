@@ -9,11 +9,15 @@
 class RotatingBehaviour : public AbstractBehaviour
 {
 	public:
-		RotatingBehaviour();
+		RotatingBehaviour(float pIntensity = 1);
 		virtual ~RotatingBehaviour();
 		virtual AbstractBehaviour* Clone();
 		virtual void update(float pStep);
-
+		
+		float _intensity = 1;
+		float totalTime;
+		bool init;
+		float _initYPos;
 };
 
 #endif // ROTATINGBEHAVIOUR_HPP

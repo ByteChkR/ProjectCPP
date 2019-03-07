@@ -5,6 +5,8 @@
 #include "mge/materials/TextureMaterial.hpp"
 #include "mge/core/Texture.hpp"
 #include "StaticBoxCollider.hpp"
+#include "Debug.h"
+#include "mge/core/AbstractGame.hpp"
 
 PresetHandler::~PresetHandler()
 {
@@ -66,6 +68,14 @@ PresetHandler::PresetHandler(std::vector<GameObject*> gobjs)
 
 }
 
+void PresetHandler::Unload()
+{
+	for (size_t i = 0; i < presets.size(); i++)
+	{
+		presets[i]->Unload();
+	}
+}
+
 int PresetHandler::GetTotalInstances()
 {
 	int count = 0;
@@ -89,13 +99,27 @@ int PresetHandler::GetTotalActiveInstances()
 
 void PresetHandler::GivePreset(size_t index, GameObject* preset)
 {
-	if (index >= presets.size())return;
+	if (index >= presets.size())
+	{
+		Debug::LogError("You are trying to Give back a preset(ID:" + std::to_string(index) + ") that has no valid id for this biome. Destroying this instance.");
+		GameObject* parent = preset->getParent();
+		if (parent != nullptr)
+		{
+			parent->remove(preset);
+			delete preset;
+			return;
+		}
+	}
 	preset->setLocalPosition(glm::vec3(0, 50, 0));
 	presets[index]->Give(preset);
 }
 
 GameObject* PresetHandler::TakePreset(size_t index)
 {
-	if (index >= presets.size())return nullptr;
+	if (index >= presets.size())
+	{
+		Debug::LogError("You are trying to get Object ID: " + std::to_string(index) + ", but the biome file has no object Script mapped to that ID. Returning Fallback.");
+		return AbstractGame::instance->sloGameObjectFallback;
+	}
 	return presets[index]->Take();
 }

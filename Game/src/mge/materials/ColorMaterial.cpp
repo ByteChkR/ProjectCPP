@@ -33,8 +33,9 @@ void ColorMaterial::setDiffuseColor(glm::vec3 pDiffuseColor) {
     _diffuseColor = pDiffuseColor;
 }
 
-void ColorMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
-    _shader->use();
+void ColorMaterial::render( int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
+	if (pass != 0)return;
+	_shader->use();
 
     //set the material color
     glUniform3fv (_shader->getUniformLocation("diffuseColor"), 1, glm::value_ptr(_diffuseColor));
@@ -48,7 +49,7 @@ void ColorMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMa
     pMesh->streamToOpenGL(
         _shader->getAttribLocation("vertex"),
         _shader->getAttribLocation("normal"),
-        _shader->getAttribLocation("uv")
+        _shader->getAttribLocation("uv"),-1,-1
     );
 
 }

@@ -45,14 +45,20 @@ int BiomeHandler::GetTotalActiveInstances()
 	return ret;
 }
 
+void BiomeHandler::UnloadBiome(int id)
+{
+	if (id < 0 || id > _biomes.size())return;
+	if (_biomes[id]->GetTotalActiveInstances() != 0)return;
+	_biomes[id]->Unload();
+}
 
-void BiomeHandler::GivePreset(int biomeID, size_t index, GameObject* preset) 
+void BiomeHandler::GivePreset(size_t biomeID, size_t index, GameObject* preset) 
 {
 	if (biomeID >= _biomes.size())return;
 	return _biomes[biomeID]->GivePreset(index, preset);
 }
 
-GameObject* BiomeHandler::TakePreset(int biomeID, size_t index) 
+GameObject* BiomeHandler::TakePreset(size_t biomeID, size_t index) 
 {
 	if (biomeID >= _biomes.size())return nullptr;
 	return _biomes[biomeID]->TakePreset(index);

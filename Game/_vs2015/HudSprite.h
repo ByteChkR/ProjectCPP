@@ -9,8 +9,9 @@ class HudSprite
 {
 
 	public:
-		HudSprite(std::string filename);
+		HudSprite(std::string filename,float scale = 1);
 		sf::Sprite sprite;
+		sf::Sprite scaledSprite;
 
 	private:
 		sf::Texture _texture;

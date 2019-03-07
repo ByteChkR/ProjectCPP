@@ -21,10 +21,13 @@ public:
 	Lane* GetLaneAt(size_t pIndex);
 	std::vector <int> GetBiomes();
 	int GetBiomeAt(int pNumber);
-	int GetPartCount();
+	size_t GetPartCount();
+	int NextInt(std::string file, int index, int* charsRead);
 
 private:
 
+	static const int ZERO_ID = '0';
+	static const int NINE_ID = '9';
 
 	unsigned seed = unsigned(std::chrono::system_clock::now().time_since_epoch().count());
 	static std::default_random_engine e;
