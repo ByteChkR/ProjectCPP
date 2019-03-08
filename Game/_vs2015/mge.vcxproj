@@ -223,6 +223,7 @@
     <ClInclude Include="NextButton.h" />
     <ClInclude Include="NextStageButton.h" />
     <ClInclude Include="ObjectPool.hpp" />
+    <ClInclude Include="PanelBackButton.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleSystem.h" />
@@ -300,6 +301,7 @@
     <ClCompile Include="NextButton.cpp" />
     <ClCompile Include="NextStageButtoncpp.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
+    <ClCompile Include="PanelBackButton.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />

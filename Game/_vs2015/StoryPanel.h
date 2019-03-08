@@ -13,6 +13,7 @@ class StoryPanel
 		StoryPanel();
 
 		void NextPanel();
+		void PreviousPanel();
 		void NextStoryPart();
 		void Reset();
 		void Update();
@@ -24,6 +25,8 @@ class StoryPanel
 		HudSprite *_currentPanel;
 		HudSprite *_nextButtonBox;
 		Button *_nextButton;
+		HudSprite *_backButtonBox;
+		Button *_backButton;
 		HudText *_nextText;
 		int _storyPart;
 		int _storyParts;
