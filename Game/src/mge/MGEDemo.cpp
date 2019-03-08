@@ -131,11 +131,18 @@ void MGEDemo::_initializeResources()
 	heliAnimation->setLocalPosition(glm::vec3(10, 30, -150));
 	heliAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(heliAnimation);
+	GameObject * heliDrop = new GameObject("HeliAnimation", glm::vec3(0, 5, 0));
+	heliDrop->setMesh(testQuad);
+	heliDrop->setMaterial(runicMihai);
+	heliDrop->scale(glm::vec3(4, 4, 4));
+	heliDrop->setLocalPosition(glm::vec3(-200,-200,-200));
+	heliDrop->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
+	_world->add(heliDrop);
 
 
 
 	_world->add(playerObject);
-	playerObject->addBehaviour(new PlayerController(playerObject, heliAnimation));
+	playerObject->addBehaviour(new PlayerController(playerObject, heliAnimation, heliDrop));
 	playerObject->add(_world->getMainCamera());
 	_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
 

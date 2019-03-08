@@ -15,7 +15,7 @@
 class PlayerController : public AbstractBehaviour
 {
 public:
-	PlayerController(GameObject * pOwner, GameObject * pHeli);
+	PlayerController(GameObject * pOwner, GameObject * pHeli,GameObject * pHeliDrop);
 	virtual ~PlayerController();
 	virtual void update(float pTime) override;
 	virtual void OnCollision(GameObject* other) override;
@@ -115,6 +115,10 @@ private:
 	GameObject* heli;
 	float heliTool=0;
 	float heliAnimationSpeed = 1.0f;
+
+	GameObject* heliDrop;
+	float heliDropTool;
+	float heliDropSpeed = 1.0f;
 
 	int lastLevelFinalScore;
 
