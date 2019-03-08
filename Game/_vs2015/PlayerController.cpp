@@ -21,15 +21,16 @@
 #include "mge/core/AbstractGame.hpp"
 PlayerController* PlayerController::instance = nullptr;
 
-PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
+PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, GameObject* pHeliDrop)
 {
 	srand((unsigned int)time(NULL));
 	setOwner(pOwner);
 
-
-
 	heli = pHeli;
 	heliInitialPosition = heli->getLocalPosition();
+
+	heliDrop = pHeliDrop;
+
 	std::function<void()> oE = std::bind(&PlayerController::OnGameEnd, std::ref(*this));
 	std::function<void(float)> oT = std::bind(&PlayerController::OnGameEndTick, std::ref(*this), std::placeholders::_1);
 
@@ -111,7 +112,7 @@ void PlayerController::ResetScore(int newScore) {
 
 AbstractBehaviour* PlayerController::Clone()
 {
-	return new PlayerController(_owner, _owner);
+	return new PlayerController(_owner, _owner, _owner);
 }
 
 PlayerController::~PlayerController()
@@ -647,10 +648,19 @@ void PlayerController::Animate(float pDeltaTime)
 {
 	animationTool += pDeltaTime * animationSpeed;
 	heliTool += pDeltaTime * heliAnimationSpeed;
+	heliDropTool += pDeltaTime * heliDropSpeed;
 	double sinTool = (glm::sin(animationTool) + 1) / 2;
 	double sinForHeli = (glm::sin(heliTool) + 1) / 2;
 
 	heli->setLocalPosition(heliInitialPosition + glm::vec3(sinForHeli * 4 - 2, ((glm::cos(heliTool) + 1) / 2) * 10 - 5, 0));
+
+	if (heliDrop->getLocalPosition().y < -200) {
+		heliDrop->setLocalPosition(heli->getLocalPosition());
+		heliDropTool = 0;
+		Debug::Log("Reset Drop",ALL);
+	}
+	heliDrop->setLocalPosition(heliDrop->getLocalPosition() + glm::vec3(0, -heliDropTool, 0));
+
 
 
 	modelsContainer->setTransform(glm::translate(glm::mat4x4(1), glm::vec3(0, -1, 0)));
