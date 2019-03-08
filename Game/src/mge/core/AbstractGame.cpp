@@ -165,31 +165,6 @@ void AbstractGame::run()
 
 
 			AudioManager::instance->Update(timePerFrame.asSeconds());
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-			{
-				AudioManager::instance->ChangeBackgroundMusic(0);
-
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-			{
-				AudioManager::instance->ChangeBackgroundMusic(1);
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-			{
-				AudioManager::instance->ChangeBackgroundMusic(2);
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-			{
-				AudioManager::instance->GameOver();
-			}
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
-			{
-				AudioManager::instance->Restart(0);
-			}
 
 			_render(0);
 			_render(1);

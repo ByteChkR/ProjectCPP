@@ -80,7 +80,7 @@ private:
 	float cameraShakeIntensity = 1;
 	float timeLeftToShakeCamera = 0;
 	float animationTool = 0; // delta time addition
-	float animationSpeed =10.0f;
+	float animationSpeed =20.0f;
 	float maxYToJump = 40;
 
 	//footsteps

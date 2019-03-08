@@ -31,6 +31,7 @@ AudioManager::AudioManager()
 	AddSound("corn.wav");//4
 	AddSound("click.wav");//5
 	AddSound("jump.wav");//6
+	AddSound("win.wav");//7
 	for (int i = 1; i < 6; i++)
 	{
 		AddFootStep("footsteps/Footstep" + std::to_string(i) + ".wav");
