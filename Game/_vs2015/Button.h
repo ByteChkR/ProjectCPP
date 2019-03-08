@@ -10,7 +10,7 @@ public:
 
 	void SetPosition(float x, float y);
 	void SetPosition(const sf::Vector2f _pos);
-	void Update();
+	virtual void Update();
 
 	bool scaled = false;
 

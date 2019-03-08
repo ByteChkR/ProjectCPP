@@ -13,7 +13,7 @@ class RotatingBehaviour : public AbstractBehaviour
 		virtual ~RotatingBehaviour();
 		virtual AbstractBehaviour* Clone();
 		virtual void update(float pStep);
-		
+
 		float _intensity = 1;
 		float totalTime;
 		bool init;

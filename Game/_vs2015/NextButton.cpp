@@ -8,6 +8,15 @@ NextButton::NextButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite,Story
 	_panel = panel;
 }
 
+void NextButton::Update()
+{
+	Button::Update();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		OnClick();
+	}
+}
+
 void NextButton::OnClick(){
 	Debug::Log("Next", ALL);
 	_panel->NextPanel();

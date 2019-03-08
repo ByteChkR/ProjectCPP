@@ -26,6 +26,7 @@ public:
 	bool IsMoving();
 	void ResetScore(int newScore = 0);
 	void ResetTutorial();
+	void Reset();
 
 	bool _tutorialColliderStay;
 private:
@@ -51,6 +52,7 @@ private:
 	bool _isWPRessed;
 	bool _isBackSwitching;
 	bool _isStruggling;
+	bool _test;
 	float _struggleTime;
 	float _struggleMaxTime;
 	bool _lockControls;

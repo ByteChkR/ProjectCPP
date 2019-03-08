@@ -14,9 +14,8 @@ LightParams::LightParams(int type, float intensity, glm::vec2 attenuation,
 	this->ambientColor = ambientColor;
 }
 
-LightParams::LightParams(std::string file)
+LightParams::LightParams(std::string file) : LightParams()
 {
-	type = 0;
 
 	lua_State* L = luaL_newstate();
 
@@ -31,7 +30,6 @@ LightParams::LightParams(std::string file)
 		intensity = 1;
 	}
 
-	attenuation = glm::vec2(0);
 	lua_getglobal(L, "attenuationLinear");
 	if (!LuaOperations::TryGetFloat(L, &attenuation.x))
 	{
@@ -44,7 +42,6 @@ LightParams::LightParams(std::string file)
 			attenuation.x = 0.01f;
 		}
 	}
-	color = glm::vec3(1);
 	lua_getglobal(L, "colorRed");
 	if (!LuaOperations::TryGetFloat(L, &color.r))
 	{
@@ -61,7 +58,6 @@ LightParams::LightParams(std::string file)
 		Debug::Log("Could not read light color component blue. Default = 1", WARNINGS_ERRORS_LOG2);
 	}
 
-	ambientColor = glm::vec3(0.2);
 	lua_getglobal(L, "ambientColorRed");
 	if (!LuaOperations::TryGetFloat(L, &ambientColor.r))
 	{

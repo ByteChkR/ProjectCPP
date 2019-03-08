@@ -375,7 +375,10 @@ void MGEDemo::_render(int pass) {
 		//_updateHud();
 	}
 	else if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
-	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)_gameOverScreen->Update();
+	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)
+	{
+		_gameOverScreen->Update();
+	}
 	else if (GameStateManager::instance->_state == GameStateManager::StateNextStage)_stageClear->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateWin)_winScreen->Update();
 	else if (GameStateManager::instance->_state == GameStateManager::StateLoad)_loadingScreen->Update();

@@ -20,9 +20,10 @@ void GameStateManager::Update(float pTime ,World *_world)
 	case GameStateManager::StatePanel:
 		break;
 	case GameStateManager::StateGame:
-		if (_world != nullptr) _world->update(pTime); 
+		if (_world != nullptr) _world->update(pTime);
 		break;
 	case GameStateManager::StateGameOver:
+		if (_world != nullptr) _world->update(pTime);
 		break;
 	case GameStateManager::Tutorial1:
 		if (_world != nullptr) _world->update(pTime);

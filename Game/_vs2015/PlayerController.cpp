@@ -71,6 +71,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_isGoingDown = false;
 	_isAPressed = false;
 	_isDPressed = false;
+	_test = false;
 	_isWPRessed = false;
 	_isStruggling = false;
 	_struggleTime = 0;
@@ -131,11 +132,17 @@ void PlayerController::OnDeathEnd()
 	_coins = lastLevelFinalScore;
 	GameStateManager::instance->_state = GameStateManager::StateGameOver;
 	_owner->DisableBehaviours();
-	MapBuilder::instance->Unload();
-	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); //<--- therealchanger
+	_test = true;
 	AudioManager::instance->PlaySound(0);
 
 
+}
+
+void PlayerController::Reset()
+{
+
+	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); //<--- therealchanger
+	_test = false;
 }
 
 bool PlayerController::IsMoving()
@@ -188,7 +195,7 @@ void PlayerController::OnGameEnd()
 
 void PlayerController::OnCollision(GameObject* other)
 {
-	if (_endOfGameTimer->IsStarted() || _deathTimer->IsStarted() || _godMode)return;
+	if (_endOfGameTimer->IsStarted() || _deathTimer->IsStarted() || _godMode || _test)return;
 	//Player dies if not a coin
 	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
 	bool tutorialHit = !other->getName().find("tutorial");
@@ -202,7 +209,7 @@ void PlayerController::OnCollision(GameObject* other)
 
 			_lastTutorial = num;
 			GameStateManager::instance->_state = GameStateManager::GameState(GameStateManager::Tutorial1 + num);
-			AbstractGame::instance->SetTimeScale(3);
+			AbstractGame::instance->SetTimeScale(6);
 
 		}
 		_tutorialColliderStay = true;
@@ -512,7 +519,7 @@ void PlayerController::handleJump(float pTime)
 			else
 				_velocity += _gravityWhenHovering * pTime;
 		}
-		else if(_isGoingDown)
+		else if (_isGoingDown)
 		{
 			_velocity += _gravityWhenGoingDown * pTime;
 		}

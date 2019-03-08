@@ -258,6 +258,7 @@ void GameObject::translate(glm::vec3 pTranslation)
 void GameObject::scale(glm::vec3 pScale)
 {
 	setTransform(glm::scale(_transform, pScale));
+	
 }
 
 void GameObject::rotate(float pAngle, glm::vec3 pAxis)
