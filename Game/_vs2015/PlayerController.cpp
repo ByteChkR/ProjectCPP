@@ -211,6 +211,7 @@ void PlayerController::OnCollision(GameObject* other)
 
 	if (!other->getName().find("endoflevel"))
 	{
+		AudioManager::instance->PlaySound(7);
 		_lockControls = true;
 		lastLevelFinalScore = _coins;
 		glm::vec3 camPos = AbstractGame::instance->_world->getMainCamera()->getWorldPosition();
