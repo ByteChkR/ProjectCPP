@@ -197,10 +197,10 @@ void MapBuilder::Update(float pTime)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 
-		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 3 * pTime));
+		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 2.88f * pTime));
 	}
 	else
-		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 3 * pTime));
+		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 2.88f * pTime));
 	UpdateGen(Level::instance->GetMap(), &_mapPropList);
 	UpdateGen(Level::instance->GetDeco(), &_decoPropList);
 

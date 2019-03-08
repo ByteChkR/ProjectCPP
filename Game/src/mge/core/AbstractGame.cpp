@@ -118,6 +118,12 @@ void AbstractGame::_initializeCollisionManager()
 
 }
 
+float AbstractGame::GetTimeSinceLastFrame()
+{
+	Debug::Log(std::to_string(timeSinceLastUpdate.asSeconds()), ALL);
+	return timeSinceLastUpdate.asSeconds();
+}
+
 float AbstractGame::GetDeltaTime()
 {
 	return lastDT;
@@ -136,7 +142,7 @@ void AbstractGame::run()
 	//settings to make sure the update loop runs at 60 fps
 	sf::Time timePerFrame = sf::seconds(1.0f / 120.0f);
 	sf::Clock updateClock;
-	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+	timeSinceLastUpdate = sf::Time::Zero;
 
 	while (_window->isOpen()) {
 		timeSinceLastUpdate += updateClock.restart();
@@ -146,7 +152,7 @@ void AbstractGame::run()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			while (timeSinceLastUpdate > timePerFrame) {
-				startupTime += timePerFrame.asSeconds() / timeScale;
+				startupTime += timePerFrame.asSeconds();
 				timeSinceLastUpdate -= timePerFrame;
 				float tpf = timePerFrame.asSeconds() / timeScale;
 				_update(tpf);
@@ -241,7 +247,7 @@ void AbstractGame::_processEvents()
 			break;
 		case sf::Event::KeyPressed:
 			if (event.key.code == sf::Keyboard::Escape) {
-				exit = true;
+				//exit = true;
 			}
 			break;
 		case sf::Event::Resized:

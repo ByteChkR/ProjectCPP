@@ -37,6 +37,7 @@ private:
 	float _curSwitchTime;
 	float _jumpForce;
 	float _gravity;
+	float _gravityWhenHovering;
 	float _gravityWhenGoingDown;
 	float _gravityIncreaseWhenGoingDown;
 	float _velocity;
@@ -54,6 +55,8 @@ private:
 	float _struggleMaxTime;
 	bool _lockControls;
 	
+	bool _godMode;
+
 	int _lastTutorial;
 
 	void OnGameEnd();

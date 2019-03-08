@@ -53,11 +53,13 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	//_deathParticle->Start();
 	_currentLane = 1;
 	_gravity = -1;
-	_gravityWhenGoingDown = -5;
+	_gravityWhenHovering = -0.25f;
+	_gravityWhenGoingDown = -4;
 	_isBackSwitching = false;
-	_jumpForce = 0.45f;
+	_godMode = false;
+	_jumpForce = 0.35f;
 	_velocity = 0;
-	_switchTime = 0.1f;
+	_switchTime = 0.075f;
 	_lastTutorial = -1;
 	lastLevelFinalScore = 0;
 	_curSwitchTime = 0;
@@ -185,11 +187,11 @@ void PlayerController::OnGameEnd()
 
 void PlayerController::OnCollision(GameObject* other)
 {
-	if (_endOfGameTimer->IsStarted() || _deathTimer->IsStarted())return;
+	if (_endOfGameTimer->IsStarted() || _deathTimer->IsStarted() || _godMode)return;
 	//Player dies if not a coin
 	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
 	bool tutorialHit = !other->getName().find("tutorial");
-	
+
 	if (tutorialHit)
 	{
 
@@ -250,7 +252,7 @@ void PlayerController::OnCollision(GameObject* other)
 		lastStruggleCollider = other->getName();
 		Debug::Log("StartStruggle", ALL);
 		//other->DisableBehaviours();
-		ShakeCamera(0.2f, 0.2f);
+		ShakeCamera(0.2f, 0.4f);
 		_isStruggling = true;
 		AudioManager::instance->PlaySound(3);
 		_struggleTime = 0;
@@ -367,6 +369,46 @@ void PlayerController::update(float pTime)
 	}
 
 
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() - (0.2f*pTime), 0.0f, 3.0f));
+		Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() + (0.2f*pTime), 0.0f, 3.0f));
+		Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	{
+		AbstractGame::instance->SetTimeScale(1);
+		Debug::Log("Reset", ALL);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		AbstractGame::instance->SetTimeScale(100);
+
+		Debug::Log("Time Scale: 100x slower", ALL);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+	{
+		_godMode = true;
+		Debug::Log("GOD MODE : true", ALL);
+		_isStruggling = true;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
+	{
+		_godMode = false;
+		Debug::Log("GOD MODE : false", ALL);
+		_isStruggling = false;
+	}
+
+
+
+
+
+
 	//if jumpButton
 	//jump()
 
@@ -458,11 +500,14 @@ void PlayerController::handleJump(float pTime)
 	//Map generator automatically returns the lane struct (interpolated) of the current position
 	if (_isJumping)
 	{
-		if (_isGoingDown == false)
+		if (!_isGoingDown || _velocity > 0)
 		{
-			_velocity += _gravity * pTime;
+			if (_velocity > 0)
+				_velocity += _gravity * pTime;
+			else
+				_velocity += _gravityWhenHovering * pTime;
 		}
-		else
+		else if(_isGoingDown)
 		{
 			_velocity += _gravityWhenGoingDown * pTime;
 		}

@@ -35,6 +35,7 @@ class AbstractGame
 		void SetTimeScale(float scale);
 		float GetTimeScale();
 		float GetTimeSinceStartup();
+		float GetTimeSinceLastFrame();
 		sf::Image* fallbackTexture;
 		LuaScriptStruct* sloFallback;
 		GameObject* sloGameObjectFallback;
@@ -79,6 +80,7 @@ class AbstractGame
 
 		float timeScale;
 		float lastDT;
+		sf::Time timeSinceLastUpdate;
 
 
 };
