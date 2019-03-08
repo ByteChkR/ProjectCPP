@@ -42,6 +42,8 @@ private:
 	static GLLight _lightLocations[8];
 	static GLint _lightCount;
 	static GLint _shininess;
+	static GLint _textureXOffset;
+	static float textureXOffset;
 	static int offset;
 	int _offset;
 	static GLint _aVertex;
@@ -75,7 +77,7 @@ private:
 	Texture* _diffuseTexture;
 	float shininess;
 
-
+	
 
 	float blendingSoftness;
 	float blend;

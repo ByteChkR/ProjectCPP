@@ -21,6 +21,7 @@ ShaderProgram* TextureMovingMaterial::_shader = NULL;
 
 float TextureMovingMaterial::ShadowSize = 1;
 float TextureMovingMaterial::ShadowLength = 6;
+float TextureMovingMaterial::textureXOffset = 0.5;
 
 GLint TextureMovingMaterial::_fogColor = 0;
 GLint TextureMovingMaterial::_fogBegin = 0;
@@ -59,7 +60,7 @@ GLint TextureMovingMaterial::_playerPos = 0;
 GLint TextureMovingMaterial::_shadowLength = 0;
 GLint TextureMovingMaterial::_shadowSize = 0;
 GLint TextureMovingMaterial::_camPos = 0;
-
+GLint TextureMovingMaterial::_textureXOffset = 0;
 
 TextureMovingMaterial::TextureMovingMaterial(Texture* pDiffuseTexture, Texture* emmissiveTexture, Texture* specularTexture, float shininess, float colorTextureBlending, float blendSmoothing, float colorTilin) :_diffuseTexture(pDiffuseTexture) {
 	_diffuseTexture = pDiffuseTexture;
@@ -92,7 +93,7 @@ void TextureMovingMaterial::_lazyInitializeShader() {
 		_uVMatrix = _shader->getUniformLocation("viewMatrix");
 		_uPMatrix = _shader->getUniformLocation("projectionMatrix");
 
-
+		_textureXOffset = _shader->getUniformLocation("textureXOffset");
 		_heightTexID = _shader->getUniformLocation("yOffTexture");
 		_maxHeight = _shader->getUniformLocation("maxHeight");
 
@@ -196,7 +197,7 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 	glUniform1f(_xMoveTiling, TextureMaterial::xMoveTiling);
 	glUniform1f(_shadowSize, ShadowSize);
 	glUniform1f(_shadowLength, ShadowLength);
-
+	glUniform1f(_textureXOffset, textureXOffset);
 	if (TextureMaterial::_heightMap != nullptr)
 	{
 		//setup texture slot 0

@@ -51,6 +51,7 @@ void AbstractGame::initialize() {
 void AbstractGame::_initializeWindow() {
 	Debug::Log("Initializing window...", WARNINGS_ERRORS_LOG1);
 	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
+
 	_window = (windowMode ? new sf::RenderWindow(sf::VideoMode(900, 600), "My Game!", sf::Style::Default, cs) :
 		 new sf::RenderWindow(sf::VideoMode(1920, 1080), "My Game!", sf::Style::Fullscreen, cs));
 	glEnable(GL_MULTISAMPLE);
@@ -98,7 +99,9 @@ void AbstractGame::_initializeGlew() {
 void AbstractGame::_initializeRenderer() {
 	//setup our own renderer
 	Debug::Log("Initializing renderer...", WARNINGS_ERRORS_LOG1);
+
 	_renderer = new Renderer(true);
+
 	_renderer->setClearColor(0, 0, 0);
 	Debug::Log("Renderer done.", WARNINGS_ERRORS_LOG1);
 }

@@ -23,6 +23,7 @@ uniform float heightMapTiling;
 uniform sampler2D yOffTexture;
 uniform vec3 playerPosition;
 uniform vec3 cameraPosition;
+uniform float textureXOffset;
 
 out vec2 texCoord;
 out vec3 worldNormal;
@@ -84,7 +85,7 @@ void main( void ){
 		vertexWorldPosition = (vertexWorldPosition + vec4(offset, 0, 0)); //Applying the offset
 		vertexCameraPosition = viewMatrix * vertexWorldPosition; //Updating the Camera position(now with offset)
 
-    	texCoord = uv+ vec2(0, time*movingspeed);
+    	texCoord = uv+ vec2(textureXOffset, time*movingspeed);
     	worldNormal = vec3(viewMatrix * modelMatrix * vec4(normal, 0));
     	fragmentWorldPosition = vec3(vertexWorldPosition);
     	fPlayerPosition = vec3(finalPlayerPosition);
