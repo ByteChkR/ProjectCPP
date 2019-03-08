@@ -26,6 +26,8 @@ public:
 	bool IsMoving();
 	void ResetScore(int newScore = 0);
 	void ResetTutorial();
+
+	bool _tutorialColliderStay;
 private:
 	Timer* _endOfGameTimer;
 	Timer* _deathTimer;
@@ -51,7 +53,6 @@ private:
 	float _struggleTime;
 	float _struggleMaxTime;
 	bool _lockControls;
-
 	
 	int _lastTutorial;
 
@@ -85,6 +86,7 @@ private:
 	bool stepCheckDown = true;
 	//empty game objects that serve as pivots
 
+	bool _colstay;
 
 	ParticleEmitter* _deathParticle;
 	GameObject* _deathContainer;

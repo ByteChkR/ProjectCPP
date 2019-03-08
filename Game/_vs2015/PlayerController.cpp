@@ -85,6 +85,8 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	gStruggleAnimation->DisableBehaviours();
 	lastStruggleCollider = "";
 	_lockControls = false;
+	_colstay = false;
+	_tutorialColliderStay = false;
 
 	instance = this;
 
@@ -135,7 +137,7 @@ void PlayerController::OnDeathEnd()
 
 bool PlayerController::IsMoving()
 {
-	return (GameStateManager::instance->_state == GameStateManager::StateGame && !_endOfGameTimer->IsStarted() && !_deathTimer->IsStarted());
+	return ((GameStateManager::instance->_state == GameStateManager::StateGame || GameStateManager::instance->_state >= GameStateManager::Tutorial1) && !_endOfGameTimer->IsStarted() && !_deathTimer->IsStarted());
 }
 
 void PlayerController::OnDeathTick(float pTime)
@@ -186,17 +188,29 @@ void PlayerController::OnCollision(GameObject* other)
 	if (_endOfGameTimer->IsStarted() || _deathTimer->IsStarted())return;
 	//Player dies if not a coin
 	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
-	if (!other->getName().find("tutorial"))
+	bool tutorialHit = !other->getName().find("tutorial");
+	//Debug::Log(other->getName() + ": " + std::to_string(tutorialHit) + " & " + std::to_string(_tutorialColliderStay), ALL);
+
+	if (tutorialHit)
 	{
-		
-		int num = other->getName()[other->getName().size() - 2] - '1';
+
+		int num = other->getName()[other->getName().size() - 2] - '1'; //<-- Thats incredibly easy to break btw. just create more than 10 of the same tutorial trigger
+		//Debug::Log(other->getName() + ": " + std::to_string(num), ALL);
 		if (num > _lastTutorial)
 		{
+			//Debug::Log(other->getName() + ": " + std::to_string(num), ALL);
 			_lastTutorial = num;
 			GameStateManager::instance->_state = GameStateManager::GameState(GameStateManager::Tutorial1 + num);
+			AbstractGame::instance->SetTimeScale(3);
+
 		}
+		//Debug::LogError("Anti Hallo");
+		_tutorialColliderStay = true;
+		return;
 	}
-	else if (!other->getName().find("endoflevel"))
+
+
+	if (!other->getName().find("endoflevel"))
 	{
 		_lockControls = true;
 		lastLevelFinalScore = _coins;
@@ -268,6 +282,22 @@ void PlayerController::OnCollision(GameObject* other)
 
 void PlayerController::update(float pTime)
 {
+	if (!_tutorialColliderStay && _colstay)
+	{
+		Debug::LogError("Anti Hallo");
+		GameStateManager::instance->_state = GameStateManager::StateGame;
+		AbstractGame::instance->SetTimeScale(1);
+		_colstay = false;
+	}
+	else if (_tutorialColliderStay && !_colstay)
+	{
+		_colstay = true;
+		Debug::LogError("Hallo");
+
+	}
+
+	_tutorialColliderStay = false;
+
 	if (_isStruggling)
 	{
 		if (!gStruggleAnimation->IsEnabled())gStruggleAnimation->EnableBehaviours();
@@ -599,7 +629,7 @@ void PlayerController::Animate(float pDeltaTime)
 	if (_lockControls == false)
 	{
 
-		
+
 		if (stepCheckDown == false)
 		{
 			if (currentStepTime - lastStepTime <= 0)
@@ -617,7 +647,7 @@ void PlayerController::Animate(float pDeltaTime)
 			}
 		}
 
-			lastStepTime = currentStepTime;
+		lastStepTime = currentStepTime;
 	}
 }
 

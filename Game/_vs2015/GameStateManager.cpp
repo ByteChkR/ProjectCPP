@@ -24,6 +24,18 @@ void GameStateManager::Update(float pTime ,World *_world)
 		break;
 	case GameStateManager::StateGameOver:
 		break;
+	case GameStateManager::Tutorial1:
+		if (_world != nullptr) _world->update(pTime);
+		break;
+	case GameStateManager::Tutorial2:
+		if (_world != nullptr) _world->update(pTime);
+		break;
+	case GameStateManager::Tutorial3:
+		if (_world != nullptr) _world->update(pTime);
+		break;
+	case GameStateManager::Tutorial4:
+		if (_world != nullptr) _world->update(pTime);
+		break;
 	default:
 		break;
 	}

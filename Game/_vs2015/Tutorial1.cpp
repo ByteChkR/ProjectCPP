@@ -13,6 +13,7 @@
 #include "../_vs2015/MapBuilder.h"
 #include "GameStateManager.h"
 #include "../_vs2015/Debug.h"
+#include "mge/core/AbstractGame.hpp"
 
 Tutorial1::Tutorial1(sf::RenderWindow * aWindow) : _window(aWindow), _debugBox()
 {
@@ -26,6 +27,7 @@ void Tutorial1::ButtonPressCheck()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		GameStateManager::instance->_state = GameStateManager::StateGame;
+		AbstractGame::instance->SetTimeScale(1);
 		Debug::Log("Next Tutorial", ALL);
 	}
 }

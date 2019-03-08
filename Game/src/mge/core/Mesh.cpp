@@ -386,7 +386,6 @@ void Mesh::drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMa
 
 	glBegin(GL_LINES);
 
-	/* colliderhere
 	for (size_t i = 0; i < collider.size(); i++)
 	{
 		glm::vec3 start, end;
@@ -396,7 +395,7 @@ void Mesh::drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMa
 		glVertex3fv(glm::value_ptr(start));
 		glVertex3fv(glm::value_ptr(end));
 	}
-	*/
+
 	//for each index draw the normal starting at the corresponding vertex
 	//for (size_t i = 0; i < _indices.size(); i++) {
 	//	//draw normal for vertex

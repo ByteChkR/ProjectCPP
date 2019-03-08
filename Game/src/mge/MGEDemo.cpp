@@ -369,6 +369,7 @@ void MGEDemo::_render(int pass) {
 		else if (num == -1)_tutorial1->Update();
 		else if (num == -2)_tutorial2->Update();
 		else if (num == -3)_tutorial3->Update();
+
 		//tutorialArray[num].Update();
 		//_updateHud();
 	}
