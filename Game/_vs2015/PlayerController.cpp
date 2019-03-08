@@ -189,22 +189,19 @@ void PlayerController::OnCollision(GameObject* other)
 	//Player dies if not a coin
 	StaticBoxCollider* sbc = (StaticBoxCollider*)other->getBehaviour("BOXCOLLIDER");
 	bool tutorialHit = !other->getName().find("tutorial");
-	//Debug::Log(other->getName() + ": " + std::to_string(tutorialHit) + " & " + std::to_string(_tutorialColliderStay), ALL);
-
+	
 	if (tutorialHit)
 	{
 
 		int num = other->getName()[other->getName().size() - 2] - '1'; //<-- Thats incredibly easy to break btw. just create more than 10 of the same tutorial trigger
-		//Debug::Log(other->getName() + ": " + std::to_string(num), ALL);
 		if (num > _lastTutorial)
 		{
-			//Debug::Log(other->getName() + ": " + std::to_string(num), ALL);
+
 			_lastTutorial = num;
 			GameStateManager::instance->_state = GameStateManager::GameState(GameStateManager::Tutorial1 + num);
 			AbstractGame::instance->SetTimeScale(3);
 
 		}
-		//Debug::LogError("Anti Hallo");
 		_tutorialColliderStay = true;
 		return;
 	}
@@ -284,7 +281,6 @@ void PlayerController::update(float pTime)
 {
 	if (!_tutorialColliderStay && _colstay)
 	{
-		Debug::LogError("Anti Hallo");
 		GameStateManager::instance->_state = GameStateManager::StateGame;
 		AbstractGame::instance->SetTimeScale(1);
 		_colstay = false;
@@ -292,7 +288,6 @@ void PlayerController::update(float pTime)
 	else if (_tutorialColliderStay && !_colstay)
 	{
 		_colstay = true;
-		Debug::LogError("Hallo");
 
 	}
 
