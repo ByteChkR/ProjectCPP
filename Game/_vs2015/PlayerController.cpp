@@ -74,6 +74,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_test = false;
 	_isWPRessed = false;
 	_isStruggling = false;
+	_hasShadow = true;
 	_struggleTime = 0;
 	_struggleMaxTime = 2;
 	gStruggleContainer = new GameObject("StruggleAnim");
@@ -132,6 +133,7 @@ void PlayerController::OnDeathEnd()
 	_coins = lastLevelFinalScore;
 	GameStateManager::instance->_state = GameStateManager::StateGameOver;
 	_owner->DisableBehaviours();
+	_hasShadow = false;
 	_test = true;
 	AudioManager::instance->PlaySound(0);
 
@@ -142,6 +144,7 @@ void PlayerController::Reset()
 {
 
 	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); //<--- therealchanger
+	_hasShadow = true;
 	_test = false;
 }
 
@@ -180,6 +183,7 @@ int PlayerController::GetCoinCount()
 void PlayerController::OnGameEnd()
 {
 	_lockControls = false;
+	
 	_endOfGameTimer->Reset();
 	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition() + glm::vec3(0, 0, 0));
 	_owner->add(AbstractGame::instance->_world->getMainCamera());
