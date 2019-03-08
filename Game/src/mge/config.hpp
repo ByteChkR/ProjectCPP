@@ -9,4 +9,5 @@ namespace config {
 	const std::string MGE_MAP_PATH("mge/maps/");
 	const std::string MGE_BIOME_PATH("mge/biomes/");
 	const DebugLevel DEBUG_LEVEL = DebugLevel::ALL;
+	const std::string MGE_LIGHT_PATH("mge/lights/");
 }

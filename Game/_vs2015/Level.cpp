@@ -10,6 +10,8 @@
 #include "../_vs2015/TextureMovingMaterial.h"
 #include "mge\materials\AnimationMaterial.hpp"
 #include "../_vs2015/Debug.h"
+#include "mge/core/Light.hpp"
+
 Level* Level::instance = nullptr;
 
 
@@ -112,6 +114,19 @@ Level::Level(std::string levelLuaFile)
 
 		mapGround = Texture::load(config::MGE_TEXTURE_PATH + mbg, true);
 	}
+
+	lua_getglobal(L, "lightParameter");
+	std::string lightParameter = "";
+	LightParams p;
+	if (!LuaOperations::TryGetString(L, &lightParameter))
+	{
+		Debug::Log("Could not read lightParameter field in " + levelLuaFile, DebugLevel::WARNINGS_ERRORS_LOG2);
+		p = LightParams();
+	}
+	else {
+		p = LightParams(config::MGE_LIGHT_PATH + lightParameter);
+	}
+	Light::mapLight->SetParams(p);
 
 	//lua_getglobal(L, "mapGroundNormal");
 	//std::string mbgn;
