@@ -18,6 +18,7 @@
 #include "Debug.h"
 #include <stdlib.h> 
 #include <time.h>
+#include "mge/core/AbstractGame.hpp"
 PlayerController* PlayerController::instance = nullptr;
 
 PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
@@ -78,7 +79,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_struggleTime = 0;
 	_struggleMaxTime = 2;
 	gStruggleContainer = new GameObject("StruggleAnim");
-	gStruggleContainer->addBehaviour(new RotatingBehaviour(6));
+	gStruggleContainer->addBehaviour(new RotatingBehaviour(6,0.2f));
 	GameObject * struggleObject = new GameObject("StruggleObject");
 	struggleObject->scale(glm::vec3(2, 2, 2));
 	struggleObject->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "dizzystars_initialShadingGroup_AlbedoTransparency.png", true), nullptr, nullptr, 2, 1, 5, 2));
@@ -519,7 +520,9 @@ void PlayerController::handleJump(float pTime)
 		if (!_isGoingDown || _velocity > 0)
 		{
 			if (_velocity > 0)
-				_velocity += _gravity * pTime;
+			{
+				_velocity += _gravity * pTime  ;
+			}
 			else
 				_velocity += _gravityWhenHovering * pTime;
 		}
@@ -537,7 +540,7 @@ void PlayerController::handleJump(float pTime)
 			_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition());
 		}
 		//Add the Velocity
-		if (_isJumping)_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 1, 0) * _velocity);
+		if (_isJumping)_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 1, 0) * (_velocity/ AbstractGame::instance->GetTimeScale()));
 	}
 }
 

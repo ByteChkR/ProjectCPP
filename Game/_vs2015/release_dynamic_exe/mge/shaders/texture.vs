@@ -56,10 +56,7 @@ void main( void ){
     	fragmentCameraPosition = vec3(cameraPosition);
 		vertexWorldPosition = (vertexWorldPosition + vec4(offset, 0, 0)); //Applying the offset
 		
-		if(vertexWorldPosition.z >0)
-		{
-		vertexWorldPosition.y -= vertexWorldPosition.z / hwm ;
-		}
+	vertexWorldPosition.y -= clamp(vertexWorldPosition.z, 0, vertexWorldPosition.z)/hwm;
 		
 		vertexCameraPosition = viewMatrix * vertexWorldPosition; //Updating the Camera position(now with offset)
 
