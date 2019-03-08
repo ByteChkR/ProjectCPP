@@ -183,7 +183,7 @@ void TextureMovingMaterial::render(int pass, World* pWorld, Mesh* pMesh, const g
 	//tell the shader the texture slot for the diffuse texture is slot 0
 	glUniform1i(_uDiffuseTexture, 0);
 
-	glm::vec3 ppos = PlayerController::instance->getOwner()->getLocalPosition();
+	glm::vec3 ppos = PlayerController::instance->_hasShadow ? PlayerController::instance->getOwner()->getLocalPosition(): glm::vec3(100);
 	//ppos -= AbstractGame::instance->_world->getMainCamera()->getLocalPosition()*glm::vec3(1, 0, 1);//Camera has different y and x component. so we are discarding that
 
 

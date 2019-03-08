@@ -26,6 +26,8 @@ public:
 	bool IsMoving();
 	void ResetScore(int newScore = 0);
 	void ResetTutorial();
+
+	bool _hasShadow;
 	void Reset();
 
 	bool _tutorialColliderStay;

@@ -320,6 +320,7 @@
     <ClCompile Include="StoryPanelHandler.cpp" />
     <ClCompile Include="TextureMovingMaterial.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TurkeyCage.cpp" />
     <ClCompile Include="Tutorial0.cpp" />
     <ClCompile Include="Tutorial1.cpp" />
     <ClCompile Include="Tutorial2.cpp" />

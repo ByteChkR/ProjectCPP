@@ -10,7 +10,11 @@ void CollisionManager::Update(float time)
 		for each (DynamicBoxCollider* box in dynamicColliders)
 		{
 			bool isCollision = col->IsCollision(box);
-			if(isCollision)box->FireCollision(col->GetOwner());
+			if (isCollision) 
+			{
+				box->FireCollision(col->GetOwner());
+				//col->GetOwner()->FireCollision(box->getOwner()); //Maybe later. Enables that obstacles can receive the collision event as well.
+			}
 		}
 	}
 }
