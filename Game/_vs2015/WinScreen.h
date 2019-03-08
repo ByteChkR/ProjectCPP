@@ -30,10 +30,8 @@ private:
 
 	sf::RenderWindow *_window;
 	HudSprite *_background;
-	HudSprite *_menuButtonBox;
 	HudSprite* _nameBox;
 	HudSprite *_sendScoreBox;
-	Button *_menuButton;
 	Button *_sendScoreButton;
 	HudText *_name;
 	HudText *_menuText;

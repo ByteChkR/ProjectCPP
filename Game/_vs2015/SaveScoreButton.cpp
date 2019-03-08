@@ -11,4 +11,5 @@ SaveScoreButton::SaveScoreButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSp
 void SaveScoreButton::OnClick() {
 	Debug::Log("SaveScore", ALL);
 	winScreen->SendScore();
+	GameStateManager::instance->_state = GameStateManager::StateScore;
 }
