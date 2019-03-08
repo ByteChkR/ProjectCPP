@@ -43,7 +43,7 @@ Level::Level(std::string levelLuaFile)
 		Debug::Log("Level has no height map", WARNINGS_ERRORS_LOG3);
 	}
 	else {
-		TextureMaterial::_heightMap = Texture::load(config::MGE_TEXTURE_PATH + height, true);
+		TextureMaterial::_heightMap = Texture::load(config::MGE_TEXTURE_PATH + height, false, true);
 	}
 
 	lua_getglobal(L, "map");

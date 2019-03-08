@@ -37,8 +37,7 @@ void main( void ){
 
 		vec4 vertexWorldPosition = modelMatrix * vec4(vertex, 1);
 		vec4 vertexCameraPosition = viewMatrix * vertexWorldPosition;
-
-		float heightX = max((-vertexWorldPosition.z) / genOffset, 0.0);
+		float heightX = abs(vertexWorldPosition.z) / genOffset;
 		float heightY = vertexWorldPosition.x / hwm;
 
 		vec2 heightUV = vec2(heightX, heightY) + vec2(time * heightMapSpeed, 0);
@@ -49,7 +48,8 @@ void main( void ){
 
 		float texoffx = t * maxXOffset; //X offset based on min and max offset
 
-		float texoff = texture(yOffTexture, clamp(heightUV, 0, 1)).y * maxHeight; //Y Offset based on heightmap
+		float texoff = texture(yOffTexture, heightUV).y * maxHeight; //Y Offset based on heightmap
+
 
 		vec2 offset = vec2(texoffx, texoff);
 

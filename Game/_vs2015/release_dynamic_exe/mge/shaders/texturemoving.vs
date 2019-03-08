@@ -44,7 +44,7 @@ void main( void ){
 		//Calculating the offset for the shadow(where the shadow would be)
 		vec4 playerCameraPosition = viewMatrix*vec4(playerPosition, 1);
 
-		float playerHeightX = max((-playerPosition.z) / genOffset, 0.0);
+		float playerHeightX = abs((playerPosition.z) / genOffset);
 		float playerHeightY = playerPosition.x / hwm;
 
 		vec2 playerHeightUV = vec2(playerHeightX, playerHeightY)+vec2(time*heightMapSpeed,0.0);
@@ -65,8 +65,8 @@ void main( void ){
 
 		vec4 vertexWorldPosition = modelMatrix * vec4(vertex, 1);
 		vec4 vertexCameraPosition = viewMatrix * vertexWorldPosition;
-
-		float heightX = max((-vertexWorldPosition.z) / genOffset, 0.0);
+		
+		float heightX = abs(vertexWorldPosition.z) / genOffset;
 		float heightY = vertexWorldPosition.x / hwm;
 
 		vec2 heightUV = vec2(heightX, heightY) + vec2(time * heightMapSpeed, 0);
@@ -78,7 +78,6 @@ void main( void ){
 		float texoffx = t * maxXOffset; //X offset based on min and max offset
 
 		float texoff = texture(yOffTexture, clamp(heightUV, 0, 1)).y * maxHeight; //Y Offset based on heightmap
-
 		vec2 offset = vec2(texoffx, texoff);
 		fragmentCameraPosition = vec3(cameraPosition);
 
