@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <editorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <EnginePath>D:\Users\Tim\Documents\ProjectCPP\Game\_vs2015\release_dynamic_exe\mge.exe</EnginePath>
+  <EnginePath>D:\Git\Game\_vs2015\release_dynamic_exe\mge.exe</EnginePath>
   <DefaultPartsFolder>.\parts\</DefaultPartsFolder>
   <HeightMap>0</HeightMap>
   <GroundMap>25</GroundMap>
