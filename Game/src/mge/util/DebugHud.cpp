@@ -11,12 +11,19 @@
 #include "mge/core/Texture.hpp"
 #include "../_vs2015/PlayerController.hpp"
 #include "../_vs2015/MapBuilder.h"
+#include "../_vs2015/Timer.h"
+#include "../core/AbstractGame.hpp"
 
 
 
 DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText(), _debugBox()
 {
 	assert ( _window != NULL );
+
+	std::function<void()> oE = std::bind(&DebugHud::onEnd, std::ref(*this));
+	std::function<void(float)> oT = std::bind(&DebugHud::OnTick, std::ref(*this), std::placeholders::_1);
+
+	_timer = new Timer(oT, oE, 0.5f, "ScoreScaleTimer", false);
 
 	_debugText = new HudText();
 	_scoreText = new HudText("Candy Beans.otf",26);
@@ -27,10 +34,22 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText
 	_progress = new HudSprite("run_meter_turkey.png");
 	//_progressBackground->sprite.setOrigin(_progressBackground->sprite.getTexture()->getSize().x / 2, _progressBackground->sprite.getTexture()->getSize().y);
 
+	AbstractGame::instance->_world->addBehaviour((AbstractBehaviour*)_timer);
+
 	_organizeHud();
 }
 
+void DebugHud::onEnd() {
+	_scoreText->_text.setScale(1, 1);
+	_timer->Reset();
+}
+
+void DebugHud::OnTick(float pTime) {
+	_scoreText->_text.setScale(1.1, 1.1);
+}
+
 void DebugHud::setScore(int score) {
+	if (_score != score) _timer->Start();
 	_score = score;
 	_scoreText->_text.setString("Score : " + std::to_string(_score));
 }
