@@ -13,7 +13,11 @@ public:
 	virtual ~TurkeyCage();
 	virtual AbstractBehaviour* Clone();
 	virtual void update(float pStep);
-
+	void Release();
+	
+private:
+	static GameObject* turkey;
+	void InitializeTurkey();
 };
 
 #endif
