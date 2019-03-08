@@ -1,5 +1,5 @@
 map = "temp.txt"
-genOffset = "75"
+genOffset = "25"
 xCurvature = "50"
 xCurvatureSmoothness = "2"
 heightMapTiling = "1"

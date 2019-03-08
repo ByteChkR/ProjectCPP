@@ -105,7 +105,7 @@ private:
 	GameObject * gTHead;
 	GameObject * gTTail;
 
-	GameObject* gStruggleAnimation;
+	GameObject* gStruggleContainer;
 
 	// helicoper
 

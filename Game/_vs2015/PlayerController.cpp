@@ -75,16 +75,17 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli)
 	_isStruggling = false;
 	_struggleTime = 0;
 	_struggleMaxTime = 2;
-	gStruggleAnimation = new GameObject("StruggleAnim");
-	gStruggleAnimation->addBehaviour(new RotatingBehaviour(3));
+	gStruggleContainer = new GameObject("StruggleAnim");
+	gStruggleContainer->addBehaviour(new RotatingBehaviour(6));
 	GameObject * struggleObject = new GameObject("StruggleObject");
+	struggleObject->scale(glm::vec3(2, 2, 2));
 	struggleObject->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "dizzystars_initialShadingGroup_AlbedoTransparency.png", true), nullptr, nullptr, 2, 1, 5, 2));
 	struggleObject->setMesh(Mesh::load(config::MGE_MODEL_PATH + "dizzystars.obj"));
 	struggleObject->setLocalPosition(glm::vec3(0, -2, 0));
-	_owner->add(gStruggleAnimation);
-	gStruggleAnimation->add(struggleObject);
-	gStruggleAnimation->setLocalPosition(glm::vec3(0, 3, 0));
-	gStruggleAnimation->DisableBehaviours();
+	_owner->add(gStruggleContainer);
+	gStruggleContainer->add(struggleObject);
+	gStruggleContainer->setLocalPosition(glm::vec3(0, 3, 0));
+	gStruggleContainer->DisableBehaviours();
 	lastStruggleCollider = "";
 	_lockControls = false;
 	_colstay = false;
@@ -126,7 +127,7 @@ void PlayerController::OnDeathEnd()
 	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
 	_isStruggling = false;
 	_struggleTime = 0;
-	gStruggleAnimation->DisableBehaviours();
+	gStruggleContainer->DisableBehaviours();
 	_coins = lastLevelFinalScore;
 	GameStateManager::instance->_state = GameStateManager::StateGameOver;
 	_owner->DisableBehaviours();
@@ -239,7 +240,9 @@ void PlayerController::OnCollision(GameObject* other)
 		_struggleTime = 0;
 		_isStruggling = true;
 		AudioManager::instance->PlaySound(3);
-		ShakeCamera(0.2f, 0.2f);
+		AudioManager::instance->PlaySound(1);
+		AudioManager::instance->PlaySound(2);
+		ShakeCamera(0.2f, 1.0f);
 		int lane = _nextLane;
 		_nextLane = _currentLane;
 		_currentLane = lane;
@@ -253,10 +256,11 @@ void PlayerController::OnCollision(GameObject* other)
 		lastStruggleCollider = other->getName();
 		Debug::Log("StartStruggle", ALL);
 		//other->DisableBehaviours();
-		ShakeCamera(0.2f, 0.4f);
+		ShakeCamera(0.2f, 1.0f);
 		_isStruggling = true;
 		AudioManager::instance->PlaySound(3);
 		_struggleTime = 0;
+		AudioManager::instance->PlaySound(2);
 		AudioManager::instance->PlaySound(1);
 		return;
 	}
@@ -298,12 +302,12 @@ void PlayerController::update(float pTime)
 
 	if (_isStruggling)
 	{
-		if (!gStruggleAnimation->IsEnabled())gStruggleAnimation->EnableBehaviours();
+		if (!gStruggleContainer->IsEnabled())gStruggleContainer->EnableBehaviours();
 		_struggleTime += pTime;
 
 		if (_struggleTime > _struggleMaxTime)
 		{
-			gStruggleAnimation->DisableBehaviours();
+			gStruggleContainer->DisableBehaviours();
 
 			_isStruggling = false;
 		}

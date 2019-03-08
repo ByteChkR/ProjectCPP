@@ -1,11 +1,11 @@
 local scripts = {}
-local meta = {["name"] = "van", 
+local meta = {["name"] = "van",
 ["objPath"] = "mge/models/Van.obj",
-["texture"] = "Game/Shared/Van/VanCentered_1001_AlbedoTransparency.png", 
+["texture"] = "Game/Shared/Van/VanCentered_1001_AlbedoTransparency.png",
 ["specular"] = "Game/Shared/Van/VanCentered_1001_MetallicSmoothness.png",
 ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0 }
-colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -1}
-colliderMax = { ["width"] = 1, ["height"] = 10, ["depth"] = 1}
+colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -2}
+colliderMax = { ["width"] = 1, ["height"] = 2, ["depth"] = 2}
 
 function AttachedScripts()
 	return scripts
