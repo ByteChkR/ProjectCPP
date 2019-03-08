@@ -81,6 +81,7 @@
     <ClCompile Include="KeyLogger.cpp" />
     <ClCompile Include="SaveScoreButton.cpp" />
     <ClCompile Include="PanelBackButton.cpp" />
+    <ClCompile Include="TurkeyCage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -160,5 +161,6 @@
     <ClInclude Include="KeyLogger.h" />
     <ClInclude Include="SaveScoreButton.h" />
     <ClInclude Include="PanelBackButton.h" />
+    <ClInclude Include="TurkeyCage.h" />
   </ItemGroup>
 </Project>
