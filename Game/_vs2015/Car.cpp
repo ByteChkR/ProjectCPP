@@ -69,7 +69,7 @@ void Car::update(float pStep)
 	}
 	if (_initialized && !_isBlueprint && PlayerController::instance->IsMoving())
 	{
-		float speed = _speed * pStep;
+		float speed = (_speed+_owner->getLocalPosition().x/2) * pStep;
 		_carModel->translate(glm::vec3(0, 0, speed));
 		_sbc->AddOffset(glm::vec3(0, 0, speed));
 
