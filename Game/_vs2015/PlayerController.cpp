@@ -155,6 +155,9 @@ PlayerController::~PlayerController()
 
 void PlayerController::OnDeathEnd()
 {
+	_owner->add(_deathContainer);
+	_deathContainer->setLocalPosition(glm::vec3(0));
+	_owner->EnableBehaviours();
 	//AbstractGame::instance->SetTimeScale(1);
 	_deathParticle->Stop();
 	_lockControls = false;
@@ -206,7 +209,7 @@ void PlayerController::SetCurrentLane(int lane)
 	_nextLane = lane;
 	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition() + glm::vec3(0, 0, 0));//<---
 	heliInitialPosition.x = _owner->getLocalPosition().x;
-	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); // therealchanger
+	MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); // therealchanger
 }
 
 
@@ -321,6 +324,9 @@ void PlayerController::OnCollision(GameObject* other)
 		_lockControls = true;
 		_deathParticle->Stop(true);
 		AbstractGame::instance->_world->addBehaviour((AbstractBehaviour*)_deathTimer);
+		AbstractGame::instance->_world->add(_deathContainer);
+		_deathContainer->setLocalPosition(_owner->getLocalPosition());
+		_owner->DisableBehaviours();
 		_deathParticle->Start();
 		_deathTimer->Reset(true);
 		AudioManager::instance->PlaySound(1);
