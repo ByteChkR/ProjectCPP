@@ -30,11 +30,14 @@ GLint ParticleEmitter::_genOffset = 0;
 GLint ParticleEmitter::_hwm = 0;
 GLint ParticleEmitter::_heightMapTiling = 0;
 GLint ParticleEmitter::_heightMapSpeed = 0;
+GLint ParticleEmitter::_xMoveTiling = 0;
+GLint ParticleEmitter::_xOffsetSmoothness = 0;
+GLint ParticleEmitter::_maxXOffset = 0;
 
 
 std::default_random_engine ParticleEmitter::e;
 
-ParticleEmitter::ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles, int maxParticlesPerStep, bool useTimeScale)
+ParticleEmitter::ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles, float maxParticlesPerStep, bool useTimeScale)
 {
 	this->useTimeScale = useTimeScale;
 	this->maxParticlesPerStep = maxParticlesPerStep;
@@ -47,6 +50,7 @@ ParticleEmitter::ParticleEmitter(Particle* original, Texture* particleTexture, i
 	_activeParticles = std::vector<Particle*>();
 	_isEnabled = false;
 	_stopProduce = false;
+	curParticleAmount = 0;
 
 	_initializeShader();
 }
@@ -56,11 +60,21 @@ bool ParticleEmitter::IsEnabled()
 	return _isEnabled;
 }
 
+
+
 void ParticleEmitter::Start()
 {
 	if (_isEnabled)return;
 	_isEnabled = true;
 	_stopProduce = false;
+}
+
+void ParticleEmitter::StartBurst(int particles)
+{
+	if (_isEnabled) return;
+	_isEnabled = true;
+	SpawnParticles(particles);
+	_stopProduce = true;
 }
 
 void ParticleEmitter::Stop(bool immediate)
@@ -95,16 +109,13 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	glDepthMask(GL_FALSE);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
-	glm::mat4 test = glm::mat4(1);
-	test[3] = glm::vec4(pViewMatrix[3]);
-	test *= pModelMatrix;
-	test *= glm::rotate(test, glm::radians(90.0f), glm::vec3(1, 0, 0));
 
 
 
 	glUniformMatrix4fv(_uPMatrix, 1, GL_FALSE, glm::value_ptr(pPerspectiveMatrix));
 	glUniformMatrix4fv(_uVMatrix, 1, GL_FALSE, glm::value_ptr(pViewMatrix));
-	glUniformMatrix4fv(_uMMatrix, 1, GL_FALSE, glm::value_ptr(test));
+	glUniformMatrix4fv(_uMMatrix, 1, GL_FALSE, glm::value_ptr(pModelMatrix));
+
 	if (_particleTexture != nullptr || _texture == -1)
 	{
 		glActiveTexture(GL_TEXTURE0);
@@ -123,6 +134,9 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 		glUniform1f(_maxHeight, TextureMaterial::maxHeight);
 
 	}
+	glUniform1f(_xMoveTiling, TextureMaterial::xMoveTiling);
+	glUniform1f(_xOffsetSmoothness, TextureMaterial::xOffsetSmootness);
+	glUniform1f(_maxXOffset, TextureMaterial::maxXOff);
 	glUniform1f(_heightMapSpeed, TextureMaterial::heightmapSpeed);
 	glUniform1f(_heightMapTiling, TextureMaterial::heightmapTiling);
 	glUniform1f(_time, AbstractGame::instance->GetTimeSinceStartup());
@@ -152,7 +166,9 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 
 void ParticleEmitter::UpdateParticles(float pTime)
 {
+	
 	float realTime = useTimeScale ? pTime : pTime * AbstractGame::instance->GetTimeScale();
+
 	int totalActive = _activeParticles.size();
 	if (_stopProduce && totalActive == 0)
 	{
@@ -161,7 +177,10 @@ void ParticleEmitter::UpdateParticles(float pTime)
 	}
 	if ((int)_activeParticles.size() < _maxParticles && !_stopProduce)
 	{
-		SpawnParticles(glm::min(_maxParticles - totalActive, maxParticlesPerStep));
+		curParticleAmount += maxParticlesPerStep;
+
+		SpawnParticles(glm::min(_maxParticles - totalActive, (int)curParticleAmount));
+		curParticleAmount = glm::mod(curParticleAmount, 1.0f);
 		//std::cout << "Adding particles: " << std::to_string(_maxParticles - totalActive) << "\n";
 	}
  	if (_activeParticles.size() > 0)
@@ -230,6 +249,10 @@ void ParticleEmitter::_initializeShader()
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
 		_aUV = _shader->getAttribLocation("uv");
+
+		_xOffsetSmoothness = _shader->getUniformLocation("xOffsetSmoothness");
+		_xMoveTiling = _shader->getUniformLocation("xMoveTiling");
+		_maxXOffset = _shader->getUniformLocation("maxXOffset");
 
 		_texture = _shader->getUniformLocation("particleTexture");
 

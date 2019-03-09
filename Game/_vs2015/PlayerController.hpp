@@ -96,8 +96,11 @@ private:
 	//empty game objects that serve as pivots
 
 	bool _colstay;
-
+	ParticleEmitter* _jumpParticle;
+	ParticleEmitter* _struggleParticle;
 	ParticleEmitter* _deathParticle;
+	ParticleEmitter* _cornCollectParticle;
+	ParticleEmitter* _cageCollectParticle;
 	GameObject* _deathContainer;
 
 	GameObject * modelsContainer;

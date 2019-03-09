@@ -14,7 +14,7 @@
 class ParticleEmitter : AbstractMaterial
 {
 public:
-	ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles = 500, int maxParticlesPerStep = 1, bool useTimeScale = true);
+	ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles = 500, float maxParticlesPerStep = 1, bool useTimeScale = true);
 	//void SetParticleLifetime(float maxTime);
 	//void SetParticleStartPosition(glm::vec3 startPosition);
 	//void SetParticleStartColor(glm::vec4 startColor);
@@ -23,6 +23,7 @@ public:
 	//void SetParticleStartVelocityRandomization(bool enabled, float maxOffset);
 	//void SetParticleLifeTimeRandomization(bool enabled, float maxOffset);
 	void Start();
+	void StartBurst(int particles);
 	void Stop(bool immediate = false);
 
 	virtual void render(int pass, World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pPerspectiveMatrix) override;
@@ -57,8 +58,12 @@ private:
 	static GLint _heightMapSpeed;
 	static GLint _time;
 	static GLint _heightMapTiling;
+	static GLint _xMoveTiling;
+	static GLint _xOffsetSmoothness;
+	static GLint _maxXOffset;
 
-	int maxParticlesPerStep;
+	float maxParticlesPerStep;
+	float curParticleAmount;
 	bool useTimeScale;
 
 	Texture* _particleTexture;

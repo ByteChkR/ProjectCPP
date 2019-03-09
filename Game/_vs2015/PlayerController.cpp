@@ -45,16 +45,108 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	_deathTimer = new Timer(onDeathTick, onDeathEnd, 0.5, "DeathTimer", false);
 	_endOfGameTimer = new Timer(oT, oE, 2, "EndOfGameTimer", false);
 
+#pragma region StruggleParticle
+
+
+
+#pragma endregion
+
+	GameObject* struggleContainer = new GameObject("StruggleContainer");
+	Particle* struggleParticle = new Particle();
+	struggleParticle->color = glm::vec4(1, 1, 1, 1);
+	struggleParticle->acceleration = glm::vec3(0, 0.3, 0);
+	struggleParticle->gravity = 0.4;
+	struggleParticle->life = 0.5;
+	_struggleParticle = new ParticleEmitter(struggleParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerStruggleParticle.png"), 120, 0.2f);
+	struggleContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	struggleContainer->setMaterial((AbstractMaterial*)_struggleParticle);
+	struggleContainer->scale(glm::vec3(0.2));
+	_struggleParticle->SetOpacityMode(false);
+	_owner->add(struggleContainer);
+	
+
+#pragma region CageCollectParticle
+
+	GameObject* cageCollectContainer = new GameObject("RunContainer");
+	Particle* cageCollectParticle = new Particle();
+	cageCollectParticle->color = glm::vec4(1, 1, 1, 1);
+	cageCollectParticle->acceleration = glm::vec3(0, 0.3, 0);
+	cageCollectParticle->gravity = 0.4;
+	cageCollectParticle->life = 0.5;
+	_cageCollectParticle = new ParticleEmitter(cageCollectParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cageCollectParticle.png"), 120, 0.2f);
+	cageCollectContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	cageCollectContainer->setMaterial((AbstractMaterial*)_cageCollectParticle);
+	cageCollectContainer->scale(glm::vec3(0.2));
+	_cageCollectParticle->SetOpacityMode(false);
+	_owner->add(cageCollectContainer);
+
+#pragma endregion
+
+#pragma region CornCollectParticle
+
+	GameObject* cornCollectContainer = new GameObject("RunContainer");
+	Particle* cornCollectParticle = new Particle();
+	cornCollectParticle->color = glm::vec4(1, 1, 1, 1);
+	cornCollectParticle->acceleration = glm::vec3(0, 0.3, 0);
+	cornCollectParticle->gravity = 0.4;
+	cornCollectParticle->life = 0.5;
+	_cornCollectParticle = new ParticleEmitter(cornCollectParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornCollectParticle.png"), 120, 0.2f);
+	cornCollectContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	cornCollectContainer->setMaterial((AbstractMaterial*)_cornCollectParticle);
+	cornCollectContainer->scale(glm::vec3(0.2));
+	_cornCollectParticle->SetOpacityMode(false);
+	_owner->add(cornCollectContainer);
+
+#pragma endregion
+
+#pragma region RunParticle
+
+	GameObject* runContainer = new GameObject("RunContainer");
+	Particle* runParticle = new Particle();
+	runParticle->color = glm::vec4(1, 1, 1, 1);
+	runParticle->acceleration = glm::vec3(0, 0.3, 0);
+	runParticle->gravity = 0.4;
+	runParticle->life = 0.5;
+	ParticleEmitter* _runParticle = new ParticleEmitter(runParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerRunParticle.png"), 120, 0.2f);
+	runContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	runContainer->setMaterial((AbstractMaterial*)_runParticle);
+	runContainer->scale(glm::vec3(0.2));
+
+	_owner->add(runContainer);
+	_runParticle->Start();
+
+#pragma endregion
+
+#pragma region JumpParticle
+
+	GameObject* jumpContainer = new GameObject("JumpContainer");
+	Particle* jumpParticle = new Particle();
+	jumpParticle->color = glm::vec4(1, 1, 1, 1);
+	jumpParticle->acceleration = glm::vec3(0, 0, 1);
+	jumpParticle->gravity = 0.02;
+	jumpParticle->life = 0.5;
+	_jumpParticle = new ParticleEmitter(jumpParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerJumpParticle.png"), 120, 1);
+	jumpContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	_jumpParticle->SetOpacityMode(false);
+	jumpContainer->setMaterial((AbstractMaterial*)_jumpParticle);
+	jumpContainer->scale(glm::vec3(0.2));
+
+	_owner->add(jumpContainer);
+	
+#pragma endregion
+
+
+
 	Particle* particle = new Particle();
 	particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
 	particle->acceleration = glm::vec3(0, 0.6, 0);
 	particle->gravity = 1.5;
 	particle->life = 0.5;
-	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png", true), 50, 50, false);
+	_deathParticle = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerDeathParticle.png", true), 50, 50, false);
 
 	_deathContainer = new GameObject("deathContainer", glm::vec3(0, 0, 0));
 
-	_deathContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
+	_deathContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
 	_deathContainer->setMaterial((AbstractMaterial*)_deathParticle);
 	_owner->add(_deathContainer);
 	//_deathParticle->Start();
@@ -275,18 +367,21 @@ void PlayerController::OnCollision(GameObject* other)
 	{
 		other->DisableBehaviours(); //Also turns it invisible
 		// particles
+		_cornCollectParticle->StartBurst(20);
 		_coins += 10;
 		AudioManager::instance->PlaySound(4);
 	}
 	else if (!other->getName().find("turkeycage"))
 	{
 		other->DisableBehaviours();
+		_cageCollectParticle->StartBurst(100);
 		_coins += 100;
 		AudioManager::instance->PlaySound(4);
 	}
 	else if (!_isBackSwitching && _isSwitching && !_isStruggling) //When In the middle of switching
 	{
 		_struggleTime = 0;
+		_struggleParticle->StartBurst(100);
 		_isStruggling = true;
 		AudioManager::instance->PlaySound(3);
 		AudioManager::instance->PlaySound(1);
@@ -304,6 +399,7 @@ void PlayerController::OnCollision(GameObject* other)
 		AudioManager::instance->PlaySound(2);
 		lastStruggleCollider = other->getName();
 		Debug::Log("StartStruggle", ALL);
+
 		//other->DisableBehaviours();
 		ShakeCamera(0.2f, 1.0f);
 		_isStruggling = true;
@@ -381,6 +477,7 @@ void PlayerController::update(float pTime)
 	{
 		if (_isWPRessed == false)
 		{
+			_jumpParticle->StartBurst(10);
 			_isWPRessed = true;
 			jump();
 		}
