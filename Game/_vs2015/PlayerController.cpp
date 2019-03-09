@@ -103,10 +103,12 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	GameObject* runContainer = new GameObject("RunContainer");
 	Particle* runParticle = new Particle();
 	runParticle->color = glm::vec4(1, 1, 1, 1);
-	runParticle->acceleration = glm::vec3(0, 0.3, 0);
+	runParticle->acceleration = glm::vec3(0, 0, 0.3);
 	runParticle->gravity = 0.4;
 	runParticle->life = 0.5;
-	ParticleEmitter* _runParticle = new ParticleEmitter(runParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerRunParticle.png"), 120, 0.2f);
+	runParticle->transparencyPerSecond = 2;
+	runParticle->randomizeAcceleration = glm::vec3(0.6, 0.1, 0);
+	ParticleEmitter* _runParticle = new ParticleEmitter(runParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerRunParticle.png"), 120, 0.2f, false);
 	runContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
 	runContainer->setMaterial((AbstractMaterial*)_runParticle);
 	runContainer->scale(glm::vec3(0.2));

@@ -34,8 +34,8 @@ void FlyAway::Release(glm::vec3 position)
 	_isActive = true;
 	_owner->EnableBehaviours();
 	_owner->setLocalPosition(position);
-	_velocity = glm::vec3(-2, 3, -4);
-	if (glm::mod((int)AbstractGame::instance->GetTimeSinceStartup(), 2) == 1) _velocity = glm::vec3(2, 3, -4);
+	_velocity = glm::vec3(-2, 3, 1);
+	if (glm::mod((int)AbstractGame::instance->GetTimeSinceStartup(), 2) == 1) _velocity = glm::vec3(2, 3, 1);
 
 }
 

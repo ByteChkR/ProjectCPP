@@ -19,10 +19,13 @@ public:
 	static int TryGetFloatFromTable(lua_State* L, char* key, float* value);
 	static int TryGetDoubleFromTable(lua_State* L, char* key, double* value);
 	static int TryGetStringFromTable(lua_State* L, char* key, std::string* value);
+	
+
 	static int TryGetDoubleFromGlobal(lua_State* L, char* varName, double* value, bool throwError = false, std::string error = "Undefined Error");
 	static int TryGetFloatFromGlobal(lua_State* L, char* varName, float* value, bool throwError = false, std::string error = "Undefined Error");
 	static int TryGetIntFromGlobal(lua_State* L, char* varName, int* value, bool throwError = false, std::string error = "Undefined Error");
 	static int TryGetStringFromGlobal(lua_State* L, char* varName, std::string* value, bool throwError = false, std::string error = "Undefined Error");
+	
 	//static int TableValuesToVector(lua_State* L, std::vector<std::string>* value);
 	//static int TableValuesToVector(lua_State* L, std::vector<double>* value);
 	//static int TableKeysToVector(lua_State* L, std::vector<std::string>* value);

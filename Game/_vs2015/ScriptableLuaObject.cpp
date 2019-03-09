@@ -145,6 +145,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			particle->acceleration = glm::vec3(0, 0.4, 0);
 			particle->gravity = 1;
 			particle->life = 0.5;
+			particle->transparencyPerSecond = 2;
 			particle->position = glm::vec3(0);
 			GameObject* particleObj = new GameObject("particle");
 			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornSparkleParticle.png"), 300, 0.5, false);

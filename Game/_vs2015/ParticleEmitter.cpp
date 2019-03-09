@@ -166,7 +166,7 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 
 void ParticleEmitter::UpdateParticles(float pTime)
 {
-	
+
 	float realTime = useTimeScale ? pTime : pTime * AbstractGame::instance->GetTimeScale();
 
 	int totalActive = _activeParticles.size();
@@ -183,10 +183,10 @@ void ParticleEmitter::UpdateParticles(float pTime)
 		curParticleAmount = glm::mod(curParticleAmount, 1.0f);
 		//std::cout << "Adding particles: " << std::to_string(_maxParticles - totalActive) << "\n";
 	}
- 	if (_activeParticles.size() > 0)
+	if (_activeParticles.size() > 0)
 		for (size_t i = _activeParticles.size(); i > 0; --i)
 		{
-			Particle* p = _activeParticles[i-1];
+			Particle* p = _activeParticles[i - 1];
 			p->life -= realTime;
 			if (p->life > 0.0f)
 			{
@@ -194,12 +194,12 @@ void ParticleEmitter::UpdateParticles(float pTime)
 				p->acceleration *= 0.99f;
 				p->velocity += p->acceleration;
 				p->position += p->velocity*realTime;
-				//p->color.a -= p->transparencyPerSecond*pTime;
+				p->color.a -= p->transparencyPerSecond*realTime;
 			}
 			else
 			{
 				_pool->Give(p);
-				_activeParticles.erase(_activeParticles.begin() + (i-1));
+				_activeParticles.erase(_activeParticles.begin() + (i - 1));
 			}
 		}
 }
@@ -221,7 +221,7 @@ void ParticleEmitter::SpawnParticles(size_t amount)
 		Particle* p = _pool->Take();
 		p->life = _original->life;
 		p->gravity = _original->gravity;
-		p->acceleration = _original->acceleration + glm::vec3((2 * rand0 - 1) / 2, 0, (2 * rand1 - 1) / 2);
+		p->acceleration = _original->acceleration + glm::vec3((2 * rand0 - 1) / 2, (2 * rand3 - 1) / 2, (2 * rand1 - 1) / 2)*p->randomizeAcceleration;
 		p->color = _original->color;
 		p->position = _original->position;
 		p->velocity = _original->velocity;
