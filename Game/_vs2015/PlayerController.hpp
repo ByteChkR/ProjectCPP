@@ -30,6 +30,9 @@ public:
 	bool _hasShadow;
 	void Reset();
 
+	static glm::vec3 CameraResetPosition;
+	static glm::vec3 ContainerResetPosition;
+
 	bool _tutorialColliderStay;
 private:
 	Timer* _endOfGameTimer;

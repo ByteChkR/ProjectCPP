@@ -23,6 +23,8 @@
 #include "lua.hpp"
 #include "LuaOperations.h"
 PlayerController* PlayerController::instance = nullptr;
+glm::vec3 PlayerController::CameraResetPosition = glm::vec3(0, 8, 8);
+glm::vec3 PlayerController::ContainerResetPosition = glm::vec3(0, 0, 3);
 
 PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, GameObject* pHeliDrop)
 {
@@ -97,7 +99,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	_lockControls = false;
 	_colstay = false;
 	_tutorialColliderStay = false;
-
+	
 	instance = this;
 
 	createModels();
@@ -124,8 +126,8 @@ void PlayerController::LoadPlayerSettings()
 	if (!LuaOperations::TryGetFloatFromGlobal(L, "MaxYToJump", &maxYToJump, false))Debug::Log("Could not read MaxYToJump", WARNINGS_ERRORS_LOG1);
 	if (!LuaOperations::TryGetFloatFromGlobal(L, "HelicopterAnimationSpeed", &heliAnimationSpeed, false))Debug::Log("Could not read HelicopterAnimationSpeed", WARNINGS_ERRORS_LOG1);
 	if (!LuaOperations::TryGetFloatFromGlobal(L, "HelicopterDropSpeed", &heliDropSpeed, false))Debug::Log("Could not read HelicopterDropSpeed", WARNINGS_ERRORS_LOG1);
-	if (!LuaOperations::TryGetFloatFromGlobal(L, "ShadowSize", &TextureMovingMaterial::ShadowSize, false))Debug::Log("Could not read HelicopterAnimationSpeed", WARNINGS_ERRORS_LOG1);
-	if (!LuaOperations::TryGetFloatFromGlobal(L, "ShadowLength", &TextureMovingMaterial::ShadowLength, false))Debug::Log("Could not read HelicopterDropSpeed", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "ShadowSize", &TextureMovingMaterial::ShadowSize, false))Debug::Log("Could not read ShadowSize", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "ShadowLength", &TextureMovingMaterial::ShadowLength, false))Debug::Log("Could not read ShadowLength", WARNINGS_ERRORS_LOG1);
 
 #pragma endregion
 
@@ -159,7 +161,7 @@ void PlayerController::OnDeathEnd()
 	_deathTimer->Reset();
 	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition() + glm::vec3(0, 0, 0));
 	_owner->add(AbstractGame::instance->_world->getMainCamera());
-	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
+	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(PlayerController::CameraResetPosition);
 	_isStruggling = false;
 	_struggleTime = 0;
 	gStruggleContainer->DisableBehaviours();
@@ -176,7 +178,7 @@ void PlayerController::OnDeathEnd()
 void PlayerController::Reset()
 {
 
-	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); //<--- therealchanger
+	MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); //<--- therealchanger
 	_hasShadow = true;
 	_test = false;
 }
@@ -220,11 +222,11 @@ void PlayerController::OnGameEnd()
 	_endOfGameTimer->Reset();
 	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition() + glm::vec3(0, 0, 0));
 	_owner->add(AbstractGame::instance->_world->getMainCamera());
-	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(glm::vec3(0, 5, 8));
+	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(PlayerController::CameraResetPosition);
 	MapBuilder::instance->Unload();
 	//LevelManager::instance->NextLevel();
 	GameStateManager::instance->_state = GameStateManager::StateNextStage;
-	MapBuilder::instance->GetContainer()->setLocalPosition(glm::vec3(0, 0, 3)); // therealchanger
+	MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); // therealchanger
 
 }
 
@@ -419,40 +421,59 @@ void PlayerController::update(float pTime)
 
 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageUp))
 	{
 		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() - (0.2f*pTime), 0.0f, 3.0f));
 		Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageDown))
 	{
 		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() + (0.2f*pTime), 0.0f, 3.0f));
 		Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::End))
 	{
 		AbstractGame::instance->SetTimeScale(1);
 		Debug::Log("Reset", ALL);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Pause))
 	{
 		AbstractGame::instance->SetTimeScale(100);
 
 		Debug::Log("Time Scale: 100x slower", ALL);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::G))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0))
 	{
 		_godMode = true;
 		Debug::Log("GOD MODE : true", ALL);
 		_isStruggling = true;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::H))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1))
 	{
 		_godMode = false;
 		Debug::Log("GOD MODE : false", ALL);
 		_isStruggling = false;
 	}
-
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
+	{
+		Debug::Log("Reloading Player Settings.", ALL);
+		LoadPlayerSettings();
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
+	{
+		MapBuilder::instance->Reload();
+		Debug::Log("Resetting Map", ALL);
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3))
+	{
+		Debug::Log("Reloading Light Params", ALL);
+		if (Level::instance != nullptr)Level::instance->LoadLightParams();
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
+	{
+		Debug::Log("Reloading Map File", ALL);
+		if (LevelManager::instance != nullptr)LevelManager::instance->ReloadLevel();
+	}
 
 
 

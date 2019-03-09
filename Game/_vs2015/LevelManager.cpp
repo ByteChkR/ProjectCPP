@@ -58,6 +58,11 @@ void LevelManager::NextLevel()
 	ChangeLevel(_curLevel + 1);
 }
 
+void LevelManager::ReloadLevel()
+{
+	ChangeLevel(_curLevel);
+}
+
 int LevelManager::GetCurrent()
 {
 	return _curLevel;

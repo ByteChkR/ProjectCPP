@@ -12,6 +12,7 @@ public:
 	LevelManager(std::string maplist);
 	void ChangeLevel(int index);
 	void NextLevel();
+	void ReloadLevel();
 	int GetCurrent();
 	void AddGroundTexture(std::string pFileLocation);
 	void AddBackgroundTexture(std::string pFileLocation);

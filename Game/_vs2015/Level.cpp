@@ -27,6 +27,7 @@ Level::Level(std::string levelLuaFile)
 {
 	if(MapBuilder::instance != nullptr) MapBuilder::instance->Unload(); //Give back all "prefabs" to the object pools
 
+	luaFile = levelLuaFile;
 
 	std::string mapFile;
 	std::string decoFile;
@@ -115,18 +116,7 @@ Level::Level(std::string levelLuaFile)
 		mapGround = Texture::load(config::MGE_TEXTURE_PATH + mbg, true);
 	}
 
-	lua_getglobal(L, "lightParameter");
-	std::string lightParameter = "";
-	LightParams p;
-	if (!LuaOperations::TryGetString(L, &lightParameter))
-	{
-		Debug::Log("Could not read lightParameter field in " + levelLuaFile, DebugLevel::WARNINGS_ERRORS_LOG2);
-		p = LightParams();
-	}
-	else {
-		p = LightParams(config::MGE_LIGHT_PATH + lightParameter);
-	}
-	Light::mapLight->SetParams(p);
+	LoadLightParams(L);
 
 	//lua_getglobal(L, "mapGroundNormal");
 	//std::string mbgn;
@@ -332,6 +322,30 @@ Texture* Level::GetMapGroundNormal()
 	return mapGroundNormal;
 }
 
+void Level::LoadLightParams(lua_State* L)
+{
+	lua_getglobal(L, "lightParameter");
+	std::string lightParameter = "";
+	LightParams p;
+	if (!LuaOperations::TryGetString(L, &lightParameter))
+	{
+		Debug::Log("Could not read lightParameter field", DebugLevel::WARNINGS_ERRORS_LOG2);
+		p = LightParams();
+	}
+	else {
+		p = LightParams(config::MGE_LIGHT_PATH + lightParameter);
+	}
+	Light::mapLight->SetParams(p);
+}
+
+void Level::LoadLightParams()
+{
+	lua_State* L = luaL_newstate();
+
+	luaL_loadfile(L, luaFile.c_str());
+	LuaOperations::SaveLuaCall(L, 0, 0, true, "Could not load Level(" + luaFile + ") settings.\n");
+	LoadLightParams(L);
+}
 
 
 Level::~Level()

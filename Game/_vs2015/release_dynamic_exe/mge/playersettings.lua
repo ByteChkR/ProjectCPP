@@ -1,5 +1,5 @@
 LaneSwitchTime = 0.075
-JumpForce = 35
+JumpForce = 0.35
 Gravity = -1
 GravityWhenHovering = -0.25
 GravityWhenGoingDown = -4

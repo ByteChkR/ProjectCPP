@@ -4,6 +4,7 @@
 #include "mge/core/Texture.hpp"
 #include "mge/util/MapGenerator.h"
 #include "mge/materials/TextureMaterial.hpp"
+#include "lua.hpp"
 class Level
 {
 public:
@@ -16,6 +17,8 @@ public:
 	Texture* GetBackground();
 	Texture* GetMapGround();
 	Texture* GetMapGroundNormal();
+	void LoadLightParams(lua_State* L);
+	void LoadLightParams();
 	void Unload();
 private:
 	MapGenerator* _map;
@@ -23,6 +26,7 @@ private:
 	Texture* background;
 	Texture* mapGround;
 	Texture* mapGroundNormal;
+	std::string luaFile;
 
 };
 
