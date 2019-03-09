@@ -6,28 +6,40 @@
   <biomeID>1</biomeID>
   <part>
     <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
       <int>14</int>
-      <int>0</int>
       <int>15</int>
-      <int>0</int>
       <int>14</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
       <int>15</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
+      <int>14</int>
+      <int>14</int>
+      <int>14</int>
+      <int>14</int>
+      <int>14</int>
+      <int>14</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>14</int>
+      <int>15</int>
+      <int>15</int>
+      <int>15</int>
+      <int>15</int>
+      <int>15</int>
+      <int>15</int>
+      <int>15</int>
+      <int>15</int>
+      <int>15</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>14</int>
+      <int>15</int>
+      <int>14</int>
+      <int>15</int>
+      <int>14</int>
+      <int>14</int>
+      <int>14</int>
+      <int>14</int>
+      <int>14</int>
+      <int>14</int>
     </ArrayOfInt>
     <ArrayOfInt>
       <int>0</int>
@@ -49,48 +61,12 @@
       <int>0</int>
       <int>0</int>
       <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>17</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>22</int>
       <int>0</int>
       <int>16</int>
-      <int>0</int>
-      <int>0</int>
+      <int>15</int>
     </ArrayOfInt>
     <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>16</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>17</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>22</int>
-      <int>0</int>
-      <int>16</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
+      <int>1</int>
       <int>0</int>
       <int>0</int>
       <int>0</int>
@@ -102,115 +78,6 @@
       <int>0</int>
     </ArrayOfInt>
     <ArrayOfInt>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-      <int>10</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
       <int>0</int>
       <int>0</int>
       <int>15</int>
@@ -219,29 +86,186 @@
       <int>0</int>
       <int>0</int>
       <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>17</int>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
-      <int>22</int>
-      <int>0</int>
       <int>16</int>
+      <int>15</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>32</int>
+      <int>32</int>
+      <int>32</int>
+      <int>32</int>
+      <int>32</int>
+      <int>32</int>
+      <int>32</int>
+      <int>32</int>
+      <int>32</int>
+      <int>32</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
       <int>0</int>
       <int>0</int>
     </ArrayOfInt>
     <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+      <int>10</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>31</int>
+      <int>31</int>
+      <int>31</int>
+      <int>31</int>
+      <int>31</int>
+      <int>31</int>
+      <int>31</int>
+      <int>31</int>
+      <int>31</int>
+      <int>31</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>1</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>1</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
       <int>0</int>
       <int>14</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
       <int>0</int>
-      <int>22</int>
       <int>0</int>
-      <int>44</int>
-      <int>18</int>
-      <int>2</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+    </ArrayOfInt>
+    <ArrayOfInt>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
       <int>0</int>
       <int>0</int>
     </ArrayOfInt>
@@ -259,32 +283,17 @@
     </ArrayOfInt>
     <ArrayOfInt>
       <int>0</int>
-      <int>17</int>
       <int>0</int>
       <int>0</int>
       <int>0</int>
-      <int>22</int>
       <int>0</int>
-      <int>16</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
       <int>0</int>
       <int>0</int>
     </ArrayOfInt>
     <ArrayOfInt>
-      <int>0</int>
-      <int>14</int>
-      <int>0</int>
-      <int>22</int>
-      <int>0</int>
-      <int>44</int>
-      <int>18</int>
-      <int>2</int>
-      <int>0</int>
-      <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
-      <int>0</int>
-      <int>0</int>
-      <int>0</int>
       <int>15</int>
       <int>0</int>
       <int>0</int>
@@ -292,18 +301,9 @@
       <int>0</int>
       <int>0</int>
       <int>0</int>
-    </ArrayOfInt>
-    <ArrayOfInt>
+      <int>0</int>
       <int>0</int>
       <int>14</int>
-      <int>0</int>
-      <int>22</int>
-      <int>0</int>
-      <int>44</int>
-      <int>18</int>
-      <int>2</int>
-      <int>0</int>
-      <int>0</int>
     </ArrayOfInt>
   </part>
 </Part>
