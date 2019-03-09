@@ -107,7 +107,7 @@ void MGEDemo::_initializeResources()
 
 	BackGroundImage->setMesh(testQuad);
 	BackGroundImage->setMaterial(backGroundMaterial);
-	BackGroundImage->scale(glm::vec3(1920, 1080, 1));
+	BackGroundImage->scale(glm::vec3(1920/2, 1080/2, 1));
 	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(BackGroundImage);
 
