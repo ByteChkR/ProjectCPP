@@ -1,8 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "coin", 
-["objPath"] = "mge/models/CornPickup.obj", 
-["specular"] = "black.png", 
-["texture"] = "Game/Shared/Corn/Corn_pickup_CornPickup_BaseColor_retarded.png", 
+["objPath"] = "mge/models/Corn_pickup.obj", 
+["specular"] = "Game/Shared/Corn/Basic/Corn_pickup_CornPickup_Roughness.png", 
+["texture"] = "Game/Shared/Corn/Basic/Corn_pickup_CornPickup_BaseColor.png", 
+["emissive"] = "Game/Shared/Corn/Basic/Corn_pickup_CornPickup_Emissive.png",
 ["posX"] = 0, 
 ["posY"] = 0, 
 ["posZ"] = 0 }
