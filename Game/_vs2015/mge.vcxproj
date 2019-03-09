@@ -202,6 +202,7 @@
     <ClInclude Include="EngineSettings.h" />
     <ClInclude Include="ExitButton.h" />
     <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="FlyAway.h" />
     <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="GLLight.hpp" />
@@ -281,6 +282,7 @@
     <ClCompile Include="EngineSettings.cpp" />
     <ClCompile Include="ExitButton.cpp" />
     <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="FlyAway.cpp" />
     <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GLLight.cpp" />

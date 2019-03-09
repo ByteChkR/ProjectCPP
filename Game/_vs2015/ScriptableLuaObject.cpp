@@ -20,6 +20,7 @@
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "ParticleEmitter.h"
 #include "Particle.h"
+#include "TurkeyCage.h"
 
 static const luaL_reg level1API[]
 {
@@ -154,6 +155,26 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			particleObj->setMaterial((AbstractMaterial*)pem);
 			object->add(particleObj);
 			pem->Start();
+		}
+		else if (!lss->GetName().find("turkeycage"))
+		{
+			object->addBehaviour(new TurkeyCage());
+			Particle* particle = new Particle();
+
+			particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
+			particle->acceleration = glm::vec3(0, 0.4, 0);
+			particle->gravity = 1;
+			particle->life = 0.5;
+			particle->position = glm::vec3(0);
+			GameObject* particleObj = new GameObject("particle");
+			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "testParticle.png"), 300, 0.5, false);
+
+			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+			particleObj->scale(glm::vec3(0.2));
+			//pem->SetOpacityMode(false);
+			particleObj->setMaterial((AbstractMaterial*)pem);
+			object->add(particleObj);
+			//pem->Start();
 		}
 		object->setMaterial(new TextureMaterial(tex, em, sp, 2, 1, 1, 2));
 		object->addBehaviour(new ScriptableLuaObject(lss));

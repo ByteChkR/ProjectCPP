@@ -22,6 +22,7 @@
 #include "mge/core/AbstractGame.hpp"
 #include "lua.hpp"
 #include "LuaOperations.h"
+#include "TurkeyCage.h"
 PlayerController* PlayerController::instance = nullptr;
 glm::vec3 PlayerController::CameraResetPosition = glm::vec3(0, 8, 8);
 glm::vec3 PlayerController::ContainerResetPosition = glm::vec3(0, 0, 3);
@@ -47,10 +48,6 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 
 #pragma region StruggleParticle
 
-
-
-#pragma endregion
-
 	GameObject* struggleContainer = new GameObject("StruggleContainer");
 	Particle* struggleParticle = new Particle();
 	struggleParticle->color = glm::vec4(1, 1, 1, 1);
@@ -63,7 +60,9 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	struggleContainer->scale(glm::vec3(0.2));
 	_struggleParticle->SetOpacityMode(false);
 	_owner->add(struggleContainer);
-	
+
+#pragma endregion
+
 
 #pragma region CageCollectParticle
 
@@ -373,6 +372,7 @@ void PlayerController::OnCollision(GameObject* other)
 	}
 	else if (!other->getName().find("turkeycage"))
 	{
+		TurkeyCage::turkey->Release(other->getWorldPosition());
 		other->DisableBehaviours();
 		_cageCollectParticle->StartBurst(100);
 		_coins += 100;

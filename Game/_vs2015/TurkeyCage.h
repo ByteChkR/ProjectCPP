@@ -2,7 +2,7 @@
 #define TURKEYCAGE_HPP
 
 #include "mge/behaviours/AbstractBehaviour.hpp"
-
+#include "FlyAway.h"
 /**
  * Simply rotates the object around its origin with a fixed speed.
  */
@@ -14,9 +14,10 @@ public:
 	virtual AbstractBehaviour* Clone();
 	virtual void update(float pStep);
 	void Release();
-	
+
+	static FlyAway* turkey;
 private:
-	static GameObject* turkey;
+
 	void InitializeTurkey();
 };
 
