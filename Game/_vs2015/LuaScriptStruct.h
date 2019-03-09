@@ -21,7 +21,7 @@ public:
 	glm::vec3 GetColliderMin();
 	glm::vec3 GetColliderMax();
 	std::string GetEmmissiveMap();
-
+	float GetShininess();
 	std::string GetSpecular();
 	std::string GetNormal();
 	bool HasAutoCollider();
@@ -40,6 +40,7 @@ private:
 	glm::vec3 _colliderMax;
 	bool hasCollider;
 	bool autoCollider;
+	float shininess;
 	bool isValid;
 };
 

@@ -9,7 +9,7 @@ namespace config {
 	const std::string LUA_OBJECT_SCRIPT_FOLDER("mge/objectScripts/");
 	const std::string MGE_MAP_PATH("mge/maps/");
 	const std::string MGE_BIOME_PATH("mge/biomes/");
-	const DebugLevel DEBUG_LEVEL = DebugLevel::ALL;
+	const DebugLevel DEBUG_LEVEL = DebugLevel::NONE;
 	const std::string MGE_LIGHT_PATH("mge/lights/");
 	const std::string PLAYER_SETTINGS("mge/playersettings.lua");
 	const std::string ENGINE_SETTINGS("mge/enginesettings.lua");

@@ -180,7 +180,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			object->add(particleObj);
 			//pem->Start();
 		}
-		object->setMaterial(new TextureMaterial(tex, em, sp, 2, 1, 1, 2));
+		object->setMaterial(new TextureMaterial(tex, em, sp, lss->GetShininess(), 1, 1, 2));
 		object->addBehaviour(new ScriptableLuaObject(lss));
 		if (lss->HasAutoCollider() && lss->HasCollider() && object->getMesh() != nullptr)object->addBehaviour(new StaticBoxCollider(object->getMesh()->GetMinLocalBounds(), object->getMesh()->GetMaxLocalBounds()));
 		else if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderMin(), lss->GetColliderMax()));

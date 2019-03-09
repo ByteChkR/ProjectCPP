@@ -92,7 +92,8 @@ void DebugHud::draw()
 	_window->draw(_scoreBackground->sprite);
 	_window->draw(_scoreText->_text);
 
-   // _window->draw(_debugText->_text);
+	
+    //_window->draw(_debugText->_text);
 	//_window->draw(_debugBox->sprite);
 
 	_window->draw(_progressBackground->sprite);

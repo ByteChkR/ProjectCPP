@@ -250,54 +250,11 @@ void MGEDemo::_initializeResources()
 	}
 	new BiomeHandler(biomes);
 
-	ParticleEmitter * particleEm = new ParticleEmitter(particle, Texture::load(config::MGE_TEXTURE_PATH + "testParticle.png", true), 150, true);
-
-	GameObject* testParticle = new GameObject("particle", glm::vec3(0, 10, 0));
-	testParticle->setMesh(testQuad);
-	testParticle->setMaterial((AbstractMaterial*)particleEm);
-
-	testParticle->scale(glm::vec3(0.5, 0.5, 0.5));
-	//playerObject->add(testParticle);
-	//particleEm->Start();
-
-
-	//add a spinning sphere
-
-
-
-
-	AnimationMaterial* caster = dynamic_cast<AnimationMaterial*>(runicMihai);
-	caster->NextFrame();
-	caster->NextFrame();
-	caster->NextFrame();
-	caster->NextFrame();
-
-
-
-
-	//background->setLocalPosition(glm::vec3(0, 7, 0));
-
-	//add a light. Note that the light does ABSOLUTELY ZIP! NADA ! NOTHING !
-	//It's here as a place holder to get you started.
-	//Note how the texture material is able to detect the number of lights in the scene
-	//even though it doesn't implement any lighting yet!
-
-	//LightParams* params = new LightParams(0, 1, glm::vec2(0), glm::vec3(1, 231.0f / 255.0f, 206.0f / 255.0f), glm::vec3(1, 231.0f / 255.0f, 206.0f / 255.0f)*0.2f);
-
-	//light->SetParams(*params);
-	//light->scale(glm::vec3(0.1f, 0.1f, 0.1f));
-	//light->setMesh(cubeMeshF);
-	//light->setMaterial(lightMaterial);
-	//light->addBehaviour(new KeysBehaviour(25));
 	_world->add(light);
-
-
 
 	GameObject* cont = MapBuilder::instance->GetContainer();
 	cont->setLocalPosition(glm::vec3(0, 0, -60));
-	//cont->addBehaviour(new KeysBehaviour());
 	_world->add(cont);
-	//particleEm->Start();
 
 #pragma endregion
 

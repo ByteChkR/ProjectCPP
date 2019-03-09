@@ -215,16 +215,22 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 		}
 		else
 		{
-			Debug::Log("Auto Colliding Dectivated on script " + _name, ALL);
+			//Debug::Log("Auto Colliding Dectivated on script " + _name, ALL);
 			autoCollider = false;
 		}
 	}
 	else
 	{
-		Debug::Log("Auto Colliding Dectivated on script " + _name, ALL);
+		//Debug::Log("Auto Colliding Dectivated on script " + _name, ALL);
 		autoCollider = false;
 	}
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "Shininess", &shininess))
+	{
+		Debug::Log("Could not read Shininess from " + _name + "Default Value: 2", WARNINGS_ERRORS_LOG2);
 
+		shininess = 2;
+	}
+	
 	lua_close(L);
 
 	isValid = true; //Didnt return until now? NOICE
@@ -256,6 +262,11 @@ glm::vec3 LuaScriptStruct::GetColliderMax()
 std::vector<std::string> LuaScriptStruct::GetAttachedScripts()
 {
 	return isValid ? _attachedScripts : AbstractGame::instance->sloFallback->_attachedScripts;
+}
+
+float LuaScriptStruct::GetShininess()
+{
+	return isValid ? shininess : AbstractGame::instance->sloFallback->shininess;
 }
 
 std::string LuaScriptStruct::GetName()
