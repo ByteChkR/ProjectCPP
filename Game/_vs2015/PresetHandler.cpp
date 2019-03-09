@@ -110,7 +110,7 @@ void PresetHandler::GivePreset(size_t index, GameObject* preset)
 			return;
 		}
 	}
-	preset->setLocalPosition(glm::vec3(0, 50, 0));
+	preset->setLocalPosition(glm::vec3(100, 50, 0));
 	presets[index]->Give(preset);
 }
 

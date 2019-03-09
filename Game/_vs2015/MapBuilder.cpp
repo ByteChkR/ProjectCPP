@@ -88,11 +88,13 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 
 		GameObject* obj = BiomeHandler::instance->TakePreset(gen->GetBiomeAt(biomeID), (*list)[index].first);
 		glm::vec3 pos = gen->GetLaneAt(lane)->GetPosition() + glm::vec3(0, 0, -1) * dist + ((ScriptableLuaObject*)obj->getBehaviour("SCLO"))->GetLuaOffset();
-		(*list)[index].second = obj;
-		(*list)[index].second->EnableBehaviours();
+		
+
 		if (obj->getParent() != _container)
 			_container->add(obj);
 		obj->setLocalPosition(pos);
+		(*list)[index].second = obj;
+		(*list)[index].second->EnableBehaviours();
 	}
 }
 

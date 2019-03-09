@@ -15,6 +15,11 @@ FlyAway::~FlyAway()
 	AbstractBehaviour::~AbstractBehaviour();
 }
 
+AbstractBehaviour* FlyAway::Clone()
+{
+	return new FlyAway();
+}
+
 void FlyAway::update(float pStep)
 {
 	if (!_isActive)return;

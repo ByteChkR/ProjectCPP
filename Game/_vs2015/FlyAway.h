@@ -10,6 +10,7 @@ public:
 	FlyAway();
 	virtual ~FlyAway() override;
 	virtual void update(float pStep) override;
+	virtual AbstractBehaviour* Clone() override;
 	void Release(glm::vec3 position);
 private:
 	float _maxReleaseTime;

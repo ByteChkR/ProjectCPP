@@ -528,12 +528,12 @@ void PlayerController::update(float pTime)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageUp))
 	{
-		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() - (0.2f*pTime), 0.0f, 3.0f));
+		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() - (0.2f*pTime), 0.1f, 3.0f));
 		Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageDown))
 	{
-		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() + (0.2f*pTime), 0.0f, 3.0f));
+		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() + (0.2f*pTime), 0.1f, 3.0f));
 		Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::End))

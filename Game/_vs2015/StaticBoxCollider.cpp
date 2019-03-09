@@ -8,7 +8,7 @@ StaticBoxCollider::StaticBoxCollider(glm::vec3 Min, glm::vec3 Max) : AbstractSta
 	_name = "BOXCOLLIDER";
 	min = Min;
 	max = Max;
-
+	offset = glm::vec3(0);
 	_init = false;
 }
 
@@ -21,6 +21,8 @@ StaticBoxCollider::~StaticBoxCollider()
 
 std::vector<glm::vec3> StaticBoxCollider::GetBounds()
 {
+	glm::vec3 min = this->min + offset;
+	glm::vec3 max = this->max + offset;
 	std::vector<glm::vec3> ret = std::vector<glm::vec3>();
 	//BackPlane
 	ret.push_back(max);
@@ -82,17 +84,35 @@ bool StaticBoxCollider::IsCollision(DynamicBoxCollider* ball)
 {
 	if (_owner == nullptr)return false;
 	glm::vec3 pos = _owner->getWorldPosition();
-	glm::vec3 min, max;
+	glm::vec3 min, max, thismin, thismax;
 	min = ball->GetMin();
 	max = ball->GetMax();
+	thismin = this->min + offset;
+	thismax = this->max + offset;
 	glm::vec3 ballPos = ball->GetPosition();
 
-	if (pos.x + this->min.x >= ballPos.x + max.x)return false;
-	if (pos.x + this->max.x <= ballPos.x + min.x)return false;
-	if (pos.y + this->min.y >= ballPos.y + max.y)return false;
-	if (pos.y + this->max.y <= ballPos.y + min.y)return false;
-	if (pos.z + this->min.z >= ballPos.z + max.z)return false;
-	if (pos.z + this->max.z <= ballPos.z + min.z)return false;
+	if (pos.x + thismin.x >= ballPos.x + max.x)return false;
+	if (pos.x + thismax.x <= ballPos.x + min.x)return false;
+	if (pos.y + thismin.y >= ballPos.y + max.y)return false;
+	if (pos.y + thismax.y <= ballPos.y + min.y)return false;
+	if (pos.z + thismin.z >= ballPos.z + max.z)return false;
+	if (pos.z + thismax.z <= ballPos.z + min.z)return false;
 
 	return true;
+}
+
+
+void StaticBoxCollider::SetOffset(glm::vec3 offset)
+{
+	this->offset = offset;
+}
+
+void StaticBoxCollider::AddOffset(glm::vec3 addition)
+{
+	this->offset += addition;
+}
+
+glm::vec3 StaticBoxCollider::GetOffset()
+{
+	return offset;
 }

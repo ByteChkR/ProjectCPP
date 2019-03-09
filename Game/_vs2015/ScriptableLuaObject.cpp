@@ -21,6 +21,7 @@
 #include "ParticleEmitter.h"
 #include "Particle.h"
 #include "TurkeyCage.h"
+#include "Car.h"
 
 static const luaL_reg level1API[]
 {
@@ -136,11 +137,18 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 		if (lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap(), false);
 		Texture* sp = nullptr;
 		if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular(), false);
+		
+		object->setMaterial(new TextureMaterial(tex, em, sp, lss->GetShininess(), 1, 1, 2));
+		object->addBehaviour(new ScriptableLuaObject(lss));
+
+		if (lss->HasAutoCollider() && lss->HasCollider() && object->getMesh() != nullptr)object->addBehaviour(new StaticBoxCollider(object->getMesh()->GetMinLocalBounds(), object->getMesh()->GetMaxLocalBounds()));
+		else if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderMin(), lss->GetColliderMax()));
+		
 		if (!lss->GetName().find("coin"))
 		{
 			object->addBehaviour(new RotatingBehaviour());
 			Particle* particle = new Particle();
-			
+
 			particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
 			particle->acceleration = glm::vec3(0, 0.08, 0);
 			particle->gravity = 0.2;
@@ -150,7 +158,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			particle->position = glm::vec3(0);
 			GameObject* particleObj = new GameObject("particle");
 			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornSparkleParticle.png"), 300, 0.5, false);
-			
+
 			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
 			particleObj->scale(glm::vec3(0.2));
 			//pem->SetOpacityMode(false);
@@ -159,6 +167,10 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			pem->Start();
 
 
+		}
+		else if (lss->GetName() == "van" || lss->GetName() == "car" || lss->GetName() == "turkeyvan")
+		{
+			object->addBehaviour(new Car(true));
 		}
 		else if (!lss->GetName().find("turkeycage"))
 		{
@@ -180,10 +192,8 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			object->add(particleObj);
 			//pem->Start();
 		}
-		object->setMaterial(new TextureMaterial(tex, em, sp, lss->GetShininess(), 1, 1, 2));
-		object->addBehaviour(new ScriptableLuaObject(lss));
-		if (lss->HasAutoCollider() && lss->HasCollider() && object->getMesh() != nullptr)object->addBehaviour(new StaticBoxCollider(object->getMesh()->GetMinLocalBounds(), object->getMesh()->GetMaxLocalBounds()));
-		else if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderMin(), lss->GetColliderMax()));
+		
+		
 		return object;
 
 	}

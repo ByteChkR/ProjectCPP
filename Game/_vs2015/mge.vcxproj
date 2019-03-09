@@ -194,6 +194,7 @@
     <ClInclude Include="..\src\mge\util\ScoreManager.h" />
     <ClInclude Include="AbstractStaticCollider.hpp" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Car.h" />
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="CreditsButton.h" />
@@ -274,6 +275,7 @@
     <ClCompile Include="..\src\mge\util\ScoreManager.cpp" />
     <ClCompile Include="AbstractStaticCollider.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="CreditsButton.cpp" />
