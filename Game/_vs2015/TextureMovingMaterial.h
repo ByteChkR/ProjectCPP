@@ -23,6 +23,8 @@ public:
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 
 	static float Movingspeed;
+	static float ShadowSize;
+	static float ShadowLength;
 
 protected:
 private:
@@ -69,8 +71,6 @@ private:
 	static GLint _uSpecularTexture;
 	Texture* _specularTexture;
 	static GLint _playerPos;
-	static float ShadowSize;
-	static float ShadowLength;
 	static GLint _shadowSize;
 	static GLint _shadowLength;
 

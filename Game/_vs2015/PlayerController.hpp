@@ -26,7 +26,7 @@ public:
 	bool IsMoving();
 	void ResetScore(int newScore = 0);
 	void ResetTutorial();
-
+	void LoadPlayerSettings();
 	bool _hasShadow;
 	void Reset();
 
@@ -42,7 +42,6 @@ private:
 	float _gravity;
 	float _gravityWhenHovering;
 	float _gravityWhenGoingDown;
-	float _gravityIncreaseWhenGoingDown;
 	float _velocity;
 	int _coins;
 	bool _isGoingDown;

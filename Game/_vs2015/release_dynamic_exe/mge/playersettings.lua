@@ -1,0 +1,13 @@
+LaneSwitchTime = 0.075
+JumpForce = 35
+Gravity = -1
+GravityWhenHovering = -0.25
+GravityWhenGoingDown = -4
+StruggleTime = 2
+CameraShakeIntensity = 1
+AnimationSpeed = 20
+MaxYToJump = 40
+HelicopterAnimationSpeed = 1
+HelicopterDropSpeed = 1
+ShadowSize = 1
+ShadowLength = 6

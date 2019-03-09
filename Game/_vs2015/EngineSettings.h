@@ -5,13 +5,16 @@
 struct EngineSettings
 {
 public:
-	EngineSettings(const char* file);
+	EngineSettings(std::string file);
 	int GetWidth();
 	int GetHeight();
 	std::string GetWindowName();
+	int GetFPSTarget();
+
+	static EngineSettings* settings;
 
 private:
-	int _width, _height;
+	int _width, _height, _fpsTarget;
 	std::string _windowName;
 };
 

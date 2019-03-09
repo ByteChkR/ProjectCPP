@@ -10,6 +10,7 @@
 #include "../_vs2015/Debug.h"
 #include "mge/config.hpp"
 #include "SFML/Graphics.hpp"
+#include "..\_vs2015\EngineSettings.h"
 AbstractGame* AbstractGame::instance = nullptr;
 
 AbstractGame::AbstractGame(bool wMode) :_window(NULL), _renderer(NULL), _world(NULL), _fps(0), startupTime(0)
@@ -52,8 +53,10 @@ void AbstractGame::_initializeWindow() {
 	Debug::Log("Initializing window...", WARNINGS_ERRORS_LOG1);
 	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
 
-	_window = (windowMode ? new sf::RenderWindow(sf::VideoMode(900, 600), "My Game!", sf::Style::Default, cs) :
-		 new sf::RenderWindow(sf::VideoMode(1920, 1080), "My Game!", sf::Style::Fullscreen, cs));
+	sf::VideoMode videoMode = sf::VideoMode(EngineSettings::settings->GetWidth(), EngineSettings::settings->GetHeight());
+
+	_window = (windowMode ? new sf::RenderWindow(sf::VideoMode(900, 600), EngineSettings::settings->GetWindowName(), sf::Style::Default, cs) :
+		 new sf::RenderWindow(videoMode, EngineSettings::settings->GetWindowName(), sf::Style::Fullscreen, cs));
 	glEnable(GL_MULTISAMPLE);
 	//_window->setVerticalSyncEnabled(true);
 	Debug::Log("Window initialized.", WARNINGS_ERRORS_LOG1);
@@ -143,7 +146,7 @@ void AbstractGame::run()
 	float timeSinceLastFPSCalculation = 0;
 
 	//settings to make sure the update loop runs at 60 fps
-	sf::Time timePerFrame = sf::seconds(1.0f / 120.0f);
+	sf::Time timePerFrame = sf::seconds(1.0f / EngineSettings::settings->GetFPSTarget());
 	sf::Clock updateClock;
 	timeSinceLastUpdate = sf::Time::Zero;
 

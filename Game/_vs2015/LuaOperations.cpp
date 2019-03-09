@@ -75,6 +75,55 @@ int LuaOperations::TryGetStringFromTable(lua_State* L, char* key, std::string* v
 	return LuaOperations::TryGetString(L, value);
 }
 
+
+int LuaOperations::TryGetDoubleFromGlobal(lua_State* L, char* varName, double* value, bool throwError, std::string error)
+{
+	lua_getglobal(L, varName);
+	if (!LuaOperations::TryGetDouble(L, value)) 
+	{
+		if (throwError)
+		{
+			lua_pushstring(L, error.c_str());
+			lua_error(L);
+		}
+		return 0;
+	}
+
+	return 1;
+}
+
+int LuaOperations::TryGetStringFromGlobal(lua_State* L, char* varName, std::string* value, bool throwError /* = false */, std::string error /* = "Undefined Error" */)
+{
+	lua_getglobal(L, varName);
+	if (!LuaOperations::TryGetString(L, value))
+	{
+		if (throwError)
+		{
+			lua_pushstring(L, error.c_str());
+			lua_error(L);
+		}
+		return 0;
+	}
+
+	return 1;
+}
+
+int LuaOperations::TryGetFloatFromGlobal(lua_State* L, char* varName, float* value, bool throwError /* = false */, std::string error /* = "Undefined Error" */)
+{
+	double val = 0;
+	int sucess = TryGetDoubleFromGlobal(L, varName, &val, throwError, error); //everything is double anyway
+	*value = (float)val;
+	return sucess;
+}
+
+int LuaOperations::TryGetIntFromGlobal(lua_State* L, char* varName, int* value, bool throwError /* = false */, std::string error /* = "Undefined Error" */)
+{
+	double val = 0;
+	int sucess = TryGetDoubleFromGlobal(L, varName, &val, throwError, error); //everything is double anyway
+	*value = (int)val;
+	return sucess;
+}
+
 int LuaOperations::SaveLuaCall(lua_State* L, int args, int rets, bool throwLuaError, std::string errMsg)
 {
 	if (lua_pcall(L, args, rets, 0))

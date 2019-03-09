@@ -9,7 +9,7 @@ class FileLoader
 {
 public:
 	static std::vector<std::string> GetFilesFromFolder(std::string directory);
-	static EngineSettings ReadEngineSettings(const char* filepath);
+	static EngineSettings ReadEngineSettings(std::string filepath);
 private:
 
 	FileLoader();

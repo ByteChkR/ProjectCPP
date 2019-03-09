@@ -30,7 +30,7 @@
  */
 int main(int argc, char *argv[])
 {
-	
+	new EngineSettings(config::ENGINE_SETTINGS);
 	//int t;
 	//std::cin >> t;
 

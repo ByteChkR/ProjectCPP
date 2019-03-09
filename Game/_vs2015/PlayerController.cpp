@@ -13,12 +13,15 @@
 #include "mge\materials\AnimationMaterial.hpp"
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "TextureMovingMaterial.h"
 #include "StaticBoxCollider.hpp"
 #include "mge/core/AbstractGame.hpp"
 #include "Debug.h"
 #include <stdlib.h> 
 #include <time.h>
 #include "mge/core/AbstractGame.hpp"
+#include "lua.hpp"
+#include "LuaOperations.h"
 PlayerController* PlayerController::instance = nullptr;
 
 PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, GameObject* pHeliDrop)
@@ -80,7 +83,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	_struggleTime = 0;
 	_struggleMaxTime = 2;
 	gStruggleContainer = new GameObject("StruggleAnim");
-	gStruggleContainer->addBehaviour(new RotatingBehaviour(6,0.2f));
+	gStruggleContainer->addBehaviour(new RotatingBehaviour(6, 0.2f));
 	GameObject * struggleObject = new GameObject("StruggleObject");
 	struggleObject->scale(glm::vec3(2, 2, 2));
 	struggleObject->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "dizzystars_initialShadingGroup_AlbedoTransparency.png", true), nullptr, nullptr, 2, 1, 5, 2));
@@ -98,6 +101,34 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	instance = this;
 
 	createModels();
+	LoadPlayerSettings();
+}
+
+void PlayerController::LoadPlayerSettings()
+{
+
+#pragma region LUALoadingStuff
+
+	lua_State* L = luaL_newstate();
+	luaL_loadfile(L, config::PLAYER_SETTINGS.c_str());
+
+	if (LuaOperations::SaveLuaCall(L, 0, 0, false))Debug::LogError("Could not read player settings.");
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "LaneSwitchTime", &_switchTime, false))Debug::Log("Could not read LaneSwitchTime", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "JumpForce", &_jumpForce, false))Debug::Log("Could not read JumpForce", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "Gravity", &_gravity, false))Debug::Log("Could not read Gravity", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "GravityWhenHovering", &_gravityWhenHovering, false))Debug::Log("Could not read GravityWhenHovering", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "GravityWhenGoingDown", &_gravityWhenGoingDown, false))Debug::Log("Could not read GravityWhenGoingDown", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "StruggleTime", &_struggleMaxTime, false))Debug::Log("Could not read StruggleTime", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "CameraShakeIntensity", &cameraShakeIntensity, false))Debug::Log("Could not read CameraShakeIntensity", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "AnimationSpeed", &animationSpeed, false))Debug::Log("Could not read AnimationSpeed", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "MaxYToJump", &maxYToJump, false))Debug::Log("Could not read MaxYToJump", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "HelicopterAnimationSpeed", &heliAnimationSpeed, false))Debug::Log("Could not read HelicopterAnimationSpeed", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "HelicopterDropSpeed", &heliDropSpeed, false))Debug::Log("Could not read HelicopterDropSpeed", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "ShadowSize", &TextureMovingMaterial::ShadowSize, false))Debug::Log("Could not read HelicopterAnimationSpeed", WARNINGS_ERRORS_LOG1);
+	if (!LuaOperations::TryGetFloatFromGlobal(L, "ShadowLength", &TextureMovingMaterial::ShadowLength, false))Debug::Log("Could not read HelicopterDropSpeed", WARNINGS_ERRORS_LOG1);
+
+#pragma endregion
+
 }
 
 void PlayerController::ResetTutorial()
@@ -185,7 +216,7 @@ int PlayerController::GetCoinCount()
 void PlayerController::OnGameEnd()
 {
 	_lockControls = false;
-	
+
 	_endOfGameTimer->Reset();
 	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition() + glm::vec3(0, 0, 0));
 	_owner->add(AbstractGame::instance->_world->getMainCamera());
@@ -522,7 +553,7 @@ void PlayerController::handleJump(float pTime)
 		{
 			if (_velocity > 0)
 			{
-				_velocity += _gravity * pTime  ;
+				_velocity += _gravity * pTime;
 			}
 			else
 				_velocity += _gravityWhenHovering * pTime;
@@ -541,7 +572,7 @@ void PlayerController::handleJump(float pTime)
 			_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition());
 		}
 		//Add the Velocity
-		if (_isJumping)_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 1, 0) * (_velocity/ AbstractGame::instance->GetTimeScale()));
+		if (_isJumping)_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(0, 1, 0) * (_velocity / AbstractGame::instance->GetTimeScale()));
 	}
 }
 
@@ -657,7 +688,7 @@ void PlayerController::Animate(float pDeltaTime)
 	if (heliDrop->getLocalPosition().y < -200) {
 		heliDrop->setLocalPosition(heli->getLocalPosition());
 		heliDropTool = 0;
-		Debug::Log("Reset Drop",ALL);
+		Debug::Log("Reset Drop", ALL);
 	}
 	heliDrop->setLocalPosition(heliDrop->getLocalPosition() + glm::vec3(0, -heliDropTool, 0));
 

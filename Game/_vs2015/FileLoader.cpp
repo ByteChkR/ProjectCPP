@@ -15,9 +15,9 @@ std::vector<std::string> FileLoader::GetFilesFromFolder(std::string directory)
 	return ret;
 }
 
-EngineSettings FileLoader::ReadEngineSettings(const char* filepath)
+EngineSettings FileLoader::ReadEngineSettings(std::string filepath)
 {
-	bool a = fs::exists(filepath);
+	bool a = fs::exists(filepath.c_str());
 	return EngineSettings(filepath);
 }
 
