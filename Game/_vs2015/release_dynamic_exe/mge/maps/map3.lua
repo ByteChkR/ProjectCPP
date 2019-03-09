@@ -12,3 +12,4 @@ heightMapMaxHeight = "5"
 heightMapSamplingWidth = "8"
 xMoveTiling = "100"
 fogColor = {["Red"] = "0.5" , ["Green"] = "0.5" , ["Blue"] = "0.5"}
+lightParameter = "map3Light.lua"
