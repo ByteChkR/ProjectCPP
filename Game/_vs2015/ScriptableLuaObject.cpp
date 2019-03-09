@@ -142,10 +142,11 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			Particle* particle = new Particle();
 			
 			particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
-			particle->acceleration = glm::vec3(0, 0.4, 0);
-			particle->gravity = 1;
-			particle->life = 0.5;
-			particle->transparencyPerSecond = 2;
+			particle->acceleration = glm::vec3(0, 0.08, 0);
+			particle->gravity = 0.2;
+			particle->life = 1;
+			particle->transparencyPerSecond = 1;
+			particle->randomizeAcceleration = glm::vec3(0.2);
 			particle->position = glm::vec3(0);
 			GameObject* particleObj = new GameObject("particle");
 			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornSparkleParticle.png"), 300, 0.5, false);
@@ -156,6 +157,8 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			particleObj->setMaterial((AbstractMaterial*)pem);
 			object->add(particleObj);
 			pem->Start();
+
+
 		}
 		else if (!lss->GetName().find("turkeycage"))
 		{
