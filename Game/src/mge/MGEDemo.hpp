@@ -26,7 +26,7 @@ class MGEDemo: public AbstractGame
     //PUBLIC FUNCTIONS
 
 	public:
-		MGEDemo(bool forceWindowMode, int argc, char *argv[]);
+		MGEDemo(int argc, char *argv[]);
 		virtual ~MGEDemo();
 
         //override initialize so we can add a DebugHud
@@ -44,7 +44,6 @@ class MGEDemo: public AbstractGame
 		
 		GameMode ProcessStartingFlags(std::string* mapFile);
 		int argc;
-		bool windowMode;
 		std::vector<std::string> argv;
 		DebugHud* _hud;                   //hud display
 		Menu* _menu;

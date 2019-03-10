@@ -32,8 +32,10 @@ public:
 
 	static glm::vec3 CameraResetPosition;
 	static glm::vec3 ContainerResetPosition;
-	static bool _enableCheats;
+	static bool _enableCheats; 
+	static int _lastTutorial;
 	bool _tutorialColliderStay;
+	static bool _godMode;
 private:
 	Timer* _endOfGameTimer;
 	Timer* _deathTimer;
@@ -61,9 +63,8 @@ private:
 	float _struggleMaxTime;
 	bool _lockControls;
 	
-	bool _godMode;
 
-	int _lastTutorial;
+	
 
 	void OnGameEnd();
 	void OnGameEndTick(float time);

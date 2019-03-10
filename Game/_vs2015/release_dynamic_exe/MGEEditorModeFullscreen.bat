@@ -1,0 +1,1 @@
+mge.exe -windowMode 0 -res 1920 1080 -editor

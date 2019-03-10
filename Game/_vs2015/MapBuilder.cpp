@@ -12,7 +12,7 @@
 #include "PlayerController.hpp"
 #include "GameStateManager.h"
 MapBuilder* MapBuilder::instance = nullptr;
-
+bool MapBuilder::editorMode = false;
 MapBuilder::MapBuilder(float generationOffset, float removalOffset)
 {
 	_movingSpeed = 5;
@@ -100,6 +100,7 @@ void MapBuilder::AddToPropList(std::vector<std::pair<int, GameObject*>> * list, 
 
 float MapBuilder::GetMovingSpeed()
 {
+	if (editorMode)return _movingSpeed;
 	return !PlayerController::instance->IsMoving() ? 0 : _movingSpeed;
 }
 
@@ -160,6 +161,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 	if (gen == nullptr || gen->GetNumberOfLanes() == 0 || gen->GetPartCount() == 0) return;
 	int lastAdd = -1;
 
+	lastRemove = editorMode ? 0 : lastRemove;
 
 	int end = (int)(lastRemove + gen->GetNumberOfLanes()*genOffset);
 	end = glm::min(end, (int)list->size() - 1);
@@ -197,12 +199,17 @@ void MapBuilder::Update(float pTime)
 	if (Level::instance == nullptr) return;
 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+	if (editorMode && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
 
+		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z - GetMovingSpeed() * 2.88f * pTime));
+	}
+	else if (editorMode && sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
 		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 2.88f * pTime));
 	}
-	else
-		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 2.88f * pTime));
+	
+
+	if(!editorMode)_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z + GetMovingSpeed() * 2.88f * pTime));
 	UpdateGen(Level::instance->GetMap(), &_mapPropList);
 	UpdateGen(Level::instance->GetDeco(), &_decoPropList);
 

@@ -27,6 +27,8 @@ PlayerController* PlayerController::instance = nullptr;
 glm::vec3 PlayerController::CameraResetPosition = glm::vec3(0, 8, 8);
 glm::vec3 PlayerController::ContainerResetPosition = glm::vec3(0, 0, 3);
 bool PlayerController::_enableCheats = false;
+int PlayerController::_lastTutorial = -1;
+bool PlayerController::_godMode = false;
 
 PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, GameObject* pHeliDrop)
 {
@@ -134,7 +136,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	jumpContainer->scale(glm::vec3(0.2));
 
 	_owner->add(jumpContainer);
-	
+
 #pragma endregion
 
 
@@ -157,11 +159,9 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	_gravityWhenHovering = -0.25f;
 	_gravityWhenGoingDown = -4;
 	_isBackSwitching = false;
-	_godMode = false;
 	_jumpForce = 0.35f;
 	_velocity = 0;
 	_switchTime = 0.075f;
-	_lastTutorial = -1;
 	lastLevelFinalScore = 0;
 	_curSwitchTime = 0;
 	_nextLane = -1;
@@ -193,7 +193,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	_lockControls = false;
 	_colstay = false;
 	_tutorialColliderStay = false;
-	
+
 	instance = this;
 
 	createModels();
@@ -229,7 +229,7 @@ void PlayerController::LoadPlayerSettings()
 
 void PlayerController::ResetTutorial()
 {
-	_lastTutorial = -1;
+	_lastTutorial = _lastTutorial != 99 ? 0 : 99;
 }
 
 void PlayerController::ResetScore(int newScore) {

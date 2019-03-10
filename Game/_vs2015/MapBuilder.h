@@ -21,6 +21,7 @@ public:
 	float GetProgress();
 	float GetMovingSpeed();
 	float genOffset;
+	static bool editorMode;
 private:
 	GameObject* _container;
 	void UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObject*>>* list);

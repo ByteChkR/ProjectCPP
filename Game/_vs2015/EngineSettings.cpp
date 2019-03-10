@@ -43,6 +43,41 @@ EngineSettings::EngineSettings(std::string file)
 	lua_close(L);
 }
 
+void EngineSettings::SetVSync(bool enable)
+{
+	_vSync = enable ? 1 : 0;
+}
+
+void EngineSettings::SetFPSTarget(int fpsTarget)
+{
+	_fpsTarget = fpsTarget;
+}
+
+void EngineSettings::SetHeight(int newHeight)
+{
+	_height = newHeight;
+}
+
+void EngineSettings::SetWidth(int newWidth)
+{
+	_width = newWidth;
+}
+
+void EngineSettings::SetMSAASamples(int samples)
+{
+	_msaaSamples = samples;
+}
+
+void EngineSettings::SetWindowMode(bool windowed)
+{
+	_windowMode = windowed ? 1 : 0;
+}
+
+void EngineSettings::SetWindowName(std::string name)
+{
+	_windowName = name;
+}
+
 bool EngineSettings::GetVSyncEnabled()
 {
 	return _vSync != 0;

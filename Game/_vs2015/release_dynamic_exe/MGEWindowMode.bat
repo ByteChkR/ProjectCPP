@@ -1,1 +1,1 @@
-mge.exe -forceWindow
+mge.exe -forceWindow -res 900 600

@@ -14,6 +14,14 @@ public:
 	bool GetWindowMode();
 	bool GetVSyncEnabled();
 
+	void SetWidth(int newWidth);
+	void SetHeight(int newWidth);
+	void SetFPSTarget(int newWidth);
+	void SetMSAASamples(int samples);
+	void SetVSync(bool enable);
+	void SetWindowMode(bool windowed);
+	void SetWindowName(std::string name);
+
 	static EngineSettings* settings;
 
 private:

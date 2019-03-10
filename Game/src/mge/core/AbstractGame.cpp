@@ -13,12 +13,11 @@
 #include "..\_vs2015\EngineSettings.h"
 AbstractGame* AbstractGame::instance = nullptr;
 
-AbstractGame::AbstractGame(bool wMode) :_window(NULL), _renderer(NULL), _world(NULL), _fps(0), startupTime(0)
+AbstractGame::AbstractGame() :_window(NULL), _renderer(NULL), _world(NULL), _fps(0), startupTime(0)
 {
 	CurrentGameMode = STORY;
 	timeScale = 1;
 	instance = this;
-	windowMode = wMode;
 	_particleSystem = new ParticleSystem();
 	fallbackTexture = new sf::Image();
 	fallbackTexture->loadFromFile(config::MGE_TEXTURE_PATH + "fallbacktexture.png");
@@ -55,10 +54,9 @@ void AbstractGame::_initializeWindow() {
 
 	sf::VideoMode videoMode = sf::VideoMode(EngineSettings::settings->GetWidth(), EngineSettings::settings->GetHeight());
 
-	bool windowMod = windowMode || EngineSettings::settings->GetWindowMode();
 
 	_window = new sf::RenderWindow(videoMode, EngineSettings::settings->GetWindowName(),
-		windowMod ? sf::Style::Default : sf::Style::Fullscreen, cs);
+		EngineSettings::settings->GetWindowMode() ? sf::Style::Default : sf::Style::Fullscreen, cs);
 	glEnable(GL_MULTISAMPLE);
 	_window->setVerticalSyncEnabled(EngineSettings::settings->GetVSyncEnabled());
 	Debug::Log("Window initialized.", WARNINGS_ERRORS_LOG1);

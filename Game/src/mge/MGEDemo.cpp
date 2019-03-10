@@ -49,7 +49,7 @@
 #include "../_vs2015/KeyLogger.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
-MGEDemo::MGEDemo(bool forceWindow, int argc, char *argv[]) :AbstractGame(forceWindow), _hud(0)
+MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
 {
 	this->argc = argc;
 	this->argv = std::vector<std::string>();
@@ -244,7 +244,13 @@ MGEDemo::GameMode MGEDemo::ProcessStartingFlags(std::string* mapFile)
 {
 	
 	GameMode gmode = STORY;
-	PlayerController::_enableCheats = GetFlag("-enableCheats", argc, argv) != -1;
+	if (!MapBuilder::editorMode)
+	{
+		PlayerController::_enableCheats = GetFlag("-enableCheats", argc, argv) != -1;
+		PlayerController::_lastTutorial = (GetFlag("-noTutorial", argc, argv) == -1) ? -1 : 99;
+		Debug::Log("Cheats Enabled: " + PlayerController::_enableCheats ? "YES" : "NO", ALL);
+		Debug::Log("Ignore Tutorials Enabled: " + (PlayerController::_lastTutorial == 99) ? "YES" : "NO", ALL);
+	}
 	*mapFile = "maplist.lua";
 	if (GetFlag("-s", argc, argv) != -1)return gmode; //If -s is a parameter ignore anything else and start with story mode
 

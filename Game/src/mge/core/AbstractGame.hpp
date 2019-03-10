@@ -19,7 +19,7 @@ class AbstractGame
 {
     public:
 
-        AbstractGame(bool wMode);
+        AbstractGame();
         virtual ~AbstractGame();
 
 		sf::RenderWindow* _window;  //sfml window to render into
