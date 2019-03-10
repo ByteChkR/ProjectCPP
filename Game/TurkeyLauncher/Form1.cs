@@ -232,9 +232,10 @@ namespace TurkeyLauncher
         {
             if (_engine != null && !_engine.HasExited)
                 _engine.Kill();
-
+            Debug.LogGen(LoggingChannel.LOG, args);
             System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(enginePath + "mge.exe", args);
 
+            psi.WorkingDirectory = enginePath;
             psi.CreateNoWindow = true;
             psi.RedirectStandardError = true;
             psi.RedirectStandardOutput = true;
@@ -280,6 +281,7 @@ namespace TurkeyLauncher
             {
                 for (int i = 0; i < settings.Count; i++)
                 {
+                    Debug.LogGen(LoggingChannel.LOG, settings[i]);
                     tw.WriteLine(settings[i]);
                 }
                 tw.Close();
@@ -294,6 +296,8 @@ namespace TurkeyLauncher
         {
             string ret = "";
             if (!storyMode) ret += " -p " + userMaplist[cobMaplist.SelectedIndex - 1];
+            if (cbeditorMode.Checked) ret += " -editor";
+            if (cbCheats.Checked) ret += " -enableCheats";
             return ret;
         }
 

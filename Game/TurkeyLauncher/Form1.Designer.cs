@@ -41,6 +41,8 @@
             this.cobMSAASamples = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbVSync = new System.Windows.Forms.CheckBox();
+            this.cbeditorMode = new System.Windows.Forms.CheckBox();
+            this.cbCheats = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbBanner)).BeginInit();
             this.SuspendLayout();
             // 
@@ -165,11 +167,35 @@
             this.cbVSync.Text = "Enable Vertical Sync";
             this.cbVSync.UseVisualStyleBackColor = true;
             // 
+            // cbeditorMode
+            // 
+            this.cbeditorMode.AutoSize = true;
+            this.cbeditorMode.Location = new System.Drawing.Point(285, 193);
+            this.cbeditorMode.Name = "cbeditorMode";
+            this.cbeditorMode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbeditorMode.Size = new System.Drawing.Size(80, 17);
+            this.cbeditorMode.TabIndex = 11;
+            this.cbeditorMode.Text = "EditorMode";
+            this.cbeditorMode.UseVisualStyleBackColor = true;
+            // 
+            // cbCheats
+            // 
+            this.cbCheats.AutoSize = true;
+            this.cbCheats.Location = new System.Drawing.Point(199, 193);
+            this.cbCheats.Name = "cbCheats";
+            this.cbCheats.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbCheats.Size = new System.Drawing.Size(48, 17);
+            this.cbCheats.TabIndex = 12;
+            this.cbCheats.Text = "HAX";
+            this.cbCheats.UseVisualStyleBackColor = true;
+            // 
             // frmLauncher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(377, 278);
+            this.Controls.Add(this.cbCheats);
+            this.Controls.Add(this.cbeditorMode);
             this.Controls.Add(this.cbVSync);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cobMSAASamples);
@@ -209,6 +235,8 @@
         private System.Windows.Forms.ComboBox cobMSAASamples;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbVSync;
+        private System.Windows.Forms.CheckBox cbeditorMode;
+        private System.Windows.Forms.CheckBox cbCheats;
     }
 }
 
