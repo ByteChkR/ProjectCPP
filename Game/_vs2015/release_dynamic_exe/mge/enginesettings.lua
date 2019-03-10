@@ -1,7 +1,7 @@
 FPSTarget = 120
 WindowName = "Turkey Game"
-width = 1920
-height = 1080
+width = 640
+height = 480
 vSync = 0
-windowMode = 0
-msaaSamples = 1
+windowMode = 1
+msaaSamples = 8

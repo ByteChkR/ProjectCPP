@@ -165,7 +165,7 @@ void MapBuilder::UpdateGen(MapGenerator* gen, std::vector<std::pair<int, GameObj
 
 	int end = (int)(lastRemove + gen->GetNumberOfLanes()*genOffset);
 	end = glm::min(end, (int)list->size() - 1);
-
+	end = editorMode ? list->size() - 1 : end;
 
 	for (int i = lastRemove; i < end; ++i)
 	{

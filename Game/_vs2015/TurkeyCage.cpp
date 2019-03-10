@@ -27,9 +27,9 @@ void TurkeyCage::InitializeTurkey()
 	//Load obj textures and so on. Add Fly away script and keep a reference as well
 	GameObject* turkeyObj = new GameObject("TurkeyCageTurkey");
 	turkeyObj->addBehaviour((AbstractBehaviour*)(turkey = new FlyAway()));
-	turkeyObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "placeholder.obj"));
-	Texture* diffTex = Texture::load(config::MGE_TEXTURE_PATH + "Game/Shared/TurkeyTurkeyCage_diffuse.png");
-	Texture* specTex = Texture::load(config::MGE_TEXTURE_PATH + "Game/Shared/TurkeyTurkeyCage_specular.png");
+	Texture* specTex = Texture::load(config::MGE_TEXTURE_PATH + "white.png");
+	turkeyObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "Turkeywithoutcage.obj"));
+	Texture* diffTex = Texture::load(config::MGE_TEXTURE_PATH + "Game/Shared/TurkeyOutsideCage/Turkeyoutsidecage.png");
 	turkeyObj->setMaterial(new TextureMaterial(diffTex, nullptr, specTex, 2, 1, 5, 2));
 	AbstractGame::instance->_world->add(turkeyObj);
 }

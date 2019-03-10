@@ -7,7 +7,7 @@
     </LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Dynamic|Win32'">
-    <LocalDebuggerCommandArguments>-enableCheats -name "Turkey Game Release Dynamic" -forceWindow</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-editor -enableCheats -name "Turkey Game Release Dynamic" -forceWindow</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)release_dynamic_exe</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
