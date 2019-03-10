@@ -165,5 +165,15 @@
     <ClInclude Include="PanelBackButton.h" />
     <ClInclude Include="FlyAway.h" />
     <ClInclude Include="Car.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="mge.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="release_dynamic_exe\mge\textures\run_meter_turkey.png" />
+    <Image Include="icon1.ico" />
+    <Image Include="icon2.ico" />
+    <Image Include="release_dynamic_exe\mge\textures\gameicon.ico" />
   </ItemGroup>
 </Project>

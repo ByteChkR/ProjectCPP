@@ -15,7 +15,7 @@ AbstractGame* AbstractGame::instance = nullptr;
 
 AbstractGame::AbstractGame(bool wMode) :_window(NULL), _renderer(NULL), _world(NULL), _fps(0), startupTime(0)
 {
-	
+	CurrentGameMode = STORY;
 	timeScale = 1;
 	instance = this;
 	windowMode = wMode;
@@ -51,14 +51,16 @@ void AbstractGame::initialize() {
 
 void AbstractGame::_initializeWindow() {
 	Debug::Log("Initializing window...", WARNINGS_ERRORS_LOG1);
-	sf::ContextSettings cs = sf::ContextSettings(24, 8, 8, 3, 3);
+	sf::ContextSettings cs = sf::ContextSettings(24, 8, EngineSettings::settings->GetMSAASampleCount(), 3, 3);
 
 	sf::VideoMode videoMode = sf::VideoMode(EngineSettings::settings->GetWidth(), EngineSettings::settings->GetHeight());
 
-	_window = (windowMode ? new sf::RenderWindow(sf::VideoMode(900, 600), EngineSettings::settings->GetWindowName(), sf::Style::Default, cs) :
-		 new sf::RenderWindow(videoMode, EngineSettings::settings->GetWindowName(), sf::Style::Fullscreen, cs));
+	bool windowMod = windowMode || EngineSettings::settings->GetWindowMode();
+
+	_window = new sf::RenderWindow(videoMode, EngineSettings::settings->GetWindowName(),
+		windowMod ? sf::Style::Default : sf::Style::Fullscreen, cs);
 	glEnable(GL_MULTISAMPLE);
-	//_window->setVerticalSyncEnabled(true);
+	_window->setVerticalSyncEnabled(EngineSettings::settings->GetVSyncEnabled());
 	Debug::Log("Window initialized.", WARNINGS_ERRORS_LOG1);
 }
 

@@ -26,21 +26,23 @@ class MGEDemo: public AbstractGame
     //PUBLIC FUNCTIONS
 
 	public:
-		MGEDemo(int argc, char *argv[], bool wMode);
+		MGEDemo(bool forceWindowMode, int argc, char *argv[]);
 		virtual ~MGEDemo();
 
         //override initialize so we can add a DebugHud
         virtual void initialize();
-
 	protected:
 	    //override so we can construct the actual scene
         virtual void _initializeScene();
-
 		void _initializeResources();
 	    //override render to render the hud as well.
 	    virtual void _render(int pass) override;
 
+
+		int GetFlag(std::string flag, int argc, std::vector< std::string> argv);
 	private:
+		
+		GameMode ProcessStartingFlags(std::string* mapFile);
 		int argc;
 		bool windowMode;
 		std::vector<std::string> argv;

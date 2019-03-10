@@ -32,7 +32,7 @@ public:
 
 	static glm::vec3 CameraResetPosition;
 	static glm::vec3 ContainerResetPosition;
-
+	static bool _enableCheats;
 	bool _tutorialColliderStay;
 private:
 	Timer* _endOfGameTimer;

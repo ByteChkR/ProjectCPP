@@ -1,1 +1,1 @@
-mge.exe w
+mge.exe -forceWindow

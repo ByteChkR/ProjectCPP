@@ -38,6 +38,15 @@ class AbstractGame
 		float GetTimeSinceLastFrame();
 		sf::Image* fallbackTexture;
 		LuaScriptStruct* sloFallback;
+
+		enum GameMode
+		{
+			STORY,
+			LEGACY,
+			LEGACY_R,
+			PLAYGROUND
+		};
+		GameMode CurrentGameMode;
 		GameObject* sloGameObjectFallback;
     protected:
 

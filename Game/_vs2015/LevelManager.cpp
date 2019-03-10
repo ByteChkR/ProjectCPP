@@ -9,9 +9,9 @@
 #include "../_vs2015/Debug.h"
 LevelManager* LevelManager::instance = nullptr;
 
-LevelManager::LevelManager(std::string luaMapList)
+LevelManager::LevelManager(std::string luaMapList, bool storyMode)
 {
-	
+	_storyMode = storyMode;
 	_currentLevel = nullptr;
 	instance = this;
 	lua_State* L = luaL_newstate();
@@ -77,3 +77,4 @@ void LevelManager::AddBackgroundTexture(std::string pFileLocation)
 {
 	_backgroundTextures.push_back(pFileLocation);
 }
+

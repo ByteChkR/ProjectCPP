@@ -49,7 +49,7 @@
 #include "../_vs2015/KeyLogger.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
-MGEDemo::MGEDemo(int argc, char *argv[], bool wMode) :AbstractGame(wMode), _hud(0)
+MGEDemo::MGEDemo(bool forceWindow, int argc, char *argv[]) :AbstractGame(forceWindow), _hud(0)
 {
 	this->argc = argc;
 	this->argv = std::vector<std::string>();
@@ -107,7 +107,7 @@ void MGEDemo::_initializeResources()
 
 	BackGroundImage->setMesh(testQuad);
 	BackGroundImage->setMaterial(backGroundMaterial);
-	BackGroundImage->scale(glm::vec3(1920/2.3f, 1080/2.3f, 1));
+	BackGroundImage->scale(glm::vec3(1920 / 2.3f, 1080 / 2.3f, 1));
 	BackGroundImage->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(BackGroundImage);
 
@@ -135,7 +135,7 @@ void MGEDemo::_initializeResources()
 	heliDrop->setMesh(testQuad);
 	heliDrop->setMaterial(runicMihai);
 	heliDrop->scale(glm::vec3(4, 4, 4));
-	heliDrop->setLocalPosition(glm::vec3(-200,-200,-200));
+	heliDrop->setLocalPosition(glm::vec3(-200, -200, -200));
 	heliDrop->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(heliDrop);
 
@@ -159,52 +159,31 @@ void MGEDemo::_initializeResources()
 
 	Light* light = new Light("light", glm::vec3(-100, 100, 100));
 
-	std::string filename = "maplist.lua";
+	std::string mapFile = "";
+	GameMode gMode = ProcessStartingFlags(&mapFile);
+	CurrentGameMode = gMode;
 	LevelManager* lm = nullptr;
-	bool isRaw;
-	std::string test = argv[0];
-	GameStateManager::GameState gs = GameStateManager::StateMenu;
-	windowMode = false;
-	if (argc == 2)
+	if(gMode == LEGACY)
 	{
-		windowMode = argv[1][0] == 'w';
-
-		lm = new LevelManager(filename);
+		Level* l = new Level(mapFile);
 	}
-	else if (argc == 3)
+	else if (gMode == LEGACY_R)
 	{
-		isRaw = false;
-		windowMode = argv[1][0] == 'w';
-		gs = GameStateManager::StateGame;
-		filename = argv[2];
+		Level* l = new	Level(true, mapFile);
 	}
-	else if (argc > 3)
+	else if (gMode == STORY)
 	{
-
-		windowMode = argv[1][0] == 'w';
-		filename = argv[2];
-		isRaw = argv[3][0] == 'r';
-
-		gs = GameStateManager::StateGame;
+		lm = new LevelManager("mge/maplist.lua", true);
 	}
-	else if (argc > 4)
+	else if (gMode == PLAYGROUND)
 	{
-		windowMode = argv[1][0] == 'w';
-		filename = argv[2];
-		isRaw = argv[3][0] == 'r';
-
-	}
-	else
-	{
-		lm = new LevelManager(filename);
-
+		lm = new LevelManager(mapFile, false);
 	}
 
 	_loadingScreen->Update();
 
 	if (lm != nullptr)lm->ChangeLevel(0);
-	else Level* level = isRaw ? new Level(true, filename) : new Level(config::MGE_MAP_PATH + filename);
-
+	
 	Particle* particle = new Particle();
 	particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
 	particle->acceleration = glm::vec3(0, 0.6, 0);
@@ -222,7 +201,7 @@ void MGEDemo::_initializeResources()
 	//MATERIALS
 	Material* m = new Material();
 	m->diffuse = Texture::load(config::MGE_TEXTURE_PATH + "runicfloor.png", true);
-	m->normal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png",false);
+	m->normal = Texture::load(config::MGE_TEXTURE_PATH + "testNormal.png", false);
 	m->specular = Texture::load(config::MGE_TEXTURE_PATH + "testSpecular.png", false);
 	_loadingScreen->Update();
 	m->shininess = 1;
@@ -259,6 +238,66 @@ void MGEDemo::_initializeResources()
 #pragma endregion
 
 
+}
+
+MGEDemo::GameMode MGEDemo::ProcessStartingFlags(std::string* mapFile)
+{
+	
+	GameMode gmode = STORY;
+	PlayerController::_enableCheats = GetFlag("-enableCheats", argc, argv) != -1;
+	*mapFile = "maplist.lua";
+	if (GetFlag("-s", argc, argv) != -1)return gmode; //If -s is a parameter ignore anything else and start with story mode
+
+	int legacyMapID = GetFlag("-l", argc, argv);
+	if (legacyMapID != -1)
+	{
+		gmode = LEGACY;
+		if (legacyMapID + 1 >= argc || argv[legacyMapID+1][0] == '-')
+		{
+			Debug::LogError("Inavlid parameter for Legacy mode. Expected path to map after -l flag");
+			Debug::LogError("Falling back to story mode.");
+			gmode = STORY;
+			return gmode;
+		}
+		*mapFile = argv[legacyMapID + 1];
+		size_t test = mapFile->find_last_of(".");
+		size_t find = mapFile->substr(test, mapFile->size() - test).find("txt");
+		if (find != std::string::npos)
+		{
+			gmode = LEGACY_R;
+		}
+		return gmode;
+	}
+
+	int playgroundFlagID = GetFlag("-p", argc, argv);
+	
+	if (playgroundFlagID != -1)
+	{
+		gmode = PLAYGROUND;
+		if (playgroundFlagID + 1 >= argc || argv[playgroundFlagID + 1][0] == '-')
+		{
+			Debug::LogError("Inavlid parameter for Playground mode. Expected path to maplist after -p flag");
+			Debug::LogError("Falling back to story mode.");
+			gmode = STORY;
+			return gmode;
+		}
+		*mapFile = argv[playgroundFlagID + 1];
+		return gmode;
+	}
+	return gmode;
+
+}
+
+
+int MGEDemo::GetFlag(std::string flag, int argc, std::vector< std::string> argv)
+{
+	for (int i = 0; i < argc; i++)
+	{
+
+		if (argv[i] == flag)return i;
+
+	}
+	return -1;
 }
 
 //build the game _world
@@ -338,7 +377,12 @@ void MGEDemo::_render(int pass) {
 		//tutorialArray[num].Update();
 		//_updateHud();
 	}
-	else if (GameStateManager::instance->_state == GameStateManager::StatePanel) _storyPanel->Update();
+	else if (GameStateManager::instance->_state == GameStateManager::StatePanel)
+	{
+		if(CurrentGameMode == STORY)
+			_storyPanel->Update();
+		else GameStateManager::instance->_state = GameStateManager::StateGame;
+	}
 	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)
 	{
 		_gameOverScreen->Update();

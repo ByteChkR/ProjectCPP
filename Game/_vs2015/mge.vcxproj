@@ -232,6 +232,7 @@
     <ClInclude Include="PlayButton.h" />
     <ClInclude Include="PlayerController.hpp" />
     <ClInclude Include="PresetHandler.hpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="RetryButton.h" />
     <ClInclude Include="SaveScoreButton.h" />
     <ClInclude Include="ScoreBoard.h" />
@@ -330,6 +331,15 @@
     <ClCompile Include="Tutorial2.cpp" />
     <ClCompile Include="Tutorial3.cpp" />
     <ClCompile Include="WinScreen.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="mge.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
+    <Image Include="icon2.ico" />
+    <Image Include="release_dynamic_exe\mge\textures\gameicon.ico" />
+    <Image Include="release_dynamic_exe\mge\textures\run_meter_turkey.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

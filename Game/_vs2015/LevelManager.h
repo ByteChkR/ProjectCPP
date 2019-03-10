@@ -9,7 +9,7 @@ class LevelManager
 {
 public:
 	static LevelManager* instance;
-	LevelManager(std::string maplist);
+	LevelManager(std::string maplist´, bool storyMode);
 	void ChangeLevel(int index);
 	void NextLevel();
 	void ReloadLevel();
@@ -23,6 +23,7 @@ private:
 	std::vector<std::string> _groundTextures;
 	std::vector<std::string> _backgroundTextures;
 	int _curLevel;
+	bool _storyMode;
 };
 
 

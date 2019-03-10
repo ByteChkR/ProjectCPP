@@ -28,19 +28,43 @@
  * All documentation is contained within the HEADER files, not the CPP files if possible.
  *
  */
+
+
+int GetFlag(std::string flag, int argc, char *argv[])
+{
+	for (int i = 0; i < argc; i++)
+	{
+
+		if (argv[i] == flag)return i;
+
+	}
+	return -1;
+}
+
+
 int main(int argc, char *argv[])
 {
-	new EngineSettings(config::ENGINE_SETTINGS);
+
+
+	int engineSettingsID = GetFlag("-e", argc, argv);
+	std::string enginePath = config::ENGINE_SETTINGS;
+	if (engineSettingsID >= 0 && argc > engineSettingsID + 1 && argv[engineSettingsID + 1][0] != '-')
+	{
+		enginePath = argv[engineSettingsID + 1];
+	}
+
+	new EngineSettings(enginePath);
+
+	bool forcewindowMode = GetFlag("-forceWindow", argc, argv) != -1;
+
 	//int t;
 	//std::cin >> t;
 
 	Debug::Log("Starting Game...", WARNINGS_ERRORS_LOG1);
 	Debug::Log("with ArgCount: " + std::to_string(argc), WARNINGS_ERRORS_LOG2);
 
-	bool wMode = false;
-	if (argc > 1)wMode = argv[1][0] == 'w';
 
-	AbstractGame* game = new MGEDemo(argc, argv, wMode);
+	AbstractGame* game = new MGEDemo(forcewindowMode, argc, argv);
 
 	game->initialize();
 

@@ -5,6 +5,7 @@
 #include "../_vs2015/GameStateManager.h"
 #include "../_vs2015/PlayerController.hpp"
 #include "../_vs2015/Debug.h"
+#include "mge/MGEDemo.hpp"
 PlayButton::PlayButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite) : Button(aWindow, _buttonSprite)
 {
 
@@ -14,6 +15,9 @@ void PlayButton::OnClick()
 {
 	Debug::Log("Play", ALL);
 	MapBuilder::instance->Reload();
-	GameStateManager::instance->_state = GameStateManager::StatePanel;
+	if (MGEDemo::instance->CurrentGameMode == MGEDemo::GameMode::STORY)
+		GameStateManager::instance->_state = GameStateManager::StatePanel;
+	else
+		GameStateManager::instance->_state = GameStateManager::StateGame;
 	PlayerController::instance->getOwner()->EnableBehaviours();
 }

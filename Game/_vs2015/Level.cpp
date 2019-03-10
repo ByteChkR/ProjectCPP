@@ -63,7 +63,7 @@ Level::Level(std::string levelLuaFile)
 	else
 	{
 
-		_map = new MapGenerator(mapFile);
+		_map = new MapGenerator(config::MGE_MAP_PATH + mapFile);
 	}
 	
 	lua_getglobal(L, "deco");

@@ -26,6 +26,7 @@
 PlayerController* PlayerController::instance = nullptr;
 glm::vec3 PlayerController::CameraResetPosition = glm::vec3(0, 8, 8);
 glm::vec3 PlayerController::ContainerResetPosition = glm::vec3(0, 0, 3);
+bool PlayerController::_enableCheats = false;
 
 PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, GameObject* pHeliDrop)
 {
@@ -525,61 +526,64 @@ void PlayerController::update(float pTime)
 	}
 
 
+	if (_enableCheats)
+	{
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageUp))
-	{
-		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() - (0.2f*pTime), 0.1f, 3.0f));
-		Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageDown))
-	{
-		AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() + (0.2f*pTime), 0.1f, 3.0f));
-		Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::End))
-	{
-		AbstractGame::instance->SetTimeScale(1);
-		Debug::Log("Reset", ALL);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Pause))
-	{
-		AbstractGame::instance->SetTimeScale(100);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageUp))
+		{
+			AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() - (0.2f*pTime), 0.1f, 3.0f));
+			Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::PageDown))
+		{
+			AbstractGame::instance->SetTimeScale(glm::clamp(AbstractGame::instance->GetTimeScale() + (0.2f*pTime), 0.1f, 3.0f));
+			Debug::Log("TimeScale: " + std::to_string(AbstractGame::instance->GetTimeScale()) + "x Slower", ALL);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::End))
+		{
+			AbstractGame::instance->SetTimeScale(1);
+			Debug::Log("Reset", ALL);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Pause))
+		{
+			AbstractGame::instance->SetTimeScale(100);
 
-		Debug::Log("Time Scale: 100x slower", ALL);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0))
-	{
-		_godMode = true;
-		Debug::Log("GOD MODE : true", ALL);
-		_isStruggling = true;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1))
-	{
-		_godMode = false;
-		Debug::Log("GOD MODE : false", ALL);
-		_isStruggling = false;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
-	{
-		Debug::Log("Reloading Player Settings.", ALL);
-		LoadPlayerSettings();
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
-	{
-		MapBuilder::instance->Reload();
-		Debug::Log("Resetting Map", ALL);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3))
-	{
-		Debug::Log("Reloading Light Params", ALL);
-		if (Level::instance != nullptr)Level::instance->LoadLightParams();
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
-	{
-		Debug::Log("Reloading Map File", ALL);
-		if (LevelManager::instance != nullptr)LevelManager::instance->ReloadLevel();
-	}
+			Debug::Log("Time Scale: 100x slower", ALL);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad0))
+		{
+			_godMode = true;
+			Debug::Log("GOD MODE : true", ALL);
+			_isStruggling = true;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1))
+		{
+			_godMode = false;
+			Debug::Log("GOD MODE : false", ALL);
+			_isStruggling = false;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
+		{
+			Debug::Log("Reloading Player Settings.", ALL);
+			LoadPlayerSettings();
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Home))
+		{
+			MapBuilder::instance->Reload();
+			Debug::Log("Resetting Map", ALL);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3))
+		{
+			Debug::Log("Reloading Light Params", ALL);
+			if (Level::instance != nullptr)Level::instance->LoadLightParams();
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
+		{
+			Debug::Log("Reloading Map File", ALL);
+			if (LevelManager::instance != nullptr)LevelManager::instance->ReloadLevel();
+		}
 
+	}
 
 
 

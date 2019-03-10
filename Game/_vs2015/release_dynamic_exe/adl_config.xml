@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ADLConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ADLEnabled>false</ADLEnabled>
+  <SendUpdateMessageOnFirstLog>true</SendUpdateMessageOnFirstLog>
+  <UpdateMask>16</UpdateMask>
+  <WarningMask>4</WarningMask>
+  <SendWarnings>false</SendWarnings>
+  <Prefixes>
+    <Keys>
+      <int>1</int>
+      <int>2</int>
+      <int>4</int>
+      <int>8</int>
+      <int>16</int>
+      <int>32</int>
+      <int>64</int>
+      <int>-1</int>
+    </Keys>
+    <Values>
+      <string>[GENERAL]</string>
+      <string>[LOG]</string>
+      <string>[WARNING]</string>
+      <string>[ERROR]</string>
+      <string>[ADL]</string>
+      <string>[TURKEY_GAME_LOG]</string>
+      <string>[TURKEY_GAME_ERR]</string>
+      <string>[GLOBAL]</string>
+    </Values>
+  </Prefixes>
+  <PrefixLookupMode>ADDPREFIXIFAVAILABLE</PrefixLookupMode>
+</ADLConfig>

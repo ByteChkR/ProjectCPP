@@ -22,7 +22,7 @@ MapGenerator::MapGenerator(std::string pName, bool isInstance)
 	std::vector< Part> parts;
 	std::vector<int> steps;
 
-	std::string fullPath = _mapsLocation + pName;
+	std::string fullPath = pName;
 
 	std::ifstream file(fullPath);
 

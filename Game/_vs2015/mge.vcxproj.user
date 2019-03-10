@@ -3,10 +3,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Dynamic|Win32'">
     <LocalDebuggerWorkingDirectory>$(ProjectDir)release_dynamic_exe</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>w</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-p maplist.lua -e mge/enginesettingswindowed.lua -enableCheats</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Dynamic|Win32'">
-    <LocalDebuggerCommandArguments>w</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-forceWindow -l mge/maps/temp.lua -enableCheats</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)release_dynamic_exe</LocalDebuggerWorkingDirectory>
   </PropertyGroup>

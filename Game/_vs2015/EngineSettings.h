@@ -10,11 +10,14 @@ public:
 	int GetHeight();
 	std::string GetWindowName();
 	int GetFPSTarget();
+	int GetMSAASampleCount();
+	bool GetWindowMode();
+	bool GetVSyncEnabled();
 
 	static EngineSettings* settings;
 
 private:
-	int _width, _height, _fpsTarget;
+	int _width, _height, _fpsTarget, _msaaSamples, _vSync, _windowMode;
 	std::string _windowName;
 };
 
