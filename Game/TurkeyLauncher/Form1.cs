@@ -82,6 +82,8 @@ namespace TurkeyLauncher
         List<string> userMaplist = new List<string>();
         int msaaSamples = 0;
 
+        string enginePath = "";
+        string configPath = "";
 
         public frmLauncher()
         {
@@ -91,12 +93,12 @@ namespace TurkeyLauncher
 
             InvalidateResolutions();
 
-            if(System.IO.File.Exists("engine/mge/textures/banner.png"))
+            if(System.IO.File.Exists(enginePath + "mge/textures/banner.png"))
             {
-                pbBanner.Image = System.Drawing.Bitmap.FromFile("engine/mge/textures/banner.png");
+                pbBanner.Image = System.Drawing.Bitmap.FromFile(enginePath + "mge/textures/banner.png");
             }
 
-            if (!System.IO.File.Exists("engine/mge.exe"))
+            if (!System.IO.File.Exists(enginePath + "mge.exe"))
             {
                 Debug.LogGen(LoggingChannel.ERROR, "Engine could not be found. Please reinstall.");
                 //Application.Exit();
@@ -111,7 +113,7 @@ namespace TurkeyLauncher
 
         void InitializeADL()
         {
-            Debug.LoadConfig("config/adl_config.xml");
+            Debug.LoadConfig(configPath + "adl_config.xml");
             Debug.SendWarnings = true;
             Debug.SendUpdateMessageOnFirstLog = true;
 
@@ -129,7 +131,7 @@ namespace TurkeyLauncher
             Debug.AddOutputStream(ls);
             Debug.ADLEnabled = true;
 
-            adlConsole = (CustomCMDForm)CMDUtils.CreateCustomConsole(ps, "config/adl_customcmd_config.xml");
+            adlConsole = (CustomCMDForm)CMDUtils.CreateCustomConsole(ps, configPath + "adl_customcmd_config.xml");
             adlConsole.MaxConsoleLogCount = 5000;
             adlConsole.MaxLogCountPerFrame = 500;
             adlConsole.MaxLogCountPerBlock = 2500;
@@ -189,7 +191,7 @@ namespace TurkeyLauncher
             if (_engine != null && !_engine.HasExited)
                 _engine.Kill();
 
-            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo("engine/mge.exe", args);
+            System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(enginePath + "mge.exe", args);
 
             psi.CreateNoWindow = true;
             psi.RedirectStandardError = true;
@@ -229,10 +231,10 @@ namespace TurkeyLauncher
             settings.Add("msaaSamples = " + msaaSamples);
             
 
-            if (System.IO.File.Exists("engine/mge/enginesettings.lua"))
-                System.IO.File.Delete("engine/mge/enginesettings.lua");
+            if (System.IO.File.Exists(enginePath + "mge/enginesettings.lua"))
+                System.IO.File.Delete(enginePath + "mge/enginesettings.lua");
 
-            System.IO.TextWriter tw = new System.IO.StreamWriter("engine/mge/enginesettings.lua");
+            System.IO.TextWriter tw = new System.IO.StreamWriter(enginePath + "mge/enginesettings.lua");
             try
             {
                 for (int i = 0; i < settings.Count; i++)
@@ -260,9 +262,9 @@ namespace TurkeyLauncher
             cobMaplist.Items.Add("Add to List");
             userMaplist.Clear();
 
-            if (System.IO.Directory.Exists("engine/mge/customMapLists/"))
+            if (System.IO.Directory.Exists(enginePath + "mge/customMapLists/"))
             {
-                foreach (string s in System.IO.Directory.GetFiles("engine/mge/customMapLists/", "*.lua"))
+                foreach (string s in System.IO.Directory.GetFiles(enginePath + "mge/customMapLists/", "*.lua"))
                 {
                     userMaplist.Add(System.IO.Path.GetFullPath(s));
                     int lastInd = s.LastIndexOf("/") + 1;
