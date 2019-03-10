@@ -81,30 +81,17 @@ namespace TurkeyLauncher
         List<System.Drawing.Point> resolutions;
         List<string> userMaplist = new List<string>();
         int msaaSamples = 0;
-
-        string enginePath = "";
-        string configPath = "";
+        static bool debug = true;
+        static string enginePath = debug ? "" : "engine/";
+        static string configPath = debug ? "" : "config/";
+        static string assetPath = enginePath + "mge/";
+        static string texturePath = assetPath + "textures/";
+        static string userListPath = assetPath + "customMapLists/";
 
         public frmLauncher()
         {
             InitializeComponent();
 
-            InitializeADL();
-
-            InvalidateResolutions();
-
-            if(System.IO.File.Exists(enginePath + "mge/textures/banner.png"))
-            {
-                pbBanner.Image = System.Drawing.Bitmap.FromFile(enginePath + "mge/textures/banner.png");
-            }
-
-            if (!System.IO.File.Exists(enginePath + "mge.exe"))
-            {
-                Debug.LogGen(LoggingChannel.ERROR, "Engine could not be found. Please reinstall.");
-                //Application.Exit();
-                btnPlaygroundMode.Enabled = false;
-                btnStoryMode.Enabled = false;
-            }
 
 
         }
@@ -149,10 +136,65 @@ namespace TurkeyLauncher
 
         private void frmLauncher_Load(object sender, EventArgs e)
         {
+            InitializeADL();
+
+            InvalidateResolutions();
+
+            //AddPlaylist();
+
+            if (System.IO.File.Exists(texturePath + "banner.png"))
+            {
+                pbBanner.Image = System.Drawing.Bitmap.FromFile(texturePath + "banner.png");
+            }
+
+            if (!System.IO.File.Exists(enginePath + "mge.exe"))
+            {
+                Debug.LogGen(LoggingChannel.ERROR, "Engine could not be found. Please reinstall.");
+                //Application.Exit();
+
+                InvalidateUserMapLists();
+                btnPlaygroundMode.Enabled = false;
+                btnStoryMode.Enabled = false;
+            }
+
             InvalidateUserMapLists();
+
             Control.CheckForIllegalCrossThreadCalls = false;
             this.BringToFront();
+            this.MouseEnter += FrmLauncher_Enter;
+            this.FormClosing += FrmLauncher_FormClosing;
             adlConsole.Hide(); //Make sure its not crashing through crossthreadcalls
+            adlConsole.FormClosing += AdlConsole_FormClosing;
+            Control.CheckForIllegalCrossThreadCalls = true;
+        }
+
+        private void FrmLauncher_Enter(object sender, EventArgs e)
+        {
+            if (windowClosed) cbShowConsole.Checked = false;
+            windowClosed = false;
+        }
+
+
+
+        private void FrmLauncher_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            overrideConsoleClose = true;
+        }
+
+        bool windowClosed = false;
+
+
+        bool overrideConsoleClose = false;
+
+        private void AdlConsole_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if (overrideConsoleClose) return;
+            e.Cancel = true;
+            adlConsole.Hide();
+
+            Control.CheckForIllegalCrossThreadCalls = false;
+            windowClosed = true;
             Control.CheckForIllegalCrossThreadCalls = true;
         }
 
@@ -204,11 +246,10 @@ namespace TurkeyLauncher
             try
             {
                 _engine.Start();
-                if(cbShowConsole.Checked)
-                {
-                    GameConsoleRedirector gcr = GameConsoleRedirector.CreateRedirector(_engine.StandardOutput, _engine.StandardError, _engine);
-                    gcr.StartThreads();
-                }
+
+                GameConsoleRedirector gcr = GameConsoleRedirector.CreateRedirector(_engine.StandardOutput, _engine.StandardError, _engine);
+                gcr.StartThreads();
+
             }
             catch (Exception)
             {
@@ -229,12 +270,12 @@ namespace TurkeyLauncher
             settings.Add("vSync = " + (vSync ? 1 : 0));
             settings.Add("windowMode = " + (windowMode ? 1 : 0));
             settings.Add("msaaSamples = " + msaaSamples);
-            
 
-            if (System.IO.File.Exists(enginePath + "mge/enginesettings.lua"))
-                System.IO.File.Delete(enginePath + "mge/enginesettings.lua");
 
-            System.IO.TextWriter tw = new System.IO.StreamWriter(enginePath + "mge/enginesettings.lua");
+            if (System.IO.File.Exists(assetPath + "enginesettings.lua"))
+                System.IO.File.Delete(assetPath + "enginesettings.lua");
+
+            System.IO.TextWriter tw = new System.IO.StreamWriter(assetPath + "enginesettings.lua");
             try
             {
                 for (int i = 0; i < settings.Count; i++)
@@ -262,9 +303,9 @@ namespace TurkeyLauncher
             cobMaplist.Items.Add("Add to List");
             userMaplist.Clear();
 
-            if (System.IO.Directory.Exists(enginePath + "mge/customMapLists/"))
+            if (System.IO.Directory.Exists(userListPath))
             {
-                foreach (string s in System.IO.Directory.GetFiles(enginePath + "mge/customMapLists/", "*.lua"))
+                foreach (string s in System.IO.Directory.GetFiles(userListPath, "*.lua"))
                 {
                     userMaplist.Add(System.IO.Path.GetFullPath(s));
                     int lastInd = s.LastIndexOf("/") + 1;
@@ -276,17 +317,9 @@ namespace TurkeyLauncher
 
         private void btnPlaygroundMode_Click(object sender, EventArgs e)
         {
-            if(cobMaplist.SelectedIndex < 1)
+            if (cobMaplist.SelectedIndex < 1)
             {
-                if(ofdLoadMaplist.ShowDialog() == DialogResult.OK)
-                {
-                    string s = System.IO.Path.GetFullPath(ofdLoadMaplist.FileName);
-                    int lastInd = s.LastIndexOf("/") + 1;
-                    string st = s.Substring(lastInd, s.Length - lastInd);
-                    cobMaplist.Items.Add(st);
-                    userMaplist.Add(s);
-                    cobMaplist.SelectedIndex = cobMaplist.Items.Count - 1;
-                }
+                AddPlaylist();
             }
             CompileLuaEngineSettings(resolutions[cobResolutions.SelectedIndex].X, resolutions[cobResolutions.SelectedIndex].Y,
                     msaaSamples, cbVSync.Checked, cbWindowed.Checked);
@@ -295,7 +328,7 @@ namespace TurkeyLauncher
 
         private void cobMSAASamples_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cobMSAASamples.SelectedIndex < 1)msaaSamples = 0;
+            if (cobMSAASamples.SelectedIndex < 1) msaaSamples = 0;
             msaaSamples = (int)Math.Pow(2, cobMSAASamples.SelectedIndex);
         }
 
@@ -309,6 +342,31 @@ namespace TurkeyLauncher
             CompileLuaEngineSettings(resolutions[cobResolutions.SelectedIndex].X, resolutions[cobResolutions.SelectedIndex].Y,
                     msaaSamples, cbVSync.Checked, cbWindowed.Checked);
             StartEngine(CreateLaunchArgs(true));
+        }
+
+        void AddPlaylist()
+        {
+            if (ofdLoadMaplist.ShowDialog() == DialogResult.OK)
+            {
+                string source = System.IO.Path.GetFullPath(ofdLoadMaplist.FileName);
+                int lastInd = source.LastIndexOf("\\") + 1;
+                string name = source.Substring(lastInd, source.Length - lastInd);
+                cobMaplist.Items.Add(name);
+                string path = "./" + userListPath + name;
+                Debug.LogGen(LoggingChannel.LOG, source);
+                Debug.LogGen(LoggingChannel.LOG, path);
+                System.IO.File.Copy(source, path);
+                userMaplist.Add(path);
+                cobMaplist.SelectedIndex = cobMaplist.Items.Count - 1;
+            }
+        }
+
+        private void cobMaplist_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cobMaplist.SelectedIndex == 0)
+            {
+                AddPlaylist();
+            }
         }
     }
 }
