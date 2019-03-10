@@ -168,7 +168,8 @@ int main(int argc, char *argv[])
 	new EngineSettings(enginePath);
 	OverrideEngineSettings(argc, argv);
 
-	EngineSettings::settings->SetWindowMode(GetFlag("-forceWindow", argc, argv) != -1); //Shortcut to -windowMode 1
+	if(GetFlag("-forceWindow", argc, argv) != -1)
+		EngineSettings::settings->SetWindowMode(true); //Shortcut to -windowMode 1
 	MapBuilder::editorMode = GetFlag("-editor", argc, argv) != -1;
 	
 	PlayerController::_enableCheats = MapBuilder::editorMode;

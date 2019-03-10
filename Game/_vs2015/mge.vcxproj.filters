@@ -172,8 +172,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="release_dynamic_exe\mge\textures\run_meter_turkey.png" />
+    <Image Include="release_dynamic_exe\mge\textures\gameicon.ico" />
     <Image Include="icon1.ico" />
     <Image Include="icon2.ico" />
-    <Image Include="release_dynamic_exe\mge\textures\gameicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

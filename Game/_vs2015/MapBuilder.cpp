@@ -199,8 +199,8 @@ void MapBuilder::Update(float pTime)
 	if (Level::instance == nullptr) return;
 
 
-	if (editorMode && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-
+	if (editorMode && sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) 
+	{
 		_container->setLocalPosition(glm::vec3(_container->getLocalPosition().x, _container->getLocalPosition().y, _container->getLocalPosition().z - GetMovingSpeed() * 2.88f * pTime));
 	}
 	else if (editorMode && sf::Keyboard::isKeyPressed(sf::Keyboard::E))
