@@ -22,6 +22,7 @@
 debug_dynamic_build/
 debug_dynamic_exe/
 release_dynamic_build/
+release_static_build/
 x64/
 x86/
 bld/
