@@ -62,6 +62,7 @@ class MGEDemo: public AbstractGame
 		KeyLogger* klogger;
 
 		int _initFrame = 0;
+		bool _noStory;
 
         void _updateHud();
         MGEDemo(const MGEDemo&);

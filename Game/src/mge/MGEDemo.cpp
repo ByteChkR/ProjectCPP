@@ -51,6 +51,7 @@
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
 {
+	_noStory = false;
 	this->argc = argc;
 	this->argv = std::vector<std::string>();
 	for (int i = 0; i < argc; i++)
@@ -248,10 +249,15 @@ MGEDemo::GameMode MGEDemo::ProcessStartingFlags(std::string* mapFile)
 	{
 		PlayerController::_enableCheats = GetFlag("-enableCheats", argc, argv) != -1;
 		PlayerController::_lastTutorial = (GetFlag("-noTutorial", argc, argv) == -1) ? -1 : 99;
+
 		Debug::Log("Cheats Enabled: " + PlayerController::_enableCheats ? "YES" : "NO", ALL);
 		Debug::Log("Ignore Tutorials Enabled: " + (PlayerController::_lastTutorial == 99) ? "YES" : "NO", ALL);
 	}
+
+	_noStory = GetFlag("-noStory", argc, argv) != -1;
+
 	*mapFile = "maplist.lua";
+	
 	if (GetFlag("-s", argc, argv) != -1)return gmode; //If -s is a parameter ignore anything else and start with story mode
 
 	int legacyMapID = GetFlag("-l", argc, argv);
@@ -385,9 +391,9 @@ void MGEDemo::_render(int pass) {
 	}
 	else if (GameStateManager::instance->_state == GameStateManager::StatePanel)
 	{
-		if(CurrentGameMode == STORY)
-			_storyPanel->Update();
-		else GameStateManager::instance->_state = GameStateManager::StateGame;
+		if(CurrentGameMode != STORY || _noStory)
+			GameStateManager::instance->_state = GameStateManager::StateGame;
+		else _storyPanel->Update();
 	}
 	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)
 	{

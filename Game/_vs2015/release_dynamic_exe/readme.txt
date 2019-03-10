@@ -20,6 +20,7 @@ Startup Parameters:
 		mge.exe -editor : Move forward and backwards with Q/E. Instant GOD Mode and Cheats enabled
 		mge.exe -enableCheats : enables cheats
 		mge.exe -noTutorial : No Tutorials throughout the game
+		mge.exe -noStory : No Story throughout the game.
 	
 	EngineSettings Override Parameters
 	mge.exe -e <pathtosettings> : Uses specified settings file
