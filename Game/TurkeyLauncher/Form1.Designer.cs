@@ -122,6 +122,7 @@
             this.cobMaplist.Size = new System.Drawing.Size(162, 21);
             this.cobMaplist.TabIndex = 7;
             this.cobMaplist.Text = "Load From File";
+            this.cobMaplist.SelectedIndexChanged += new System.EventHandler(this.cobMaplist_SelectedIndexChanged);
             // 
             // ofdLoadMaplist
             // 
