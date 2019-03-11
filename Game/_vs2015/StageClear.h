@@ -20,7 +20,7 @@ private:
 	HudSprite *_background;
 	HudSprite *_nextStageButtonBox;
 	Button *_nextStageButton;
-
+	HudSprite *_clearBox;
 	HudSprite *_menuButtonBox;
 	Button *_menuButton;
 

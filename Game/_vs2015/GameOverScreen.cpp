@@ -9,7 +9,8 @@
 GameOverScreen::GameOverScreen(sf::RenderWindow *aWindow){
 	
 	_window = aWindow;
-	_background = new HudSprite("game_over_nobuttons.png");
+	_background = new HudSprite("tmpLoading.png");
+	_GameOverBox = new HudSprite("game_over_nobuttons.png");
 
 	_retryButtonBox = new HudSprite("try_again_button.png",1.05f);
 	_retryButton = new RetryButton(_window, _retryButtonBox->sprite);
@@ -22,12 +23,13 @@ GameOverScreen::GameOverScreen(sf::RenderWindow *aWindow){
 
 void GameOverScreen::OrganizeScreen(){
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
+	_GameOverBox->sprite.setPosition(_background->sprite.getPosition());
 
-	_retryButtonBox->sprite.setPosition(_background->sprite.getPosition().x, _background->sprite.getPosition().y +20);
+	_retryButtonBox->sprite.setPosition(_GameOverBox->sprite.getPosition().x, _GameOverBox->sprite.getPosition().y +20);
 	_retryButtonBox->scaledSprite.setPosition(_retryButtonBox->sprite.getPosition());
 	_retryButton->SetPosition(_retryButtonBox->sprite.getPosition());
 
-	_menuButtonBox->sprite.setPosition(_background->sprite.getPosition().x, _background->sprite.getPosition().y + 120);
+	_menuButtonBox->sprite.setPosition(_GameOverBox->sprite.getPosition().x, _GameOverBox->sprite.getPosition().y + 120);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }
@@ -43,6 +45,7 @@ void GameOverScreen::draw() {
 	_window->pushGLStates();
 
 	_window->draw(_background->sprite);
+	_window->draw(_GameOverBox->sprite);
 	if (_retryButton->scaled) _window->draw(_retryButtonBox->scaledSprite);
 	else _window->draw(_retryButtonBox->sprite);
 

@@ -27,7 +27,6 @@ class StoryPanel
 		Button *_nextButton;
 		HudSprite *_backButtonBox;
 		Button *_backButton;
-		HudText *_nextText;
 		int _storyPart;
 		int _storyParts;
 		int _part;

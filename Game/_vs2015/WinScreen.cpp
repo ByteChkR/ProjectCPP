@@ -18,16 +18,20 @@ WinScreen::WinScreen(sf::RenderWindow *aWindow) {
 	_name = new HudText();
 	_kLogger = new KeyLogger();
 	sendScore = false;
-	_nameString = "Anonymous";
+	_nameString = "Gobble";
 	_name->_text.setString(_nameString);
 
 	OrganizePanel();
 }
 
 void WinScreen::SendScore() {
-	if (!sendScore)
+	if (!sendScore && _nameString.size() > 0)
 	{
 		ScoreManager::instance->AddScore(PlayerController::instance->GetCoinCount(), _nameString);
+		sendScore = true;
+	}
+	else if (!sendScore) {
+		ScoreManager::instance->AddScore(PlayerController::instance->GetCoinCount(), "Gobble");
 		sendScore = true;
 	}
 }

@@ -43,14 +43,14 @@ void ScoreBoard::UpdateScores() {
 
 void ScoreBoard::OrganizeScreen() {
 	_background->sprite.setPosition((float)_background->sprite.getTexture()->getSize().x / 2.0f, _background->sprite.getTexture()->getSize().y / 2.0f);
-	_scoreBoard->sprite.setPosition((float)_scoreBoard->sprite.getTexture()->getSize().x / 2.0f, _scoreBoard->sprite.getTexture()->getSize().y / 2.0f);
+	_scoreBoard->sprite.setPosition(_background->sprite.getPosition());
 	
-	float wholeBlockOffset = 380;
+	float wholeBlockOffset = -110;
 	float lineOffset = 47.5f;
 
 	for (int i = 0; i < _size; i++) {
-		_nameDisplays[i]->_text.setPosition( 200 , wholeBlockOffset +lineOffset * (i + 1));
-		_scoreDisplays[i]->_text.setPosition(500 , wholeBlockOffset + lineOffset * (i + 1));
+		_nameDisplays[i]->_text.setPosition( _scoreBoard->sprite.getPosition().x - 210 , _scoreBoard->sprite.getPosition().y + wholeBlockOffset +lineOffset * (i + 1));
+		_scoreDisplays[i]->_text.setPosition(_scoreBoard->sprite.getPosition().x + 85 , _scoreBoard->sprite.getPosition().y + wholeBlockOffset + lineOffset * (i + 1));
 	}
 	
 	_menuButtonBox->sprite.setPosition(_scoreBoard->sprite.getPosition().x+ 302, _scoreBoard->sprite.getPosition().y - 365);

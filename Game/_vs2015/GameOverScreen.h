@@ -20,7 +20,7 @@ class GameOverScreen{
 		HudSprite *_background;
 		HudSprite *_retryButtonBox;
 		Button *_retryButton;
-
+		HudSprite *_GameOverBox;
 		HudSprite *_menuButtonBox;
 		Button *_menuButton;
 

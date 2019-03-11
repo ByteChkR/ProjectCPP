@@ -17,11 +17,10 @@ StoryPanel::StoryPanel(sf::RenderWindow *aWindow)
 	_currentPanel = StoryPanelHandler::instance->GetPanelAt(_storyPart,_part);
 	_currentPanel->sprite.setPosition(_currentPanel->sprite.getTexture()->getSize().x/2.0f, _currentPanel->sprite.getTexture()->getSize().y/2.0f);
 
-	_nextButtonBox = new HudSprite("HudBox.png",1.05f);
-	_nextText = new HudText();
+	_nextButtonBox = new HudSprite("arrow_right.png",1.05f);
 	_nextButton = new NextButton(_window, _nextButtonBox->sprite, this);
 
-	_backButtonBox = new HudSprite("HudBox.png", 1.05f);
+	_backButtonBox = new HudSprite("arrow_left.png", 1.05f);
 	_backButton = new PanelBackButton(_window, _backButtonBox->sprite, this);
 
 	OrganizePanel();
@@ -34,8 +33,6 @@ void StoryPanel::OrganizePanel()
 	_nextButtonBox->sprite.setPosition(1800,950);
 	_nextButtonBox->scaledSprite.setPosition(_nextButtonBox->sprite.getPosition());
 	_nextButton->SetPosition(_nextButtonBox->sprite.getPosition());
-	_nextText->_text.setPosition(_nextButtonBox->sprite.getPosition());
-	_nextText->_text.setString("Next");
 
 	_backButtonBox->sprite.setPosition(100, 950);
 	_backButtonBox->scaledSprite.setPosition(_backButtonBox->sprite.getPosition());
@@ -105,7 +102,6 @@ void StoryPanel::draw() {
 
 	if (_backButton->scaled)_window->draw(_backButtonBox->scaledSprite);
 	else _window->draw(_backButtonBox->sprite);
-	_window->draw(_nextText->_text);
 
 	_window->popGLStates();
 }
