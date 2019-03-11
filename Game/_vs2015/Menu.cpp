@@ -36,19 +36,19 @@ void Menu::_organizeMenu()
 {
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
 
-	_playBox->sprite.setPosition(300, 100);
+	_playBox->sprite.setPosition(1500, 200);
 	_playBox->scaledSprite.setPosition(_playBox->sprite.getPosition());
 	_button->SetPosition(_playBox->sprite.getPosition());
 
-	_scoreBoardBox->sprite.setPosition(300, 250);
+	_scoreBoardBox->sprite.setPosition(1500, 350);
 	_scoreBoardBox->scaledSprite.setPosition(_scoreBoardBox->sprite.getPosition());
 	_scoreBoardButton->SetPosition(_scoreBoardBox->sprite.getPosition());
 
-	_creditsBox->sprite.setPosition(300, 375);
+	_creditsBox->sprite.setPosition(1500, 475);
 	_creditsBox->scaledSprite.setPosition(_creditsBox->sprite.getPosition());
 	_creditsButton->SetPosition(_creditsBox->sprite.getPosition());
 
-	_exitBox->sprite.setPosition(300, 500);
+	_exitBox->sprite.setPosition(1500, 600);
 	_exitBox->scaledSprite.setPosition(_exitBox->sprite.getPosition());
 	_exitButton->SetPosition(_exitBox->sprite.getPosition());
 }

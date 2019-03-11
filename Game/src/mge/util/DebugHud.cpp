@@ -27,6 +27,7 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText
 
 	_debugText = new HudText();
 	_scoreText = new HudText("Candy Beans.otf",26);
+	_scorePreText = new HudText("Candy Beans.otf", 26);
 	_debugBox =  new HudSprite("HudBox.png");
 	_scoreBackground = new HudSprite("score_background.png");
 
@@ -51,7 +52,7 @@ void DebugHud::OnTick(float pTime) {
 void DebugHud::setScore(int score) {
 	if (_score != score) _timer->Start();
 	_score = score;
-	_scoreText->_text.setString("Score : " + std::to_string(_score));
+	_scoreText->_text.setString(std::to_string(_score));
 }
 
 DebugHud::~DebugHud()
@@ -61,11 +62,14 @@ DebugHud::~DebugHud()
 
 void DebugHud::_organizeHud()
 {
+	_scorePreText->_text.setString("Score : ");
+
 	_debugBox->sprite.setPosition(100, 100);
 	_debugText->_text.setPosition(25, 75);
 
-	_scoreText->_text.setPosition(100, 20);
-	_scoreBackground->sprite.setPosition(_scoreText->_text.getPosition().x+ _scoreBackground->sprite.getTexture()->getSize().x / 4, _scoreText->_text.getPosition().y+20);
+	_scorePreText->_text.setPosition(100, 20);
+	_scoreText->_text.setPosition(_scorePreText->_text.getPosition().x + 90,_scorePreText->_text.getPosition().y);
+	_scoreBackground->sprite.setPosition(_scorePreText->_text.getPosition().x+ _scoreBackground->sprite.getTexture()->getSize().x / 4, _scorePreText->_text.getPosition().y+20);
 
 	_progressBackground->sprite.setPosition(60, 250);
 	_progress->sprite.setPosition(_progressBackground->sprite.getPosition());
@@ -91,6 +95,7 @@ void DebugHud::draw()
 
 	_window->draw(_scoreBackground->sprite);
 	_window->draw(_scoreText->_text);
+	_window->draw(_scorePreText->_text);
 
 	
     //_window->draw(_debugText->_text);

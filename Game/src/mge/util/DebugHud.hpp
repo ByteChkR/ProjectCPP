@@ -31,6 +31,7 @@ class DebugHud
 		Timer *_timer;
 
 		HudText *_scoreText;
+		HudText *_scorePreText;
         HudText *_debugText;
 		HudSprite *_debugBox;
 		HudSprite* _scoreBackground;
