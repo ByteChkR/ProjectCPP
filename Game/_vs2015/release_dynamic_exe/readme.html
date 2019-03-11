@@ -1059,6 +1059,16 @@ body .markdown-body
 <h2 id="contents">Contents<a class="headerlink" href="#contents" title="Permanent link"></a></h2>
 <ul>
 <li><a href="#contents">Contents</a></li>
+<li><a href="#startup-parameters">Startup Parameters</a><ul>
+<li><a href="#map-parameters">Map Parameters</a></li>
+<li><a href="#gameplay-parameters">Gameplay Parameters</a></li>
+<li><a href="#enginesettings-override-parameters">Engine Settings Override Parameters</a></li>
+<li><a href="#shortcut">Shortcuts</a></li>
+</ul>
+</li>
+<li><a href="#cheats">Cheats</a></li>
+<li><a href="#editor-mode">Editor Mode</a></li>
+<li><a href="#editor-mode-with-map-editor">Editor Mode with Map Editor</a></li>
 <li><a href="#turkey-game-engine-lua-implementation">Turkey Game Engine Lua Implementation</a><ul>
 <li><a href="#game-scripts-explained">Game Scripts Explained</a><ul>
 <li><a href="#what-are-game-scripts">What are Game Scripts</a></li>
@@ -1090,15 +1100,73 @@ body .markdown-body
 </li>
 </ul>
 </li>
-<li><a href="#startup-parameters">Startup Parameters</a><ul>
-<li><a href="#map-parameters">Map Parameters</a></li>
-<li><a href="#gameplay-parameters">Gameplay Parameters</a></li>
-<li><a href="#enginesettings-override-parameters">Engine Settings Override Parameters</a></li>
-<li><a href="#shortcut">Shortcuts</a></li>
 </ul>
-</li>
-<li><a href="#cheats">Cheats</a></li>
-</ul>
+<hr />
+<hr />
+<hr />
+<h2 id="startup-parameters">Startup Parameters<a class="headerlink" href="#startup-parameters" title="Permanent link"></a></h2>
+<h3 id="map-parameters">Map Parameters<a class="headerlink" href="#map-parameters" title="Permanent link"></a></h3>
+<div class="codehilite"><pre>mge.exe -s : Story Mode(default when no valid -l or -p)
+mge.exe -l &lt;mapfile.lua|txt&gt; (no story panels, single map. nexstage and backto menu are crashing the game)
+mge.exe -p &lt;maplist.lua&gt; (no story panels)
+</pre></div>
+
+
+<h3 id="gameplay-parameters">Gameplay Parameters<a class="headerlink" href="#gameplay-parameters" title="Permanent link"></a></h3>
+<div class="codehilite"><pre>mge.exe -editor : Move forward and backwards with Q/E. Instant GOD Mode and Cheats enabled
+mge.exe -enableCheats : enables cheats
+mge.exe -noTutorial : No Tutorials throughout the game
+mge.exe -noStory : No Story throughout the game.
+</pre></div>
+
+
+<h3 id="enginesettings-override-parameters">EngineSettings Override Parameters<a class="headerlink" href="#enginesettings-override-parameters" title="Permanent link"></a></h3>
+<div class="codehilite"><pre>mge.exe -e &lt;pathtosettings&gt; : Uses specified settings file
+mge.exe -res &lt;width&gt; &lt;height&gt; : Overrides engine settings resolution
+mge.exe -vsync &lt;0|1&gt; : Overrides engine settings vsync
+mge.exe -fpsTarget &lt;fps&gt; : Overrides engine settings fpstarget
+mge.exe -windowMode &lt;0|1&gt; : Overrides engine settings windowMode
+mge.exe -msaa &lt;0|2|4|8&gt; : Overrides engine settings msaaSamples
+mge.exe -name &lt;WindowName&gt; : Overrides engine settings WindowName
+</pre></div>
+
+
+<h3 id="shortcut">Shortcut<a class="headerlink" href="#shortcut" title="Permanent link"></a></h3>
+<div class="codehilite"><pre>mge.exe -forceWindow : Shortcut to -windowMode 1
+</pre></div>
+
+
+<hr />
+<hr />
+<hr />
+<h2 id="cheats">Cheats<a class="headerlink" href="#cheats" title="Permanent link"></a></h2>
+<div class="codehilite"><pre>godmode on = NUMPAD0
+godmode off = NUMPAD1
+ReloadPlayerSettings = NUMPAD2
+ReloadLightParams = NUMPAD3
+ReloadMapFile = NUMPAD4
+ReloadMap = HOME/POS1
+IncreaseSpeed = PageUp
+DecreaseSpeed = PageDown
+ResetSpeed = END
+Pause = PauseKey
+</pre></div>
+
+
+<hr />
+<hr />
+<hr />
+<h2 id="editor-mode">Editor Mode<a class="headerlink" href="#editor-mode" title="Permanent link"></a></h2>
+<p>When started with -editor parameter, the game will not move by itself. The map can be moved with q/e but you can still switch lanes like in the actual game.
+When -editor is passed to the game it will implicitly add -enableCheats -noTutorial -noStory to the parameter list.</p>
+<hr />
+<hr />
+<hr />
+<h2 id="editor-mode-with-map-editor">Editor Mode with Map Editor<a class="headerlink" href="#editor-mode-with-map-editor" title="Permanent link"></a></h2>
+<p>When using the engine with the Map Editor its possible to reload the map you are testing with the editor by pressing &ldquo;Only Export&rdquo; in the Map Editor and then Reloading the Map with <a href="#cheats">Cheats</a></p>
+<hr />
+<hr />
+<hr />
 <h2 id="turkey-game-engine-lua-implementation">Turkey Game Engine Lua Implementation<a class="headerlink" href="#turkey-game-engine-lua-implementation" title="Permanent link"></a></h2>
 <h3 id="game-scripts-explained">Game Scripts Explained<a class="headerlink" href="#game-scripts-explained" title="Permanent link"></a></h3>
 <h4 id="what-are-game-scripts">What are Game Scripts<a class="headerlink" href="#what-are-game-scripts" title="Permanent link"></a></h4>
@@ -1278,7 +1346,7 @@ usage: Game.ChangeAnimationFrame(owningRef, 0) -- Restart animation(begin at 0)
 
 
 <h4 id="gamenextanimationframegameobject">Game.NextAnimationFrame(gameObject)<a class="headerlink" href="#gamenextanimationframegameobject" title="Permanent link"></a></h4>
-<div class="codehilite"><pre>Changes the displayed animation frame to the next frame in the sprite
+<div class="codehilite"><pre>Change the displayed animation frame to the next frame in the sprite
 usage: Game.NextAnimationFrame(owningReference) -- Next Sprite
 </pre></div>
 
@@ -1303,50 +1371,4 @@ usage: Game.StopParticleEffect(gameObject)
 
 <h4 id="gamestopparticleeffectimmediategameobject">Game.StopParticleEffectImmediate(gameObject)<a class="headerlink" href="#gamestopparticleeffectimmediategameobject" title="Permanent link"></a></h4>
 <div class="codehilite"><pre>Stops the particle effect and removes all alive particles.
-</pre></div>
-
-
-<h2 id="startup-parameters">Startup Parameters<a class="headerlink" href="#startup-parameters" title="Permanent link"></a></h2>
-<h3 id="map-parameters">Map Parameters<a class="headerlink" href="#map-parameters" title="Permanent link"></a></h3>
-<div class="codehilite"><pre>mge.exe -s : Story Mode(default when no valid -l or -p)
-mge.exe -l &lt;mapfile.lua|txt&gt; (no story panels, single map. nexstage and backto menu are crashing the game)
-mge.exe -p &lt;maplist.lua&gt; (no story panels)
-</pre></div>
-
-
-<h3 id="gameplay-parameters">Gameplay Parameters<a class="headerlink" href="#gameplay-parameters" title="Permanent link"></a></h3>
-<div class="codehilite"><pre>mge.exe -editor : Move forward and backwards with Q/E. Instant GOD Mode and Cheats enabled
-mge.exe -enableCheats : enables cheats
-mge.exe -noTutorial : No Tutorials throughout the game
-mge.exe -noStory : No Story throughout the game.
-</pre></div>
-
-
-<h3 id="enginesettings-override-parameters">EngineSettings Override Parameters<a class="headerlink" href="#enginesettings-override-parameters" title="Permanent link"></a></h3>
-<div class="codehilite"><pre>mge.exe -e &lt;pathtosettings&gt; : Uses specified settings file
-mge.exe -res &lt;width&gt; &lt;height&gt; : Overrides engine settings resolution
-mge.exe -vsync &lt;0|1&gt; : Overrides engine settings vsync
-mge.exe -fpsTarget &lt;fps&gt; : Overrides engine settings fpstarget
-mge.exe -windowMode &lt;0|1&gt; : Overrides engine settings windowMode
-mge.exe -msaa &lt;0|2|4|8&gt; : Overrides engine settings msaaSamples
-mge.exe -name &lt;WindowName&gt; : Overrides engine settings WindowName
-</pre></div>
-
-
-<h3 id="shortcut">Shortcut<a class="headerlink" href="#shortcut" title="Permanent link"></a></h3>
-<div class="codehilite"><pre>mge.exe -forceWindow : Shortcut to -windowMode 1
-</pre></div>
-
-
-<h2 id="cheats">Cheats<a class="headerlink" href="#cheats" title="Permanent link"></a></h2>
-<div class="codehilite"><pre>godmode on = NUMPAD0
-godmode off = NUMPAD1
-ReloadPlayerSettings = NUMPAD2
-ReloadLightParams = NUMPAD3
-ReloadMapFile = NUMPAD4
-ReloadMap = HOME/POS1
-IncreaseSpeed = PageUp
-DecreaseSpeed = PageDown
-ResetSpeed = END
-Pause = PauseKey
 </pre></div></article></body></html>

@@ -275,7 +275,7 @@ void PlayerController::OnDeathEnd()
 void PlayerController::Reset()
 {
 
-	MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); //<--- therealchanger
+	if(!MapBuilder::editorMode)MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); //<--- therealchanger
 	_hasShadow = true;
 	_test = false;
 }
@@ -303,7 +303,7 @@ void PlayerController::SetCurrentLane(int lane)
 	_nextLane = lane;
 	_owner->setLocalPosition(MapGenerator::instance->GetLaneAt(_currentLane)->GetPosition() + glm::vec3(0, 0, 0));//<---
 	heliInitialPosition.x = _owner->getLocalPosition().x;
-	MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); // therealchanger
+	if (!MapBuilder::editorMode)MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); // therealchanger
 }
 
 
@@ -581,6 +581,7 @@ void PlayerController::update(float pTime)
 		{
 			Debug::Log("Reloading Map File", ALL);
 			if (LevelManager::instance != nullptr)LevelManager::instance->ReloadLevel();
+			else if(Level::instance != nullptr) Level::instance->Reload();
 		}
 
 	}

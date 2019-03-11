@@ -20,6 +20,7 @@ public:
 	void LoadLightParams(lua_State* L);
 	void LoadLightParams();
 	void Unload();
+	void Reload();
 private:
 	MapGenerator* _map;
 	MapGenerator* _decoration;

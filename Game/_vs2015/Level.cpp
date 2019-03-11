@@ -29,13 +29,19 @@ Level::Level(std::string levelLuaFile)
 
 	luaFile = levelLuaFile;
 
+	Reload();
+}
+
+void Level::Reload()
+{
+
 	std::string mapFile;
 	std::string decoFile;
 
 	lua_State* L = luaL_newstate();
 
-	luaL_loadfile(L, levelLuaFile.c_str());
-	LuaOperations::SaveLuaCall(L, 0, 0, true, "Could not load Level("+levelLuaFile+") settings.\n");
+	luaL_loadfile(L, luaFile.c_str());
+	LuaOperations::SaveLuaCall(L, 0, 0, true, "Could not load Level(" + luaFile + ") settings.\n");
 
 	lua_getglobal(L, "heightTexture");
 	std::string height;
@@ -49,8 +55,8 @@ Level::Level(std::string levelLuaFile)
 
 	lua_getglobal(L, "map");
 
-/*
-	if (LuaOperations::SaveLuaCall(L, 0, 1, true, "Could not read map settings."))return;*/
+	/*
+		if (LuaOperations::SaveLuaCall(L, 0, 1, true, "Could not read map settings."))return;*/
 	if (!LuaOperations::TryGetString(L, &mapFile))
 	{
 		Debug::LogError("Error parsing path to map data\n");
@@ -65,12 +71,12 @@ Level::Level(std::string levelLuaFile)
 
 		_map = new MapGenerator(config::MGE_MAP_PATH + mapFile);
 	}
-	
+
 	lua_getglobal(L, "deco");
 
 	instance = this;
-/*
-	if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
+	/*
+		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetString(L, &decoFile))
 	{
 		Debug::Log("Error parsing path to deco data", WARNINGS_ERRORS_LOG2);
@@ -137,12 +143,12 @@ Level::Level(std::string levelLuaFile)
 	lua_getglobal(L, "genOffset");
 	double go;
 	/*
-	
+
 		if (LuaOperations::SaveLuaCall(L, 0, 1, false, "Could not read deco settings."))return;*/
 	if (!LuaOperations::TryGetDouble(L, &go))
 	{
 		Debug::Log("Error parsing Generation offset from map file. Default = 75", WARNINGS_ERRORS_LOG2);
-		
+
 
 		TextureMaterial::genOffset = 75;
 		MapBuilder::instance->genOffset = 75;
@@ -167,7 +173,7 @@ Level::Level(std::string levelLuaFile)
 	else
 	{
 		TextureMaterial::maxXOff = (float)xCurv;
-		
+
 	}
 
 	lua_getglobal(L, "xCurvatureSmoothness");
@@ -245,7 +251,7 @@ Level::Level(std::string levelLuaFile)
 	if (!LuaOperations::TryGetDouble(L, &hmSW))
 	{
 		Debug::Log("Error parsing Height Sampling Width from map file. Default = 8", WARNINGS_ERRORS_LOG2);
-		
+
 
 		TextureMaterial::width = 8;
 	}
@@ -303,10 +309,11 @@ Level::Level(std::string levelLuaFile)
 		dynamic_cast<AnimationMaterial*>(DataManager::instance->GetBackground()->getMaterial())->setDiffuseTexture(background);
 		dynamic_cast<TextureMovingMaterial*>(DataManager::instance->GetGround()->getMaterial())->setDiffuseTexture(mapGround);
 	}
-	
-	
+
+
 
 	MapBuilder::instance->Reload();
+
 }
 
 Texture* Level::GetBackground()

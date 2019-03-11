@@ -56,6 +56,7 @@ MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
 	this->argv = std::vector<std::string>();
 	for (int i = 0; i < argc; i++)
 	{
+		Debug::Log("Parameter " + std::to_string(i) + ": " + argv[i], ALL);
 		this->argv.push_back(argv[i]);
 	}
 	klogger = new KeyLogger();
@@ -164,7 +165,7 @@ void MGEDemo::_initializeResources()
 	GameMode gMode = ProcessStartingFlags(&mapFile);
 	CurrentGameMode = gMode;
 	LevelManager* lm = nullptr;
-	if(gMode == LEGACY)
+	if (gMode == LEGACY)
 	{
 		Level* l = new Level(mapFile);
 	}
@@ -184,7 +185,7 @@ void MGEDemo::_initializeResources()
 	_loadingScreen->Update();
 
 	if (lm != nullptr)lm->ChangeLevel(0);
-	
+
 	Particle* particle = new Particle();
 	particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
 	particle->acceleration = glm::vec3(0, 0.6, 0);
@@ -243,7 +244,7 @@ void MGEDemo::_initializeResources()
 
 MGEDemo::GameMode MGEDemo::ProcessStartingFlags(std::string* mapFile)
 {
-	
+
 	GameMode gmode = STORY;
 	if (!MapBuilder::editorMode)
 	{
@@ -254,17 +255,19 @@ MGEDemo::GameMode MGEDemo::ProcessStartingFlags(std::string* mapFile)
 		Debug::Log("Ignore Tutorials Enabled: " + (PlayerController::_lastTutorial == 99) ? "YES" : "NO", ALL);
 	}
 
-	_noStory = GetFlag("-noStory", argc, argv) != -1;
+	_noStory = GetFlag("-noStory", argc, argv) != -1 || MapBuilder::editorMode;
 
 	*mapFile = "maplist.lua";
-	
+
 	if (GetFlag("-s", argc, argv) != -1)return gmode; //If -s is a parameter ignore anything else and start with story mode
 
 	int legacyMapID = GetFlag("-l", argc, argv);
 	if (legacyMapID != -1)
 	{
+
+		Debug::Log("Found Legacy Flag..", ALL);
 		gmode = LEGACY;
-		if (legacyMapID + 1 >= argc || argv[legacyMapID+1][0] == '-')
+		if (legacyMapID + 1 >= argc || argv[legacyMapID + 1][0] == '-')
 		{
 			Debug::LogError("Inavlid parameter for Legacy mode. Expected path to map after -l flag");
 			Debug::LogError("Falling back to story mode.");
@@ -276,13 +279,18 @@ MGEDemo::GameMode MGEDemo::ProcessStartingFlags(std::string* mapFile)
 		size_t find = mapFile->substr(test, mapFile->size() - test).find("txt");
 		if (find != std::string::npos)
 		{
+
+			Debug::Log("Found Legacy Flag.. Detected NON Lua File", ALL);
 			gmode = LEGACY_R;
 		}
+
+
+		Debug::Log("Found Legacy Flag..(" + *mapFile + ")", ALL);
 		return gmode;
 	}
 
 	int playgroundFlagID = GetFlag("-p", argc, argv);
-	
+
 	if (playgroundFlagID != -1)
 	{
 		gmode = PLAYGROUND;
@@ -391,7 +399,7 @@ void MGEDemo::_render(int pass) {
 	}
 	else if (GameStateManager::instance->_state == GameStateManager::StatePanel)
 	{
-		if(CurrentGameMode != STORY || _noStory)
+		if (CurrentGameMode != STORY || _noStory)
 			GameStateManager::instance->_state = GameStateManager::StateGame;
 		else _storyPanel->Update();
 	}
