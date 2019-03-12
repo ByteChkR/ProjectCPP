@@ -112,7 +112,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	runParticle->transparencyPerSecond = 2;
 	runParticle->randomizeAcceleration = glm::vec3(0.6, 0.1, 0);
 	ParticleEmitter* _runParticle = new ParticleEmitter(runParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerRunParticle.png"), 120, 0.2f, false);
-	runContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	runContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 	runContainer->setMaterial((AbstractMaterial*)_runParticle);
 	runContainer->scale(glm::vec3(0.2));
 
@@ -150,7 +150,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 
 	_deathContainer = new GameObject("deathContainer", glm::vec3(0, 0, 0));
 
-	_deathContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	_deathContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 	_deathContainer->setMaterial((AbstractMaterial*)_deathParticle);
 	_owner->add(_deathContainer);
 	//_deathParticle->Start();
