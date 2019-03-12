@@ -370,6 +370,13 @@ void PlayerController::OnCollision(GameObject* other)
 		other->DisableBehaviours(); //Also turns it invisible
 		// particles
 		_cornCollectParticle->StartBurst(20);
+		_coins += 50;
+		AudioManager::instance->PlaySound(4);
+	}
+	else if (!other->getName().find("normalcorn"))
+	{
+		other->DisableBehaviours(); //Also turns it invisible
+		_cornCollectParticle->StartBurst(20);
 		_coins += 10;
 		AudioManager::instance->PlaySound(4);
 	}

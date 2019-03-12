@@ -1,6 +1,5 @@
 local scripts = {}
 local meta = {["name"] = "1BSideProp4",
-["objPath"] = "mge/models/VillageForestBiome/12_Village_B_Tree1_V1.obj",
 ["texture"] = "Game/Maps/VillageForestBiome/Tree1/12_Village_B_Tree1_V1_geometrized_AlbedoTransparency.png",
 ["posX"] = 0,
 ["posY"] = 0,

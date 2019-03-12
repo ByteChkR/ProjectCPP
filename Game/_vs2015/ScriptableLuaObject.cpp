@@ -168,6 +168,30 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 
 
 		}
+		else if (!lss->GetName().find("normalcorn"))
+		{
+			object->addBehaviour(new RotatingBehaviour());
+			Particle* particle = new Particle();
+
+			particle->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
+			particle->acceleration = glm::vec3(0, 0.08, 0);
+			particle->gravity = 0.2;
+			particle->life = 1;
+			particle->transparencyPerSecond = 1;
+			particle->randomizeAcceleration = glm::vec3(0.2);
+			particle->position = glm::vec3(0);
+			GameObject* particleObj = new GameObject("particle");
+			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornSparkleParticle.png"), 20, 0.5, false);
+
+			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+			particleObj->scale(glm::vec3(0.2));
+			//pem->SetOpacityMode(false);
+			particleObj->setMaterial((AbstractMaterial*)pem);
+			object->add(particleObj);
+			pem->Start();
+
+
+		}
 		else if (lss->GetName() == "van" || lss->GetName() == "car" || lss->GetName() == "turkeyvan")
 		{
 			object->addBehaviour(new Car(true));
