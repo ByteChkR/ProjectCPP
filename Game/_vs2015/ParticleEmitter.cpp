@@ -109,12 +109,14 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 	glDepthMask(GL_FALSE);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
-
+	float d = glm::sqrt(pModelMatrix[0].x *pModelMatrix[0].x + pModelMatrix[0].x *pModelMatrix[0].x + pModelMatrix[2].x*pModelMatrix[2].x);
+	glm::mat4 mat = glm::mat4(d);
+	mat[3] = glm::vec4(pModelMatrix[3].x, pModelMatrix[3].y, pModelMatrix[3].z, 1);
 
 
 	glUniformMatrix4fv(_uPMatrix, 1, GL_FALSE, glm::value_ptr(pPerspectiveMatrix));
 	glUniformMatrix4fv(_uVMatrix, 1, GL_FALSE, glm::value_ptr(pViewMatrix));
-	glUniformMatrix4fv(_uMMatrix, 1, GL_FALSE, glm::value_ptr(pModelMatrix));
+	glUniformMatrix4fv(_uMMatrix, 1, GL_FALSE, glm::value_ptr(mat));
 
 	if (_particleTexture != nullptr || _texture == -1)
 	{
@@ -266,6 +268,7 @@ void ParticleEmitter::_initializeShader()
 		_heightMapSpeed = _shader->getUniformLocation("heightMapSpeed");
 		_time = _shader->getUniformLocation("time");
 		_heightMapTiling = _shader->getUniformLocation("heightMapTiling");
+
 
 	}
 }

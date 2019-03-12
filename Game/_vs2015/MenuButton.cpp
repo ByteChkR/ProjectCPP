@@ -14,6 +14,7 @@ MenuButton::MenuButton(sf::RenderWindow *aWindow, sf::Sprite _buttonSprite) : Bu
 void MenuButton::OnClick()
 {
 	Debug::Log("Menu", ALL);
+	PlayerController::instance->Reset();
 	PlayerController::instance->ResetScore();
 	MapBuilder::instance->Reload();
 	LevelManager::instance->ChangeLevel(0);

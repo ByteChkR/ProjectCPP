@@ -1,12 +1,14 @@
 #include "CollisionManager.hpp"
 #include "AbstractStaticCollider.hpp"
 #include "DynamicBoxCollider.hpp"
-
+#include "Debug.h"
 void CollisionManager::Update(float time)
 {
+	int cols = 0;
 	for each (AbstractStaticCollider* col in staticColliders)
 	{ 
 		if (!col->IsEnabled())continue;
+		cols++;
 		for each (DynamicBoxCollider* box in dynamicColliders)
 		{
 			bool isCollision = col->IsCollision(box);

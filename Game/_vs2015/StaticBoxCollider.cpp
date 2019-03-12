@@ -61,6 +61,7 @@ AbstractBehaviour* StaticBoxCollider::Clone()
 	return new StaticBoxCollider(min, max);
 }
 
+
 void StaticBoxCollider::update(float time)
 {
 	if (!_init && _owner != nullptr)
