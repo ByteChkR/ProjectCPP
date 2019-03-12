@@ -25,11 +25,11 @@ Tutorial3::Tutorial3(sf::RenderWindow * aWindow) : _window(aWindow), _debugBox()
 
 void Tutorial3::ButtonPressCheck()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 		GameStateManager::instance->_state = GameStateManager::StateGame;
 		AbstractGame::instance->SetTimeScale(1);
 		Debug::Log("Next Tutorial", ALL);
-	}
+	}*/
 }
 
 void Tutorial3::_organizeHud()
