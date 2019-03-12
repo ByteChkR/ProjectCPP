@@ -397,7 +397,7 @@ void PlayerController::OnCollision(GameObject* other)
 		_isBackSwitching = true;
 	}
 	else if (_isBackSwitching) return;
-	else if (sbc->GetDimensions().y < 1.1f && !_isStruggling && lastStruggleCollider != other->getName()) //<--- This right here
+	else if (sbc->GetDimensions().y < 2.1f && !_isStruggling && lastStruggleCollider != other->getName()) //<--- This right here
 	{
 		AudioManager::instance->PlaySound(2);
 		lastStruggleCollider = other->getName();
@@ -429,6 +429,7 @@ void PlayerController::OnCollision(GameObject* other)
 		_deathParticle->Start();
 		_deathTimer->Reset(true);
 		AudioManager::instance->PlaySound(1);
+		Debug::Log(other->getName(), ALL);
 	}
 }
 

@@ -40,6 +40,8 @@ void Level::Reload()
 
 	lua_State* L = luaL_newstate();
 
+	Debug::Log("Reloading Level", ALL);
+
 	luaL_loadfile(L, luaFile.c_str());
 	LuaOperations::SaveLuaCall(L, 0, 0, true, "Could not load Level(" + luaFile + ") settings.\n");
 

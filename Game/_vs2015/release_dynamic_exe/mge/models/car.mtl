@@ -1,0 +1,14 @@
+newmtl car1:initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd CarCentered_1001_AlbedoTransparency.png
+Ni 1.00
+newmtl initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Traktor_Traktor_initialShadingGroup_AlbedoTransparency.png
+Ni 1.00

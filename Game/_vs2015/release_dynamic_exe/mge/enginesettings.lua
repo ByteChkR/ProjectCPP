@@ -1,6 +1,6 @@
 FPSTarget = 120
 WindowName = "Turkey Game"
-width = 1024
+width = 1360
 height = 768
 vSync = 0
 windowMode = 1

@@ -62,14 +62,14 @@
     <string>Map2_29.pxml</string>
   </PartSequence>
   <genOffset>75</genOffset>
-  <xCurvature>50</xCurvature>
-  <xCurvatureSmoothness>2</xCurvatureSmoothness>
+  <xCurvature>25</xCurvature>
+  <xCurvatureSmoothness>3</xCurvatureSmoothness>
   <heightMapTiling>1</heightMapTiling>
   <heightMapSpeed>0</heightMapSpeed>
-  <heightMapMaxHeight>10</heightMapMaxHeight>
+  <heightMapMaxHeight>5</heightMapMaxHeight>
   <heightMapSamplingWidth>8</heightMapSamplingWidth>
   <xMoveTiling>100</xMoveTiling>
-  <fogColorR>0.5</fogColorR>
-  <fogColorG>0.5</fogColorG>
-  <fogColorB>0.5</fogColorB>
+  <fogColorR>0.121568628</fogColorR>
+  <fogColorG>0.294117659</fogColorG>
+  <fogColorB>0.31764707</fogColorB>
 </Map>

@@ -4,10 +4,11 @@ local meta = {["name"] = "1BLowObstacle1",
 ["specular"] = "Game/Maps/VillageForestBiome/trunk/17_Village_B_Trunk_V1_pCylinder27SG_MetallicSmoothness.png",
 ["texture"] = "Game/Maps/VillageForestBiome/trunk/17_Village_B_Trunk_V1_Geom_AlbedoTransparency.png",
 ["posX"] = 0,
-["posY"] = 0,
+["posY"] = -1,
 ["posZ"] = 0 }
 colliderMin = { ["width"] = -1, ["height"] = -0.5, ["depth"] = -1}
 colliderMax = { ["width"] = 1, ["height"] = -0.5, ["depth"] = 1}
+colliderMode = "auto"
 function AttachedScripts()
 	return scripts
 end
