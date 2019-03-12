@@ -11,6 +11,7 @@
 #include <chrono>
 #include <iostream>
 #include "mge/core/Texture.hpp"
+#include "mge/core/World.hpp"
 class ParticleEmitter : AbstractMaterial
 {
 public:

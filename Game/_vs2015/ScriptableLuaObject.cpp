@@ -159,7 +159,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			GameObject* particleObj = new GameObject("particle");
 			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornSparkleParticle.png"), 300, 0.5, false);
 
-			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 			particleObj->scale(glm::vec3(0.2));
 			//pem->SetOpacityMode(false);
 			particleObj->setMaterial((AbstractMaterial*)pem);
@@ -183,7 +183,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			GameObject* particleObj = new GameObject("particle");
 			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornSparkleParticle.png"), 20, 0.5, false);
 
-			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 			particleObj->scale(glm::vec3(0.2));
 			//pem->SetOpacityMode(false);
 			particleObj->setMaterial((AbstractMaterial*)pem);
@@ -209,7 +209,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			GameObject* particleObj = new GameObject("particle");
 			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "testParticle.png"), 300, 0.5, false);
 
-			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 			particleObj->scale(glm::vec3(0.2));
 			//pem->SetOpacityMode(false);
 			particleObj->setMaterial((AbstractMaterial*)pem);
