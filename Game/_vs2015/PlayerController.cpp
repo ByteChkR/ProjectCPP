@@ -103,15 +103,15 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 
 #pragma region RunParticle
 
-	GameObject* runContainer = new GameObject("RunContainer");
+	GameObject* runContainer = new GameObject("RunContainer", glm::vec3(0, -0.7, -0.3));
 	Particle* runParticle = new Particle();
 	runParticle->color = glm::vec4(1, 1, 1, 1);
-	runParticle->acceleration = glm::vec3(0, 0, 0.3);
-	runParticle->gravity = 0.4;
+	runParticle->acceleration = glm::vec3(0, 0, 0.2);
+	runParticle->gravity = 0;
 	runParticle->life = 0.5;
 	runParticle->transparencyPerSecond = 2;
-	runParticle->randomizeAcceleration = glm::vec3(0.6, 0.1, 0);
-	ParticleEmitter* _runParticle = new ParticleEmitter(runParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerRunParticle.png"), 120, 0.2f, false);
+	runParticle->randomizeAcceleration = glm::vec3(0.4, 0.2, 0);
+	ParticleEmitter* _runParticle = new ParticleEmitter(runParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerRunParticle.png"), 120, 0.1f, false);
 	runContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 	runContainer->setMaterial((AbstractMaterial*)_runParticle);
 	runContainer->scale(glm::vec3(0.2));
@@ -126,8 +126,9 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	GameObject* jumpContainer = new GameObject("JumpContainer");
 	Particle* jumpParticle = new Particle();
 	jumpParticle->color = glm::vec4(1, 1, 1, 1);
-	jumpParticle->acceleration = glm::vec3(0, 0, 1);
-	jumpParticle->gravity = 0.02;
+	jumpParticle->acceleration = glm::vec3(0, 0.25, 0);
+	jumpParticle->gravity = 1;
+	jumpParticle->randomizeAcceleration = glm::vec3(1, 0, 1);
 	jumpParticle->life = 0.5;
 	_jumpParticle = new ParticleEmitter(jumpParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerJumpParticle.png"), 120, 1);
 	jumpContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
@@ -275,7 +276,7 @@ void PlayerController::OnDeathEnd()
 void PlayerController::Reset()
 {
 
-	if(!MapBuilder::editorMode)MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); //<--- therealchanger
+	if (!MapBuilder::editorMode)MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); //<--- therealchanger
 	_hasShadow = true;
 	_test = false;
 }
@@ -338,7 +339,7 @@ void PlayerController::OnCollision(GameObject* other)
 
 	if (tutorialHit)
 	{
-		
+
 		int num = other->getName()[other->getName().size() - 2] - '1'; //<-- Thats incredibly easy to break btw. just create more than 10 of the same tutorial trigger
 		if (num > _lastTutorial)
 		{
@@ -488,7 +489,7 @@ void PlayerController::update(float pTime)
 	{
 		if (_isWPRessed == false)
 		{
-			_jumpParticle->StartBurst(10);
+			_jumpParticle->StartBurst(80);
 			_isWPRessed = true;
 			jump();
 		}
@@ -589,7 +590,7 @@ void PlayerController::update(float pTime)
 		{
 			Debug::Log("Reloading Map File", ALL);
 			if (LevelManager::instance != nullptr)LevelManager::instance->ReloadLevel();
-			else if(Level::instance != nullptr) Level::instance->Reload();
+			else if (Level::instance != nullptr) Level::instance->Reload();
 		}
 
 	}
