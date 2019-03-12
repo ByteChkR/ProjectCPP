@@ -9,7 +9,7 @@
 StageClear::StageClear(sf::RenderWindow *aWindow) {
 
 	_window = aWindow;
-	_background = new HudSprite("tmpLoading.png");
+	_background = new HudSprite("level_complete_background.png");
 	_clearBox = new HudSprite("level_complete_nobuttons.png");
 
 	_nextStageButtonBox = new HudSprite("next_level_button.png", 1.05f);

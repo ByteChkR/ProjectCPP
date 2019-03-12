@@ -17,6 +17,8 @@ Menu::Menu(sf::RenderWindow *aWindow) : _window(aWindow)
 
 	_background = new HudSprite("turkey_mainmenu.png");
 
+	_titleBox = new HudSprite("title.png");
+
 	_playBox = new HudSprite("play_button.png", 1.05f);
 	_button = new PlayButton(_window, _playBox->sprite);
 
@@ -34,23 +36,26 @@ Menu::Menu(sf::RenderWindow *aWindow) : _window(aWindow)
 
 void Menu::_organizeMenu()
 {
-	float xoffset = _window->getSize().x < 1920 ? 420 : 1500; //Sheeeeesh 420
+	float xoffset = _window->getSize().x < 1920 ? 420 : 420; //Sheeeeesh 420
 
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
+	_background->sprite.setScale(-1,1);
 
-	_playBox->sprite.setPosition(xoffset, 200);
+	_titleBox->sprite.setPosition(xoffset, 225);
+
+	_playBox->sprite.setPosition(xoffset, 500);
 	_playBox->scaledSprite.setPosition(_playBox->sprite.getPosition());
 	_button->SetPosition(_playBox->sprite.getPosition());
 
-	_scoreBoardBox->sprite.setPosition(xoffset, 350);
+	_scoreBoardBox->sprite.setPosition(xoffset, 650);
 	_scoreBoardBox->scaledSprite.setPosition(_scoreBoardBox->sprite.getPosition());
 	_scoreBoardButton->SetPosition(_scoreBoardBox->sprite.getPosition());
 
-	_creditsBox->sprite.setPosition(xoffset, 475);
+	_creditsBox->sprite.setPosition(xoffset, 775);
 	_creditsBox->scaledSprite.setPosition(_creditsBox->sprite.getPosition());
 	_creditsButton->SetPosition(_creditsBox->sprite.getPosition());
 
-	_exitBox->sprite.setPosition(xoffset, 600);
+	_exitBox->sprite.setPosition(xoffset, 900);
 	_exitBox->scaledSprite.setPosition(_exitBox->sprite.getPosition());
 	_exitButton->SetPosition(_exitBox->sprite.getPosition());
 }
@@ -70,6 +75,7 @@ void Menu::draw()
 	_window->pushGLStates();
 
 	_window->draw(_background->sprite);
+	_window->draw(_titleBox->sprite);
 
 	if (_button->scaled)_window->draw(_playBox->scaledSprite);
 	else _window->draw(_playBox->sprite);

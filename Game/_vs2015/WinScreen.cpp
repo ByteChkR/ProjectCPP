@@ -9,13 +9,11 @@
 WinScreen::WinScreen(sf::RenderWindow *aWindow) {
 	_window = aWindow;
 
-	_background = new HudSprite("tempMenu.png");
-	_nameBox = new HudSprite("HudBox.png",1.05f);
-	_sendScoreBox = new HudSprite("HudBox.png", 1.05f);
+	_background = new HudSprite("victory_screen.png");
+	_nameBox = new HudSprite("enter_name.png",1.05f);
+	_sendScoreBox = new HudSprite("confirm_button.png", 1.05f);
 	_sendScoreButton = new SaveScoreButton(_window, _sendScoreBox->sprite,this);
-	_menuText = new HudText();
-	_winText = new HudText();
-	_name = new HudText();
+	_name = new HudText("Candy Beans.otf", 26, sf::Color::Black);
 	_kLogger = new KeyLogger();
 	sendScore = false;
 	_nameString = "Gobble";
@@ -44,7 +42,7 @@ void WinScreen::ResetScoreSendBool()
 void WinScreen::TypeName() 
 {
 	std::string output;
-	if (_name->_text.getString().getSize() < 11 && _kLogger->SFKey2String(&output)) {
+	if (_name->_text.getString().getSize() < 12 && _kLogger->SFKey2String(&output)) {
 		_nameString = _nameString + output;
 		_name->_text.setString(_nameString);
 	}
@@ -62,19 +60,14 @@ void WinScreen::TypeName()
 void WinScreen::OrganizePanel() {
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2.0f, _background->sprite.getTexture()->getSize().y / 2.0f);
 
-	_menuText->_text.setString("Go to Scoreboard");
-
 	_sendScoreBox->sprite.setPosition(300, 100);
 	_sendScoreBox->scaledSprite.setPosition(_sendScoreBox->sprite.getPosition());
 	_sendScoreButton->SetPosition(_sendScoreBox->sprite.getPosition());
-	_menuText->_text.setPosition(_sendScoreBox->sprite.getPosition());
 
 	_nameBox->sprite.setPosition(300,200);
 	_nameBox->scaledSprite.setPosition(_nameBox->sprite.getPosition());
-	_name->_text.setPosition(_nameBox->sprite.getPosition().x - 15, _nameBox->sprite.getPosition().y);
+	_name->_text.setPosition(_nameBox->sprite.getPosition().x - 50, _nameBox->sprite.getPosition().y);
 
-	_winText->_text.setString("YOU WIN");
-	_winText->_text.setPosition(300,300);
 }
 
 void WinScreen::Update() {
@@ -91,11 +84,8 @@ void WinScreen::draw() {
 	if(_sendScoreButton->scaled) _window->draw(_sendScoreBox->scaledSprite);
 	else _window->draw(_sendScoreBox->sprite);
 
-	_window->draw(_menuText->_text);
 	_window->draw(_nameBox->sprite);
 	_window->draw(_name->_text);
-
-	_window->draw(_winText->_text);
 
 	_window->popGLStates();
 }

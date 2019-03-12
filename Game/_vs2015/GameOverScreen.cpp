@@ -9,7 +9,7 @@
 GameOverScreen::GameOverScreen(sf::RenderWindow *aWindow){
 	
 	_window = aWindow;
-	_background = new HudSprite("tmpLoading.png");
+	_background = new HudSprite("game over background.png");
 	_GameOverBox = new HudSprite("game_over_nobuttons.png");
 
 	_retryButtonBox = new HudSprite("try_again_button.png",1.05f);

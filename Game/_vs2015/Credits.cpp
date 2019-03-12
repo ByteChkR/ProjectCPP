@@ -19,7 +19,8 @@ Credits::Credits(sf::RenderWindow *aWindow) {
 
 void Credits::OrganizeScreen() {
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
-	_credits->sprite.setPosition(_background->sprite.getPosition());
+	_background->sprite.setScale(-1, 1);
+	_credits->sprite.setPosition(_background->sprite.getPosition().x - 400, _background->sprite.getPosition().y);
 
 	_menuButtonBox->sprite.setPosition(_credits->sprite.getPosition().x + 255, _credits->sprite.getPosition().y - 375);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
