@@ -1,0 +1,18 @@
+local scripts = {}
+local meta = {["name"] = "2BInterior1",
+["objPath"] = "mge/models/CityBiome/park_right.obj",
+["texture"] = "Game/Maps/CityBiome/park.png",
+["posX"] = 0,
+["posY"] = -0.8,
+["posZ"] = 0 }
+colliderMin = { ["width"] = 0, ["height"] = 0, ["depth"] = 0}
+colliderMax = { ["width"] = 0, ["height"] = 0, ["depth"] = 0}
+
+function AttachedScripts()
+	return scripts
+end
+
+function GetMeta()
+	return meta
+end
+

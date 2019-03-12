@@ -27,6 +27,11 @@ LevelManager::LevelManager(std::string luaMapList, bool storyMode)
 		return;
 	}
 
+	for (size_t i = 0; i < _maps.size(); i++)
+	{
+		Debug::Log(_maps[i], ALL);
+	}
+
 	lua_close(L);
 }
 

@@ -1,8 +1,7 @@
 local scripts = {}
-local meta = {["name"] = "0BLowObstacle5", ["objPath"] = "mge/models/placeholder.obj" , ["specular"] = "black.png", ["emissive"] = "black.png", ["texture"] = "red.png", ["posX"] = 0, ["posY"] = 0, ["posZ"] = 0 }
+local meta = {["name"] = "0BLowObstacle5", ["specular"] = "black.png", ["objPath"] = "mge/models/CityBiome/Roadwork3.obj", ["texture"] = "Game/Maps/CityBiome/Roadwork3/Roadwork3_1001_AlbedoTransparency.png",["posX"] = 0, ["posY"] = -1, ["posZ"] = 0 }
 colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -1}
 colliderMax = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
-
 function AttachedScripts()
 	return scripts
 end

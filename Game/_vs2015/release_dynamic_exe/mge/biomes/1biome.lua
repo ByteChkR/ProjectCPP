@@ -8,4 +8,4 @@ objects = {"none",
 "1BHighObstacle5", "1BSideProp9", "1BSideProp10", "0BInterior1",
 "0BInterior2", "1BSideProp11", "1BSideProp12", "coin", "endoflevel", "turkeycage", "coinAir",
 "1BTutorial1", "tutorial2", "tutorial3", "tutorial4", "fallback",
-"van", "turkeyvan", "car"}
+"staticvan", "staticturkeyvan", "staticcar", "traktor"}
