@@ -126,7 +126,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	GameObject* jumpContainer = new GameObject("JumpContainer");
 	Particle* jumpParticle = new Particle();
 	jumpParticle->color = glm::vec4(1, 1, 1, 1);
-	jumpParticle->acceleration = glm::vec3(0, 0.25, 0);
+	jumpParticle->acceleration = glm::vec3(0, -0.5, 0);
 	jumpParticle->gravity = 1;
 	jumpParticle->randomizeAcceleration = glm::vec3(1, 0, 1);
 	jumpParticle->life = 0.5;

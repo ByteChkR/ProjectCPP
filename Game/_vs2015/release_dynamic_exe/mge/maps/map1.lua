@@ -1,7 +1,7 @@
 heightTexture = "height.png"
 map = "map1.txt"
-ground = "backg3.png"
-mapGround = "ground3.png"
+ground = "backg23.png"
+mapGround = "ground1.png"
 mapGroundNormal = ""
 genOffset = "75"
 xCurvature = "15"
@@ -11,4 +11,4 @@ heightMapSpeed = "0"
 heightMapMaxHeight = "5"
 heightMapSamplingWidth = "8"
 xMoveTiling = "100"
-fogColor = {["Red"] = "0.5" , ["Green"] = "0.5" , ["Blue"] = "0.5"}
+fogColor = {["Red"] = "0.1215686" , ["Green"] = "0.2941177" , ["Blue"] = "0.3176471"}
