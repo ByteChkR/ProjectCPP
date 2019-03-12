@@ -1,7 +1,7 @@
 heightTexture = "height.png"
 map = "SecondMap_Village.txt"
 ground = "backg23.png"
-mapGround = "ground1.png"
+mapGround = "ground3.png"
 mapGroundNormal = ""
 genOffset = "75"
 xCurvature = "25"
