@@ -5,22 +5,16 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mge", "mge.vcxproj", "{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurkeyLauncher", "..\TurkeyLauncher\TurkeyLauncher.csproj", "{D530731C-6F8E-445A-B232-F1128698FB54}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Dynamic|Any CPU = Debug Dynamic|Any CPU
 		Debug Dynamic|x86 = Debug Dynamic|x86
 		Debug Static|Any CPU = Debug Static|Any CPU
 		Debug Static|x86 = Debug Static|x86
-		Debug|Any CPU = Debug|Any CPU
-		Debug|x86 = Debug|x86
 		Release Dynamic|Any CPU = Release Dynamic|Any CPU
 		Release Dynamic|x86 = Release Dynamic|x86
 		Release Static|Any CPU = Release Static|Any CPU
 		Release Static|x86 = Release Static|x86
-		Release|Any CPU = Release|Any CPU
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Dynamic|Any CPU.ActiveCfg = Debug Dynamic|Win32
@@ -29,40 +23,12 @@ Global
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Static|Any CPU.ActiveCfg = Debug Static|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Static|x86.ActiveCfg = Debug Static|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Static|x86.Build.0 = Debug Static|Win32
-		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug|Any CPU.ActiveCfg = Release Static|Win32
-		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug|Any CPU.Build.0 = Release Static|Win32
-		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug|x86.ActiveCfg = Debug Static|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release Dynamic|Any CPU.ActiveCfg = Release Dynamic|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release Dynamic|x86.ActiveCfg = Release Dynamic|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release Dynamic|x86.Build.0 = Release Dynamic|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release Static|Any CPU.ActiveCfg = Release Static|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release Static|x86.ActiveCfg = Release Static|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release Static|x86.Build.0 = Release Static|Win32
-		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release|Any CPU.ActiveCfg = Release Static|Win32
-		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release|Any CPU.Build.0 = Release Static|Win32
-		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release|x86.ActiveCfg = Release Static|Win32
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug Dynamic|Any CPU.ActiveCfg = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug Dynamic|Any CPU.Build.0 = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug Dynamic|x86.ActiveCfg = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug Static|Any CPU.ActiveCfg = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug Static|Any CPU.Build.0 = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug Static|x86.ActiveCfg = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug Static|x86.Build.0 = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Debug|x86.Build.0 = Debug|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release Dynamic|Any CPU.ActiveCfg = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release Dynamic|Any CPU.Build.0 = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release Dynamic|x86.ActiveCfg = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release Static|Any CPU.ActiveCfg = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release Static|Any CPU.Build.0 = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release Static|x86.ActiveCfg = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release Static|x86.Build.0 = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release|x86.ActiveCfg = Release|Any CPU
-		{D530731C-6F8E-445A-B232-F1128698FB54}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
