@@ -122,7 +122,7 @@ void MGEDemo::_initializeResources()
 	//playerObject->setMesh(sphereMeshS);
 	//playerObject->setMaterial(runicStoneMaterial);
 
-	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "animtest.png", true), 1);;
+	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + "helicopter.png", true), 1);;
 
 
 
