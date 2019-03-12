@@ -10,6 +10,7 @@ local meta = {["name"] = "coinAir",
 colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -1}
 colliderMax = { ["width"] = 1, ["height"] = 1, ["depth"] = 1}
 colliderMode = "auto"
+Shininess = 500
 function AttachedScripts()
 	return scripts
 end
