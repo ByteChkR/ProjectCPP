@@ -229,7 +229,7 @@ void PlayerController::LoadPlayerSettings()
 
 void PlayerController::ResetTutorial()
 {
-	_lastTutorial = _lastTutorial != 99 ? 0 : 99;
+	_lastTutorial = _lastTutorial != 99 ? -1 : 99;
 }
 
 void PlayerController::ResetScore(int newScore) {
@@ -338,7 +338,7 @@ void PlayerController::OnCollision(GameObject* other)
 
 	if (tutorialHit)
 	{
-
+		
 		int num = other->getName()[other->getName().size() - 2] - '1'; //<-- Thats incredibly easy to break btw. just create more than 10 of the same tutorial trigger
 		if (num > _lastTutorial)
 		{
