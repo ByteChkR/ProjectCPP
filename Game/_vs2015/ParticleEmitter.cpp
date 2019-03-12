@@ -12,6 +12,8 @@
 #include "mge/core/AbstractGame.hpp"
 #include <iostream>
 #include "PlayerController.hpp"
+#include "mge/core/World.hpp"
+#include "mge/core/Camera.hpp"
 
 ShaderProgram* ParticleEmitter::_shader = nullptr;
 GLint ParticleEmitter::_uMMatrix = 0;
@@ -111,14 +113,15 @@ void ParticleEmitter::render(int pass, World* pWorld, Mesh* pMesh, const glm::ma
 
 	float d = glm::sqrt(pModelMatrix[0].x *pModelMatrix[0].x + pModelMatrix[0].x *pModelMatrix[0].x + pModelMatrix[2].x*pModelMatrix[2].x);
 	glm::mat4 mat = glm::mat4(d);
+	glm::mat4 pmat = pWorld->getMainCamera()->getTransform();
 	mat[3] = glm::vec4(pModelMatrix[3].x, pModelMatrix[3].y, pModelMatrix[3].z, 1);
-
+	mat = mat * glm::rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 
 	glUniformMatrix4fv(_uPMatrix, 1, GL_FALSE, glm::value_ptr(pPerspectiveMatrix));
 	glUniformMatrix4fv(_uVMatrix, 1, GL_FALSE, glm::value_ptr(pViewMatrix));
 	glUniformMatrix4fv(_uMMatrix, 1, GL_FALSE, glm::value_ptr(mat));
 
-	if (_particleTexture != nullptr || _texture == -1)
+	if (_particleTexture != nullptr || _texture != -1)
 	{
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, _particleTexture->getId());

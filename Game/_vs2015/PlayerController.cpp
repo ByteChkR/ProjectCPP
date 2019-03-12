@@ -58,10 +58,10 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	struggleParticle->gravity = 0.4;
 	struggleParticle->life = 0.5;
 	_struggleParticle = new ParticleEmitter(struggleParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerStruggleParticle.png"), 120, 0.2f);
-	struggleContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	struggleContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 	struggleContainer->setMaterial((AbstractMaterial*)_struggleParticle);
 	struggleContainer->scale(glm::vec3(0.2));
-	_struggleParticle->SetOpacityMode(false);
+	//_struggleParticle->SetOpacityMode(false);
 	_owner->add(struggleContainer);
 
 #pragma endregion
@@ -76,10 +76,10 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	cageCollectParticle->gravity = 0.4;
 	cageCollectParticle->life = 0.5;
 	_cageCollectParticle = new ParticleEmitter(cageCollectParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cageCollectParticle.png"), 120, 0.2f);
-	cageCollectContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	cageCollectContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 	cageCollectContainer->setMaterial((AbstractMaterial*)_cageCollectParticle);
 	cageCollectContainer->scale(glm::vec3(0.2));
-	_cageCollectParticle->SetOpacityMode(false);
+	//_cageCollectParticle->SetOpacityMode(false);
 	_owner->add(cageCollectContainer);
 
 #pragma endregion
@@ -93,10 +93,10 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	cornCollectParticle->gravity = 0.4;
 	cornCollectParticle->life = 0.5;
 	_cornCollectParticle = new ParticleEmitter(cornCollectParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornCollectParticle.png"), 120, 0.2f);
-	cornCollectContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	cornCollectContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 	cornCollectContainer->setMaterial((AbstractMaterial*)_cornCollectParticle);
 	cornCollectContainer->scale(glm::vec3(0.2));
-	_cornCollectParticle->SetOpacityMode(false);
+	//_cornCollectParticle->SetOpacityMode(false);
 	_owner->add(cornCollectContainer);
 
 #pragma endregion
@@ -112,7 +112,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	runParticle->transparencyPerSecond = 2;
 	runParticle->randomizeAcceleration = glm::vec3(0.6, 0.1, 0);
 	ParticleEmitter* _runParticle = new ParticleEmitter(runParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerRunParticle.png"), 120, 0.2f, false);
-	runContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	runContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 	runContainer->setMaterial((AbstractMaterial*)_runParticle);
 	runContainer->scale(glm::vec3(0.2));
 
@@ -130,8 +130,8 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 	jumpParticle->gravity = 0.02;
 	jumpParticle->life = 0.5;
 	_jumpParticle = new ParticleEmitter(jumpParticle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "playerJumpParticle.png"), 120, 1);
-	jumpContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
-	_jumpParticle->SetOpacityMode(false);
+	jumpContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
+	//_jumpParticle->SetOpacityMode(false);
 	jumpContainer->setMaterial((AbstractMaterial*)_jumpParticle);
 	jumpContainer->scale(glm::vec3(0.2));
 
@@ -150,7 +150,7 @@ PlayerController::PlayerController(GameObject * pOwner, GameObject * pHeli, Game
 
 	_deathContainer = new GameObject("deathContainer", glm::vec3(0, 0, 0));
 
-	_deathContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj"));
+	_deathContainer->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 	_deathContainer->setMaterial((AbstractMaterial*)_deathParticle);
 	_owner->add(_deathContainer);
 	//_deathParticle->Start();
