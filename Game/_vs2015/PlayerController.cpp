@@ -345,7 +345,7 @@ void PlayerController::OnCollision(GameObject* other)
 
 			_lastTutorial = num;
 			GameStateManager::instance->_state = GameStateManager::GameState(GameStateManager::Tutorial1 + num);
-			AbstractGame::instance->SetTimeScale(6);
+			AbstractGame::instance->SetTimeScale(12);
 
 		}
 		_tutorialColliderStay = true;
