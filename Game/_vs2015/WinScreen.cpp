@@ -12,6 +12,7 @@ WinScreen::WinScreen(sf::RenderWindow *aWindow) {
 	_background = new HudSprite("victory_screen.png");
 	_nameBox = new HudSprite("enter_name.png",1.05f);
 	_sendScoreBox = new HudSprite("confirm_button.png", 1.05f);
+	_winBox = new HudSprite("congratulations.png");
 	_sendScoreButton = new SaveScoreButton(_window, _sendScoreBox->sprite,this);
 	_name = new HudText("Candy Beans.otf", 26, sf::Color::Black);
 	_kLogger = new KeyLogger();
@@ -59,14 +60,17 @@ void WinScreen::TypeName()
 
 void WinScreen::OrganizePanel() {
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2.0f, _background->sprite.getTexture()->getSize().y / 2.0f);
+	_background->sprite.setScale(-1,1);
 
-	_sendScoreBox->sprite.setPosition(300, 100);
+	_winBox->sprite.setPosition(450,225);
+
+	_sendScoreBox->sprite.setPosition(450, 600);
 	_sendScoreBox->scaledSprite.setPosition(_sendScoreBox->sprite.getPosition());
 	_sendScoreButton->SetPosition(_sendScoreBox->sprite.getPosition());
 
-	_nameBox->sprite.setPosition(300,200);
+	_nameBox->sprite.setPosition(450,450);
 	_nameBox->scaledSprite.setPosition(_nameBox->sprite.getPosition());
-	_name->_text.setPosition(_nameBox->sprite.getPosition().x - 50, _nameBox->sprite.getPosition().y);
+	_name->_text.setPosition(_nameBox->sprite.getPosition().x - 50, _nameBox->sprite.getPosition().y - 10);
 
 }
 
@@ -81,6 +85,8 @@ void WinScreen::draw() {
 	_window->pushGLStates();
 
 	_window->draw(_background->sprite);
+	_window->draw(_winBox->sprite);
+
 	if(_sendScoreButton->scaled) _window->draw(_sendScoreBox->scaledSprite);
 	else _window->draw(_sendScoreBox->sprite);
 

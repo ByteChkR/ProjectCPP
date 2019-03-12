@@ -32,6 +32,7 @@ private:
 	HudSprite *_background;
 	HudSprite* _nameBox;
 	HudSprite *_sendScoreBox;
+	HudSprite *_winBox;
 	Button *_sendScoreButton;
 	HudText *_name;
 };
