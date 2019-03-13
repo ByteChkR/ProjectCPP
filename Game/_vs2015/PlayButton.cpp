@@ -20,4 +20,5 @@ void PlayButton::OnClick()
 	else
 		GameStateManager::instance->_state = GameStateManager::StateGame;
 	PlayerController::instance->getOwner()->EnableBehaviours();
+	PlayerController::instance->Reset();
 }

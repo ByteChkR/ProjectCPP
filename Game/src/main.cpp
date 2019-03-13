@@ -167,8 +167,32 @@ int main(int argc, char *argv[])
 
 	new EngineSettings(enginePath);
 	OverrideEngineSettings(argc, argv);
-	if (GetFlag("-mydude", argc, argv) != -1)
+	std::tm time_in = { 0, 0, 0, // second, minute, hour
+	  9, 10, 2016 - 1900 }; // 1-based day, 0-based month, year since 1900
+
+	const std::time_t time_temp = std::mktime(&time_in);
+
+	//Note: Return value of localtime is not threadsafe, because it might be
+	// (and will be) reused in subsequent calls to std::localtime!
+	std::tm * time_out = std::localtime(&time_temp);
+	int id = time_out->tm_wday;
+	
+	if (GetFlag("-mydude", argc, argv) != -1 || id == 3)
+	{
+		Debug::LogError("You know what day it is?!");
+		for (size_t i = 0; i < 100; i++)
+		{
+
+			Debug::LogError("It is wednesday my dudes!");
+		}
+		for (size_t i = 0; i < 100; i++)
+		{
+
+			Debug::LogError("AAAAAAAAAAAAAAAAA");
+		}
+
 		EngineSettings::settings->SetWednesdayMode(true);
+	}
 	if(GetFlag("-forceWindow", argc, argv) != -1)
 		EngineSettings::settings->SetWindowMode(true); //Shortcut to -windowMode 1
 	MapBuilder::editorMode = GetFlag("-editor", argc, argv) != -1;

@@ -276,7 +276,7 @@ void PlayerController::OnDeathEnd()
 
 void PlayerController::Reset()
 {
-
+	if (EngineSettings::settings->GetWednesdayMode())ShakeCamera(1000000, 15);
 	if (!MapBuilder::editorMode)MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); //<--- therealchanger
 	_hasShadow = true;
 	_test = false;
@@ -928,6 +928,11 @@ void PlayerController::UpdateCamera(float pDeltaTime)
 
 void PlayerController::ShakeCamera(float pTime, float pIntensity)
 {
+	if (EngineSettings::settings->GetWednesdayMode())
+	{
+		pIntensity = 3;
+		pTime = 1000000;
+	}
 	timeLeftToShakeCamera = pTime;
 	cameraShakeIntensity = pIntensity;
 }
