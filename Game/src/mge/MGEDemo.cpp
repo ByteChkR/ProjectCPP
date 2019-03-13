@@ -139,7 +139,7 @@ void MGEDemo::_initializeResources()
 	heliDrop->setMesh(testQuad);
 	heliDrop->setMaterial(heliDropTexture);
 	heliDrop->scale(glm::vec3(2,2, 2));
-	heliDrop->setLocalPosition(glm::vec3(-200, -220, -200));
+	heliDrop->setLocalPosition(glm::vec3(-200, -220, -210));
 	heliDrop->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(heliDrop);
 
