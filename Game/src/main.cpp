@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 	std::tm * time_out = std::localtime(&time_temp);
 	int id = time_out->tm_wday;
 	Debug::Log(std::to_string(id), ALL);
-	if (GetFlag("-mydude", argc, argv) != -1 || id == 3)
+	if (GetFlag("-mydude", argc, argv) != -1)
 	{
 		Debug::LogError("You know what day it is?!");
 		for (size_t i = 0; i < 100; i++)
@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 
 			Debug::LogError("AAAAAAAAAAAAAAAAA");
 		}
-		bool use = false;// (GetFlag("-stfu", argc, argv) == -1);
+		bool use = (GetFlag("-stfu", argc, argv) == -1);
 		if (use)EngineSettings::settings->SetWednesdayMode(true);
 	}
 	if (GetFlag("-forceWindow", argc, argv) != -1)
