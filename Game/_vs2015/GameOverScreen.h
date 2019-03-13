@@ -11,15 +11,19 @@ class GameOverScreen{
 		GameOverScreen(sf::RenderWindow *aWindow);
 
 		void Update();
-
+		void SetProgressAchieved(float pProgress);
 	private:
 		void OrganizeScreen();
 		void draw();
+
+		int _progress;
 
 		sf::RenderWindow *_window;
 		HudSprite *_background;
 		HudSprite *_retryButtonBox;
 		Button *_retryButton;
+
+		HudText *_progressText;
 		HudSprite *_GameOverBox;
 		HudSprite *_menuButtonBox;
 		Button *_menuButton;

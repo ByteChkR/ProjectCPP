@@ -11,7 +11,7 @@ Credits::Credits(sf::RenderWindow *aWindow) {
 	_background = new HudSprite("turkey_mainmenu.png");
 	_credits = new HudSprite("credits.png");
 
-	_menuButtonBox = new HudSprite("cancel_button.png",1.05f);
+	_menuButtonBox = new HudSprite("back_button.png",1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 
 	OrganizeScreen();
@@ -22,7 +22,7 @@ void Credits::OrganizeScreen() {
 	_background->sprite.setScale(-1, 1);
 	_credits->sprite.setPosition(_background->sprite.getPosition().x - 400, _background->sprite.getPosition().y);
 
-	_menuButtonBox->sprite.setPosition(_credits->sprite.getPosition().x + 255, _credits->sprite.getPosition().y - 375);
+	_menuButtonBox->sprite.setPosition(1750, 1000);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }

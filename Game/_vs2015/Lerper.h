@@ -4,8 +4,9 @@
 #include "Timer.h"
 #include <functional>
 #include "mge/behaviours/AbstractBehaviour.hpp"
-class Lerper : Timer
+class Lerper : public Timer
 {
+	public:
 	Lerper(std::function<void(float)> onTick, std::function<void()> onEnd, float time, std::string name = "Lerper", bool reocurring = false);
 	virtual ~Lerper() override;
 

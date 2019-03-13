@@ -139,7 +139,7 @@ void MGEDemo::_initializeResources()
 	heliDrop->setMesh(testQuad);
 	heliDrop->setMaterial(heliDropTexture);
 	heliDrop->scale(glm::vec3(2,2, 2));
-	heliDrop->setLocalPosition(glm::vec3(-200, -220, -200));
+	heliDrop->setLocalPosition(glm::vec3(-200, -220, -210));
 	heliDrop->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(heliDrop);
 
@@ -374,7 +374,11 @@ void MGEDemo::_initializeScene()
 void MGEDemo::_render(int pass) {
 
 	AbstractGame::_render(pass);
-	if (GameStateManager::instance->_state == GameStateManager::StateGame) _updateHud();
+	if (GameStateManager::instance->_state == GameStateManager::StateGame) 
+	{
+		_updateHud(); 
+		_gameOverScreen->SetProgressAchieved(MapBuilder::instance->GetProgress());
+	}
 	else if (GameStateManager::instance->_state == GameStateManager::StateMenu) {
 		_menu->Update();
 		std::string output;
@@ -404,6 +408,7 @@ void MGEDemo::_render(int pass) {
 		if (CurrentGameMode != STORY || _noStory)
 			GameStateManager::instance->_state = GameStateManager::StateGame;
 		else _storyPanel->Update();
+
 	}
 	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)
 	{
