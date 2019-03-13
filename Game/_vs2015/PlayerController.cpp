@@ -322,8 +322,9 @@ void PlayerController::OnGameEnd()
 	_owner->add(AbstractGame::instance->_world->getMainCamera());
 	AbstractGame::instance->_world->getMainCamera()->setLocalPosition(PlayerController::CameraResetPosition);
 	MapBuilder::instance->Unload();
-	//LevelManager::instance->NextLevel();
-	GameStateManager::instance->_state = GameStateManager::StateNextStage;
+	//GameStateManager::instance->_state = GameStateManager::StateNextStage;
+	LevelManager::instance->NextLevel();
+	GameStateManager::instance->_state = GameStateManager::StatePanel;
 	MapBuilder::instance->GetContainer()->setLocalPosition(ContainerResetPosition); // therealchanger
 
 }

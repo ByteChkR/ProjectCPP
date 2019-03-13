@@ -12,7 +12,7 @@ ScoreBoard::ScoreBoard(sf::RenderWindow *aWindow) {
 	_background = new HudSprite("turkey_mainmenu.png");
 	_scoreBoard = new HudSprite("scoreboard_nobutton.png");
 
-	_menuButtonBox = new HudSprite("cancel_button.png", 1.05f);
+	_menuButtonBox = new HudSprite("back_button.png", 1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 	
 	_size = ScoreManager::instance->GetScores().size();
@@ -54,7 +54,7 @@ void ScoreBoard::OrganizeScreen() {
 		_scoreDisplays[i]->_text.setPosition(_scoreBoard->sprite.getPosition().x + 85 , _scoreBoard->sprite.getPosition().y + wholeBlockOffset + lineOffset * (i + 1));
 	}
 	
-	_menuButtonBox->sprite.setPosition(_scoreBoard->sprite.getPosition().x+ 302, _scoreBoard->sprite.getPosition().y - 365);
+	_menuButtonBox->sprite.setPosition(1750,1000);
 	_menuButtonBox->scaledSprite.setPosition(_menuButtonBox->sprite.getPosition());
 	_menuButton->SetPosition(_menuButtonBox->sprite.getPosition());
 }

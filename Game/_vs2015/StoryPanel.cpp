@@ -100,8 +100,9 @@ void StoryPanel::draw() {
 	if(_nextButton->scaled)_window->draw(_nextButtonBox->scaledSprite);
 	else _window->draw(_nextButtonBox->sprite);
 
-	if (_backButton->scaled)_window->draw(_backButtonBox->scaledSprite);
-	else _window->draw(_backButtonBox->sprite);
-
+	if (_part > 0) {
+		if (_backButton->scaled)_window->draw(_backButtonBox->scaledSprite);
+		else _window->draw(_backButtonBox->sprite);
+	}
 	_window->popGLStates();
 }
