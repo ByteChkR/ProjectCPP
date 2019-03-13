@@ -13,6 +13,7 @@ public:
 	int GetMSAASampleCount();
 	bool GetWindowMode();
 	bool GetVSyncEnabled();
+	bool GetWednesdayMode();
 
 	void SetWidth(int newWidth);
 	void SetHeight(int newWidth);
@@ -21,12 +22,14 @@ public:
 	void SetVSync(bool enable);
 	void SetWindowMode(bool windowed);
 	void SetWindowName(std::string name);
+	void SetWednesdayMode(bool mydude);
 
 	static EngineSettings* settings;
 
 private:
 	int _width, _height, _fpsTarget, _msaaSamples, _vSync, _windowMode;
 	std::string _windowName;
+	bool _wednessDayMode;
 };
 
 #endif // !ENGINESETTINGS_HPP

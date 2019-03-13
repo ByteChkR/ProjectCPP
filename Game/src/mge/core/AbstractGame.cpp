@@ -103,7 +103,7 @@ void AbstractGame::_initializeRenderer() {
 	//setup our own renderer
 	Debug::Log("Initializing renderer...", WARNINGS_ERRORS_LOG1);
 
-	_renderer = new Renderer(true);
+	_renderer = new Renderer(false);
 
 	_renderer->setClearColor(0, 0, 0);
 	Debug::Log("Renderer done.", WARNINGS_ERRORS_LOG1);

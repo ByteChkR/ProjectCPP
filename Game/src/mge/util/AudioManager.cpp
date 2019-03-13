@@ -3,6 +3,7 @@
 #include "../_vs2015/Debug.h"
 #include <stdlib.h> 
 #include <time.h>
+#include "../_vs2015/EngineSettings.h"
 #include <string>
 AudioManager * AudioManager::instance;
 
@@ -16,7 +17,7 @@ AudioManager::AudioManager()
 
 	_musics = std::vector < sf::Music*>();
 
-	LoadMusic("menumusic.wav", "nosound.wav");
+	EngineSettings::settings->GetWednesdayMode()? LoadMusic("menumusic1.wav", "nosound.wav"): LoadMusic("menumusic.wav", "nosound.wav");
 	AddMusic("GameOver.wav", "nosound.wav");
 	AddMusic("menumusic.wav", "nosound.wav");
 

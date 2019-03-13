@@ -167,13 +167,15 @@ int main(int argc, char *argv[])
 
 	new EngineSettings(enginePath);
 	OverrideEngineSettings(argc, argv);
-
+	if (GetFlag("-mydude", argc, argv) != -1)
+		EngineSettings::settings->SetWednesdayMode(true);
 	if(GetFlag("-forceWindow", argc, argv) != -1)
 		EngineSettings::settings->SetWindowMode(true); //Shortcut to -windowMode 1
 	MapBuilder::editorMode = GetFlag("-editor", argc, argv) != -1;
 	
 	PlayerController::_enableCheats = MapBuilder::editorMode;
 	PlayerController::_godMode = MapBuilder::editorMode;
+
 
 	//int t;
 	//std::cin >> t;

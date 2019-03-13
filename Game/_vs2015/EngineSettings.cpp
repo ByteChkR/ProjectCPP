@@ -11,6 +11,7 @@ EngineSettings* EngineSettings::settings = nullptr;
 EngineSettings::EngineSettings(std::string file)
 {
 	settings = this;
+	_wednessDayMode = false;
 	lua_State* L = luaL_newstate();
 
 	luaL_loadfile(L, file.c_str());
@@ -111,4 +112,14 @@ std::string EngineSettings::GetWindowName()
 int EngineSettings::GetFPSTarget()
 {
 	return _fpsTarget;
+}
+
+void EngineSettings::SetWednesdayMode(bool mydude)
+{
+	_wednessDayMode = mydude;
+}
+
+bool EngineSettings::GetWednesdayMode()
+{
+	return _wednessDayMode;
 }

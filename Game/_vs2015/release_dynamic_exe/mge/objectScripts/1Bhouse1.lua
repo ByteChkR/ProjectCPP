@@ -1,7 +1,6 @@
 local scripts = {}
 local meta = {["name"] = "1BHouse1", 
 ["objPath"] = "mge/models/VillageForestBiome/4_Village_B_HouseLong_Reversable_V1.obj", 
-["specular"] = "Game/Maps/VillageForestBiome/LongHouse/1_Village_B_HouseLong_Reversable_V1_initialShadingGroup_MetallicSmoothness.png", 
 ["texture"] = "Game/Maps/VillageForestBiome/LongHouse/1_Village_B_HouseLong_Reversable_V1_initialShadingGroup_AlbedoTransparency.png", 
 ["posX"] = 0, 
 ["posY"] = -1, 
