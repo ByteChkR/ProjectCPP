@@ -7,6 +7,7 @@
 #include"../_vs2015/Menu.h"
 #include <iostream>
 #include "../_vs2015/Timer.h"
+#include "../_vs2015/Lerper.h"
 
 /**
  * Very simple class capable of rendering a simple piece of text through SFML.
@@ -28,7 +29,7 @@ class DebugHud
 		void onEnd();
 		int _score = 0;
 
-		Timer *_timer;
+		Lerper *_timer;
 
 		HudText *_scoreText;
 		HudText *_scorePreText;

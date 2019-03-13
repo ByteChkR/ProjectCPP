@@ -12,6 +12,7 @@
 #include "../_vs2015/PlayerController.hpp"
 #include "../_vs2015/MapBuilder.h"
 #include "../_vs2015/Timer.h"
+#include "../_vs2015/Lerper.h"
 #include "../core/AbstractGame.hpp"
 
 
@@ -23,7 +24,7 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText
 	std::function<void()> oE = std::bind(&DebugHud::onEnd, std::ref(*this));
 	std::function<void(float)> oT = std::bind(&DebugHud::OnTick, std::ref(*this), std::placeholders::_1);
 
-	_timer = new Timer(oT, oE, 0.5f, "ScoreScaleTimer", false);
+	_timer = new Lerper(oT, oE, 0.35f, "ScoreScaleTimer", false);
 
 	_debugText = new HudText();
 	_scoreText = new HudText("Candy Beans.otf",26);
@@ -46,7 +47,9 @@ void DebugHud::onEnd() {
 }
 
 void DebugHud::OnTick(float pTime) {
-	_scoreText->_text.setScale(1.1, 1.1);
+	float scale = 1 + pTime/2;
+	if (pTime > 0.25) scale = 1 + 0.25 - pTime/4;
+	_scoreText->_text.setScale(scale,scale);
 }
 
 void DebugHud::setScore(int score) {
