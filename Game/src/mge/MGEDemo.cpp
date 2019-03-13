@@ -374,7 +374,11 @@ void MGEDemo::_initializeScene()
 void MGEDemo::_render(int pass) {
 
 	AbstractGame::_render(pass);
-	if (GameStateManager::instance->_state == GameStateManager::StateGame) _updateHud();
+	if (GameStateManager::instance->_state == GameStateManager::StateGame) 
+	{
+		_updateHud(); 
+		_gameOverScreen->SetProgressAchieved(MapBuilder::instance->GetProgress());
+	}
 	else if (GameStateManager::instance->_state == GameStateManager::StateMenu) {
 		_menu->Update();
 		std::string output;
@@ -404,6 +408,7 @@ void MGEDemo::_render(int pass) {
 		if (CurrentGameMode != STORY || _noStory)
 			GameStateManager::instance->_state = GameStateManager::StateGame;
 		else _storyPanel->Update();
+
 	}
 	else if (GameStateManager::instance->_state == GameStateManager::StateGameOver)
 	{
