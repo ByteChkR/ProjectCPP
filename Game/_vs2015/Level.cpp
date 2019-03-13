@@ -11,6 +11,7 @@
 #include "mge\materials\AnimationMaterial.hpp"
 #include "../_vs2015/Debug.h"
 #include "mge/core/Light.hpp"
+#include "EngineSettings.h"
 
 Level* Level::instance = nullptr;
 
@@ -25,7 +26,7 @@ Level::Level(bool debug, std::string mapFile)
 
 Level::Level(std::string levelLuaFile)
 {
-	if(MapBuilder::instance != nullptr) MapBuilder::instance->Unload(); //Give back all "prefabs" to the object pools
+	if (MapBuilder::instance != nullptr) MapBuilder::instance->Unload(); //Give back all "prefabs" to the object pools
 
 	luaFile = levelLuaFile;
 
@@ -52,7 +53,9 @@ void Level::Reload()
 		Debug::Log("Level has no height map", WARNINGS_ERRORS_LOG3);
 	}
 	else {
-		TextureMaterial::_heightMap = Texture::load(config::MGE_TEXTURE_PATH + height, false, true);
+		TextureMaterial::_heightMap = EngineSettings::settings->GetWednesdayMode() ?
+			Texture::load(config::MGE_TEXTURE_PATH + "ground5.png") :
+			Texture::load(config::MGE_TEXTURE_PATH + height, false, true);
 	}
 
 	lua_getglobal(L, "map");
@@ -374,5 +377,5 @@ MapGenerator* Level::GetMap()
 
 void Level::Unload()
 {
-	if(MapBuilder::instance != nullptr)MapBuilder::instance->Unload(); //Gives back all props & reloads them from the level singleton
+	if (MapBuilder::instance != nullptr)MapBuilder::instance->Unload(); //Gives back all props & reloads them from the level singleton
 }

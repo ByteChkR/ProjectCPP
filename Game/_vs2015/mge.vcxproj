@@ -195,6 +195,7 @@
     <ClInclude Include="AbstractStaticCollider.hpp" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Car.h" />
+    <ClInclude Include="CheckpointTrigger.h" />
     <ClInclude Include="CollisionManager.hpp" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="CreditsButton.h" />
@@ -277,6 +278,7 @@
     <ClCompile Include="AbstractStaticCollider.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="CheckpointTrigger.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="CreditsButton.cpp" />
