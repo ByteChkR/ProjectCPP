@@ -248,6 +248,10 @@ PlayerController::~PlayerController()
 
 }
 
+int PlayerController::GetDeathCoinCount() {
+	return _coinsOnDeath;
+}
+
 void PlayerController::OnDeathEnd()
 {
 	_owner->add(_deathContainer);
@@ -263,6 +267,7 @@ void PlayerController::OnDeathEnd()
 	_isStruggling = false;
 	_struggleTime = 0;
 	gStruggleContainer->DisableBehaviours();
+	_coinsOnDeath = _coins;
 	_coins = lastLevelFinalScore;
 	GameStateManager::instance->_state = GameStateManager::StateGameOver;
 	_owner->DisableBehaviours();

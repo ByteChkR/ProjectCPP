@@ -16,6 +16,7 @@ class GameOverScreen{
 		void OrganizeScreen();
 		void draw();
 
+		int _score;
 		int _progress;
 
 		sf::RenderWindow *_window;
@@ -23,6 +24,8 @@ class GameOverScreen{
 		HudSprite *_retryButtonBox;
 		Button *_retryButton;
 
+		HudSprite *_progressionBox;
+		HudText *_scoreText;
 		HudText *_progressText;
 		HudSprite *_GameOverBox;
 		HudSprite *_menuButtonBox;

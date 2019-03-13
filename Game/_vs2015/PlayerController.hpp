@@ -22,6 +22,7 @@ public:
 	virtual AbstractBehaviour* Clone() override;
 	static PlayerController* instance;
 	int GetCoinCount();
+	int GetDeathCoinCount();
 	void SetCurrentLane(int lane);
 	bool IsMoving();
 	void ResetScore(int newScore = 0);
@@ -49,6 +50,7 @@ private:
 	float _gravityWhenGoingDown;
 	float _velocity;
 	int _coins;
+	int _coinsOnDeath;
 	bool _isGoingDown;
 	bool _grounded;
 	bool _isJumping;
