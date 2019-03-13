@@ -60,6 +60,10 @@
     <string>Map3_27.pxml</string>
     <string>Map3_28.pxml</string>
     <string>Map3_29.pxml</string>
+    <string>Map3_1.pxml</string>
+    <string>Map3_1.pxml</string>
+    <string>Map3_1.pxml</string>
+    <string>Map3_1.pxml</string>
   </PartSequence>
   <genOffset>75</genOffset>
   <xCurvature>15</xCurvature>
@@ -69,7 +73,7 @@
   <heightMapMaxHeight>5</heightMapMaxHeight>
   <heightMapSamplingWidth>8</heightMapSamplingWidth>
   <xMoveTiling>100</xMoveTiling>
-  <fogColorR>0.121568628</fogColorR>
-  <fogColorG>0.294117659</fogColorG>
-  <fogColorB>0.31764707</fogColorB>
+  <fogColorR>0.105882354</fogColorR>
+  <fogColorG>0.5803922</fogColorG>
+  <fogColorB>0.8901961</fogColorB>
 </Map>

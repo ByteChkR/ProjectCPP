@@ -1,1 +1,1 @@
-mge.exe -forceWindow -res 900 600
+mge.exe -stfu -l mge/maps/map3.lua

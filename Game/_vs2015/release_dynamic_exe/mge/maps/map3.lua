@@ -11,4 +11,4 @@ heightMapSpeed = "0"
 heightMapMaxHeight = "5"
 heightMapSamplingWidth = "8"
 xMoveTiling = "100"
-fogColor = {["Red"] = "0.1215686" , ["Green"] = "0.2941177" , ["Blue"] = "0.3176471"}
+fogColor = {["Red"] = "0.1058824" , ["Green"] = "0.5803922" , ["Blue"] = "0.8901961"}
