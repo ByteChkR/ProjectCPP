@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
 	// (and will be) reused in subsequent calls to std::localtime!
 	std::tm * time_out = std::localtime(&time_temp);
 	int id = time_out->tm_wday;
-	
+	Debug::Log(std::to_string(id), ALL);
 	if (GetFlag("-mydude", argc, argv) != -1 || id == 3)
 	{
 		Debug::LogError("You know what day it is?!");
@@ -190,8 +190,8 @@ int main(int argc, char *argv[])
 
 			Debug::LogError("AAAAAAAAAAAAAAAAA");
 		}
-
-		EngineSettings::settings->SetWednesdayMode(true);
+		bool use = (GetFlag("-stfu", argc, argv) == -1);
+		if(use)EngineSettings::settings->SetWednesdayMode(true);
 	}
 	if(GetFlag("-forceWindow", argc, argv) != -1)
 		EngineSettings::settings->SetWindowMode(true); //Shortcut to -windowMode 1
