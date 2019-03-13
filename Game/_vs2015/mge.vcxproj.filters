@@ -84,6 +84,7 @@
     <ClCompile Include="TurkeyCage.cpp" />
     <ClCompile Include="FlyAway.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="CheckpointTrigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="FlyAway.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="CheckpointTrigger.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="mge.rc" />

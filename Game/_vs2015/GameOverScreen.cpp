@@ -18,12 +18,21 @@ GameOverScreen::GameOverScreen(sf::RenderWindow *aWindow){
 	_menuButtonBox = new HudSprite("menu_button.png",1.05f);
 	_menuButton = new MenuButton(_window, _menuButtonBox->sprite);
 
+	_progressText = new HudText("Candy Beans.otf",22,sf::Color::Black);
+
 	OrganizeScreen();
+}
+
+void GameOverScreen::SetProgressAchieved(float pProgress) {
+	_progress = pProgress * 100;
+	_progressText->_text.setString(std::to_string(_progress) + "%");
 }
 
 void GameOverScreen::OrganizeScreen(){
 	_background->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, _background->sprite.getTexture()->getSize().y / 2);
 	_GameOverBox->sprite.setPosition(_background->sprite.getPosition());
+
+	_progressText->_text.setPosition(30,30);
 
 	_retryButtonBox->sprite.setPosition(_GameOverBox->sprite.getPosition().x, _GameOverBox->sprite.getPosition().y +20);
 	_retryButtonBox->scaledSprite.setPosition(_retryButtonBox->sprite.getPosition());
@@ -51,6 +60,8 @@ void GameOverScreen::draw() {
 
 	if (_menuButton->scaled)_window->draw(_menuButtonBox->scaledSprite);
 	else _window->draw(_menuButtonBox->sprite);
+
+	_window->draw(_progressText->_text);
 
 	_window->popGLStates();
 }
