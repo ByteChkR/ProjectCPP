@@ -90,7 +90,7 @@
       <int>16</int>
     </ArrayOfInt>
     <ArrayOfInt>
-      <int>23</int>
+      <int>0</int>
       <int>0</int>
       <int>0</int>
       <int>0</int>
@@ -98,11 +98,11 @@
       <int>0</int>
       <int>40</int>
       <int>0</int>
-      <int>0</int>
+      <int>11</int>
       <int>13</int>
     </ArrayOfInt>
     <ArrayOfInt>
-      <int>0</int>
+      <int>23</int>
       <int>0</int>
       <int>0</int>
       <int>0</int>

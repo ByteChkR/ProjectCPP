@@ -5,7 +5,7 @@ local meta = {["name"] = "2BHouse3",
 ["texture"] = "Game/Maps/CityBiome/hotel/hotel_Base_Color.png", 
 ["emissive"] = "black.png",
 ["normal"] = "Game/Maps/CityBiome/hotel/hotel_Normal_OpenGL.png",
-["posX"] = 0, 
+["posX"] = -10, 
 ["posY"] = -1,
 ["posZ"] = 0  }
 colliderMin = { ["width"] = -4, ["height"] = 0, ["depth"] = -2.5}
