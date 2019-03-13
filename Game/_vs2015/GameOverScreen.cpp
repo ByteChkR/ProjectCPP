@@ -21,15 +21,15 @@ GameOverScreen::GameOverScreen(sf::RenderWindow *aWindow){
 
 	_progressionBox = new HudSprite("empty_window.png");
 
-	_progressText = new HudText("Candy Beans.otf",22,sf::Color::Black);
-	_scoreText = new HudText("Candy Beans.otf", 22, sf::Color::Black);
+	_progressText = new HudText("Candy Beans.otf",26,sf::Color::Black);
+	_scoreText = new HudText("Candy Beans.otf", 26, sf::Color::Black);
 
 	OrganizeScreen();
 }
 
 void GameOverScreen::SetProgressAchieved(float pProgress) {
 	_progress = pProgress * 100;
-	_progressText->_text.setString("Level progress: " + std::to_string(_progress) + "%");
+	_progressText->_text.setString(std::to_string(_progress) + "%");
 }
 
 void GameOverScreen::OrganizeScreen(){
@@ -37,8 +37,8 @@ void GameOverScreen::OrganizeScreen(){
 	_GameOverBox->sprite.setPosition(_background->sprite.getPosition());
 
 	_progressionBox->sprite.setPosition(_background->sprite.getTexture()->getSize().x / 2, 175);
-	_progressText->_text.setPosition(_progressionBox->sprite.getPosition().x + 50,_progressionBox->sprite.getPosition().y);
-	_scoreText->_text.setPosition(_progressionBox->sprite.getPosition().x - 150, _progressionBox->sprite.getPosition().y);
+	_progressText->_text.setPosition(_progressionBox->sprite.getPosition().x + 65,_progressionBox->sprite.getPosition().y);
+	_scoreText->_text.setPosition(_progressionBox->sprite.getPosition().x - 185, _progressionBox->sprite.getPosition().y);
 
 	_retryButtonBox->sprite.setPosition(_GameOverBox->sprite.getPosition().x, _GameOverBox->sprite.getPosition().y +20);
 	_retryButtonBox->scaledSprite.setPosition(_retryButtonBox->sprite.getPosition());
@@ -54,7 +54,7 @@ void GameOverScreen::Update() {
 	_retryButton->Update();
 	_menuButton->Update();
 	_score = PlayerController::instance->GetDeathCoinCount();
-	_scoreText->_text.setString("Score: " + std::to_string(_score));
+	_scoreText->_text.setString(std::to_string(_score));
 }
 
 void GameOverScreen::draw() {

@@ -74,7 +74,7 @@ void DebugHud::_organizeHud()
 	_scoreText->_text.setPosition(_scorePreText->_text.getPosition().x + 90,_scorePreText->_text.getPosition().y);
 	_scoreBackground->sprite.setPosition(_scorePreText->_text.getPosition().x+ _scoreBackground->sprite.getTexture()->getSize().x / 4, _scorePreText->_text.getPosition().y+20);
 
-	_progressBackground->sprite.setPosition(60, 250);
+	_progressBackground->sprite.setPosition(60, 300);
 	_progress->sprite.setPosition(_progressBackground->sprite.getPosition());
 
 }
