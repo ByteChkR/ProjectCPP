@@ -190,13 +190,13 @@ int main(int argc, char *argv[])
 
 			Debug::LogError("AAAAAAAAAAAAAAAAA");
 		}
-		bool use = (GetFlag("-stfu", argc, argv) == -1);
-		if(use)EngineSettings::settings->SetWednesdayMode(true);
+		bool use = false;// (GetFlag("-stfu", argc, argv) == -1);
+		if (use)EngineSettings::settings->SetWednesdayMode(true);
 	}
-	if(GetFlag("-forceWindow", argc, argv) != -1)
+	if (GetFlag("-forceWindow", argc, argv) != -1)
 		EngineSettings::settings->SetWindowMode(true); //Shortcut to -windowMode 1
 	MapBuilder::editorMode = GetFlag("-editor", argc, argv) != -1;
-	
+
 	PlayerController::_enableCheats = MapBuilder::editorMode;
 	PlayerController::_godMode = MapBuilder::editorMode;
 
