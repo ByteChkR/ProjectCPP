@@ -7,7 +7,7 @@
     </LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Dynamic|Win32'">
-    <LocalDebuggerCommandArguments>-enableCheats -forceWindow -name "Turkey Game Release Dynamic"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-stfu -enableCheats -forceWindow -name "Turkey Game Release Dynamic"</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)release_dynamic_exe</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
@@ -15,8 +15,5 @@
     <LocalDebuggerWorkingDirectory>$(ProjectDir)release_dynamic_exe</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerCommandArguments>-enableCheats -name "Turkey Game Release Static" -forceWindow -noStory</LocalDebuggerCommandArguments>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
 </Project>
