@@ -1,6 +1,8 @@
 local scripts = {}
 local meta = {["name"] = "1BSideProp4",
 ["texture"] = "Game/Maps/VillageForestBiome/Tree1/12_Village_B_Tree1_V1_geometrized_AlbedoTransparency.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0,
 ["posY"] = 0,
 ["posZ"] = 0  }

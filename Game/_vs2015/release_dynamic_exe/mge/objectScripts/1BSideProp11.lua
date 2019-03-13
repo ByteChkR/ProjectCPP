@@ -2,6 +2,8 @@ local scripts = {}
 local meta = {["name"] = "1BSideProp11",
 ["objPath"] = "mge/models/VillageForestBiome/TreeNaked.obj",
 ["texture"] = "Game/Maps/VillageForestBiome/TreeNaked/VillageB_TreeNaked_V1_geometrized_AlbedoTransparency.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0,
 ["posY"] = -1,
 ["posZ"] = 0}

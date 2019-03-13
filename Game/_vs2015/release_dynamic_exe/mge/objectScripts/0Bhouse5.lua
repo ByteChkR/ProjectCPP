@@ -2,8 +2,8 @@ local scripts = {}
 local meta = {["name"] = "0BHouse5", 
 ["objPath"] = "mge/models/FarmForestBiome/soil.obj", 
 ["texture"] = "Game/Maps/FarmForestBiome/soil_initialShadingGroup_Diffuse.png", 
-["emissive"] = "Game/Maps/FarmForestBiome/soil_initialShadingGroup_Emissive.png", 
-["normal"] = "Game/Maps/FarmForestBiome/soil_initialShadingGroup_Normal.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = -25, 
 ["posY"] = 0, 
 ["posZ"] = 0  }

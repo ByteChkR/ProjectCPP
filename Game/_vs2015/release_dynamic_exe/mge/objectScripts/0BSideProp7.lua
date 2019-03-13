@@ -1,9 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "0BSideProp7", 
 ["objPath"] = "mge/models/FarmForestBiome/pole.obj", 
-["specular"] = "Game/Maps/FarmForestBiome/pole_pole_initialShadingGroup_Specular.png", 
 ["texture"] = "Game/Maps/FarmForestBiome/pole_pole_initialShadingGroup_Diffuse.png", 
-["normal"] = "Game/Maps/FarmForestBiome/pole_pole_initialShadingGroup_Normal.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = -1, 
 ["posZ"] = 0 }

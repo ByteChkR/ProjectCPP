@@ -3,7 +3,8 @@ local scripts = {}
 local meta = {["name"] = "0BSideProp11", 
 ["objPath"] = "mge/models/FarmForestBiome/grass_right.obj", 
 ["texture"] = "Game/Maps/FarmForestBiome/grass.png", 
-["ermissive"] = "Game/Maps/FarmForestBiome/grass.png", 
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = -0.5, 
 ["posZ"] = 0}

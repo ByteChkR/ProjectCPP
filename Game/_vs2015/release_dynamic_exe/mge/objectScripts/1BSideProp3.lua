@@ -1,7 +1,6 @@
 local scripts = {}
 local meta = {["name"] = "1BSideProp3", 
 ["objPath"] = "mge/models/VillageForestBiome/11_Village_B_Barrel_V1.obj", 
-["specular"] = "Game/Maps/VillageForestBiome/Barrel/11_Village_B_Barrel_V1_initialShadingGroup_MetallicSmoothness.png", 
 ["texture"] = "Game/Maps/VillageForestBiome/Barrel/11_Village_B_Barrel_V1_Geom_AlbedoTransparency.png", 
 ["posY"] = -0.5, 
 ["posZ"] = 0  }

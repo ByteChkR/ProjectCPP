@@ -2,6 +2,8 @@ local scripts = {}
 local meta = {["name"] = "2BInterior1",
 ["objPath"] = "mge/models/CityBiome/park_right.obj",
 ["texture"] = "Game/Maps/CityBiome/park.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0,
 ["posY"] = -0.8,
 ["posZ"] = 0 }

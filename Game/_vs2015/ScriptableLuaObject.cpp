@@ -138,7 +138,8 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 		if (lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap(), false);
 		Texture* sp = nullptr;
 		if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular(), false);
-
+		if (em == nullptr)em = AbstractGame::instance->fallbackMap;
+		if (sp == nullptr)em = AbstractGame::instance->fallbackMap;
 		object->setMaterial(new TextureMaterial(tex, em, sp, lss->GetShininess(), 1, 1, 2));
 		object->addBehaviour(new ScriptableLuaObject(lss));
 
@@ -221,22 +222,23 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 		{
 			Particle* baloon = new Particle();
 			baloon->color = glm::vec4(1, 1, 1, 1);
-			baloon->gravity = 0;
-			baloon->life = 2;
+			baloon->gravity = -1;
+			baloon->life = 15;
 			baloon->position = glm::vec3(0);
-			baloon->acceleration = glm::vec3(0, 0.15, -0.2);
-			baloon->randomizeAcceleration = glm::vec3(1, 0.1, 0);
+			baloon->acceleration = glm::vec3(0, 0.15, 0);
+			baloon->randomizeAcceleration = glm::vec3(0.3, 1, 0.3);
 			baloon->transparencyStart = 1;
 			baloon->transparencyPerSecond = 0.5;
 			baloon->position = glm::vec3(0, 0, -30);
 			GameObject* particleObj = new GameObject("checkpointParticle");
+			particleObj->scale(glm::vec3(0.5));
 			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "baloon.obj"));
-			ParticleEmitter* pem = new	ParticleEmitter(baloon, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "baloon_tex.png"), 5, 0.05f, false);
-			pem->SetOpacityMode(false);
+			ParticleEmitter* pem = new	ParticleEmitter(baloon, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "baloon_tex.png"), 25, 0.05f, false);
+			pem->SetOpacityMode(true);
 			particleObj->setMaterial((AbstractMaterial*)pem);
 			object->add(particleObj);
 
-			object->addBehaviour(new CheckpointTrigger(10, pem));
+			object->addBehaviour(new CheckpointTrigger(25, pem));
 		}
 
 

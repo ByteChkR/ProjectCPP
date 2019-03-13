@@ -1,9 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "normalcorn",
 ["objPath"] = "mge/models/Corn_pickup.obj",
-["specular"] = "Game/Shared/Corn/Basic/Corn_pickup_CornPickup_Roughness.png",
 ["texture"] = "Game/Shared/Corn/Basic/Corn_pickup_CornPickup_BaseColor_Golden.png",
-["emissive"] = "Game/Shared/Corn/Basic/Corn_pickup_CornPickup_Emissive.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0,
 ["posY"] = 0,
 ["posZ"] = 0 }

@@ -1,10 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "2BLowObstacle2", 
 ["objPath"] = "mge/models/CityBiome/18_CityB_Trash_Can_v1.obj", 
-["specular"] = "Game/Maps/CityBiome/Trash_Can/Trash_Can_Metallic.png", 
 ["texture"] = "Game/Maps/CityBiome/Trash_Can/Trash_Can_Base_Color.png", 
+["specular"] = "black.png",
 ["emissive"] = "black.png",
-["normal"] = "Game/Maps/CityBiome/Trash_Can/Trash_Can_Normal_OpenGL.png",
 ["posX"] = 0, 
 ["posY"] = -1, 
 ["posZ"] = 0 }

@@ -2,7 +2,8 @@ local scripts = {}
 local meta = {["name"] = "0BHouse1", 
 ["objPath"] = "mge/models/FarmForestBiome/windmill.obj", 
 ["texture"] = "Game/Maps/FarmForestBiome/windmill_initialShadingGroup_Diffuse.png", 
-["normal"] = "Game/Maps/FarmForestBiome/windmill_initialShadingGroup_Normal.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = 0, 
 ["posZ"] = 0 }

@@ -51,6 +51,7 @@
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo(int argc, char *argv[]) :AbstractGame(), _hud(0)
 {
+	fallbackMap = Texture::load(config::MGE_TEXTURE_PATH + "black.png");
 	_noStory = false;
 	this->argc = argc;
 	this->argv = std::vector<std::string>();

@@ -2,7 +2,8 @@ local scripts = {}
 local meta = {["name"] = "0BHouse3", 
 ["objPath"] = "mge/models/FarmForestBiome/house1.obj", 
 ["texture"] = "Game/Maps/FarmForestBiome/house1_initialShadingGroup_Diffuse.png", 
-["normal"] = "Game/Maps/FarmForestBiome/house1_initialShadingGroup_Normal.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = 3, 
 ["posZ"] = 0  }

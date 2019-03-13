@@ -31,33 +31,60 @@
     <int>3</int>
   </LaneSteps>
   <PartSequence>
-    <string>Map1_0.pxml</string>
-    <string>Map1_1.pxml</string>
     <string>Map1_2.pxml</string>
-    <string>Map1_19.pxml</string>
-    <string>Map1_18.pxml</string>
-    <string>Map1_16.pxml</string>
-    <string>Map1_12.pxml</string>
-    <string>Map1_10.pxml</string>
-    <string>Map1_15.pxml</string>
-    <string>Map1_4.pxml</string>
-    <string>Map1_17.pxml</string>
-    <string>Map1_24.pxml</string>
-    <string>Map1_20.pxml</string>
-    <string>Map1_6.pxml</string>
-    <string>Map1_21.pxml</string>
-    <string>Map1_3.pxml</string>
-    <string>Map1_8.pxml</string>
-    <string>Map1_14.pxml</string>
-    <string>Map1_11.pxml</string>
-    <string>Map1_9.pxml</string>
-    <string>Map1_7.pxml</string>
-    <string>Map1_13.pxml</string>
-    <string>Map1_25.pxml</string>
     <string>Map1_5.pxml</string>
+    <string>Map1_6.pxml</string>
     <string>Map1_26.pxml</string>
-    <string>Map1_23.pxml</string>
+    <string>Map1_10.pxml</string>
+    <string>Map1_20.pxml</string>
+    <string>Map1_17.pxml</string>
+    <string>Map1_5.pxml</string>
+    <string>Map1_21.pxml</string>
+    <string>Map1_10.pxml</string>
+    <string>Map1_2.pxml</string>
+    <string>Map1_0.pxml</string>
+    <string>Map1_3.pxml</string>
+    <string>Map1_25.pxml</string>
+    <string>Map1_19.pxml</string>
+    <string>Map1_13.pxml</string>
+    <string>Map1_19.pxml</string>
+    <string>Map1_14.pxml</string>
+    <string>Map1_24.pxml</string>
+    <string>Map1_3.pxml</string>
+    <string>Map1_9.pxml</string>
     <string>Map1_22.pxml</string>
+    <string>Map1_21.pxml</string>
+    <string>Map1_8.pxml</string>
+    <string>Map1_22.pxml</string>
+    <string>Map1_23.pxml</string>
+    <string>Map1_16.pxml</string>
+    <string>Map1_23.pxml</string>
+    <string>Map1_18.pxml</string>
+    <string>Map1_4.pxml</string>
+    <string>Map1_6.pxml</string>
+    <string>Map1_18.pxml</string>
+    <string>Map1_15.pxml</string>
+    <string>Map1_9.pxml</string>
+    <string>Map1_4.pxml</string>
+    <string>Map1_11.pxml</string>
+    <string>Map1_24.pxml</string>
+    <string>Map1_0.pxml</string>
+    <string>Map1_8.pxml</string>
+    <string>Map1_13.pxml</string>
+    <string>Map1_12.pxml</string>
+    <string>Map1_25.pxml</string>
+    <string>Map1_26.pxml</string>
+    <string>Map1_7.pxml</string>
+    <string>Map1_7.pxml</string>
+    <string>Map1_11.pxml</string>
+    <string>Map1_14.pxml</string>
+    <string>Map1_17.pxml</string>
+    <string>Map1_15.pxml</string>
+    <string>Map1_16.pxml</string>
+    <string>Map1_1.pxml</string>
+    <string>Map1_20.pxml</string>
+    <string>Map1_1.pxml</string>
+    <string>Map1_12.pxml</string>
     <string>Map1_27.pxml</string>
     <string>Map1_28.pxml</string>
     <string>Map1_29.pxml</string>
@@ -70,4 +97,7 @@
   <heightMapMaxHeight>5</heightMapMaxHeight>
   <heightMapSamplingWidth>8</heightMapSamplingWidth>
   <xMoveTiling>100</xMoveTiling>
+  <fogColorR>0.121568628</fogColorR>
+  <fogColorG>0.294117659</fogColorG>
+  <fogColorB>0.31764707</fogColorB>
 </Map>

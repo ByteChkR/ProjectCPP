@@ -1,10 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "0BSideProp2",
 ["objPath"] = "mge/models/FarmForestBiome/ballon.obj",
-["specular"] = "Game/Maps/FarmForestBiome/ballon_lambert4SG_Specular.png",
 ["texture"] = "Game/Maps/FarmForestBiome/ballon_lambert4SG_Diffuse.png",
-["emissive"] = "Game/Maps/FarmForestBiome/ballon_lambert4SG_Emissive.png",
-["normal"] = "Game/Maps/FarmForestBiome/ballon_lambert4SG_Normal.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0,
 ["posY"] = 0,
 ["posZ"] = 0 }

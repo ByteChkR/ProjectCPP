@@ -1,10 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "2BHouse2", 
 ["objPath"] = "mge/models/CityBiome/2_CityB_OldHouse_v1.obj", 
-["specular"] = "Game/Maps/CityBiome/OldHouse/OldHouse_Metallic.png", 
 ["texture"] = "Game/Maps/CityBiome/OldHouse/OldHouse_Base_Color.png", 
+["specular"] = "black.png",
 ["emissive"] = "black.png",
-["normal"] = "Game/Maps/CityBiome/OldHouse/OldHouse_Normal_OpenGL.png",
 ["posX"] = 0, 
 ["posY"] = -1, 
 ["posZ"] = 0 }

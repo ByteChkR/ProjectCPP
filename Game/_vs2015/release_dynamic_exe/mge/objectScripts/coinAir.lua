@@ -1,9 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "coinAir", 
 ["objPath"] = "mge/models/Corn_pickup_baloon.obj", 
-["specular"] = "Game/Shared/Corn/Baloon/Corn_pickup_baloon_Baloon_Corn_Roughness.png", 
 ["texture"] = "Game/Shared/Corn/Baloon/Corn_pickup_baloon_Baloon_Corn_BaseColor.png", 
-["emissive"] = "Game/Shared/Corn/Baloon/Corn_pickup_baloon_Baloon_Corn_Emissive.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = 5, 
 ["posZ"] = 0 }

@@ -37,6 +37,7 @@ class AbstractGame
 		float GetTimeSinceStartup();
 		float GetTimeSinceLastFrame();
 		sf::Image* fallbackTexture;
+		Texture* fallbackMap;
 		LuaScriptStruct* sloFallback;
 
 		enum GameMode

@@ -2,6 +2,8 @@ local scripts = {}
 local meta = {["name"] = "1BHighObstacle1", 
 ["objPath"] = "mge/models/VillageForestBiome/ChoppedTreeTrunk.obj",
 ["texture"] = "Game/Maps/VillageForestBiome/treetrunkchopped/ChoppedTreeTrunk_geometrised_AlbedoTransparency.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0,
 ["posY"] = -0.5,
 ["posZ"] = 0}

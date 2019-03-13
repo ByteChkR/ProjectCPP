@@ -2,8 +2,8 @@ local scripts = {}
 local meta = {["name"] = "0BLowObstacle3", 
 ["objPath"] = "mge/models/FarmForestBiome/trash.obj", 
 ["texture"] = "Game/Maps/FarmForestBiome/trash_initialShadingGroup_Diffuse.png", 
-["emissive"] = "Game/Maps/FarmForestBiome/trash_initialShadingGroup_Emissive.png", 
-["normal"] = "Game/Maps/FarmForestBiome/trash_initialShadingGroup_Normal.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = -0.5, 
 ["posZ"] = 0 }

@@ -2,8 +2,9 @@ local scripts = {}
 local meta = {["name"] = "0BHouse6", 
 ["objPath"] = "mge/models/FarmForestBiome/chickenhouse.obj", 
 ["texture"] = "Game/Maps/FarmForestBiome/chickenhouse_initialShadingGroup_Diffuse.png", 
-["normal"] = "Game/Maps/FarmForestBiome/chickenhouse_initialShadingGroup_Normal.png",
- ["posX"] = 0, 
+ ["specular"] = "black.png",
+["emissive"] = "black.png",
+["posX"] = 0, 
  ["posY"] = 0.6, 
  ["posZ"] = 0  }
 colliderMin = { ["width"] = -1.5, ["height"] = -1, ["depth"] = -3}

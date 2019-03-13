@@ -2,7 +2,8 @@ local scripts = {}
 local meta = {["name"] = "traktor",
 ["objPath"] = "mge/models/CityBiome/Traktor.obj",
 ["texture"] = "Game/Shared/TraktorAO/Traktor_Traktor_initialShadingGroup_AlbedoTransparency.png",
-["specular"] = "Game/Shared/TraktorAO/Traktor_Traktor_initialShadingGroup_MetallicSmoothness.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 1, ["posY"] = -0, ["posZ"] = 0 }
 colliderMin = { ["width"] = -1, ["height"] = -1, ["depth"] = -2}
 colliderMax = { ["width"] = 1, ["height"] = 1, ["depth"] = 2}

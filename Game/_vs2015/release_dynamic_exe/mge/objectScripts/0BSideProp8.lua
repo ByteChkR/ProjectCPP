@@ -2,10 +2,9 @@ local scripts = {}
 --local scripts = {"mge/gamescripts/exampleScript.lua"}
 local meta = {["name"] = "0BSideProp8",
 ["objPath"] = "mge/models/FarmForestBiome/fence2.obj",
-["specular"] = "Game/Maps/FarmForestBiome/fence2_lambert12SG_Specular.png",
 ["texture"] = "Game/Maps/FarmForestBiome/fence2_lambert12SG_Diffuse.png",
+["specular"] = "black.png",
 ["emissive"] = "black.png",
-["normal"] = "Game/Maps/FarmForestBiome/fence2_lambert12SG_Normal.png",
 ["posX"] = 0,
 ["posY"] = -0.6,
 ["posZ"] = 0}

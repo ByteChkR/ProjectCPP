@@ -2,7 +2,8 @@ local scripts = {}
 local meta = {["name"] = "0BInterior1",
 ["objPath"] = "mge/models/FarmForestBiome/chickenroom_right.obj",
 ["texture"] = "Game/Maps/FarmForestBiome/chickenroom_lambert2SG_Diffuse2.png",
-["ermissive"] = "Game/Maps/FarmForestBiome/chickenroom_lambert2SG_Diffuse2.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0.4,
 ["posY"] = -1.44,
 ["posZ"] = 2 }

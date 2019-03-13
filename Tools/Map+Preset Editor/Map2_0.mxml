@@ -62,7 +62,7 @@
     <string>Map2_29.pxml</string>
   </PartSequence>
   <genOffset>75</genOffset>
-  <xCurvature>25</xCurvature>
+  <xCurvature>15</xCurvature>
   <xCurvatureSmoothness>3</xCurvatureSmoothness>
   <heightMapTiling>1</heightMapTiling>
   <heightMapSpeed>0</heightMapSpeed>

@@ -1,9 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "1BHouse5", 
 ["objPath"] = "mge/models/placeholder.obj", 
-["specular"] = "black.png", 
 ["texture"] = "red.png", 
-["emissive"] = "black.png", 
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = -1, 
 ["posZ"] = 0 }

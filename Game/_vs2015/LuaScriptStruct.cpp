@@ -226,7 +226,7 @@ LuaScriptStruct::LuaScriptStruct(std::string filename) :_mesh()
 	}
 	if (!LuaOperations::TryGetFloatFromGlobal(L, "Shininess", &shininess))
 	{
-		Debug::Log("Could not read Shininess from " + _name + "Default Value: 2", WARNINGS_ERRORS_LOG2);
+		Debug::Log("Could not read Shininess from " + _name + "Default Value: 0", WARNINGS_ERRORS_LOG2);
 
 		shininess = 2;
 	}

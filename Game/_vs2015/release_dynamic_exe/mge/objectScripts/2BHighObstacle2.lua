@@ -1,9 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "2BHighObstacle2", 
 ["objPath"] = "mge/models/CityBiome/23_CityB_Traffic_Light_v1.obj", 
-["specular"] = "Game/Maps/CityBiome/Traffic_Light/Traffic_Light_Metallic.png", 
 ["texture"] = "Game/Maps/CityBiome/Traffic_Light/Traffic_Light_Base_Color.png", 
-["normal"] = "Game/Maps/CityBiome/Traffic_Light/Traffic_Light_Normal_OpenGL.png",
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = -0.80, 
 ["posZ"] = 0 }

@@ -1,0 +1,1 @@
+levels = {"map3.lua", "dtrdtf2.lua", "dtrdtf3.lua"}

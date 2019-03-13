@@ -1,8 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "turkeycage", 
 ["objPath"] = "mge/models/cage.obj", 
-["specular"] = "Game/Shared/TurkeyCage/cage_cage_initialShadingGroup_MetallicSmoothness.png", 
 ["texture"] = "Game/Shared/TurkeyCage/cage_cage_initialShadingGroup_AlbedoTransparency.png", 
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = -1, 
 ["posZ"] = 0 }

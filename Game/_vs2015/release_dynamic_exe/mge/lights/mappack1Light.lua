@@ -1,0 +1,9 @@
+intensity = 0.6
+attenuationLinear = 0
+attenuationSquared = 0
+colorRed = 207/255
+colorGreen = 47/255
+colorBlue = 57/255
+ambientColorRed = colorRed * 0.2
+ambientColorBlue = colorBlue * 0.2
+ambientColorGreen = colorGreen * 0.2

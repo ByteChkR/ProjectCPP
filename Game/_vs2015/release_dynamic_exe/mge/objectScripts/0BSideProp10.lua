@@ -3,6 +3,8 @@ local scripts = {}
 local meta = {["name"] = "0BSideProp10", 
 ["objPath"] = "mge/models/FarmForestBiome/corn_left.obj", 
 ["texture"] = "Game/Maps/FarmForestBiome/corn_initialShadingGroup_Diffuse.png", 
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = -0.6, 
 ["posZ"] = 0}

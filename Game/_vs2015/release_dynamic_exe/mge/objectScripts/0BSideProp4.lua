@@ -1,8 +1,9 @@
 local scripts = {}
 local meta = {["name"] = "0BSideProp4", 
 ["objPath"] = "mge/models/FarmForestBiome/wheatfield.obj", 
-["specular"] = "Game/Maps/FarmForestBiome/wheatfield_diffuse.png", 
 ["texture"] = "Game/Maps/FarmForestBiome/wheatfield_diffuse.png", 
+["specular"] = "black.png",
+["emissive"] = "black.png",
 ["posX"] = 0, 
 ["posY"] = 0, 
 ["posZ"] = 0  }
