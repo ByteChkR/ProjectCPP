@@ -124,6 +124,7 @@ void MGEDemo::_initializeResources()
 
 	AbstractMaterial* runicMihai = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + (EngineSettings::settings->GetWednesdayMode() ? "helicopter1.png" : "helicopter.png"), true), 1);;
 
+	AbstractMaterial* heliDropTexture = new AnimationMaterial(Texture::load(config::MGE_TEXTURE_PATH + (EngineSettings::settings->GetWednesdayMode() ? "crate.png" : "crate.png"), true), 1);;
 
 
 	GameObject * heliAnimation = new GameObject("HeliAnimation", glm::vec3(0, 5, 0));
@@ -133,11 +134,12 @@ void MGEDemo::_initializeResources()
 	heliAnimation->setLocalPosition(glm::vec3(10, 30, -150));
 	heliAnimation->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(heliAnimation);
+
 	GameObject * heliDrop = new GameObject("HeliAnimation", glm::vec3(0, 5, 0));
 	heliDrop->setMesh(testQuad);
-	heliDrop->setMaterial(runicMihai);
-	heliDrop->scale(glm::vec3(4, 4, 4));
-	heliDrop->setLocalPosition(glm::vec3(-200, -200, -200));
+	heliDrop->setMaterial(heliDropTexture);
+	heliDrop->scale(glm::vec3(2,2, 2));
+	heliDrop->setLocalPosition(glm::vec3(-200, -220, -200));
 	heliDrop->rotate(glm::radians(90.0f), glm::vec3(1, 0, 0));
 	_world->add(heliDrop);
 
