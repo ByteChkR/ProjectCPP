@@ -831,7 +831,7 @@ void PlayerController::Animate(float pDeltaTime)
 		heliDropTool = 0;
 		Debug::Log("Reset Drop", ALL);
 	}
-	heliDrop->setLocalPosition(heliDrop->getLocalPosition() + glm::vec3(0, -heliDropTool, -10));
+	heliDrop->setLocalPosition(heliDrop->getLocalPosition() + glm::vec3(0, -heliDropTool, 0));
 
 
 
