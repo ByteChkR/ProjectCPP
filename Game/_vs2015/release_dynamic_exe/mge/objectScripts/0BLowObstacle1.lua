@@ -6,7 +6,7 @@ local meta = {["name"] = "0BLowObstacle1",
 ["emissive"] = "Game/Maps/FarmForestBiome/hay_initialShadingGroup_Emissive.png", 
 ["normal"] = "Game/Maps/FarmForestBiome/hay_initialShadingGroup_Normal.png",
 ["posX"] = 0, 
-["posY"] = -1, 
+["posY"] = -0.9, 
 ["posZ"] = 0 }
 colliderMin = { ["width"] = -1, ["height"] = -0.5, ["depth"] = -1}
 colliderMax = { ["width"] = 1, ["height"] = 0.5, ["depth"] = 1}
