@@ -41,6 +41,7 @@ std::default_random_engine ParticleEmitter::e;
 
 ParticleEmitter::ParticleEmitter(Particle* original, Texture* particleTexture, int maxParticles, float maxParticlesPerStep, bool useTimeScale)
 {
+
 	this->useTimeScale = useTimeScale;
 	this->maxParticlesPerStep = maxParticlesPerStep;
 	_particleTexture = particleTexture;
@@ -216,6 +217,7 @@ void ParticleEmitter::SpawnParticles(size_t amount)
 		float rand0, rand1, rand2, rand3, rand4, rand5, rand6;
 
 		std::uniform_real_distribution<float> unif(0, 1);
+		e.seed(std::chrono::system_clock::now().time_since_epoch().count());
 		rand0 = unif(e);
 		rand1 = unif(e);
 		rand2 = unif(e);

@@ -42,7 +42,7 @@ vec4 Calculate(int index, vec3 wNormal)
 	vec3 dirN = normalize(dir);
 	float distance = length(dir);
 	
-	float diffIntensity = max(dot(wNormal, dirN),0.0);
+	float diffIntensity = max(dot(wNormal, dirN),0.4);
 
 	float falloff = 1 + (lights[index].attenuation.x * distance) + (lights[index].attenuation.y * distance * distance);
 

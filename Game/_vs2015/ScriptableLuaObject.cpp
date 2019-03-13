@@ -22,6 +22,7 @@
 #include "Particle.h"
 #include "TurkeyCage.h"
 #include "Car.h"
+#include "CheckpointTrigger.h"
 
 static const luaL_reg level1API[]
 {
@@ -137,13 +138,13 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 		if (lss->GetEmmissiveMap() != " ")em = Texture::load(config::MGE_TEXTURE_PATH + lss->GetEmmissiveMap(), false);
 		Texture* sp = nullptr;
 		if (lss->GetSpecular() != " ")sp = Texture::load(config::MGE_TEXTURE_PATH + lss->GetSpecular(), false);
-		
+
 		object->setMaterial(new TextureMaterial(tex, em, sp, lss->GetShininess(), 1, 1, 2));
 		object->addBehaviour(new ScriptableLuaObject(lss));
 
 		if (lss->HasAutoCollider() && lss->HasCollider() && object->getMesh() != nullptr)object->addBehaviour(new StaticBoxCollider(object->getMesh()->GetMinLocalBounds(), object->getMesh()->GetMaxLocalBounds()));
 		else if (lss->HasCollider())object->addBehaviour(new StaticBoxCollider(lss->GetColliderMin(), lss->GetColliderMax()));
-		
+
 		if (!lss->GetName().find("coin"))
 		{
 			object->addBehaviour(new RotatingBehaviour());
@@ -216,8 +217,29 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			object->add(particleObj);
 			//pem->Start();
 		}
-		
-		
+		else if (lss->GetName() == "checkpoint25" || lss->GetName() == "checkpoint50" || lss->GetName() == "checkpoint75")
+		{
+			Particle* baloon = new Particle();
+			baloon->color = glm::vec4(1, 1, 1, 1);
+			baloon->gravity = 0;
+			baloon->life = 2;
+			baloon->position = glm::vec3(0);
+			baloon->acceleration = glm::vec3(0, 0.15, -0.2);
+			baloon->randomizeAcceleration = glm::vec3(1, 0.1, 0);
+			baloon->transparencyStart = 1;
+			baloon->transparencyPerSecond = 0.5;
+			baloon->position = glm::vec3(0, 0, -30);
+			GameObject* particleObj = new GameObject("checkpointParticle");
+			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "baloon.obj"));
+			ParticleEmitter* pem = new	ParticleEmitter(baloon, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "baloon_tex.png"), 5, 0.05f, false);
+			pem->SetOpacityMode(false);
+			particleObj->setMaterial((AbstractMaterial*)pem);
+			object->add(particleObj);
+
+			object->addBehaviour(new CheckpointTrigger(10, pem));
+		}
+
+
 		return object;
 
 	}
