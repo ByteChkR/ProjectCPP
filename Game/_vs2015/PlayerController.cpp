@@ -23,6 +23,7 @@
 #include "lua.hpp"
 #include "LuaOperations.h"
 #include "TurkeyCage.h"
+#include "CheckpointTrigger.h"
 PlayerController* PlayerController::instance = nullptr;
 glm::vec3 PlayerController::CameraResetPosition = glm::vec3(0, 8, 8);
 glm::vec3 PlayerController::ContainerResetPosition = glm::vec3(0, 0, 3);
@@ -353,7 +354,14 @@ void PlayerController::OnCollision(GameObject* other)
 		return;
 	}
 
-
+	if (!other->getName().find("checkpoint"))
+	{
+		CheckpointTrigger::_fire = true;
+		return;
+	}
+	else {
+		CheckpointTrigger::_fire = false;
+	}
 	if (!other->getName().find("endoflevel"))
 	{
 		AudioManager::instance->PlaySound(7);
