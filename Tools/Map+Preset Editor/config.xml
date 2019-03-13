@@ -4,7 +4,7 @@
   <DefaultPartsFolder>.\parts\</DefaultPartsFolder>
   <HeightMap>44</HeightMap>
   <GroundMap>38</GroundMap>
-  <HorizonMap>11</HorizonMap>
+  <HorizonMap>12</HorizonMap>
   <GroundNormalMap>0</GroundNormalMap>
   <biomeCount>3</biomeCount>
   <isRaw>false</isRaw>
