@@ -23,8 +23,8 @@ void CheckpointTrigger::OnCollision(GameObject* other)
 
 void CheckpointTrigger::update(float pTime)
 {
-	if (_fire && !_current)_pem->StartBurst(_pbc);
-	else
+	if (_fire && !_current)_pem->Start();
+	else if (_pem->IsEnabled())
 	{
 		_current = false;
 		_pem->Stop();

@@ -225,20 +225,19 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 		else if (lss->GetName() == "checkpoint25" || lss->GetName() == "checkpoint50" || lss->GetName() == "checkpoint75")
 		{
 			Particle* baloon = new Particle();
-			baloon->color = glm::vec4(1, 1, 1, 1);
-			baloon->gravity = -1;
-			baloon->life = 15;
-			baloon->position = glm::vec3(0);
-			baloon->acceleration = glm::vec3(0, 0.15, 0);
-			baloon->randomizeAcceleration = glm::vec3(0.3, 1, 0.3);
-			baloon->transparencyStart = 1;
-			baloon->transparencyPerSecond = 0.5;
-			baloon->position = glm::vec3(0, 0, -30);
+			baloon->color = glm::vec4(1, 1, 1, 1);//(R;G;B;A)
+			baloon->acceleration = glm::vec3(0, 0.02, -1);
+			baloon->gravity = -0.2;
+			baloon->life = 14;
+			baloon->transparencyPerSecond = 1/14.0f;
+			baloon->randomizeAcceleration = glm::vec3(2,0,0);
+
+			baloon->position = glm::vec3(0, 0, 10);
 			GameObject* particleObj = new GameObject("checkpointParticle");
-			particleObj->scale(glm::vec3(0.5));
-			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "baloon.obj"));
-			ParticleEmitter* pem = new	ParticleEmitter(baloon, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "baloon_tex.png"), 25, 0.05f, false);
-			pem->SetOpacityMode(true);
+			particleObj->scale(glm::vec3(1));
+			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
+			ParticleEmitter* pem = new	ParticleEmitter(baloon, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "baloon_tex.png"), 25, 0.5f, false);
+			pem->SetOpacityMode(false);
 			particleObj->setMaterial((AbstractMaterial*)pem);
 			object->add(particleObj);
 
