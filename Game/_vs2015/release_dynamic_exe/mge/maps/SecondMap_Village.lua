@@ -1,6 +1,6 @@
 heightTexture = "height.png"
 map = "SecondMap_Village.txt"
-ground = "backg23.png"
+ground = "backg3.png"
 mapGround = "ground1.png"
 mapGroundNormal = ""
 genOffset = "75"
@@ -12,4 +12,3 @@ heightMapMaxHeight = "5"
 heightMapSamplingWidth = "8"
 xMoveTiling = "100"
 fogColor = {["Red"] = "0.1215686" , ["Green"] = "0.2941177" , ["Blue"] = "0.3176471"}
-lightParameter = "map2Light.lua"

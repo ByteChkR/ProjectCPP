@@ -126,7 +126,6 @@
       <int>23</int>
     </ArrayOfInt>
     <ArrayOfInt>
-      <int>42</int>
       <int>0</int>
       <int>0</int>
       <int>0</int>
@@ -135,7 +134,8 @@
       <int>0</int>
       <int>0</int>
       <int>0</int>
-      <int>42</int>
+      <int>0</int>
+      <int>0</int>
     </ArrayOfInt>
     <ArrayOfInt>
       <int>0</int>
@@ -147,7 +147,7 @@
       <int>0</int>
       <int>0</int>
       <int>0</int>
-      <int>42</int>
+      <int>0</int>
     </ArrayOfInt>
     <ArrayOfInt>
       <int>0</int>
@@ -178,7 +178,7 @@
       <int>0</int>
       <int>19</int>
       <int>0</int>
-      <int>33</int>
+      <int>0</int>
       <int>0</int>
       <int>35</int>
       <int>0</int>
@@ -206,7 +206,7 @@
       <int>0</int>
       <int>0</int>
       <int>0</int>
-      <int>0</int>
+      <int>36</int>
       <int>26</int>
     </ArrayOfInt>
     <ArrayOfInt>

@@ -840,7 +840,7 @@ void PlayerController::Animate(float pDeltaTime)
 	heli->setLocalPosition(heliInitialPosition + glm::vec3(sinForHeli * 4 - 2, ((glm::cos(heliTool) + 1) / 2) * 10 - 5, 0));
 
 	if (heliDrop->getLocalPosition().y < -200) {
-		heliDrop->setLocalPosition(heli->getLocalPosition());
+		heliDrop->setLocalPosition(heli->getLocalPosition()+ glm::vec3(0, 0, -10));
 		heliDropTool = 0;
 		Debug::Log("Reset Drop", ALL);
 	}
@@ -882,7 +882,7 @@ void PlayerController::Animate(float pDeltaTime)
 
 	if (_lockControls == false)
 	{
-
+		
 
 		if (stepCheckDown == false)
 		{

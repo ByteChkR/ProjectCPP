@@ -181,6 +181,7 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			particle->life = 1;
 			particle->transparencyPerSecond = 1;
 			particle->randomizeAcceleration = glm::vec3(0.2);
+
 			particle->position = glm::vec3(0);
 			GameObject* particleObj = new GameObject("particle");
 			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornSparkleParticle.png"), 20, 0.5, false);
@@ -209,14 +210,14 @@ GameObject* ScriptableLuaObject::Instantiate(std::string key, GameObject* parent
 			particle->life = 0.5;
 			particle->position = glm::vec3(0);
 			GameObject* particleObj = new GameObject("particle");
-			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "testParticle.png"), 300, 0.5, false);
+			ParticleEmitter* pem = new ParticleEmitter(particle, Texture::load(config::MGE_PARTICLE_TEXTURE_PATH + "cornSparkleParticle.png"), 20, 0.5, false);
 
 			particleObj->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane.obj"));
 			particleObj->scale(glm::vec3(0.2));
 			//pem->SetOpacityMode(false);
 			particleObj->setMaterial((AbstractMaterial*)pem);
 			object->add(particleObj);
-			//pem->Start();
+			pem->Start();
 		}
 		else if (lss->GetName() == "checkpoint25" || lss->GetName() == "checkpoint50" || lss->GetName() == "checkpoint75")
 		{
