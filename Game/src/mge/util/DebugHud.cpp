@@ -17,9 +17,9 @@
 
 
 
-DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText(), _debugBox()
+DebugHud::DebugHud(sf::RenderWindow * aWindow) : _window(aWindow), _debugText(), _debugBox()
 {
-	assert ( _window != NULL );
+	assert(_window != NULL);
 
 	std::function<void()> oE = std::bind(&DebugHud::onEnd, std::ref(*this));
 	std::function<void(float)> oT = std::bind(&DebugHud::OnTick, std::ref(*this), std::placeholders::_1);
@@ -27,9 +27,9 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugText
 	_timer = new Lerper(oT, oE, 0.35f, "ScoreScaleTimer", false);
 
 	_debugText = new HudText();
-	_scoreText = new HudText("Candy Beans.otf",26);
+	_scoreText = new HudText("Candy Beans.otf", 26);
 	_scorePreText = new HudText("Candy Beans.otf", 26);
-	_debugBox =  new HudSprite("HudBox.png");
+	_debugBox = new HudSprite("HudBox.png");
 	_scoreBackground = new HudSprite("score_background.png");
 
 	_progressBackground = new HudSprite("run_meter2.png");
@@ -47,9 +47,9 @@ void DebugHud::onEnd() {
 }
 
 void DebugHud::OnTick(float pTime) {
-	float scale = 1 + pTime/2;
-	if (pTime > 0.25) scale = 1 + 0.25 - pTime/4;
-	_scoreText->_text.setScale(scale,scale);
+	float scale = 1 + pTime / 2;
+	if (pTime > 0.25) scale = 1 + 0.25 - pTime / 4;
+	_scoreText->_text.setScale(scale, scale);
 }
 
 void DebugHud::setScore(int score) {
@@ -71,8 +71,8 @@ void DebugHud::_organizeHud()
 	_debugText->_text.setPosition(25, 75);
 
 	_scorePreText->_text.setPosition(100, 20);
-	_scoreText->_text.setPosition(_scorePreText->_text.getPosition().x + 90,_scorePreText->_text.getPosition().y);
-	_scoreBackground->sprite.setPosition(_scorePreText->_text.getPosition().x+ _scoreBackground->sprite.getTexture()->getSize().x / 4, _scorePreText->_text.getPosition().y+20);
+	_scoreText->_text.setPosition(_scorePreText->_text.getPosition().x + 90, _scorePreText->_text.getPosition().y);
+	_scoreBackground->sprite.setPosition(_scorePreText->_text.getPosition().x + _scoreBackground->sprite.getTexture()->getSize().x / 4, _scorePreText->_text.getPosition().y + 20);
 
 	_progressBackground->sprite.setPosition(60, 300);
 	_progress->sprite.setPosition(_progressBackground->sprite.getPosition());
@@ -82,26 +82,29 @@ void DebugHud::_organizeHud()
 void DebugHud::Update() {
 	draw();
 	setScore(PlayerController::instance->GetCoinCount());
-	float progressPosY = (_progressBackground->sprite.getPosition().y + _progressBackground->sprite.getTexture()->getSize().y / 2) - _progressBackground->sprite.getTexture()->getSize().y * MapBuilder::instance->GetProgress();
+	float proc = MapBuilder::instance->GetProgress();
+	float progressPosY = (_progressBackground->sprite.getPosition().y + _progressBackground->sprite.getTexture()->getSize().y / 2) - _progressBackground->sprite.getTexture()->getSize().y *proc;
+	float scale = glm::clamp(proc*1.5f, 0.75f, 2.0f);
+	_progress->sprite.setScale(sf::Vector2f(scale, scale));
 	_progress->sprite.setPosition(_progressBackground->sprite.getPosition().x, progressPosY);
 }
 
 void DebugHud::setDebugInfo(std::string pInfo) {
-    _debugText->_text.setString(pInfo);
+	_debugText->_text.setString(pInfo);
 }
 
 void DebugHud::draw()
 {
 	//glDisable( GL_CULL_FACE );
 	glActiveTexture(GL_TEXTURE0);
-    _window->pushGLStates();
+	_window->pushGLStates();
 
 	_window->draw(_scoreBackground->sprite);
 	_window->draw(_scoreText->_text);
 	_window->draw(_scorePreText->_text);
 
-	
-    //_window->draw(_debugText->_text);
+
+	//_window->draw(_debugText->_text);
 	//_window->draw(_debugBox->sprite);
 
 	_window->draw(_progressBackground->sprite);
