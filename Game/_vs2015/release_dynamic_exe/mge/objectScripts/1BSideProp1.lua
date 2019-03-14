@@ -9,7 +9,7 @@ local meta = {["name"] = "1BSideProp1",
 ["posZ"] = 0 }
 colliderMin = { ["width"] = -0.1, ["height"] = -1, ["depth"] = -1}
 colliderMax = { ["width"] = 0.1, ["height"] = 1, ["depth"] = 1}
-colliderMode = "auto"
+
 function AttachedScripts()
 	return scripts
 end

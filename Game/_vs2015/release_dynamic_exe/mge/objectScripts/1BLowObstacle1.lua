@@ -9,7 +9,7 @@ local meta = {["name"] = "1BLowObstacle1",
 ["posZ"] = 0 }
 colliderMin = { ["width"] = -1, ["height"] = -0.5, ["depth"] = -1}
 colliderMax = { ["width"] = 1, ["height"] = -0.5, ["depth"] = 1}
-colliderMode = "auto"
+
 function AttachedScripts()
 	return scripts
 end
